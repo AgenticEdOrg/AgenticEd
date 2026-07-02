@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 5: Build Your First Agent &mdash; AgenticEd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--cream:#FAF3E8;--brown:#1E1108;--coral:#E8654A;--coral-light:#FDF0EC;--amber:#F5A623;--warm:#7A6652;--border:#E0D3C3;--white:#FFFFFF;--light:#F2EAD8;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar__progress{display:flex;align-items:center;gap:10px;}
+    .topbar__label{font-size:12px;color:rgba(250,243,232,0.6);}
+    .progress-dots{display:flex;gap:5px;}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,243,232,0.2);}
+    .dot--done{background:var(--coral);}
+    .dot--active{background:var(--white);}
+    .lhdr{background:var(--brown);padding:48px 32px 52px;border-bottom:3px solid var(--coral);}
+    .lhdr__inner{max-width:780px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
+    .lhdr__chip{display:inline-flex;align-items:center;gap:6px;background:rgba(250,243,232,0.08);border:1px solid rgba(250,243,232,0.15);color:rgba(250,243,232,0.75);padding:5px 13px;border-radius:20px;font-size:13px;}
+    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
+    .lsec{margin-bottom:52px;}
+    .lsec__num{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
+    .lsec__num::before{content:'';display:block;width:24px;height:2px;background:var(--coral);}
+    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
+    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
+    .lsec p:last-child{margin-bottom:0;}
+    strong{font-weight:600;}em{font-style:italic;}
+    .callout{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;}
+    .callout--amber{background:#FFFBEF;border-left-color:var(--amber);}
+    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+    .callout--amber .callout__label{color:#996600;}
+    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
+    .compare{width:100%;border-collapse:collapse;margin:24px 0;overflow:hidden;}
+    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
+    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
+    .compare tr:nth-child(even) td{background:var(--light);}
+    .compare tr:last-child td{border-bottom:none;}
+    .compare td:first-child{font-weight:600;color:var(--coral);}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;}
+    .card__icon{font-size:28px;}
+    .card__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--brown);}
+    .card__desc{font-size:13px;color:var(--warm);line-height:1.6;}
+    .steps{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
+    .step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;}
+    .step__num{background:var(--coral);color:var(--white);font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .step__title{font-weight:700;font-size:14px;color:var(--brown);margin-bottom:4px;}
+    .step__desc{font-size:13px;color:var(--warm);line-height:1.6;}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:20px 0;}
+    .tool-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;}
+    .tool-card__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--brown);}
+    .tool-card__url{font-size:12px;color:var(--coral);font-weight:600;}
+    .tool-card__desc{font-size:13px;color:var(--warm);line-height:1.5;}
+    .activity{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px;margin:40px 0;}
+    .activity__badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber);color:var(--brown);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
+    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
+    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
+    .field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color 0.18s;resize:vertical;width:100%;}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);}
+    .field textarea{min-height:80px;}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .round-box{background:var(--light);border-radius:12px;padding:20px;margin:12px 0;border-left:3px solid var(--coral);}
+    .round-box__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+    .round-box__task{font-size:15px;font-weight:600;color:var(--brown);margin-bottom:8px;}
+    .round-box__hint{font-size:13px;color:var(--warm);}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
+    .btn--primary{background:var(--coral);color:var(--white);}
+    .btn--primary:hover{background:#d04e38;}
+    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
+    .btn--ghost:hover{border-color:var(--brown);}
+    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
+    .notebook{background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+    .notebook__left{flex:1;min-width:220px;}
+    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
+    .notebook__desc{font-size:14px;color:rgba(250,243,232,0.65);line-height:1.7;}
+    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
+    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
+    .notebook__btn:hover{background:#d04e38;}
+    .notebook__btn-icon{font-size:22px;}
+    .notebook__secondary{font-size:13px;color:rgba(250,243,232,0.5);text-align:center;}
+    .notebook__secondary a{color:rgba(250,243,232,0.7);text-decoration:underline;}
+    .next{background:var(--light);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;}
+    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
+    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
+    .next__desc{font-size:14px;color:var(--warm);}
+    .next__btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:var(--white);padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
+    .next__btn:hover{background:#d04e38;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,243,232,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+    @media(max-width:700px){.body{padding:32px 20px 60px;}.field-row{grid-template-columns:1fr;}.notebook{flex-direction:column;gap:24px;}.lhdr{padding:32px 20px 36px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <div class="topbar__progress">
+    <span class="topbar__label">Your progress:</span>
+    <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--done" title="Week 2 Done"></div><div class="dot dot--done" title="Week 3 Done"></div><div class="dot dot--done" title="Week 4 Done"></div><div class="dot dot--active" title="Week 5 Current"></div><div class="dot" title="Week 6"></div></div>
+  </div>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">Week 5 of 6</p>
+    <h1 class="lhdr__h1">Build Your First Agent</h1>
+    <div class="lhdr__meta"><div class="lhdr__chip">75-90 minutes</div><div class="lhdr__chip">Project Week Build and Demo</div><div class="lhdr__chip">Claude.ai or Zapier or Make.com</div><div class="lhdr__chip">No coding required</div></div>
+  </div>
+</div>
+<div class="body">
+
+  <div class="lsec">
+    <div class="lsec__num">Part 1</div>
+    <h2 class="lsec__h2">Choose your tool &mdash; all free, all in your browser</h2>
+    <p>This is project week. You will build, test, and demo a real working AI agent. No coding required. Choose your tool based on what you want to build.</p>
+    <div class="tool-grid">
+      <div class="tool-card"><div class="tool-card__name">Claude.ai</div><div class="tool-card__url">claude.ai</div><div class="tool-card__desc">Best for research, writing, and conversational agents. Set a detailed system prompt. Free tier is enough.</div></div>
+      <div class="tool-card"><div class="tool-card__name">ChatGPT</div><div class="tool-card__url">chatgpt.com</div><div class="tool-card__desc">Great for agents that need web browsing. Custom GPTs let you set a system prompt and share with others.</div></div>
+      <div class="tool-card"><div class="tool-card__name">Zapier AI Agents</div><div class="tool-card__url">zapier.com/ai</div><div class="tool-card__desc">Best for agents that connect to real apps &mdash; email, calendar, Sheets. No code, visual workflow builder.</div></div>
+      <div class="tool-card"><div class="tool-card__name">Make.com</div><div class="tool-card__url">make.com</div><div class="tool-card__desc">More powerful than Zapier for complex pipelines with branching logic. Steeper learning curve.</div></div>
+    </div>
+  </div>
+  <div class="lsec">
+    <div class="lsec__num">Part 2</div>
+    <h2 class="lsec__h2">The system prompt: the most important thing you will write</h2>
+    <p>The system prompt is the background instruction that defines your agent's identity, rules, and goals. Get this right and your agent works. Get it wrong and no amount of tweaking fixes it.</p>
+    <div class="callout">
+      <div class="callout__label">Weak system prompt</div>
+      <p>"You are a helpful assistant. Answer questions."</p>
+    </div>
+    <div class="callout callout--amber">
+      <div class="callout__label">Strong system prompt &mdash; Research Agent example</div>
+      <p>"You are a research assistant for high school students. When given a topic you: (1) identify the 3 most important sub-questions to answer, (2) answer each one clearly with evidence, (3) note areas where experts disagree, (4) end with 3 follow-up questions worth exploring. Use plain language. Never fabricate sources. If you are unsure about a fact, say so explicitly."</p>
+    </div>
+    <p>Specific role, specific process, specific output format, explicit rules about what not to do. A great system prompt is like a job description &mdash; detailed, measurable, impossible to misinterpret.</p>
+  </div>
+  <div class="lsec">
+    <div class="lsec__num">Part 3</div>
+    <h2 class="lsec__h2">Testing: break it on purpose</h2>
+    <p>Once you have built your agent, the most important thing you can do is try to make it fail. This is how real AI engineers test &mdash; not by hoping it works, but by deliberately looking for how it breaks.</p>
+    <div class="steps">
+      <div class="step"><div class="step__num">1</div><div class="step__content"><div class="step__title">Test the happy path</div><div class="step__desc">Give it a perfect typical input. Does it do exactly what you designed?</div></div></div>
+      <div class="step"><div class="step__num">2</div><div class="step__content"><div class="step__title">Test edge cases</div><div class="step__desc">What if the input is empty? Very long? In a different language? Completely off-topic?</div></div></div>
+      <div class="step"><div class="step__num">3</div><div class="step__content"><div class="step__title">Try to confuse it</div><div class="step__desc">Ask it to do something it should not. Give contradictory instructions. See if it breaks character.</div></div></div>
+      <div class="step"><div class="step__num">4</div><div class="step__content"><div class="step__title">Fix failures in the system prompt</div><div class="step__desc">Almost every failure can be fixed by adding a rule, clarifying a boundary, or giving an example.</div></div></div>
+    </div>
+  </div>
+  <div class="activity">
+    <div class="activity__badge">&#128640; Activity &mdash; Build Challenge + Demo Day</div>
+    <h3>Build your first agent. Then show it off.</h3>
+    <p class="activity__intro">Choose one of three agent types. Build it, test it using the break-it-on-purpose method, then fill in the build worksheet. You will demo it in 2-3 minutes.</p>
+    <div class="cards" style="margin-bottom:24px;">
+      <div class="card"><div class="card__icon">&#128269;</div><div class="card__title">Option A: Research Agent</div><div class="card__desc">Give it a topic &rarr; it researches, summarizes key findings, and lists open questions.</div></div>
+      <div class="card"><div class="card__icon">&#128218;</div><div class="card__title">Option B: Study Buddy</div><div class="card__desc">Tell it your subject and weak areas &rarr; it creates a personalized study plan with practice questions.</div></div>
+      <div class="card"><div class="card__icon">&#9997;</div><div class="card__title">Option C: Creative Agent</div><div class="card__desc">Give it a genre and theme &rarr; it writes a short story then critiques its own writing.</div></div>
+      <div class="card" style="border-color:var(--amber);"><div class="card__icon">&#127757;</div><div class="card__title">Option D: Community Impact Agent &#9733;</div><div class="card__desc">Pick a real problem in your school or community &rarr; build an agent that helps, <strong>plus</strong> a one-page agent policy. The recommended <strong>capstone / portfolio</strong> track &mdash; you demo the build <em>and</em> the policy together.</div></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Option chosen</label><select id="choice"><option value="">Select...</option><option>A: Research Agent</option><option>B: Study Buddy</option><option>C: Creative Agent</option><option>D: Community Impact Agent (capstone)</option></select></div>
+      <div class="field"><label>Tool used</label><select id="tool"><option value="">Select...</option><option>Claude.ai</option><option>ChatGPT Custom GPT</option><option>Zapier AI Agents</option><option>Make.com</option><option>Other</option></select></div>
+    </div>
+    <div class="field"><label>Your system prompt (paste the full text)</label><textarea id="sysprompt" placeholder="Paste the full system prompt you wrote..."></textarea></div>
+    <div class="field"><label>What does your agent do &mdash; one sentence</label><input type="text" id="agentdesc" placeholder="My agent takes [input] and produces [output]..."/></div>
+    <div class="field"><label>Biggest failure you found during testing</label><textarea id="failure" placeholder="What broke? When did it give a bad output?"></textarea></div>
+    <div class="field"><label>How did you fix it?</label><textarea id="fix" placeholder="What did you change in the system prompt?"></textarea></div>
+    <div class="field-row">
+      <div class="field"><label>One thing it does surprisingly well</label><input type="text" id="strength" placeholder="Something that impressed you..."/></div>
+      <div class="field"><label>One thing it still cannot do</label><input type="text" id="weakness" placeholder="A limitation you would fix with more time..."/></div>
+    </div>
+    <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;margin:8px 0 4px;">
+      <div class="callout__label" style="color:#996600;">&#128737; Demo Day &mdash; The Three Accountability Questions</div>
+      <p>Every builder answers these three at their demo &mdash; they&rsquo;re part of the grade. This is where &ldquo;Who owns this agent&rsquo;s decisions?&rdquo; from Week 1 pays off, and it&rsquo;s exactly the mindset real AI teams hire for.</p>
+    </div>
+    <div class="field"><label>1. What could go wrong? (a realistic failure mode)</label><textarea id="acc-wrong" placeholder="Where and how could your agent fail in a way that matters?"></textarea></div>
+    <div class="field"><label>2. Who is responsible if it fails &mdash; and how would they catch it?</label><textarea id="acc-who" placeholder="If someone relied on your agent and it gave bad output, who's accountable?"></textarea></div>
+    <div class="field"><label>3. What data did you use? (and is any of it sensitive?)</label><textarea id="acc-data" placeholder="What did your agent read or store? Any personal or sensitive data?"></textarea></div>
+    <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Submit Build Worksheet</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
+    <div id="activity-result"></div>
+  </div>
+
+  <div class="notebook">
+    <div class="notebook__left">
+      <p class="notebook__eye">Go Deeper &mdash; Optional</p>
+      <div class="notebook__title">Week 5 Python Notebook</div>
+      <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
+    </div>
+    <div class="notebook__right">
+      <a href="https://colab.research.google.com/drive/1sK04fD6maj8o8BFW3RDOUt_vlJtT8MYF" target="_blank" class="notebook__btn"><span class="notebook__btn-icon">&#9889;</span>Open in Google Colab</a>
+      <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1sK04fD6maj8o8BFW3RDOUt_vlJtT8MYF/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
+    </div>
+  </div>
+  <div class="next">
+    <div>
+      <p class="next__eye">Coming up &mdash; Week 6</p>
+      <p class="next__title">AI Safety and Your Future</p>
+      <p class="next__desc">What goes wrong with AI agents, who is responsible, and where careers in AI lead.</p>
+    </div>
+    <a href="week6.html" class="next__btn">Start Week 6 &rarr;</a>
+  </div>
+</div>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">&larr; Back to Course</a>
+    <a href="portfolio.html">Your Portfolio</a>
+    <a href="./AgenticEd_StudentReference.pdf" download>Reference Card PDF</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script>
+
+function submitActivity(){
+  const c=document.getElementById('choice').value,t=document.getElementById('tool').value,sp=document.getElementById('sysprompt').value.trim(),d=document.getElementById('agentdesc').value.trim();
+  if(!c||!t||!sp||!d){alert('Fill in your choice, tool, system prompt, and description first.');return;}
+  const res=document.getElementById('activity-result');res.style.display='block';
+  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">&#127881; You Built a Real AI Agent!</strong><p style="margin-bottom:8px;"><strong>Your agent:</strong> '+d+'</p><p>The system prompt you wrote is the blueprint. Every production AI agent in the world started with someone writing a system prompt exactly like yours. One week left &mdash; Week 6 covers what happens when these systems fail at scale, and where your career in this field could go.</p>';
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function clearActivity(){['sysprompt','agentdesc','failure','fix','strength','weakness'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});['choice','tool'].forEach(id=>document.getElementById(id).value='');document.getElementById('activity-result').style.display='none';}
+
+</script>
+</body>
+</html>

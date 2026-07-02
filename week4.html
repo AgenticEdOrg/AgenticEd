@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 4: Multi-Agent Systems &mdash; AgenticEd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--cream:#FAF3E8;--brown:#1E1108;--coral:#E8654A;--coral-light:#FDF0EC;--amber:#F5A623;--warm:#7A6652;--border:#E0D3C3;--white:#FFFFFF;--light:#F2EAD8;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar__progress{display:flex;align-items:center;gap:10px;}
+    .topbar__label{font-size:12px;color:rgba(250,243,232,0.6);}
+    .progress-dots{display:flex;gap:5px;}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,243,232,0.2);}
+    .dot--done{background:var(--coral);}
+    .dot--active{background:var(--white);}
+    .lhdr{background:var(--brown);padding:48px 32px 52px;border-bottom:3px solid var(--coral);}
+    .lhdr__inner{max-width:780px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
+    .lhdr__chip{display:inline-flex;align-items:center;gap:6px;background:rgba(250,243,232,0.08);border:1px solid rgba(250,243,232,0.15);color:rgba(250,243,232,0.75);padding:5px 13px;border-radius:20px;font-size:13px;}
+    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
+    .lsec{margin-bottom:52px;}
+    .lsec__num{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
+    .lsec__num::before{content:'';display:block;width:24px;height:2px;background:var(--coral);}
+    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
+    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
+    .lsec p:last-child{margin-bottom:0;}
+    strong{font-weight:600;}em{font-style:italic;}
+    .callout{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;}
+    .callout--amber{background:#FFFBEF;border-left-color:var(--amber);}
+    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+    .callout--amber .callout__label{color:#996600;}
+    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
+    .compare{width:100%;border-collapse:collapse;margin:24px 0;overflow:hidden;}
+    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
+    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
+    .compare tr:nth-child(even) td{background:var(--light);}
+    .compare tr:last-child td{border-bottom:none;}
+    .compare td:first-child{font-weight:600;color:var(--coral);}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;}
+    .card__icon{font-size:28px;}
+    .card__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--brown);}
+    .card__desc{font-size:13px;color:var(--warm);line-height:1.6;}
+    .steps{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
+    .step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;}
+    .step__num{background:var(--coral);color:var(--white);font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+    .step__title{font-weight:700;font-size:14px;color:var(--brown);margin-bottom:4px;}
+    .step__desc{font-size:13px;color:var(--warm);line-height:1.6;}
+    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:20px 0;}
+    .tool-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;}
+    .tool-card__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--brown);}
+    .tool-card__url{font-size:12px;color:var(--coral);font-weight:600;}
+    .tool-card__desc{font-size:13px;color:var(--warm);line-height:1.5;}
+    .activity{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px;margin:40px 0;}
+    .activity__badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber);color:var(--brown);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
+    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
+    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
+    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
+    .field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color 0.18s;resize:vertical;width:100%;}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);}
+    .field textarea{min-height:80px;}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .round-box{background:var(--light);border-radius:12px;padding:20px;margin:12px 0;border-left:3px solid var(--coral);}
+    .round-box__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+    .round-box__task{font-size:15px;font-weight:600;color:var(--brown);margin-bottom:8px;}
+    .round-box__hint{font-size:13px;color:var(--warm);}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
+    .btn--primary{background:var(--coral);color:var(--white);}
+    .btn--primary:hover{background:#d04e38;}
+    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
+    .btn--ghost:hover{border-color:var(--brown);}
+    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
+    .notebook{background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+    .notebook__left{flex:1;min-width:220px;}
+    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
+    .notebook__desc{font-size:14px;color:rgba(250,243,232,0.65);line-height:1.7;}
+    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
+    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
+    .notebook__btn:hover{background:#d04e38;}
+    .notebook__btn-icon{font-size:22px;}
+    .notebook__secondary{font-size:13px;color:rgba(250,243,232,0.5);text-align:center;}
+    .notebook__secondary a{color:rgba(250,243,232,0.7);text-decoration:underline;}
+    .next{background:var(--light);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;}
+    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
+    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
+    .next__desc{font-size:14px;color:var(--warm);}
+    .next__btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:var(--white);padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
+    .next__btn:hover{background:#d04e38;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,243,232,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+    @media(max-width:700px){.body{padding:32px 20px 60px;}.field-row{grid-template-columns:1fr;}.notebook{flex-direction:column;gap:24px;}.lhdr{padding:32px 20px 36px;}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <div class="topbar__progress">
+    <span class="topbar__label">Your progress:</span>
+    <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--done" title="Week 2 Done"></div><div class="dot dot--done" title="Week 3 Done"></div><div class="dot dot--active" title="Week 4 Current"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
+  </div>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">Week 4 of 6</p>
+    <h1 class="lhdr__h1">Multi-Agent Systems</h1>
+    <div class="lhdr__meta"><div class="lhdr__chip">60-75 minutes</div><div class="lhdr__chip">Design Your Agent Team</div><div class="lhdr__chip">Colab notebook</div><div class="lhdr__chip">Paper and pencil OK</div></div>
+  </div>
+</div>
+<div class="body">
+
+  <div class="lsec">
+    <div class="lsec__num">Part 1</div>
+    <h2 class="lsec__h2">When one agent hits its ceiling</h2>
+    <p>A single agent is powerful. But ask it to do something genuinely complex &mdash; research a topic, write a report, verify all the facts, format it, and deliver it &mdash; and you quickly hit limits. It loses track of earlier steps. Contradicts itself. Runs out of context window.</p>
+    <p>The most powerful AI systems in production are not single agents. They are <strong>teams of agents</strong>, each with a specific role, working together on a shared goal.</p>
+    <div class="callout">
+      <div class="callout__label">The team analogy</div>
+      <p>You would not ask one person to simultaneously be researcher, writer, editor, fact-checker, and publisher for a major report. You build a team. Multi-agent systems apply the same logic to AI.</p>
+    </div>
+  </div>
+  <div class="lsec">
+    <div class="lsec__num">Part 2</div>
+    <h2 class="lsec__h2">Orchestrators, workers, and handoffs</h2>
+    <table class="compare">
+      <tr><th>Orchestrator Agent</th><th>Worker / Specialist Agent</th></tr>
+      <tr><td>Breaks the goal into subtasks</td><td>Executes one specific subtask</td></tr>
+      <tr><td>Assigns tasks to the right workers</td><td>Focused on one skill or domain</td></tr>
+      <tr><td>Tracks progress, reassigns on failure</td><td>Returns a result to the orchestrator</td></tr>
+      <tr><td>Makes the final output decision</td><td>Does not need to know the big picture</td></tr>
+      <tr><td>Like a project manager</td><td>Like a specialist consultant</td></tr>
+    </table>
+    <p>A <strong>handoff</strong> is when one agent passes its output to another. The quality of handoffs determines the quality of the whole system. A bad handoff &mdash; wrong format, incomplete information, ambiguous instructions &mdash; causes errors that compound through every subsequent step.</p>
+    <div class="cards">
+      <div class="card"><div class="card__icon">&#128269;</div><div class="card__title">Research Agent</div><div class="card__desc">Searches and extracts key facts. Passes structured findings to the writer.</div></div>
+      <div class="card"><div class="card__icon">&#9997;</div><div class="card__title">Writer Agent</div><div class="card__desc">Takes research and produces a first draft. Passes to the fact-checker.</div></div>
+      <div class="card"><div class="card__icon">&#9989;</div><div class="card__title">Fact-Check Agent</div><div class="card__desc">Verifies claims against sources. Returns corrections or approves for delivery.</div></div>
+    </div>
+  </div>
+  <div class="lsec">
+    <div class="lsec__num">Part 3</div>
+    <h2 class="lsec__h2">Error propagation and human checkpoints</h2>
+    <p>The biggest risk in multi-agent systems is <strong>error propagation</strong>. If the research agent gets something wrong, the writer builds on that error, the fact-checker may miss it, and the user receives confidently wrong output. One bad step poisons everything downstream.</p>
+    <div class="callout callout--amber">
+      <div class="callout__label">Rule of thumb</div>
+      <p>Put a human checkpoint before any <strong>irreversible action</strong> &mdash; sending an email, making a purchase, publishing content, executing code in production. Everything before that can be autonomous. Everything after needs a human approval step.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
+    <div class="callout__label" style="color:#996600;">&#128737; Responsible-AI Beat &mdash; Oversight by design</div>
+    <p>Good agent teams decide <strong>where a human approves</strong> <em>before</em> they&rsquo;re built &mdash; not after something goes wrong. After you draw your pipeline below, mark a &#128721; everywhere a human must approve before the agent continues. The rule of thumb: a checkpoint is required before any action that is <strong>irreversible or affects someone else</strong> &mdash; sending an email, spending money, publishing, submitting a form, sharing personal data. Litmus test: <em>&ldquo;If the agent gets this step wrong, can you undo it?&rdquo;</em> If no, a human belongs in the loop there.</p>
+  </div>
+
+  <div class="activity">
+    <div class="activity__badge">&#9999; Activity &mdash; Design Your Agent Team</div>
+    <h3>Map a multi-agent pipeline from scratch</h3>
+    <p class="activity__intro">Choose a scenario and design the full pipeline. Be specific &mdash; name each agent, describe what it receives, what it produces, and where handoffs happen.</p>
+    <div class="field"><label>Choose your scenario</label>
+      <select id="scenario"><option value="">Select...</option><option>Homework Helper &mdash; research, write, and check a school essay</option><option>News Digest &mdash; find, summarize, and deliver daily headlines</option><option>Travel Planner &mdash; research destinations and build an itinerary</option><option>Job Application Assistant &mdash; tailor resume and write cover letter</option><option>My own scenario</option></select>
+    </div>
+    <div class="field"><label>Custom scenario (if applicable)</label><input type="text" id="custom" placeholder="Describe your pipeline..."/></div>
+    <div class="field"><label>Orchestrator &mdash; its job and what it manages</label><textarea id="orch" placeholder="What goal does it break down? What workers does it direct?"></textarea></div>
+    <div class="field"><label>Worker Agent 1 &mdash; name, specialty, input, output</label><textarea id="w1" placeholder="e.g. Research Agent &mdash; searches for relevant information, outputs structured facts"></textarea></div>
+    <div class="field"><label>Worker Agent 2 &mdash; name, specialty, input, output</label><textarea id="w2" placeholder="What does this agent specialize in?"></textarea></div>
+    <div class="field"><label>Worker Agent 3 (optional)</label><textarea id="w3" placeholder="Add a third worker if needed..."></textarea></div>
+    <div class="field"><label>&#128721; Approval checkpoints &mdash; where must a human approve before the agent continues?</label><textarea id="human" placeholder="List each checkpoint: which action it's before, why a human must approve, and what they're checking for. (Anything irreversible or affecting someone else needs one.)"></textarea></div>
+    <div class="field"><label>Biggest risk if one agent fails</label><textarea id="risk" placeholder="What cascades if Worker 1 produces bad output?"></textarea></div>
+    <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Complete Activity</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
+    <div id="activity-result"></div>
+  </div>
+
+  <div class="notebook">
+    <div class="notebook__left">
+      <p class="notebook__eye">Go Deeper &mdash; Optional</p>
+      <div class="notebook__title">Week 4 Python Notebook</div>
+      <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
+    </div>
+    <div class="notebook__right">
+      <a href="https://colab.research.google.com/drive/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj" target="_blank" class="notebook__btn"><span class="notebook__btn-icon">&#9889;</span>Open in Google Colab</a>
+      <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
+    </div>
+  </div>
+  <div class="next">
+    <div>
+      <p class="next__eye">Coming up &mdash; Week 5</p>
+      <p class="next__title">Build Your First Agent</p>
+      <p class="next__desc">Project week. Build, test, and demo a real working AI agent using free no-code tools.</p>
+    </div>
+    <a href="week5.html" class="next__btn">Start Week 5 &rarr;</a>
+  </div>
+</div>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">&larr; Back to Course</a>
+    <a href="portfolio.html">Your Portfolio</a>
+    <a href="./AgenticEd_StudentReference.pdf" download>Reference Card PDF</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script>
+
+function submitActivity(){
+  if(!document.getElementById('scenario').value||!document.getElementById('orch').value.trim()||!document.getElementById('w1').value.trim()||!document.getElementById('w2').value.trim()){alert('Fill in the scenario, orchestrator, and at least 2 workers.');return;}
+  const res=document.getElementById('activity-result');res.style.display='block';
+  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">Agent Team Design Complete!</strong><p>You designed the kind of system AI engineers build in production every day. The hardest part is exactly what you just did: deciding where to split responsibilities, how to hand off cleanly, and where humans need to stay in the loop. Week 5 is project week &mdash; you will build a real version of one of these pipelines.</p>';
+  res.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function clearActivity(){['orch','w1','w2','w3','human','risk','custom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('scenario').value='';document.getElementById('activity-result').style.display='none';}
+
+</script>
+</body>
+</html>

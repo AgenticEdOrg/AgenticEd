@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Week 1: What Is an AI Agent? — AgenticEd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream:#FAF3E8; --brown:#1E1108; --coral:#E8654A;
+      --coral-light:#FDF0EC; --amber:#F5A623; --warm:#7A6652;
+      --border:#E0D3C3; --white:#FFFFFF; --light:#F2EAD8;
+      --think:#1E1108; --act:#E8654A; --obs:#F5A623;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+    /* TOP BAR */
+    .topbar{
+      background:var(--brown);padding:10px 32px;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar__progress{display:flex;align-items:center;gap:10px;}
+    .topbar__label{font-size:12px;color:rgba(250,243,232,0.6);}
+    .progress-dots{display:flex;gap:5px;}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,243,232,0.2);}
+    .dot--done{background:var(--coral);}
+    .dot--active{background:var(--white);}
+
+    /* LESSON HEADER */
+    .lhdr{
+      background:var(--brown);padding:48px 32px 52px;
+      border-bottom:3px solid var(--coral);
+    }
+    .lhdr__inner{max-width:780px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
+    .lhdr__chip{
+      display:inline-flex;align-items:center;gap:6px;
+      background:rgba(250,243,232,0.08);border:1px solid rgba(250,243,232,0.15);
+      color:rgba(250,243,232,0.75);padding:5px 13px;border-radius:20px;font-size:13px;
+    }
+
+    /* LESSON BODY */
+    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
+
+    /* SECTIONS */
+    .lsec{margin-bottom:52px;}
+    .lsec__num{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+      color:var(--coral);margin-bottom:10px;
+    }
+    .lsec__num::before{
+      content:'';display:block;width:24px;height:2px;background:var(--coral);
+    }
+    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
+    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
+    .lsec p:last-child{margin-bottom:0;}
+    strong{font-weight:600;}
+    em{font-style:italic;}
+
+    /* CALLOUT BOX */
+    .callout{
+      background:var(--coral-light);border-left:4px solid var(--coral);
+      border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;
+    }
+    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
+    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
+
+    /* COMPARISON TABLE */
+    .compare{width:100%;border-collapse:collapse;margin:24px 0;border-radius:10px;overflow:hidden;}
+    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
+    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
+    .compare tr:nth-child(even) td{background:var(--light);}
+    .compare tr:last-child td{border-bottom:none;}
+    .compare td:first-child{font-weight:600;color:var(--coral);}
+
+    /* AGENT LOOP VISUAL */
+    .loop-section{background:var(--brown);border-radius:16px;padding:40px 32px;margin:32px 0;text-align:center;}
+    .loop-section h3{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--cream);margin-bottom:6px;}
+    .loop-section p{font-size:14px;color:rgba(250,243,232,0.65);margin-bottom:28px;}
+    .loop-nodes{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;}
+    .loop-node{
+      text-align:center;padding:20px 24px;border-radius:12px;min-width:140px;
+    }
+    .loop-node--think{background:var(--brown);border:2px solid rgba(250,243,232,0.2);}
+    .loop-node--act{background:var(--coral);}
+    .loop-node--obs{background:var(--amber);}
+    .loop-node__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;letter-spacing:2px;margin-bottom:4px;}
+    .loop-node--think .loop-node__title{color:var(--cream);}
+    .loop-node--act .loop-node__title{color:var(--white);}
+    .loop-node--obs .loop-node__title{color:var(--brown);}
+    .loop-node__sub{font-size:12px;font-weight:500;}
+    .loop-node--think .loop-node__sub{color:rgba(250,243,232,0.65);}
+    .loop-node--act .loop-node__sub{color:rgba(255,255,255,0.82);}
+    .loop-node--obs .loop-node__sub{color:rgba(30,17,8,0.65);}
+    .loop-arrow{font-size:22px;color:rgba(250,243,232,0.3);padding:0 8px;display:flex;align-items:center;}
+
+    /* EXAMPLE CARDS */
+    .examples{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0;}
+    .ex-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;}
+    .ex-card__icon{font-size:28px;}
+    .ex-card__product{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:var(--brown);}
+    .ex-card__think{font-size:12px;background:rgba(30,17,8,0.06);padding:7px 10px;border-radius:6px;}
+    .ex-card__act{font-size:12px;background:var(--coral-light);padding:7px 10px;border-radius:6px;color:var(--coral);}
+    .ex-card__obs{font-size:12px;background:#FFFBF0;padding:7px 10px;border-radius:6px;color:#996600;}
+    .ex-card__label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;opacity:0.6;display:block;margin-bottom:2px;}
+
+    /* ACTIVITY SECTION */
+    .activity{
+      background:var(--white);border:2px solid var(--amber);
+      border-radius:16px;padding:36px;margin:40px 0;
+    }
+    .activity__badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:var(--amber);color:var(--brown);
+      padding:5px 14px;border-radius:20px;
+      font-size:11px;font-weight:700;letter-spacing:0.08em;
+      text-transform:uppercase;margin-bottom:16px;
+    }
+    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
+    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
+    .field-group{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .field{display:flex;flex-direction:column;gap:6px;}
+    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
+    .field input,.field textarea{
+      background:var(--cream);border:1px solid var(--border);
+      border-radius:8px;padding:12px 14px;
+      font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);
+      outline:none;transition:border-color 0.18s;resize:vertical;
+    }
+    .field input:focus,.field textarea:focus{border-color:var(--coral);}
+    .field textarea{min-height:80px;}
+    .loop-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+    .loop-field{padding:16px;border-radius:10px;display:flex;flex-direction:column;gap:8px;}
+    .loop-field--think{background:rgba(30,17,8,0.05);border:1px solid rgba(30,17,8,0.12);}
+    .loop-field--act{background:var(--coral-light);border:1px solid rgba(232,101,74,0.2);}
+    .loop-field--obs{background:#FFFBEF;border:1px solid rgba(245,166,35,0.25);}
+    .loop-field__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
+    .loop-field--think .loop-field__label{color:var(--brown);}
+    .loop-field--act .loop-field__label{color:var(--coral);}
+    .loop-field--obs .loop-field__label{color:#996600;}
+    .loop-field textarea{background:rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.08);}
+    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
+    .btn--primary{background:var(--coral);color:var(--white);}
+    .btn--primary:hover{background:#d04e38;}
+    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
+    .btn--ghost:hover{border-color:var(--brown);}
+    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
+
+    /* NOTEBOOK SECTION */
+    .notebook{
+      background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;
+      display:flex;align-items:center;gap:40px;flex-wrap:wrap;
+    }
+    .notebook__left{flex:1;min-width:220px;}
+    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
+    .notebook__desc{font-size:14px;color:rgba(250,243,232,0.65);line-height:1.7;margin-bottom:0;}
+    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
+    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
+    .notebook__btn:hover{background:#d04e38;}
+    .notebook__btn-icon{font-size:22px;}
+    .notebook__secondary{font-size:13px;color:rgba(250,243,232,0.5);text-align:center;}
+    .notebook__secondary a{color:rgba(250,243,232,0.7);text-decoration:underline;}
+
+    /* CODE PREVIEW */
+    .code-preview{background:#0D1117;border-radius:10px;padding:24px;margin:16px 0;overflow-x:auto;}
+    .code-preview pre{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:#E6EDF3;}
+    .code-preview .cm{color:#8B949E;}
+    .code-preview .ck{color:#FF7B72;}
+    .code-preview .cs{color:#A5D6FF;}
+    .code-preview .cf{color:#D2A8FF;}
+    .code-preview .cn{color:#79C0FF;}
+    .code-preview .co{color:#FFA657;}
+
+    /* NEXT WEEK */
+    .next{
+      background:var(--light);border-radius:16px;padding:32px;
+      display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+      margin-top:48px;
+    }
+    .next__left{}
+    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
+    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
+    .next__desc{font-size:14px;color:var(--warm);}
+    .next__lock{font-size:13px;color:var(--warm);background:var(--border);padding:5px 12px;border-radius:20px;font-weight:600;}
+
+    /* FOOTER */
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,243,232,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+
+    @media(max-width:700px){
+      .body{padding:32px 20px 60px;}
+      .loop-nodes{flex-direction:column;gap:8px;}
+      .loop-arrow{transform:rotate(90deg);}
+      .field-group,.loop-fields{grid-template-columns:1fr;}
+      .notebook{flex-direction:column;gap:24px;}
+      .lhdr{padding:32px 20px 36px;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <div class="topbar__progress">
+    <span class="topbar__label">Your progress:</span>
+    <div class="progress-dots">
+      <div class="dot dot--active" title="Week 1 — Now"></div>
+      <div class="dot" title="Week 2"></div>
+      <div class="dot" title="Week 3"></div>
+      <div class="dot" title="Week 4"></div>
+      <div class="dot" title="Week 5"></div>
+      <div class="dot" title="Week 6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSON HEADER -->
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">Week 1 of 6</p>
+    <h1 class="lhdr__h1">What Is an AI Agent?</h1>
+    <div class="lhdr__meta">
+      <div class="lhdr__chip">⏱ 60–75 minutes</div>
+      <div class="lhdr__chip">🧪 1 hands-on activity</div>
+      <div class="lhdr__chip">💻 Optional Colab notebook</div>
+      <div class="lhdr__chip">✓ No coding required</div>
+    </div>
+  </div>
+</div>
+
+<!-- LESSON BODY -->
+<div class="body">
+
+  <!-- SECTION 1 -->
+  <div class="lsec">
+    <div class="lsec__num">Part 1</div>
+    <h2 class="lsec__h2">From tools to agents — what changed?</h2>
+    <p>You've used AI. You've typed a question into ChatGPT and gotten an answer. That's useful — but it's not what's reshaping industries right now. The thing reshaping industries is <strong>agentic AI</strong>.</p>
+    <p>Here's the difference. A <strong>tool</strong> does one thing when you ask it to. A <strong>calculator</strong> computes. A <strong>search engine</strong> retrieves. A <strong>basic chatbot</strong> answers. You push, it responds, done.</p>
+    <p>An <strong>AI agent</strong> is different. Give it a goal, not a command — and it takes a sequence of actions to achieve it. It plans, acts, observes what happened, adjusts, and tries again. It doesn't stop after one response. It keeps going until the job is done — or until it decides it can't do it.</p>
+
+    <div class="callout">
+      <div class="callout__label">Key Definition</div>
+      <p>An <strong>AI agent</strong> is a software system that perceives its environment, reasons about a goal, takes actions using tools, observes the results, and adapts — repeating until the goal is reached or it gives up.</p>
+    </div>
+
+    <p>The shift from "AI that answers questions" to "AI that completes tasks" is the shift from tools to agents. It's why companies are hiring AI engineers faster than they can find them. And it's why you're here.</p>
+
+    <table class="compare">
+      <tr><th>AI Tool</th><th>AI Agent</th></tr>
+      <tr><td>Answers one question</td><td>Completes multi-step tasks</td></tr>
+      <tr><td>You direct every action</td><td>Pursues a goal autonomously</td></tr>
+      <tr><td>No memory between turns</td><td>Tracks state across steps</td></tr>
+      <tr><td>Can't use external tools</td><td>Searches, computes, reads, writes</td></tr>
+      <tr><td>You: "What's 2+2?"</td><td>You: "Research this topic and summarize it"</td></tr>
+    </table>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="lsec">
+    <div class="lsec__num">Part 2</div>
+    <h2 class="lsec__h2">The reasoning loop: Think → Act → Observe</h2>
+    <p>Every AI agent — from the simplest research bot to the most complex enterprise pipeline — runs on the same fundamental loop. Understanding this loop is the foundation of everything in this course.</p>
+
+    <div class="loop-section">
+      <h3>The Agent Reasoning Loop</h3>
+      <p>Every agent repeats this cycle until it reaches its goal</p>
+      <div class="loop-nodes">
+        <div class="loop-node loop-node--think">
+          <div class="loop-node__title">THINK</div>
+          <div class="loop-node__sub">Reason &amp; plan<br/>what to do next</div>
+        </div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node loop-node--act">
+          <div class="loop-node__title">ACT</div>
+          <div class="loop-node__sub">Use a tool or<br/>take an action</div>
+        </div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node loop-node--obs">
+          <div class="loop-node__title">OBSERVE</div>
+          <div class="loop-node__sub">See what happened<br/>and update memory</div>
+        </div>
+        <div class="loop-arrow">→</div>
+        <div class="loop-node loop-node--think" style="opacity:0.5;">
+          <div class="loop-node__title">THINK</div>
+          <div class="loop-node__sub">Repeat until<br/>goal is reached</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Let's trace through a real example. Say you tell a research agent: <em>"Find me everything published about KEDA autoscaling in 2025."</em></p>
+    <p><strong>THINK:</strong> "I need to search for academic papers and blog posts about KEDA autoscaling from 2025. I'll start with a web search."<br/>
+    <strong>ACT:</strong> Calls the web search tool with the query "KEDA autoscaling 2025"<br/>
+    <strong>OBSERVE:</strong> Gets 10 results back. Three are relevant, seven are not.<br/>
+    <strong>THINK:</strong> "I have 3 good sources. I should read each one fully and also try a more specific search."<br/>
+    <strong>ACT:</strong> Opens the 3 URLs. Calls search again with a refined query.<br/>
+    <strong>OBSERVE:</strong> Now has 5 good sources with full content.<br/>
+    <strong>THINK:</strong> "I have enough. I'll synthesize this into a summary."<br/>
+    <strong>ACT:</strong> Writes the summary.<br/>
+    <strong>OBSERVE:</strong> Done. Goal reached.</p>
+
+    <p>That whole sequence happened <em>without you directing each step</em>. You gave it a goal. It figured out how to get there.</p>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="lsec">
+    <div class="lsec__num">Part 3</div>
+    <h2 class="lsec__h2">AI agents you already use</h2>
+    <p>Agents aren't science fiction. You interact with them constantly — most people just don't recognize them as agents. Here are three you know, mapped to the loop:</p>
+
+    <div class="examples">
+      <div class="ex-card">
+        <div class="ex-card__icon">🎵</div>
+        <div class="ex-card__product">Spotify Discover Weekly</div>
+        <div class="ex-card__think"><span class="ex-card__label">Think</span>What should this user enjoy based on what they skip vs. replay?</div>
+        <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and sequences 30 songs</div>
+        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Tracks which songs get skipped, saved, or repeated</div>
+      </div>
+      <div class="ex-card">
+        <div class="ex-card__icon">🗺️</div>
+        <div class="ex-card__product">Google Maps Navigation</div>
+        <div class="ex-card__think"><span class="ex-card__label">Think</span>What's the fastest route right now given live traffic?</div>
+        <div class="ex-card__act"><span class="ex-card__label">Act</span>Plans a route and gives turn-by-turn directions</div>
+        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Monitors your location and traffic; reroutes when needed</div>
+      </div>
+      <div class="ex-card">
+        <div class="ex-card__icon">🛒</div>
+        <div class="ex-card__product">Amazon Recommendations</div>
+        <div class="ex-card__think"><span class="ex-card__label">Think</span>What is this person likely to buy next?</div>
+        <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and displays personalized product recommendations</div>
+        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Tracks clicks, purchases, time spent, and returns</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout__label">Notice something?</div>
+      <p>All three agents are <strong>continuous</strong>. They don't answer one question and stop. They observe feedback and keep adjusting. That continuity — acting, observing, and adapting in a loop — is what makes them agents.</p>
+    </div>
+  </div>
+
+  <!-- RESPONSIBLE-AI BEAT -->
+  <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
+    <div class="callout__label" style="color:#996600;">🛡 Responsible-AI Beat — Who owns this agent's decisions?</div>
+    <p>When an AI agent makes a decision and it turns out to be wrong, <strong>who is responsible</strong>? The person who built it? The person who used it? The company that sold it? The agent itself? There's no clean answer — and that's the point. Every agent decision traces back to a <strong>human who is accountable for it</strong>. Hold onto this question; it comes back at Demo Day in Week 5. (Heads up: the apps you map below collect data about <em>you</em> to make their decisions — you have a say in that.)</p>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div class="activity">
+    <div class="activity__badge">✏️ Activity — The Agent Hunt</div>
+    <h3>Map your own AI agent</h3>
+    <p class="activity__intro">Choose a technology you use regularly — a recommendation engine, a voice assistant, a navigation app, a tutoring tool, or any product that feels "smart." Fill in the Agent Profile below.</p>
+
+    <div class="field-group">
+      <div class="field">
+        <label>Name of the technology / product</label>
+        <input type="text" id="f-product" placeholder="e.g. Netflix, Siri, Duolingo..."/>
+      </div>
+      <div class="field">
+        <label>What goal does it pursue?</label>
+        <input type="text" id="f-goal" placeholder="What is it trying to achieve for you?"/>
+      </div>
+    </div>
+
+    <div class="loop-fields">
+      <div class="loop-field loop-field--think">
+        <div class="loop-field__label">💭 THINK — What does it reason about?</div>
+        <textarea id="f-think" placeholder="What information does it consider before acting?"></textarea>
+      </div>
+      <div class="loop-field loop-field--act">
+        <div class="loop-field__label">⚡ ACT — What action does it take?</div>
+        <textarea id="f-act" placeholder="What does it actually do?"></textarea>
+      </div>
+      <div class="loop-field loop-field--obs">
+        <div class="loop-field__label">👁 OBSERVE — How does it learn?</div>
+        <textarea id="f-obs" placeholder="How does it know if it succeeded?"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Is it fully autonomous, or does a human stay in the loop?</label>
+      <textarea id="f-auto" placeholder="Give an example of when it acts on its own vs. when it checks with you." style="min-height:60px;"></textarea>
+    </div>
+    <div class="field" style="margin-top:12px;">
+      <label>One way this agent could fail or cause harm</label>
+      <textarea id="f-fail" placeholder="What happens when it gets it wrong? Has it ever made a bad recommendation for you?" style="min-height:60px;"></textarea>
+    </div>
+
+    <div class="submit-row">
+      <button class="btn btn--primary" onclick="submitActivity()">Complete Activity ✓</button>
+      <button class="btn btn--ghost" onclick="clearActivity()">Clear</button>
+    </div>
+    <div id="activity-result"></div>
+  </div>
+
+  <!-- NOTEBOOK -->
+  <div class="notebook">
+    <div class="notebook__left">
+      <p class="notebook__eye">Go Deeper — Optional</p>
+      <div class="notebook__title">Week 1 Python Notebook</div>
+      <p class="notebook__desc">Run in Google Colab — no setup, no API key, no install. Trace the agent loop in real Python code, build a simple rule-based agent, and complete an interactive activity.</p>
+    </div>
+    <div class="notebook__right">
+      <a href="https://colab.research.google.com/drive/12gsjTm3hsfHB88IlVhZg7zZQB-jpDjQt"
+         target="_blank" class="notebook__btn">
+        <span class="notebook__btn-icon">⚡</span>
+        Open in Google Colab
+      </a>
+      <p class="notebook__secondary">
+        Or <a href="https://drive.google.com/file/d/12gsjTm3hsfHB88IlVhZg7zZQB-jpDjQt/view?usp=sharing" target="_blank">view on Google Drive</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- CODE PREVIEW -->
+  <div class="lsec">
+    <div class="lsec__num">Preview</div>
+    <h2 class="lsec__h2">What the notebook covers</h2>
+    <p>Here's a sneak peek at what you'll run in the notebook. This is real Python — a simple simulation of the agent reasoning loop. No AI API needed.</p>
+    <div class="code-preview">
+<pre><span class="cm"># Week 1: AgenticEd — Simulating the Think → Act → Observe loop</span>
+
+<span class="ck">def</span> <span class="cf">simple_agent</span>(goal, tools, max_steps=<span class="cn">5</span>):
+    <span class="cs">"""A minimal agent loop in Python."""</span>
+    memory = []
+    step = <span class="cn">0</span>
+
+    <span class="ck">while</span> step &lt; max_steps:
+        <span class="cm"># THINK: Decide what to do next</span>
+        thought = think(goal, memory)
+        <span class="co">print</span>(<span class="cs">f"💭 THINK: {thought}"</span>)
+
+        <span class="cm"># ACT: Use a tool</span>
+        action, result = act(thought, tools)
+        <span class="co">print</span>(<span class="cs">f"⚡  ACT: {action}"</span>)
+
+        <span class="cm"># OBSERVE: See what happened</span>
+        observation = observe(result)
+        memory.append(observation)
+        <span class="co">print</span>(<span class="cs">f"👁  OBSERVE: {observation}\n"</span>)
+
+        <span class="ck">if</span> goal_reached(result):
+            <span class="ck">break</span>
+        step += <span class="cn">1</span>
+
+    <span class="ck">return</span> memory
+
+<span class="cm"># Run it:</span>
+simple_agent(goal=<span class="cs">"Find 3 facts about AI agents"</span>, tools=[<span class="cs">"search"</span>, <span class="cs">"summarize"</span>])</pre>
+    </div>
+    <p style="font-size:14px;color:var(--warm);">The notebook walks you through building this from scratch, step by step. Each cell explains what's happening and why.</p>
+  </div>
+
+  <!-- NEXT WEEK -->
+  <div class="next">
+    <div class="next__left">
+      <p class="next__eye">Coming up — Week 2</p>
+      <p class="next__title">The Brain Behind the Agent</p>
+      <p class="next__desc">How LLMs actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
+    </div>
+    <div class="next__lock">🔒 Unlocks after you complete Week 1</div>
+  </div>
+
+</div><!-- end .body -->
+
+<!-- FOOTER -->
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← All Weeks</a>
+    <a href="portfolio.html">Your Portfolio</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+
+<script>
+function submitActivity(){
+  const p=document.getElementById('f-product').value.trim();
+  const g=document.getElementById('f-goal').value.trim();
+  const t=document.getElementById('f-think').value.trim();
+  const a=document.getElementById('f-act').value.trim();
+  const o=document.getElementById('f-obs').value.trim();
+
+  if(!p||!g||!t||!a||!o){
+    alert('Fill in at least the product name, goal, and all three loop steps before submitting.');
+    return;
+  }
+  const res=document.getElementById('activity-result');
+  res.style.display='block';
+  res.innerHTML=`
+    <strong style="color:var(--coral);display:block;margin-bottom:8px;">✓ Great work! Here's your Agent Profile for <em>${p}</em></strong>
+    <p style="margin-bottom:6px;"><strong>Goal:</strong> ${g}</p>
+    <p style="margin-bottom:6px;"><strong>💭 Think:</strong> ${t}</p>
+    <p style="margin-bottom:6px;"><strong>⚡ Act:</strong> ${a}</p>
+    <p style="margin-bottom:10px;"><strong>👁 Observe:</strong> ${o}</p>
+    <p style="font-size:13px;color:var(--warm);">
+      You've just done what AI engineers do every day — trace how a system reasons, acts, and learns. 
+      Keep this mental model. Every agent system you build in Week 5 will follow this same loop.
+    </p>`;
+  res.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function clearActivity(){
+  ['f-product','f-goal','f-think','f-act','f-obs','f-auto','f-fail'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.value='';
+  });
+  document.getElementById('activity-result').style.display='none';
+}
+</script>
+</body>
+</html>

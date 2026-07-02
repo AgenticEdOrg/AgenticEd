@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgenticEd — Learn to Build AI Agents. Free.</title>
+  <meta name="description" content="A free 6-week course teaching you to build real AI agents — designed by an AI Platform Architect. No coding experience required." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream:  #FAF3E8;
+      --brown:  #1E1108;
+      --coral:  #E8654A;
+      --coral-light: #FDF0EC;
+      --amber:  #F5A623;
+      --warm:   #7A6652;
+      --border: #E0D3C3;
+      --white:  #FFFFFF;
+      --light:  #F2EAD8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--brown); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(250,243,232,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 32px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav__logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 20px; color: var(--brown); text-decoration: none; }
+    .nav__logo em { font-style: normal; color: var(--coral); }
+    .nav__links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav__links a { text-decoration: none; color: var(--warm); font-size: 14px; font-weight: 500; transition: color 0.18s; }
+    .nav__links a:hover { color: var(--coral); }
+    .nav__cta { background: var(--coral) !important; color: var(--white) !important; padding: 9px 22px; border-radius: 6px; font-weight: 700 !important; transition: background 0.18s !important; }
+    .nav__cta:hover { background: #d04e38 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1140px; margin: 0 auto; padding: 80px 32px 64px;
+      display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center;
+    }
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--amber); color: var(--brown);
+      padding: 6px 14px; border-radius: 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 22px;
+    }
+    .hero__h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(38px, 5vw, 60px);
+      font-weight: 900; line-height: 1.05; color: var(--brown); margin-bottom: 22px;
+    }
+    .hero__h1 em { font-style: normal; color: var(--coral); }
+    .hero__sub { font-size: 17px; color: var(--warm); line-height: 1.75; max-width: 500px; margin-bottom: 36px; }
+    .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero__trust { display: flex; align-items: center; gap: 12px; }
+    .hero__trust-text { font-size: 13px; color: var(--warm); }
+    .hero__trust-text strong { color: var(--brown); }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 700;
+      text-decoration: none; cursor: pointer; border: 2px solid transparent;
+      transition: all 0.18s; font-family: 'Inter', sans-serif;
+    }
+    .btn--primary { background: var(--coral); color: var(--white); }
+    .btn--primary:hover { background: #d04e38; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,101,74,0.3); }
+    .btn--ghost { background: transparent; color: var(--brown); border-color: var(--border); }
+    .btn--ghost:hover { border-color: var(--brown); }
+    .btn--sm { padding: 10px 20px; font-size: 14px; }
+
+    /* ── AGENT LOOP SVG ── */
+    .loop-wrap { display: flex; justify-content: center; align-items: center; }
+    .loop-svg { width: 100%; max-width: 380px; }
+    @keyframes node-pulse {
+      0%,100% { r: 54; opacity: 1; }
+      50%      { r: 58; opacity: 0.8; }
+    }
+    .ring-think { animation: node-pulse 2.8s ease-in-out infinite; }
+    .ring-act   { animation: node-pulse 2.8s ease-in-out infinite 0.93s; }
+    .ring-obs   { animation: node-pulse 2.8s ease-in-out infinite 1.86s; }
+    @media (prefers-reduced-motion: reduce) {
+      .ring-think, .ring-act, .ring-obs { animation: none; }
+    }
+
+    /* ── STATS ── */
+    .stats { background: var(--brown); padding: 52px 32px; }
+    .stats__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; text-align: center; }
+    .stat__n { font-family: 'Outfit', sans-serif; font-size: 52px; font-weight: 900; color: var(--coral); line-height: 1; margin-bottom: 10px; }
+    .stat__l { font-size: 14px; color: rgba(250,243,232,0.65); line-height: 1.55; }
+    .stat__src { font-size: 11px; color: rgba(250,243,232,0.35); margin-top: 4px; }
+
+    /* ── SECTION SHELL ── */
+    .sec { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
+    .sec--0top { padding-top: 0; }
+    .sec__eye { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 12px; }
+    .sec__h2 { font-family: 'Outfit', sans-serif; font-size: clamp(28px,3.8vw,40px); font-weight: 800; line-height: 1.2; color: var(--brown); margin-bottom: 14px; }
+    .sec__desc { font-size: 16px; color: var(--warm); max-width: 580px; line-height: 1.75; margin-bottom: 48px; }
+
+    /* ── JOURNEY GRID ── */
+    .journey-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .wk {
+      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
+      padding: 28px; display: flex; flex-direction: column; gap: 10px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wk:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(30,17,8,.08); }
+    .wk--open { border-color: var(--coral); border-width: 2px; background: var(--coral-light); }
+    .wk__num { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm); }
+    .wk--open .wk__num { color: var(--coral); }
+    .wk__title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: var(--brown); line-height: 1.25; }
+    .wk__desc { font-size: 13px; color: var(--warm); line-height: 1.6; flex: 1; }
+    .wk__activity { font-size: 12px; color: var(--warm); background: var(--cream); padding: 8px 12px; border-radius: 6px; }
+    .wk__activity strong { color: var(--amber); }
+    .wk__cta { margin-top: 4px; }
+    .wk__soon { font-size: 12px; font-weight: 600; color: var(--warm); opacity: 0.7; margin-top: 4px; }
+
+    /* ── BUILD SECTION ── */
+    .build-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .build-card { background: var(--brown); border-radius: 14px; padding: 32px; color: var(--cream); }
+    .build-card__icon { font-size: 32px; margin-bottom: 14px; }
+    .build-card__title { font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 800; margin-bottom: 10px; }
+    .build-card__desc { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.65; margin-bottom: 16px; }
+    .build-card__tools { font-size: 12px; color: var(--amber); font-weight: 600; }
+
+    /* ── INSTRUCTOR ── */
+    .instructor { background: var(--brown); padding: 80px 32px; }
+    .instructor__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .instructor__eye { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .instructor__name { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; color: var(--cream); margin-bottom: 16px; line-height: 1.1; }
+    .instructor__bio { font-size: 15px; color: rgba(250,243,232,0.72); line-height: 1.8; margin-bottom: 20px; }
+    .instructor__creds { display: flex; flex-direction: column; gap: 9px; }
+    .cred { font-size: 13px; color: rgba(250,243,232,0.82); display: flex; align-items: flex-start; gap: 9px; }
+    .cred::before { content: '✦'; color: var(--coral); font-size: 9px; margin-top: 4px; flex-shrink: 0; }
+    .instructor__card { background: rgba(250,243,232,0.05); border: 1px solid rgba(250,243,232,0.1); border-radius: 14px; padding: 36px; }
+    .instructor__quote { font-family: 'Outfit', sans-serif; font-size: 20px; font-style: italic; color: var(--cream); line-height: 1.55; margin-bottom: 20px; }
+    .instructor__handle { font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 14px; }
+    .instructor__links { display: flex; gap: 14px; flex-wrap: wrap; }
+    .instructor__link { font-size: 13px; color: rgba(250,243,232,0.5); text-decoration: none; transition: color 0.18s; }
+    .instructor__link:hover { color: var(--cream); }
+
+    /* ── FOR TEACHERS ── */
+    .teachers { background: var(--light); padding: 60px 32px; }
+    .teachers__inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
+    .teachers__copy h3 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--brown); margin-bottom: 8px; }
+    .teachers__copy p { font-size: 15px; color: var(--warm); max-width: 480px; line-height: 1.65; }
+    .teachers__downloads { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ── SIGNUP ── */
+    .signup { background: var(--coral); padding: 80px 32px; }
+    .signup__inner { max-width: 620px; margin: 0 auto; text-align: center; }
+    .signup__h2 { font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 12px; }
+    .signup__desc { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 32px; }
+    .signup__form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .signup__inp { flex: 1; min-width: 220px; padding: 14px 18px; border: none; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; color: var(--brown); }
+    .signup__inp:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
+    .signup__btn { background: var(--brown); color: var(--cream); border: none; border-radius: 8px; padding: 14px 26px; font-size: 15px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.18s; }
+    .signup__btn:hover { background: #0d0804; }
+    .signup__fine { font-size: 13px; color: rgba(255,255,255,0.62); margin-top: 16px; }
+    #thanks { display: none; font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); padding: 20px; }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--brown); padding: 36px 32px; }
+    .footer__inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer__logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 18px; color: var(--cream); }
+    .footer__logo em { font-style: normal; color: var(--coral); }
+    .footer__links { display: flex; gap: 20px; list-style: none; }
+    .footer__links a { text-decoration: none; color: rgba(250,243,232,0.5); font-size: 13px; transition: color 0.18s; }
+    .footer__links a:hover { color: var(--cream); }
+    .footer__copy { width: 100%; text-align: center; font-size: 13px; color: rgba(250,243,232,0.4); margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(250,243,232,0.08); }
+
+
+    /* ── TEAM ── */
+    .team { background: var(--brown); padding: 80px 32px; }
+    .team__inner { max-width: 1140px; margin: 0 auto; }
+    .team__h2 { font-family: "Outfit", sans-serif; font-size: clamp(28px,3.8vw,40px); font-weight: 800; color: var(--cream); margin-bottom: 14px; line-height: 1.2; }
+    .team__desc { font-size: 16px; color: rgba(250,243,232,0.65); max-width: 580px; line-height: 1.75; margin-bottom: 48px; }
+    .team__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .team__card { background: rgba(250,243,232,0.05); border: 1px solid rgba(250,243,232,0.1); border-radius: 16px; padding: 36px; display: flex; flex-direction: column; gap: 12px; }
+    .team__photo { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--coral); margin-bottom: 4px; }
+    .team__badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; width: fit-content; }
+    .team__badge--founder { background: var(--coral); color: var(--white); }
+    .team__badge--cofound { background: var(--amber); color: var(--brown); }
+    .team__name { font-family: "Outfit", sans-serif; font-size: 22px; font-weight: 800; color: var(--cream); line-height: 1.2; }
+    .team__role { font-size: 13px; font-weight: 600; color: var(--coral); }
+    .team__bio { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.75; }
+    .team__creds { display: flex; flex-direction: column; gap: 5px; }
+    .team__cred { font-size: 12px; color: rgba(250,243,232,0.55); }
+    .team__cred::before { content: "✦ "; color: var(--coral); font-size: 9px; }
+    .team__links { display: flex; gap: 14px; margin-top: 4px; }
+    .team__link { font-size: 13px; font-weight: 600; color: var(--coral); text-decoration: none; transition: opacity 0.18s; }
+    .team__link:hover { opacity: 0.75; }
+    @media (max-width: 700px) { .team__grid { grid-template-columns: 1fr; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
+      .loop-wrap { max-width: 280px; margin: 0 auto; }
+      .stats__inner { grid-template-columns: 1fr; gap: 32px; }
+      .instructor__inner { grid-template-columns: 1fr; }
+      .journey-grid, .build-grid { grid-template-columns: 1fr 1fr; }
+      .nav__links li:not(:last-child) { display: none; }
+      .sec { padding: 60px 20px; }
+    }
+    @media (max-width: 600px) {
+      .journey-grid, .build-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="index.html" class="nav__logo">Agentic<em>Ed</em></a>
+  <ul class="nav__links">
+    <li><a href="#course">The Course</a></li>
+    <li><a href="#build">What You'll Build</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="week1.html" class="nav__cta">Start Week 1 →</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div>
+    <div class="hero__badge">🚀 Free · No experience needed · Start today</div>
+    <h1 class="hero__h1">AI agents are being built<br/>right now.<br/><em>Learn how.</em></h1>
+    <p class="hero__sub">A free 6-week course designed by an AI Platform Architect who builds production agent systems every day. Real skills, no textbook theory, no coding experience required.</p>
+    <div class="hero__btns">
+      <a href="week1.html" class="btn btn--primary">Start Week 1 — It's Free →</a>
+      <a href="#course" class="btn btn--ghost">See the 6-week journey</a>
+    </div>
+    <div class="hero__trust">
+      <div class="hero__trust-text">Designed by <strong>Jothsna Pendyala</strong> · AI Platform Architect at AT&amp;T · <strong>Free forever</strong></div>
+    </div>
+  </div>
+  <div class="loop-wrap">
+    <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 Z" fill="#E8654A"/>
+        </marker>
+        <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 Z" fill="#F5A623"/>
+        </marker>
+        <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 Z" fill="#1E1108"/>
+        </marker>
+      </defs>
+      <path id="p1" d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="none"/>
+      <path id="p2" d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="none"/>
+      <path id="p3" d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="none"/>
+      <path d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a1)"/>
+      <path d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a2)"/>
+      <path d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a3)"/>
+      <circle class="ring-think" cx="200" cy="82" r="54" fill="none" stroke="rgba(30,17,8,0.1)" stroke-width="1"/>
+      <circle cx="200" cy="82" r="48" fill="#1E1108"/>
+      <text x="200" y="76" text-anchor="middle" fill="#FAF3E8" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">THINK</text>
+      <text x="200" y="93" text-anchor="middle" fill="#E8654A" font-family="Inter,sans-serif" font-weight="600" font-size="10">Reason &amp; Plan</text>
+      <circle class="ring-act" cx="318" cy="305" r="54" fill="none" stroke="rgba(232,101,74,0.15)" stroke-width="1"/>
+      <circle cx="318" cy="305" r="48" fill="#E8654A"/>
+      <text x="318" y="299" text-anchor="middle" fill="#FFFFFF" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">ACT</text>
+      <text x="318" y="316" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Use Tools</text>
+      <circle class="ring-obs" cx="82" cy="305" r="54" fill="none" stroke="rgba(245,166,35,0.15)" stroke-width="1"/>
+      <circle cx="82" cy="305" r="48" fill="#F5A623"/>
+      <text x="82" y="299" text-anchor="middle" fill="#1E1108" font-family="Outfit,sans-serif" font-weight="800" font-size="11" letter-spacing="1.5">OBSERVE</text>
+      <text x="82" y="316" text-anchor="middle" fill="rgba(30,17,8,0.7)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Learn &amp; Adapt</text>
+      <circle id="d1a" r="5" fill="#E8654A" opacity="0.9"/>
+      <circle id="d1b" r="5" fill="#E8654A" opacity="0.9"/>
+      <circle id="d2a" r="5" fill="#F5A623" opacity="0.9"/>
+      <circle id="d2b" r="5" fill="#F5A623" opacity="0.9"/>
+      <circle id="d3a" r="5" fill="#1E1108" opacity="0.9"/>
+      <circle id="d3b" r="5" fill="#1E1108" opacity="0.9"/>
+      <text x="200" y="196" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">The Agent</text>
+      <text x="200" y="214" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">Reasoning Loop</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats">
+  <div class="stats__inner">
+    <div>
+      <div class="stat__n">143%</div>
+      <div class="stat__l">year-over-year growth in demand for AI engineers</div>
+      <div class="stat__src">DemandSage, 2025</div>
+    </div>
+    <div>
+      <div class="stat__n">$157K</div>
+      <div class="stat__l">median annual salary for AI roles in the United States</div>
+      <div class="stat__src">DemandSage, Q1 2025</div>
+    </div>
+    <div>
+      <div class="stat__n">6 wks</div>
+      <div class="stat__l">From "what is an AI agent?" to building and demoing your own</div>
+      <div class="stat__src">AgenticEd · Free · No coding needed</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── JOURNEY ── -->
+<section class="sec" id="course">
+  <span class="sec__eye">The Course</span>
+  <h2 class="sec__h2">Six weeks. One session each. Real skills you can show.</h2>
+  <p class="sec__desc">Each session takes 60–90 minutes and builds directly on the last. Start anytime, go at your own pace. Week 1 is open right now.</p>
+
+  <div class="journey-grid">
+    <div class="wk wk--open">
+      <div class="wk__num">WEEK 1 · OPEN NOW</div>
+      <div class="wk__title">What Is an AI Agent?</div>
+      <p class="wk__desc">Understand what makes AI "agentic." Map the Think → Act → Observe loop. Find AI agents hiding in products you already use every day.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> The Agent Hunt — map a real AI agent's full decision loop</div>
+      <a href="week1.html" class="btn btn--primary btn--sm wk__cta">Start Week 1 →</a>
+    </div>
+
+    <div class="wk">
+      <div class="wk__num">WEEK 2</div>
+      <div class="wk__title">The Brain Behind the Agent</div>
+      <p class="wk__desc">How Large Language Models actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> Prompt Engineering Challenge — 3 rounds</div>
+      <a href="week2.html" class="btn btn--ghost btn--sm wk__cta">Start Week 2 →</a>
+    </div>
+
+    <div class="wk">
+      <div class="wk__num">WEEK 3</div>
+      <div class="wk__title">Tools &amp; Memory</div>
+      <p class="wk__desc">Why a bare LLM is limited — and how tools and memory transform it. Web search, calculators, databases. RAG explained simply.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> Memory Bot — test what an AI actually remembers</div>
+      <a href="week3.html" class="btn btn--ghost btn--sm wk__cta">Start Week 3 →</a>
+    </div>
+
+    <div class="wk">
+      <div class="wk__num">WEEK 4</div>
+      <div class="wk__title">Multi-Agent Systems</div>
+      <p class="wk__desc">When one agent isn't enough. Orchestrators, workers, handoffs. How real enterprise AI pipelines are actually structured.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> Design your own multi-agent pipeline</div>
+      <a href="week4.html" class="btn btn--ghost btn--sm wk__cta">Start Week 4 →</a>
+    </div>
+
+    <div class="wk">
+      <div class="wk__num">WEEK 5 · PROJECT</div>
+      <div class="wk__title">Build Your First Agent</div>
+      <p class="wk__desc">This is the one. Build, test, break, iterate, and demo your own working AI agent using free no-code tools. No coding. Just a browser.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> Demo Day — present your working agent</div>
+      <a href="week5.html" class="btn btn--ghost btn--sm wk__cta">Start Week 5 →</a>
+    </div>
+
+    <div class="wk">
+      <div class="wk__num">WEEK 6</div>
+      <div class="wk__title">AI Safety &amp; Your Future</div>
+      <p class="wk__desc">What can go wrong with AI agents. Who is responsible. The ethics of autonomous systems. And where careers in AI are actually heading.</p>
+      <div class="wk__activity"><strong>✦ Activity:</strong> The Hospital Debate — three sides, one decision</div>
+      <a href="week6.html" class="btn btn--ghost btn--sm wk__cta">Start Week 6 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT YOU'LL BUILD ── -->
+<section class="sec sec--0top" id="build">
+  <span class="sec__eye">What You'll Build</span>
+  <h2 class="sec__h2">In Week 5, you build one of these.</h2>
+  <p class="sec__desc">No coding required. Using free, browser-based tools. Each one is a real, working AI agent you can show to anyone.</p>
+
+  <div class="build-grid">
+    <div class="build-card">
+      <div class="build-card__icon">🔍</div>
+      <div class="build-card__title">Research Agent</div>
+      <p class="build-card__desc">Give it a topic. It researches, summarizes findings, and generates 3 follow-up questions worth exploring. Useful for papers, projects, and curiosity.</p>
+      <div class="build-card__tools">Tools: Claude.ai · Zapier AI</div>
+    </div>
+    <div class="build-card">
+      <div class="build-card__icon">📚</div>
+      <div class="build-card__title">Study Buddy Agent</div>
+      <p class="build-card__desc">Tell it your subject and weak areas. It generates a personalized study plan with specific topics, time blocks, and practice questions tailored to you.</p>
+      <div class="build-card__tools">Tools: Claude.ai · ChatGPT</div>
+    </div>
+    <div class="build-card">
+      <div class="build-card__icon">✍️</div>
+      <div class="build-card__title">Creative Agent</div>
+      <p class="build-card__desc">Give it a genre, theme, and length. It writes a short story, then switches roles to critique its own writing. Self-evaluating AI in action.</p>
+      <div class="build-card__tools">Tools: Claude.ai · Make.com</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<div class="team" id="team">
+  <div class="team__inner">
+    <span class="sec__eye">The Team</span>
+    <h2 class="team__h2">Built by practitioners who care about learning</h2>
+    <p class="team__desc">AgenticEd is built by people who work with agentic AI every day — and who believe the best time to learn it is before your career demands it.</p>
+    <div class="team__grid">
+
+      <div class="team__card">
+        <img src="./Jothsna_headshot.jpg" alt="Jothsna Praveena Pendyala" class="team__photo"/>
+        <div class="team__badge team__badge--founder">Founder</div>
+        <div class="team__name">Jothsna Praveena Pendyala</div>
+        <div class="team__role">AI Platform Architect &amp; Senior Data Scientist</div>
+        <p class="team__bio">I build production agentic AI systems at enterprise scale — the same tools and concepts this platform teaches. I founded AgenticEd because I kept seeing students and career-changers graduate without knowing how to build the technology reshaping every industry.</p>
+        <div class="team__creds">
+          <div class="team__cred">Claude Certified Architect &middot; IEEE Senior Member</div>
+          <div class="team__cred">Director of Innovation, ACM Dallas Chapter</div>
+          <div class="team__cred">Co-editor, <em>RAG In Action</em> &middot; Creator, <em>The Agentic Stack</em></div>
+        </div>
+        <div class="team__links">
+          <a href="https://instagram.com/jothsna.aitales" target="_blank" class="team__link">@jothsna.aitales</a>
+          <a href="https://linkedin.com/in/jothsna" target="_blank" class="team__link">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="team__card">
+        <img src="./Nithesh.jpeg" alt="Nithesh Gudipuri" class="team__photo"/>
+        <div class="team__badge team__badge--cofound">Co-Founder</div>
+        <div class="team__name">Nithesh Gudipuri</div>
+        <div class="team__role">Curriculum Designer &amp; Education Lead</div>
+        <p class="team__bio">Nithesh leads curriculum design and responsible AI pedagogy at AgenticEd. He built the platform&apos;s responsible-AI thread, portfolio system, and equity frameworks — ensuring every lesson is accessible to any learner, anywhere, regardless of access to technology.</p>
+        <div class="team__creds">
+          <div class="team__cred">Responsible AI curriculum design</div>
+          <div class="team__cred">K&ndash;12 equity &amp; accessibility frameworks</div>
+          <div class="team__cred">Portfolio &amp; assessment design</div>
+        </div>
+        <div class="team__links">
+          <a href="https://github.com/nitheshh405" target="_blank" class="team__link">GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── SIGNUP ── -->
+<div class="signup" id="start">
+  <div class="signup__inner">
+    <h2 class="signup__h2">Ready to start learning?</h2>
+    <p class="signup__desc">Week 1 is open right now — no signup needed. Drop your email and we'll notify you when new weeks go live.</p>
+    <div style="margin-bottom:20px;">
+      <a href="week1.html" class="btn btn--ghost" style="background:var(--white);color:var(--brown);border-color:transparent;font-size:16px;padding:15px 32px;">Start Week 1 Now — No Signup Needed →</a>
+    </div>
+    <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px;">— or drop your email for updates + a free reference card —</p>
+    <div class="signup__form" id="frm">
+      <input class="signup__inp" id="em" type="email" placeholder="Your email address" />
+      <button class="signup__btn" onclick="sub()">Send Me the Reference Card →</button>
+    </div>
+    <div id="thanks">✓ Check your inbox! Your quick reference card is on the way.</div>
+    <p class="signup__fine">No spam. Your reference card + one email when each new week drops.</p>
+    <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.55);">
+      Or <a href="./AgenticEd_StudentReference.pdf" download style="color:rgba(255,255,255,0.75);">download the reference card directly ↓</a>
+    </p>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__logo">Agentic<em>Ed</em></div>
+    <ul class="footer__links">
+      <li><a href="week1.html">Start Learning</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="https://github.com/jothsnapraveena/agenticEd" target="_blank">GitHub</a></li>
+      <li><a href="https://instagram.com/jothsna.aitales" target="_blank">@jothsna.aitales</a></li>
+      <li><a href="mailto:hello@agenticed.org">Contact</a></li>
+    </ul>
+    <p class="footer__copy">© 2026 AgenticEd · Created by Jothsna Praveena Pendyala · Free for any student, anywhere · CC BY 4.0</p>
+  </div>
+</footer>
+
+<script>
+  /* Dot animation */
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const segs=[
+      {pid:'p1',dids:['d1a','d1b'],off:0.5},
+      {pid:'p2',dids:['d2a','d2b'],off:0.5},
+      {pid:'p3',dids:['d3a','d3b'],off:0.5},
+    ];
+    const SPD=0.55;
+    const st=segs.map(({pid,dids,off})=>{
+      const el=document.getElementById(pid);
+      if(!el) return null;
+      const len=el.getTotalLength();
+      return {path:el,len,dots:dids.map((id,i)=>({el:document.getElementById(id),t:(len*i*off)%len}))};
+    }).filter(Boolean);
+    function frame(){
+      for(const s of st) for(const d of s.dots){
+        d.t=(d.t+SPD)%s.len;
+        const p=s.path.getPointAtLength(d.t);
+        d.el.setAttribute('cx',p.x.toFixed(1));
+        d.el.setAttribute('cy',p.y.toFixed(1));
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+
+  /* Signup */
+  function sub(){
+    const v=document.getElementById('em').value.trim();
+    if(!v||!v.includes('@')){
+      document.getElementById('em').style.boxShadow='0 0 0 3px rgba(255,255,255,0.5)';
+      setTimeout(()=>document.getElementById('em').style.boxShadow='',2000);
+      return;
+    }
+    document.getElementById('frm').style.display='none';
+    document.getElementById('thanks').style.display='block';
+  }
+</script>
+</body>
+</html>
