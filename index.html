@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgenticEd — Learn to Build AI Agents. Free.</title>
-  <meta name="description" content="A free 6-week course teaching you to build real AI agents — designed by an AI Platform Architect. No coding experience required." />
+  <meta name="description" content="A free 6-week course teaching you to build real AI agents." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
@@ -58,9 +58,6 @@
     .hero__h1 em { font-style: normal; color: var(--coral); }
     .hero__sub { font-size: 17px; color: var(--warm); line-height: 1.75; max-width: 500px; margin-bottom: 36px; }
     .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
-    .hero__trust { display: flex; align-items: center; gap: 12px; }
-    .hero__trust-text { font-size: 13px; color: var(--warm); }
-    .hero__trust-text strong { color: var(--brown); }
 
     /* ── BUTTONS ── */
     .btn {
@@ -129,28 +126,6 @@
     .build-card__desc { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.65; margin-bottom: 16px; }
     .build-card__tools { font-size: 12px; color: var(--amber); font-weight: 600; }
 
-    /* ── INSTRUCTOR ── */
-    .instructor { background: var(--brown); padding: 80px 32px; }
-    .instructor__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-    .instructor__eye { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
-    .instructor__name { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; color: var(--cream); margin-bottom: 16px; line-height: 1.1; }
-    .instructor__bio { font-size: 15px; color: rgba(250,243,232,0.72); line-height: 1.8; margin-bottom: 20px; }
-    .instructor__creds { display: flex; flex-direction: column; gap: 9px; }
-    .cred { font-size: 13px; color: rgba(250,243,232,0.82); display: flex; align-items: flex-start; gap: 9px; }
-    .cred::before { content: '✦'; color: var(--coral); font-size: 9px; margin-top: 4px; flex-shrink: 0; }
-    .instructor__card { background: rgba(250,243,232,0.05); border: 1px solid rgba(250,243,232,0.1); border-radius: 14px; padding: 36px; }
-    .instructor__quote { font-family: 'Outfit', sans-serif; font-size: 20px; font-style: italic; color: var(--cream); line-height: 1.55; margin-bottom: 20px; }
-    .instructor__handle { font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 14px; }
-    .instructor__links { display: flex; gap: 14px; flex-wrap: wrap; }
-    .instructor__link { font-size: 13px; color: rgba(250,243,232,0.5); text-decoration: none; transition: color 0.18s; }
-    .instructor__link:hover { color: var(--cream); }
-
-    /* ── FOR TEACHERS ── */
-    .teachers { background: var(--light); padding: 60px 32px; }
-    .teachers__inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
-    .teachers__copy h3 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--brown); margin-bottom: 8px; }
-    .teachers__copy p { font-size: 15px; color: var(--warm); max-width: 480px; line-height: 1.65; }
-    .teachers__downloads { display: flex; gap: 10px; flex-wrap: wrap; }
 
     /* ── SIGNUP ── */
     .signup { background: var(--coral); padding: 80px 32px; }
@@ -237,7 +212,6 @@
       <a href="week1.html" class="btn btn--primary">Start Week 1 — It's Free →</a>
       <a href="#course" class="btn btn--ghost">See the 6-week journey</a>
     </div>
-    </div>
   </div>
   <div class="loop-wrap">
     <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
@@ -282,26 +256,7 @@
   </div>
 </section>
 
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stats__inner">
-    <div>
-      <div class="stat__n">143%</div>
-      <div class="stat__l">year-over-year growth in demand for AI engineers</div>
-      <div class="stat__src">DemandSage, 2025</div>
-    </div>
-    <div>
-      <div class="stat__n">$157K</div>
-      <div class="stat__l">median annual salary for AI roles in the United States</div>
-      <div class="stat__src">DemandSage, Q1 2025</div>
-    </div>
-    <div>
-      <div class="stat__n">6 wks</div>
-      <div class="stat__l">From "what is an AI agent?" to building and demoing your own</div>
-      <div class="stat__src">AgenticEd · Free · No coding needed</div>
-    </div>
-  </div>
-</div>
+
 
 <!-- ── JOURNEY ── -->
 <section class="sec" id="course">
@@ -420,12 +375,12 @@
         <div class="team__role">Associate Director of Technology &mdash; Raymond James Financial</div>
         <p class="team__bio">Associate Director of Technology at Raymond James Financial, where he leads engineering for securities infrastructure processing over 100 million transactions daily. With 13 years across financial services and healthcare, he holds two USPTO patents in fault-tolerant computing and serves as Founding Chair of the ACM Tampa Bay Professional Chapter.</p>
         <div class="team__creds">
-          <div class="team__cred">2 USPTO patents &middot; Fault-tolerant computing</div>
           <div class="team__cred">Founding Chair, ACM Tampa Bay Professional Chapter</div>
-          <div class="team__cred">IEEE Computer Society mentor</div>
         </div>
         <div class="team__links">
           <a href="https://github.com/nitheshh405" target="_blank" class="team__link">GitHub</a>
+          <a href="https://www.linkedin.com/in/nithesh-gudipuri-8abb54225/" target="_blank" class="team__link">LinkedIn</a>
+          
         </div>
       </div>
 
