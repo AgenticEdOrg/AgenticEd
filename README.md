@@ -1,8 +1,5 @@
-# AgenticEd — Agentic AI for Every Classroom
+# AgenticEd — Agentic AI
 
-**Free, practitioner-authored K-12 curriculum teaching students to build AI agents — not just use them.**
-
-Created by [Jothsna Praveena Pendyala](https://instagram.com/jothsna.aitales) · AI Platform Architect & Senior Data Scientist  
 ⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher
 
 ---
