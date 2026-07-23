@@ -173,8 +173,8 @@ New weeks, translated versions, and teacher resources are added regularly.
 
 - 🌐 Website: [agenticed.org](https://agenticed.org)
 - 📧 Teacher list: [hello@agenticed.org](mailto:hello@agenticed.org)
-- 📸 Instagram: [@jothsna.aitales](https://instagram.com/jothsna.aitales)
-- 💼 LinkedIn: [Jothsna Praveena Pendyala](https://linkedin.com)
+- 💼 LinkedIn: [Jothsna Praveena Pendyala](https://www.linkedin.com/in/jothsna/)
+- 💼 LinkedIn: [Nithesh Gudipuri](https://www.linkedin.com/in/nithesh-gudipuri-8abb54225/)
 - 📰 Newsletter: [The Agentic Stack](https://agenticestack.beehiiv.com)
 
 ---
