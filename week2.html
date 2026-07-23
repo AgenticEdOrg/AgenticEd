@@ -108,7 +108,7 @@
 </head>
 <body>
 <div class="topbar">
-  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="topbar__logo">Agent<em>Edu</em></a>
   <div class="topbar__progress">
     <span class="topbar__label">Your progress:</span>
     <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--active" title="Week 2 Current"></div><div class="dot" title="Week 3"></div><div class="dot" title="Week 4"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
@@ -172,12 +172,6 @@
     <p>You just learned <em>why</em> AI hallucinates. Now the question that matters in the real world: <strong>when is being wrong merely annoying, and when is it harmful?</strong> A <strong>hallucination</strong> is the AI confidently wrong (a mechanism). <strong>Misinformation</strong> is when a wrong answer <em>causes harm</em> because someone acted on it (an outcome). "The AI invented a fun-fact for my essay" and "the AI invented a medication dosage someone followed" are the <em>same</em> hallucination &mdash; very different harm. The skill isn't just noticing AI is wrong; it's <strong>fact-checking before you act</strong>, especially when the stakes are high.</p>
   </div>
 
-
-  <div class="callout callout--amber">
-    <div class="callout__label">&#128274; Privacy tip</div>
-    <p>As you work with AI tools throughout this course, be thoughtful about what you share. These tools store your conversations. <strong>Avoid entering real names, passwords, addresses, or any sensitive personal information</strong> when doing the activities. Use made-up examples or generic scenarios instead &mdash; the learning is exactly the same.</p>
-  </div>
-
   <div class="activity">
     <div class="activity__badge">&#9999; Activity &mdash; The Prompt Engineering Challenge</div>
     <h3>Three rounds. Best prompt wins.</h3>
@@ -217,10 +211,12 @@
   </div>
 </div>
 <div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="lesson-footer__logo">Agent<em>Edu</em></a>
   <div style="display:flex;gap:20px;">
     <a href="index.html">&larr; Back to Course</a>
+    <a href="quiz.html?week=2">Week 2 Quiz</a>
     <a href="portfolio.html">Your Portfolio</a>
+    <a href="glossary.html">Glossary</a>
     <a href="./AgenticEd_StudentReference.pdf" download>Reference Card PDF</a>
     <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
   </div>
@@ -235,6 +231,46 @@ function submitActivity(){
 }
 function clearActivity(){['r1p','r1r','r2p','r2r','r3p','r3r','refl'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('activity-result').style.display='none';}
 
+</script>
+
+<script>
+/* AgenticEd auto-save (E1): persists activity answers in this browser only */
+(function(){
+  var page=(location.pathname.split("/").pop()||"index");
+  var NS="agenticed:autosave:"+page+":";
+  var els=document.querySelectorAll("input,textarea,select");
+  els.forEach(function(el){
+    if(!el.id) return;
+    var k=NS+el.id;
+    try{
+      var v=localStorage.getItem(k);
+      if(v!==null){
+        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
+        else{el.value=v;}
+      }
+    }catch(e){}
+    var save=function(){
+      try{
+        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
+        else{localStorage.setItem(k,el.value);}
+      }catch(e){}
+    };
+    el.addEventListener("input",save);
+    el.addEventListener("change",save);
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button");
+    if(b&&b.textContent.trim().toLowerCase()==="clear"){
+      setTimeout(function(){
+        try{
+          var rm=[];
+          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
+          rm.forEach(function(kk){localStorage.removeItem(kk);});
+        }catch(e){}
+      },0);
+    }
+  });
+})();
 </script>
 </body>
 </html>

@@ -1,15 +1,15 @@
-# Agentic AI: A 6-Week Course for High Schoolers
+# Agentic AI: A 6-Week Course for Everyone
 ### A Free Curriculum by AgenticEd · Created by Jothsna Praveena Pendyala
 
 ---
 
 **Course Description**
-This 6-week course introduces high school students to agentic AI — systems that can reason, plan, use tools, and adapt to achieve goals. Students progress from understanding what an AI agent is, to building and demoing their own working agent using free no-code tools. No prior coding experience required.
+This 6-week course introduces learners to agentic AI — systems that can reason, plan, use tools, and adapt to achieve goals. Learners progress from understanding what an AI agent is, to building and demoing their own working agent using free no-code tools. No prior coding experience required.
 
-**Target Audience:** Grades 9–12 · AP CS Principles · Introduction to AI · Elective tech courses  
-**Time Commitment:** ~60–90 minutes per week  
-**Prerequisites:** None. Curiosity required.  
-**Standards Alignment:** CSTA K-12 CS Standards · AI4K12 Big Ideas 1, 3, 4 · ISTE Student Standards  
+**Target Audience:** Open to all — no age limit, no prerequisites. Classroom-ready for grades 9–12 (AP CS Principles · Introduction to AI · Elective tech courses), and equally suited to college courses, community programs, career-switchers, and self-learners.
+**Time Commitment:** ~60–90 minutes per week
+**Prerequisites:** None. Curiosity required.
+**Standards Alignment:** CSTA K-12 CS Standards · AI4K12 Big Ideas 1, 3, 4 · ISTE Student Standards
 
 ---
 
@@ -136,8 +136,8 @@ Quick activity (do it live): take one confidently-wrong AI answer and have stude
 ### Student Activity — The Prompt Engineering Challenge
 Students compete to get the best output from an AI using only prompt engineering (no code). Three rounds:
 
-**Round 1 — The Explainer:** Get the AI to explain quantum computing to a 10-year-old in exactly 5 sentences.  
-**Round 2 — The Debugger:** Paste a broken piece of simple code. Get the AI to find the bug and explain why it's wrong.  
+**Round 1 — The Explainer:** Get the AI to explain quantum computing to a 10-year-old in exactly 5 sentences.
+**Round 2 — The Debugger:** Paste a broken piece of simple code. Get the AI to find the bug and explain why it's wrong.
 **Round 3 — The Planner:** Get the AI to create a complete study plan for an upcoming exam, including specific time blocks.
 
 Students compare outputs and vote on the best prompt for each round. Debrief: what made the winning prompts work?
@@ -298,21 +298,21 @@ By the end of this lesson, students will be able to:
 ### The Build Challenge
 Students choose one of three agent types to build:
 
-**Option A — The Research Agent**  
-Goal: Given any topic, the agent researches it, summarizes the key findings, and lists 3 questions still worth exploring.  
+**Option A — The Research Agent**
+Goal: Given any topic, the agent researches it, summarizes the key findings, and lists 3 questions still worth exploring.
 Suggested tools: web search, text summarization
 
-**Option B — The Study Buddy Agent**  
-Goal: Given a subject and a student's weak areas, the agent creates a personalized study plan with practice questions.  
+**Option B — The Study Buddy Agent**
+Goal: Given a subject and a student's weak areas, the agent creates a personalized study plan with practice questions.
 Suggested tools: knowledge base (upload your own notes), question generation
 
-**Option C — The Creative Agent**  
-Goal: Given a genre, theme, and length, the agent writes a short story and then critiques its own writing.  
+**Option C — The Creative Agent**
+Goal: Given a genre, theme, and length, the agent writes a short story and then critiques its own writing.
 Suggested tools: writing, self-review
 
-**Option D — The Community Impact Agent** ★ *(capstone track)*  
-Goal: Pick a real problem in your school or community (food-drive logistics, a multilingual welcome guide for new students, a study-resource finder, a local-volunteering matcher) and build an agent that helps with it.  
-Suggested tools: web search, knowledge base, summarization — plus a one-page **"agent policy"** the student writes: who it's for, what data it uses, where a human must approve, and what could go wrong.  
+**Option D — The Community Impact Agent** ★ *(capstone track)*
+Goal: Pick a real problem in your school or community (food-drive logistics, a multilingual welcome guide for new students, a study-resource finder, a local-volunteering matcher) and build an agent that helps with it.
+Suggested tools: web search, knowledge base, summarization — plus a one-page **"agent policy"** the student writes: who it's for, what data it uses, where a human must approve, and what could go wrong.
 *This is the recommended track for students building a portfolio piece (see Capstone below) — they demo the build **and** the policy together.*
 
 ### Build Worksheet
@@ -525,8 +525,8 @@ A web version of this tracker ships as **`portfolio.html`** in this repo — stu
 
 ## License
 
-This curriculum is free to use, adapt, and share under Creative Commons Attribution 4.0 (CC BY 4.0).  
+This curriculum is free to use, adapt, and share under Creative Commons Attribution 4.0 (CC BY 4.0).
 Please credit: *AgenticEd · Created by Jothsna Praveena Pendyala · agenticed.org*
 
-If you use this curriculum in your classroom, we'd love to hear from you.  
+If you use this curriculum in your classroom, we'd love to hear from you.
 📬 hello@agenticed.org · 📸 @jothsna.aitales

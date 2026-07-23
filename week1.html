@@ -214,7 +214,7 @@
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="topbar__logo">Agent<em>Edu</em></a>
   <div class="topbar__progress">
     <span class="topbar__label">Your progress:</span>
     <div class="progress-dots">
@@ -478,10 +478,13 @@ simple_agent(goal=<span class="cs">"Find 3 facts about AI agents"</span>, tools=
 
 <!-- FOOTER -->
 <div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="lesson-footer__logo">Agent<em>Edu</em></a>
   <div style="display:flex;gap:20px;">
-    <a href="index.html">← All Weeks</a>
+    <a href="index.html">← Back to Course</a>
+    <a href="quiz.html?week=1">Week 1 Quiz</a>
     <a href="portfolio.html">Your Portfolio</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="./AgenticEd_Week1_Worksheet.pdf" download>Download Worksheet PDF</a>
     <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
   </div>
 </div>
@@ -507,7 +510,7 @@ function submitActivity(){
     <p style="margin-bottom:6px;"><strong>⚡ Act:</strong> ${a}</p>
     <p style="margin-bottom:10px;"><strong>👁 Observe:</strong> ${o}</p>
     <p style="font-size:13px;color:var(--warm);">
-      You've just done what AI engineers do every day — trace how a system reasons, acts, and learns. 
+      You've just done what AI engineers do every day — trace how a system reasons, acts, and learns.
       Keep this mental model. Every agent system you build in Week 5 will follow this same loop.
     </p>`;
   res.scrollIntoView({behavior:'smooth', block:'nearest'});
@@ -519,6 +522,46 @@ function clearActivity(){
   });
   document.getElementById('activity-result').style.display='none';
 }
+</script>
+
+<script>
+/* AgenticEd auto-save (E1): persists activity answers in this browser only */
+(function(){
+  var page=(location.pathname.split("/").pop()||"index");
+  var NS="agenticed:autosave:"+page+":";
+  var els=document.querySelectorAll("input,textarea,select");
+  els.forEach(function(el){
+    if(!el.id) return;
+    var k=NS+el.id;
+    try{
+      var v=localStorage.getItem(k);
+      if(v!==null){
+        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
+        else{el.value=v;}
+      }
+    }catch(e){}
+    var save=function(){
+      try{
+        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
+        else{localStorage.setItem(k,el.value);}
+      }catch(e){}
+    };
+    el.addEventListener("input",save);
+    el.addEventListener("change",save);
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button");
+    if(b&&b.textContent.trim().toLowerCase()==="clear"){
+      setTimeout(function(){
+        try{
+          var rm=[];
+          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
+          rm.forEach(function(kk){localStorage.removeItem(kk);});
+        }catch(e){}
+      },0);
+    }
+  });
+})();
 </script>
 </body>
 </html>

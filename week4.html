@@ -108,7 +108,7 @@
 </head>
 <body>
 <div class="topbar">
-  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="topbar__logo">Agent<em>Edu</em></a>
   <div class="topbar__progress">
     <span class="topbar__label">Your progress:</span>
     <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--done" title="Week 2 Done"></div><div class="dot dot--done" title="Week 3 Done"></div><div class="dot dot--active" title="Week 4 Current"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
@@ -205,10 +205,12 @@
   </div>
 </div>
 <div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="lesson-footer__logo">Agent<em>Edu</em></a>
   <div style="display:flex;gap:20px;">
     <a href="index.html">&larr; Back to Course</a>
+    <a href="quiz.html?week=4">Week 4 Quiz</a>
     <a href="portfolio.html">Your Portfolio</a>
+    <a href="glossary.html">Glossary</a>
     <a href="./AgenticEd_StudentReference.pdf" download>Reference Card PDF</a>
     <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
   </div>
@@ -223,6 +225,46 @@ function submitActivity(){
 }
 function clearActivity(){['orch','w1','w2','w3','human','risk','custom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('scenario').value='';document.getElementById('activity-result').style.display='none';}
 
+</script>
+
+<script>
+/* AgenticEd auto-save (E1): persists activity answers in this browser only */
+(function(){
+  var page=(location.pathname.split("/").pop()||"index");
+  var NS="agenticed:autosave:"+page+":";
+  var els=document.querySelectorAll("input,textarea,select");
+  els.forEach(function(el){
+    if(!el.id) return;
+    var k=NS+el.id;
+    try{
+      var v=localStorage.getItem(k);
+      if(v!==null){
+        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
+        else{el.value=v;}
+      }
+    }catch(e){}
+    var save=function(){
+      try{
+        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
+        else{localStorage.setItem(k,el.value);}
+      }catch(e){}
+    };
+    el.addEventListener("input",save);
+    el.addEventListener("change",save);
+  });
+  document.addEventListener("click",function(e){
+    var b=e.target.closest&&e.target.closest("button");
+    if(b&&b.textContent.trim().toLowerCase()==="clear"){
+      setTimeout(function(){
+        try{
+          var rm=[];
+          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
+          rm.forEach(function(kk){localStorage.removeItem(kk);});
+        }catch(e){}
+      },0);
+    }
+  });
+})();
 </script>
 </body>
 </html>

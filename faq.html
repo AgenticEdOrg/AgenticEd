@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FAQ — AgenticEd</title>
+  <meta name="description" content="Common questions from teachers and students about the AgenticEd agentic-AI curriculum."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--cream:#FAF3E8;--brown:#1E1108;--coral:#E8654A;--coral-light:#FDF0EC;--amber:#F5A623;--warm:#7A6652;--border:#E0D3C3;--white:#FFFFFF;--light:#F2EAD8;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar a.back{color:rgba(250,243,232,0.6);font-size:13px;text-decoration:none;}
+    .topbar a.back:hover{color:var(--cream);}
+    .lhdr{background:var(--brown);padding:44px 32px 48px;border-bottom:3px solid var(--coral);}
+    .lhdr__inner{max-width:780px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+    .lhdr__sub{font-size:16px;color:rgba(250,243,232,0.72);max-width:620px;}
+    .body{max-width:780px;margin:0 auto;padding:36px 32px 80px;}
+    .group{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);margin:28px 0 12px;}
+    details{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;}
+    details[open]{border-color:var(--coral);}
+    summary{list-style:none;cursor:pointer;padding:16px 20px;font-weight:600;font-size:16px;color:var(--brown);display:flex;justify-content:space-between;gap:14px;align-items:center;}
+    summary::-webkit-details-marker{display:none;}
+    summary::after{content:'+';font-family:'Outfit',sans-serif;font-size:22px;color:var(--coral);font-weight:400;line-height:1;transition:transform .2s;}
+    details[open] summary::after{transform:rotate(45deg);}
+    .ans{padding:0 20px 18px;font-size:15px;color:var(--warm);line-height:1.7;}
+    .ans a{color:var(--coral);}
+    .ans b{color:var(--brown);font-weight:600;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,243,232,0.5);font-size:13px;text-decoration:none;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+    @media(max-width:700px){.body{padding:28px 18px 60px;}.lhdr{padding:32px 20px 36px;}}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agent<em>Edu</em></a>
+  <a href="index.html" class="back">← Back to Course</a>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">For Everyone</p>
+    <h1 class="lhdr__h1">Frequently asked questions</h1>
+    <p class="lhdr__sub">Everything you need to start teaching or learning with AgenticEd — no account, no cost, no prior AI experience.</p>
+  </div>
+</div>
+<div class="body">
+
+  <p class="group">Getting started</p>
+  <details open><summary>Do I need any coding or AI experience to teach this?</summary><div class="ans">No. The curriculum is written for teachers with <b>no prior AI background</b>. Every week has a lesson outline, teacher notes, and common student questions. If you can facilitate a discussion, you can teach this.</div></details>
+  <details><summary>Is it really free? What's the catch?</summary><div class="ans">It's free under a <b>Creative Commons BY 4.0</b> licence — use it, adapt it, and share it, just keep the attribution. There's no paywall, no signup, and no credit card. See the <a href="privacy.html">privacy page</a> for how student data is handled.</div></details>
+  <details><summary>How much time does the course take?</summary><div class="ans">Six weeks, about <b>60–90 minutes each</b>. Short on time? Every week has a <b>45-minute track</b> in the curriculum guide. You can also run individual weeks as standalone modules.</div></details>
+  <details><summary>Who is this course for?</summary><div class="ans"><b>Anyone curious about AI agents</b> — no age limit and no prerequisites. It's classroom-ready for high school (AP CS Principles, Intro to AI, electives), and works equally well for college students, career-switchers, self-learners, and community programs. The activities scale up or down with your discussion depth.</div></details>
+
+  <p class="group">Tools &amp; access</p>
+  <details><summary>What tools do students need — and what if our school blocks them?</summary><div class="ans">Activities use free tools like Claude, ChatGPT, NotebookLM, and Perplexity. If your district blocks tools or student logins, every activity has a <b>no-login / teacher-projected</b> path and an <b>unplugged</b> alternative. See the <a href="tools.html">tool-setup guide</a> and the Equity &amp; Access section of the curriculum.</div></details>
+  <details><summary>Is student data safe? What about FERPA?</summary><div class="ans">AgenticEd itself doesn't require accounts, and your answers save only in your own browser. When using any AI tool, students should use <b>non-identifying example data</b> — never real names, grades, or records. Full details on the <a href="privacy.html">privacy &amp; data page</a>.</div></details>
+  <details><summary>Do I need to install anything?</summary><div class="ans">No. Everything runs in a web browser. The optional "go deeper" notebooks open in Google Colab with no install and no API key.</div></details>
+
+  <p class="group">Using the curriculum</p>
+  <details><summary>Can I adapt or remix the material?</summary><div class="ans">Yes — that's encouraged. Under CC BY 4.0 you can edit, reorder, translate, and build on it. Please keep the attribution to AgenticEd and the author.</div></details>
+  <details><summary>My students finished — is there proof of completion?</summary><div class="ans">Yes. Students can generate a <a href="certificate.html">certificate of completion</a> once they've worked through the weeks, and collect their work in the <a href="portfolio.html">portfolio tracker</a>.</div></details>
+  <details><summary>How do I plan this around my schedule?</summary><div class="ans">Use the <a href="plan.html">pacing-plan generator</a> — tell it how many sessions you have and how long they are, and it lays out what to cover each session.</div></details>
+
+  <p class="group">Still stuck?</p>
+  <details><summary>I have a question that isn't answered here.</summary><div class="ans">Email <a href="mailto:hello@agenticed.org">hello@agenticed.org</a> — we'd genuinely love to hear how you're using AgenticEd in your classroom.</div></details>
+
+</div>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agent<em>Edu</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← Back to Course</a>
+    <a href="glossary.html">Glossary</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy &amp; Your Data — AgenticEd</title>
+  <meta name="description" content="How AgenticEd handles data — no accounts, browser-only storage, FERPA-aware guidance, and one-click data deletion."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--cream:#FAF3E8;--brown:#1E1108;--coral:#E8654A;--coral-light:#FDF0EC;--amber:#F5A623;--warm:#7A6652;--border:#E0D3C3;--white:#FFFFFF;--light:#F2EAD8;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar a.back{color:rgba(250,243,232,0.6);font-size:13px;text-decoration:none;}
+    .topbar a.back:hover{color:var(--cream);}
+    .lhdr{background:var(--brown);padding:44px 32px 48px;border-bottom:3px solid var(--coral);}
+    .lhdr__inner{max-width:780px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+    .lhdr__sub{font-size:16px;color:rgba(250,243,232,0.72);max-width:620px;}
+    .body{max-width:780px;margin:0 auto;padding:40px 32px 80px;}
+    h2{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;margin:32px 0 12px;}
+    h2:first-child{margin-top:0;}
+    p{font-size:16px;margin-bottom:14px;color:var(--brown);}
+    ul{margin:0 0 16px;padding-left:22px;}
+    li{font-size:16px;margin-bottom:8px;}
+    b{font-weight:600;}
+    .tldr{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:8px;}
+    .tldr h2{margin-top:0;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--coral);}
+    .tldr ul{margin-bottom:0;}
+    .danger{background:#FFF6F3;border:1px solid rgba(232,101,74,.35);border-radius:14px;padding:24px;margin-top:36px;}
+    .danger h2{margin-top:0;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;border:2px solid var(--coral);background:var(--coral);color:#fff;font-family:'Inter',sans-serif;transition:all .18s;}
+    .btn:hover{background:#d04e38;}
+    #cleared{display:none;margin-top:14px;font-size:14px;font-weight:600;color:#2E7D57;}
+    .foot-note{font-size:13px;color:var(--warm);margin-top:10px;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,243,232,0.5);font-size:13px;text-decoration:none;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+    @media(max-width:700px){.body{padding:28px 18px 60px;}.lhdr{padding:32px 20px 36px;}}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agent<em>Edu</em></a>
+  <a href="index.html" class="back">← Back to Course</a>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">Privacy &amp; Your Data</p>
+    <h1 class="lhdr__h1">Your data stays yours</h1>
+    <p class="lhdr__sub">No accounts, no tracking, no selling. Here's exactly what AgenticEd stores, where, and how to erase it.</p>
+  </div>
+</div>
+<div class="body">
+
+  <div class="tldr">
+    <h2>The short version</h2>
+    <ul>
+      <li>AgenticEd needs <b>no account</b> to use.</li>
+      <li>Your worksheet answers and progress are saved <b>only in your own browser</b> (localStorage) — they never leave your device.</li>
+      <li>We <b>don't sell or share</b> your data with advertisers.</li>
+      <li>You can <b>delete everything</b> in one click, below.</li>
+    </ul>
+  </div>
+
+  <h2>What we store, and where</h2>
+  <p>When you fill in a worksheet, complete an activity, or track your portfolio, that text is saved in your browser's <b>localStorage</b> so you don't lose it on refresh. It stays on your device and is visible only to you. Clearing your browser data — or using the button below — removes it.</p>
+
+  <h2>Third-party AI tools</h2>
+  <p>Some activities ask you to use free external tools (Claude, ChatGPT, NotebookLM, Perplexity). Those are separate services with their own privacy policies. Anything you type into them is governed by <b>their</b> terms, not ours — so treat them accordingly and follow the guidance below.</p>
+
+  <h2>For teachers — FERPA &amp; student data</h2>
+  <p>Student education records are protected under <b>FERPA</b>. To stay on the safe side:</p>
+  <ul>
+    <li>Have students use <b>non-identifying example data</b> — a made-up persona or a public document — never real names, grades, or records.</li>
+    <li>Confirm any AI tool is on your <b>district's approved list</b> before requiring student accounts.</li>
+    <li>Prefer the <b>teacher-projected</b> mode (one shared demo, no student logins) when in doubt.</li>
+  </ul>
+
+  <div class="danger">
+    <h2>Delete my data</h2>
+    <p>This clears every AgenticEd answer, activity result, and portfolio entry saved in <b>this browser on this device</b>. It can't be undone.</p>
+    <button class="btn" id="clear">🗑 Clear my AgenticEd data</button>
+    <p id="cleared">✓ Done — all AgenticEd data on this device has been erased.</p>
+    <p class="foot-note">Note: this only affects this browser. It does not touch anything you typed into external tools like Claude or ChatGPT.</p>
+  </div>
+
+</div>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agent<em>Edu</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← Back to Course</a>
+    <a href="faq.html">FAQ</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script>
+  document.getElementById("clear").addEventListener("click",function(){
+    if(!confirm("Erase all AgenticEd data saved in this browser? This cannot be undone.")) return;
+    try{
+      var keys=[];
+      for(var i=0;i<localStorage.length;i++){
+        var k=localStorage.key(i);
+        if(k&&(k.indexOf("agenticed")>-1||k.indexOf("AgenticEd")>-1)) keys.push(k);
+      }
+      keys.forEach(function(k){localStorage.removeItem(k);});
+    }catch(e){}
+    document.getElementById("cleared").style.display="block";
+  });
+</script>
+</body>
+</html>

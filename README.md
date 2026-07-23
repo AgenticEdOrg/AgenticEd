@@ -1,12 +1,15 @@
-# AgenticEd — Agentic AI
+# AgenticEd — Agentic AI for Everyone
 
-⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher
+**Free, practitioner-authored open curriculum teaching anyone to build AI agents — not just use them.**
+
+Created by [Jothsna Praveena Pendyala](https://instagram.com/jothsna.aitales) · AI Platform Architect & Senior Data Scientist
+⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher or a friend
 
 ---
 
 ## What Is This?
 
-AgenticEd is a free, open-curriculum initiative making **agentic AI education** accessible to every high school student and teacher.
+AgenticEd is a free, open-curriculum initiative making **agentic AI education** accessible to everyone — students, teachers, career-switchers, and self-learners. No age limit, no prerequisites. It's classroom-ready for high school, and works just as well for college courses, community programs, and independent study.
 
 The 6-week course covers:
 - What AI agents are and how they reason
@@ -16,7 +19,7 @@ The 6-week course covers:
 - Building a real working agent (no code required)
 - AI safety, ethics, and careers
 
-**No prior AI knowledge required — for teachers or students.**
+**No prior AI knowledge required — for anyone.**
 
 ---
 
@@ -31,12 +34,12 @@ This isn't textbook theory. It's the real technology, made accessible.
 ## 📁 Repository Structure
 
 ```
-agenticEd/
+AgenticEd/
 │
 ├── README.md                        ← You are here
 │
 ├── curriculum/
-│   ├── agenticEd_curriculum.md       ← Full 6-week curriculum guide
+│   ├── AgenticEd_curriculum.md       ← Full 6-week curriculum guide
 │   └── curriculum_overview.pdf      ← Printable one-page overview (coming soon)
 │
 ├── week-01-what-is-an-agent/
@@ -93,7 +96,7 @@ agenticEd/
 ## 🚀 Quick Start for Teachers
 
 **Option A — Teach the full 6-week course**
-1. Download `curriculum/agenticEd_curriculum.md` for the complete guide
+1. Download `curriculum/AgenticEd_curriculum.md` for the complete guide
 2. Download the slide deck and student activity for Week 1
 3. Email hello@agenticed.org — we'll send you the full kit and add you to our teacher community
 
@@ -102,6 +105,9 @@ Each week is designed to work independently. Week 2 (prompting) and Week 5 (buil
 
 **Option C — Run it as an after-school AI club**
 All 6 weeks work well in a 60-min/week after-school format. Many ACM Student Chapters and coding clubs use it this way.
+
+**Option D — Learn on your own**
+No teacher needed. Start at Week 1 on the website and work through at your own pace — every activity, quiz, and worksheet works solo, and you can generate a certificate when you finish.
 
 ---
 
@@ -125,7 +131,7 @@ No student accounts required for basic use. Teachers should test tool access fro
 
 | Metric | Value |
 |---|---|
-| Target grade range | 9–12 |
+| Audience | Open to all — classroom-ready for grades 9–12 |
 | Total course length | 6 weeks |
 | Minutes per week | 60–90 min |
 | Prior AI knowledge required | None |
@@ -175,7 +181,7 @@ You are free to:
 
 ## 🙏 Acknowledgments
 
-Aligned with [AI4K12.org](https://ai4k12.org) Big Ideas framework.  
+Aligned with [AI4K12.org](https://ai4k12.org) Big Ideas framework.
 Inspired by the gap between what students are taught about AI and what is actually being deployed in the real world.
 
 ---
