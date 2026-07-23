@@ -91,8 +91,8 @@
   function addStyles() {
     var style = document.createElement("style");
     style.textContent =
-      ".agenticed-progress-card{position:fixed;right:18px;bottom:18px;z-index:90;width:min(360px,calc(100vw - 36px));background:#fff;border:1px solid #E0D3C3;border-radius:14px;padding:16px 18px;box-shadow:0 16px 40px rgba(30,17,8,.16);font:13px/1.5 Inter,sans-serif;color:#1E1108}" +
-      ".agenticed-progress-card>div:first-child{display:flex;justify-content:space-between;gap:16px}.agenticed-progress-track{height:8px;background:#F2EAD8;border-radius:99px;overflow:hidden;margin:10px 0}.agenticed-progress-track span{display:block;height:100%;background:#E8654A;border-radius:inherit;transition:width .3s}.agenticed-progress-actions{display:flex;gap:12px;flex-wrap:wrap}.agenticed-progress-actions a{color:#B84330;font-weight:700;text-decoration:none}.agenticed-progress-actions a:hover{text-decoration:underline}@media(max-width:600px){.agenticed-progress-card{position:static;width:auto;margin:18px}.agenticed-progress-actions{gap:8px 14px}}";
+      ".agenticed-progress-card{position:fixed;right:18px;bottom:18px;z-index:90;width:min(360px,calc(100vw - 36px));background:#fff;border:1px solid #E4E1F0;border-radius:14px;padding:16px 18px;box-shadow:0 16px 40px rgba(18,21,38,.16);font:13px/1.5 Inter,sans-serif;color:#121526}" +
+      ".agenticed-progress-card>div:first-child{display:flex;justify-content:space-between;gap:16px}.agenticed-progress-track{height:8px;background:#F3F0FA;border-radius:99px;overflow:hidden;margin:10px 0}.agenticed-progress-track span{display:block;height:100%;background:#7C3AED;border-radius:inherit;transition:width .3s}.agenticed-progress-actions{display:flex;gap:12px;flex-wrap:wrap}.agenticed-progress-actions a{color:#B84330;font-weight:700;text-decoration:none}.agenticed-progress-actions a:hover{text-decoration:underline}@media(max-width:600px){.agenticed-progress-card{position:static;width:auto;margin:18px}.agenticed-progress-actions{gap:8px 14px}}";
     document.head.appendChild(style);
   }
 

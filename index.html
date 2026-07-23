@@ -8,15 +8,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cream:  #FAF3E8;
-      --brown:  #1E1108;
-      --coral:  #E8654A;
-      --coral-light: #FDF0EC;
-      --amber:  #F5A623;
-      --warm:   #7A6652;
-      --border: #E0D3C3;
+      --cream:  #FAF9FF;
+      --brown:  #121526;
+      --coral:  #7C3AED;
+      --coral-light: #F1E9FF;
+      --amber:  #A855F7;
+      --warm:   #646579;
+      --border: #E4E1F0;
       --white:  #FFFFFF;
-      --light:  #F2EAD8;
+      --light:  #F3F0FA;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -25,7 +25,7 @@
     /* ── NAV ── */
     .nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(250,243,232,0.95); backdrop-filter: blur(10px);
+      background: rgba(250,249,255,0.95); backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       padding: 14px 32px; display: flex; justify-content: space-between; align-items: center;
     }
@@ -35,13 +35,15 @@
     .nav__links a { text-decoration: none; color: var(--warm); font-size: 14px; font-weight: 500; transition: color 0.18s; }
     .nav__links a:hover { color: var(--coral); }
     .nav__cta { background: var(--coral) !important; color: var(--white) !important; padding: 9px 22px; border-radius: 6px; font-weight: 700 !important; transition: background 0.18s !important; }
-    .nav__cta:hover { background: #d04e38 !important; }
+    .nav__cta:hover { background: #6824D9 !important; }
 
     /* ── HERO ── */
     .hero {
       max-width: 1140px; margin: 0 auto; padding: 80px 32px 64px;
       display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center;
+      position:relative;
     }
+    .hero::before { content:""; position:absolute; inset:-80px -15vw 0; z-index:-1; pointer-events:none; background-image:linear-gradient(rgba(124,58,237,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.045) 1px,transparent 1px),radial-gradient(circle at 80% 28%,rgba(168,85,247,.17),transparent 34%); background-size:70px 70px,70px 70px,auto; }
     .hero__badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--amber); color: var(--brown);
@@ -68,8 +70,8 @@
       text-decoration: none; cursor: pointer; border: 2px solid transparent;
       transition: all 0.18s; font-family: 'Inter', sans-serif;
     }
-    .btn--primary { background: var(--coral); color: var(--white); }
-    .btn--primary:hover { background: #d04e38; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,101,74,0.3); }
+    .btn--primary { background: linear-gradient(135deg,#7C3AED,#9333EA); color: var(--white); box-shadow:0 8px 22px rgba(124,58,237,.2); }
+    .btn--primary:hover { background: #6824D9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.3); }
     .btn--ghost { background: transparent; color: var(--brown); border-color: var(--border); }
     .btn--ghost:hover { border-color: var(--brown); }
     .btn--sm { padding: 10px 20px; font-size: 14px; }
@@ -92,8 +94,8 @@
     .stats { background: var(--brown); padding: 52px 32px; }
     .stats__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; text-align: center; }
     .stat__n { font-family: 'Outfit', sans-serif; font-size: 52px; font-weight: 900; color: var(--coral); line-height: 1; margin-bottom: 10px; }
-    .stat__l { font-size: 14px; color: rgba(250,243,232,0.65); line-height: 1.55; }
-    .stat__src { font-size: 11px; color: rgba(250,243,232,0.35); margin-top: 4px; }
+    .stat__l { font-size: 14px; color: rgba(250,249,255,0.65); line-height: 1.55; }
+    .stat__src { font-size: 11px; color: rgba(250,249,255,0.35); margin-top: 4px; }
 
     /* ── LEARNING LEVELS ── */
     .levels { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
@@ -124,7 +126,7 @@
       padding: 28px; display: flex; flex-direction: column; gap: 10px;
       transition: transform 0.2s, box-shadow 0.2s;
     }
-    .wk:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(30,17,8,.08); }
+    .wk:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(18,21,38,.08); }
     .wk--open { border-color: var(--coral); border-width: 2px; background: var(--coral-light); }
     .wk__num { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm); }
     .wk--open .wk__num { color: var(--coral); }
@@ -140,7 +142,7 @@
     .build-card { background: var(--brown); border-radius: 14px; padding: 32px; color: var(--cream); }
     .build-card__icon { font-size: 32px; margin-bottom: 14px; }
     .build-card__title { font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 800; margin-bottom: 10px; }
-    .build-card__desc { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.65; margin-bottom: 16px; }
+    .build-card__desc { font-size: 14px; color: rgba(250,249,255,0.72); line-height: 1.65; margin-bottom: 16px; }
     .build-card__tools { font-size: 12px; color: var(--amber); font-weight: 600; }
 
     /* ── INSTRUCTOR ── */
@@ -148,22 +150,22 @@
     .instructor__inner { max-width: 1140px; margin: 0 auto; }
     .instructor__intro { max-width: 720px; margin-bottom: 34px; }
     .instructor__intro h2 { font-family:'Outfit',sans-serif; font-size:clamp(30px,4vw,42px); line-height:1.1; color:var(--cream); margin-bottom:12px; }
-    .instructor__intro p { color:rgba(250,243,232,.68); font-size:16px; }
+    .instructor__intro p { color:rgba(250,249,255,.68); font-size:16px; }
     .instructor__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
-    .instructor__profile { background:rgba(250,243,232,.05); border:1px solid rgba(250,243,232,.12); border-radius:18px; padding:28px; display:grid; grid-template-columns:132px 1fr; gap:24px; align-items:start; }
-    .instructor__photo { width:132px; aspect-ratio:4/5; object-fit:cover; object-position:center top; border-radius:14px; border:2px solid rgba(250,243,232,.16); }
+    .instructor__profile { background:rgba(250,249,255,.05); border:1px solid rgba(250,249,255,.12); border-radius:18px; padding:28px; display:grid; grid-template-columns:132px 1fr; gap:24px; align-items:start; }
+    .instructor__photo { width:132px; aspect-ratio:4/5; object-fit:cover; object-position:center top; border-radius:14px; border:2px solid rgba(250,249,255,.16); }
     .instructor__eye { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
     .instructor__name { font-family: 'Outfit', sans-serif; font-size: 25px; font-weight: 900; color: var(--cream); margin-bottom: 7px; line-height: 1.1; }
     .instructor__role { font-size:13px; line-height:1.5; color:var(--amber); font-weight:700; margin-bottom:14px; }
-    .instructor__bio { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.7; margin-bottom: 16px; }
+    .instructor__bio { font-size: 14px; color: rgba(250,249,255,0.72); line-height: 1.7; margin-bottom: 16px; }
     .instructor__creds { display: flex; flex-direction: column; gap: 9px; }
-    .cred { font-size: 13px; color: rgba(250,243,232,0.82); display: flex; align-items: flex-start; gap: 9px; }
+    .cred { font-size: 13px; color: rgba(250,249,255,0.82); display: flex; align-items: flex-start; gap: 9px; }
     .cred::before { content: '✦'; color: var(--coral); font-size: 9px; margin-top: 4px; flex-shrink: 0; }
-    .instructor__card { background: rgba(250,243,232,0.05); border: 1px solid rgba(250,243,232,0.1); border-radius: 14px; padding: 36px; }
+    .instructor__card { background: rgba(250,249,255,0.05); border: 1px solid rgba(250,249,255,0.1); border-radius: 14px; padding: 36px; }
     .instructor__quote { font-family: 'Outfit', sans-serif; font-size: 20px; font-style: italic; color: var(--cream); line-height: 1.55; margin-bottom: 20px; }
     .instructor__handle { font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 14px; }
     .instructor__links { display: flex; gap: 14px; flex-wrap: wrap; }
-    .instructor__link { font-size: 13px; color: rgba(250,243,232,0.5); text-decoration: none; transition: color 0.18s; }
+    .instructor__link { font-size: 13px; color: rgba(250,249,255,0.5); text-decoration: none; transition: color 0.18s; }
     .instructor__link:hover { color: var(--cream); }
 
     /* ── FOR TEACHERS ── */
@@ -192,9 +194,9 @@
     .footer__logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 18px; color: var(--cream); }
     .footer__logo em { font-style: normal; color: var(--coral); }
     .footer__links { display: flex; gap: 20px; list-style: none; }
-    .footer__links a { text-decoration: none; color: rgba(250,243,232,0.5); font-size: 13px; transition: color 0.18s; }
+    .footer__links a { text-decoration: none; color: rgba(250,249,255,0.5); font-size: 13px; transition: color 0.18s; }
     .footer__links a:hover { color: var(--cream); }
-    .footer__copy { width: 100%; text-align: center; font-size: 13px; color: rgba(250,243,232,0.4); margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(250,243,232,0.08); }
+    .footer__copy { width: 100%; text-align: center; font-size: 13px; color: rgba(250,249,255,0.4); margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(250,249,255,0.08); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -248,39 +250,39 @@
     <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#E8654A"/>
+          <path d="M0,1 L9,5 L0,9 Z" fill="#7C3AED"/>
         </marker>
         <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#F5A623"/>
+          <path d="M0,1 L9,5 L0,9 Z" fill="#A855F7"/>
         </marker>
         <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#1E1108"/>
+          <path d="M0,1 L9,5 L0,9 Z" fill="#121526"/>
         </marker>
       </defs>
       <path id="p1" d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="none"/>
       <path id="p2" d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="none"/>
       <path id="p3" d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="none"/>
-      <path d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a1)"/>
-      <path d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a2)"/>
-      <path d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="#E0D3C3" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a3)"/>
-      <circle class="ring-think" cx="200" cy="82" r="54" fill="none" stroke="rgba(30,17,8,0.1)" stroke-width="1"/>
-      <circle cx="200" cy="82" r="48" fill="#1E1108"/>
-      <text x="200" y="76" text-anchor="middle" fill="#FAF3E8" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">THINK</text>
-      <text x="200" y="93" text-anchor="middle" fill="#E8654A" font-family="Inter,sans-serif" font-weight="600" font-size="10">Reason &amp; Plan</text>
-      <circle class="ring-act" cx="318" cy="305" r="54" fill="none" stroke="rgba(232,101,74,0.15)" stroke-width="1"/>
-      <circle cx="318" cy="305" r="48" fill="#E8654A"/>
+      <path d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a1)"/>
+      <path d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a2)"/>
+      <path d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a3)"/>
+      <circle class="ring-think" cx="200" cy="82" r="54" fill="none" stroke="rgba(18,21,38,0.1)" stroke-width="1"/>
+      <circle cx="200" cy="82" r="48" fill="#121526"/>
+      <text x="200" y="76" text-anchor="middle" fill="#FAF9FF" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">THINK</text>
+      <text x="200" y="93" text-anchor="middle" fill="#7C3AED" font-family="Inter,sans-serif" font-weight="600" font-size="10">Reason &amp; Plan</text>
+      <circle class="ring-act" cx="318" cy="305" r="54" fill="none" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
+      <circle cx="318" cy="305" r="48" fill="#7C3AED"/>
       <text x="318" y="299" text-anchor="middle" fill="#FFFFFF" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">ACT</text>
       <text x="318" y="316" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Use Tools</text>
       <circle class="ring-obs" cx="82" cy="305" r="54" fill="none" stroke="rgba(245,166,35,0.15)" stroke-width="1"/>
-      <circle cx="82" cy="305" r="48" fill="#F5A623"/>
-      <text x="82" y="299" text-anchor="middle" fill="#1E1108" font-family="Outfit,sans-serif" font-weight="800" font-size="11" letter-spacing="1.5">OBSERVE</text>
-      <text x="82" y="316" text-anchor="middle" fill="rgba(30,17,8,0.7)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Learn &amp; Adapt</text>
-      <circle id="d1a" r="5" fill="#E8654A" opacity="0.9"/>
-      <circle id="d1b" r="5" fill="#E8654A" opacity="0.9"/>
-      <circle id="d2a" r="5" fill="#F5A623" opacity="0.9"/>
-      <circle id="d2b" r="5" fill="#F5A623" opacity="0.9"/>
-      <circle id="d3a" r="5" fill="#1E1108" opacity="0.9"/>
-      <circle id="d3b" r="5" fill="#1E1108" opacity="0.9"/>
+      <circle cx="82" cy="305" r="48" fill="#A855F7"/>
+      <text x="82" y="299" text-anchor="middle" fill="#121526" font-family="Outfit,sans-serif" font-weight="800" font-size="11" letter-spacing="1.5">OBSERVE</text>
+      <text x="82" y="316" text-anchor="middle" fill="rgba(18,21,38,0.7)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Learn &amp; Adapt</text>
+      <circle id="d1a" r="5" fill="#7C3AED" opacity="0.9"/>
+      <circle id="d1b" r="5" fill="#7C3AED" opacity="0.9"/>
+      <circle id="d2a" r="5" fill="#A855F7" opacity="0.9"/>
+      <circle id="d2b" r="5" fill="#A855F7" opacity="0.9"/>
+      <circle id="d3a" r="5" fill="#121526" opacity="0.9"/>
+      <circle id="d3b" r="5" fill="#121526" opacity="0.9"/>
       <text x="200" y="196" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">The Agent</text>
       <text x="200" y="214" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">Reasoning Loop</text>
     </svg>
