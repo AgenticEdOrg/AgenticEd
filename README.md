@@ -1,6 +1,6 @@
 # AgenticEd — Agentic AI for Everyone
 
-**Free, practitioner-authored open curriculum teaching anyone to build AI agents — not just use them.**
+**Free, practitioner-authored learning paths that take people from AI literacy to building and evaluating agentic systems.**
 
 Created by [Jothsna Praveena Pendyala](https://instagram.com/jothsna.aitales) · AI Platform Architect & Senior Data Scientist
 ⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher or a friend
@@ -9,7 +9,17 @@ Created by [Jothsna Praveena Pendyala](https://instagram.com/jothsna.aitales) ·
 
 ## What Is This?
 
-AgenticEd is a free, open-curriculum initiative making **agentic AI education** accessible to everyone — students, teachers, career-switchers, and self-learners. No age limit, no prerequisites. It's classroom-ready for high school, and works just as well for college courses, community programs, and independent study.
+AgenticEd is a free, open-curriculum initiative making **practical AI education** accessible to everyone — students, teachers, career-switchers, and self-learners. No age limit and no prerequisites for the Beginner path. It is classroom-ready for high school and works for college courses, community programs, and independent study.
+
+## Learning Paths
+
+| Level | Path | Focus | Status |
+|---|---|---|---|
+| Beginner | AI & Agent Foundations | AI literacy, generative AI, prompting, tools, memory, simple agents, and responsible use | Available |
+| Intermediate | AI Application & Agent Builder | Python, APIs, RAG, tool calling, state, memory, and evaluation | In development |
+| Advanced | Production Agentic Systems | Architecture, orchestration, security, observability, evaluation, and deployment | Roadmap |
+
+The current six-week course is the **Beginner Foundations** path. Learners can follow it weekly or complete it at their own pace. Progress is tracked locally in the browser through lesson activity, quiz results, and portfolio evidence.
 
 The 6-week course covers:
 - What AI agents are and how they reason

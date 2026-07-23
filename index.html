@@ -96,6 +96,21 @@
     .stat__l { font-size: 14px; color: rgba(250,243,232,0.65); line-height: 1.55; }
     .stat__src { font-size: 11px; color: rgba(250,243,232,0.35); margin-top: 4px; }
 
+    /* ── LEARNING LEVELS ── */
+    .levels { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
+    .levels__head { display:flex; justify-content:space-between; gap:32px; align-items:end; margin-bottom:32px; }
+    .levels__head p { max-width:520px; color:var(--warm); }
+    .levels__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .level { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:26px; position:relative; overflow:hidden; }
+    .level--active { border:2px solid var(--coral); }
+    .level__n { font-family:'Outfit',sans-serif; font-weight:900; font-size:44px; color:var(--light); position:absolute; right:18px; top:8px; }
+    .level--active .level__n { color:var(--coral-light); }
+    .level__status { font-size:10px; text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:var(--coral); }
+    .level__title { font-family:'Outfit',sans-serif; font-size:21px; font-weight:800; margin:12px 0 8px; max-width:220px; }
+    .level__desc { font-size:13px; color:var(--warm); margin-bottom:20px; min-height:82px; }
+    .level__meta { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
+    .level__meta span { font-size:11px; font-weight:700; background:var(--cream); padding:5px 8px; border-radius:99px; }
+
     /* ── SECTION SHELL ── */
     .sec { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
     .sec--0top { padding-top: 0; }
@@ -182,6 +197,8 @@
       .stats__inner { grid-template-columns: 1fr; gap: 32px; }
       .instructor__inner { grid-template-columns: 1fr; }
       .journey-grid, .build-grid { grid-template-columns: 1fr 1fr; }
+      .levels__grid { grid-template-columns:1fr; }
+      .levels__head { display:block; }
       .nav__links li:not(:last-child) { display: none; }
       .sec { padding: 60px 20px; }
     }
@@ -194,28 +211,29 @@
 
 <!-- ── NAV ── -->
 <nav class="nav">
-  <a href="index.html" class="nav__logo">Agent<em>Edu</em></a>
+  <a href="index.html" class="nav__logo">Agentic<em>Ed</em></a>
   <ul class="nav__links">
-    <li><a href="#course">The Course</a></li>
-    <li><a href="#build">What You'll Build</a></li>
+    <li><a href="learn.html">Learning Paths</a></li>
+    <li><a href="dashboard.html">Dashboard</a></li>
+    <li><a href="#build">Projects</a></li>
     <li><a href="#teachers">For Teachers</a></li>
     <li><a href="#resources">Resources</a></li>
-    <li><a href="week1.html" class="nav__cta">Start Week 1 →</a></li>
+    <li><a href="week1.html" class="nav__cta">Start Learning →</a></li>
   </ul>
 </nav>
 
 <!-- ── HERO ── -->
 <section class="hero">
   <div>
-    <div class="hero__badge">🚀 Free · No experience needed · Start today</div>
-    <h1 class="hero__h1">AI agents are being built<br/>right now.<br/><em>Learn how.</em></h1>
-    <p class="hero__sub">A free 6-week course designed by an AI Platform Architect who builds production agent systems every day. Real skills, no textbook theory, no coding experience required.</p>
+    <div class="hero__badge">Free · Practical · Responsible · Open to everyone</div>
+    <h1 class="hero__h1">Learn AI.<br/>Build agents.<br/><em>Prove what you know.</em></h1>
+    <p class="hero__sub">Follow practical weekly learning paths from AI literacy and generative AI foundations to agent building and production systems. Start without coding, then grow as technical as you want.</p>
     <div class="hero__btns">
-      <a href="week1.html" class="btn btn--primary">Start Week 1 — It's Free →</a>
-      <a href="#course" class="btn btn--ghost">See the 6-week journey</a>
+      <a href="week1.html" class="btn btn--primary">Start Beginner Foundations →</a>
+      <a href="learn.html" class="btn btn--ghost">Explore learning paths</a>
     </div>
     <div class="hero__trust">
-      <div class="hero__trust-text">Designed by <strong>Jothsna Pendyala</strong> · AI Platform Architect at AT&amp;T · <strong>Free forever</strong></div>
+      <div class="hero__trust-text"><strong>No experience required</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
     </div>
   </div>
   <div class="loop-wrap">
@@ -265,41 +283,72 @@
 <div class="stats">
   <div class="stats__inner">
     <div>
-      <div class="stat__n">143%</div>
-      <div class="stat__l">year-over-year growth in demand for AI engineers</div>
-      <div class="stat__src">DemandSage, 2025</div>
+      <div class="stat__n">Learn</div>
+      <div class="stat__l">Understand AI, generative models, agents, and their limitations</div>
+      <div class="stat__src">Clear concepts · No hype</div>
     </div>
     <div>
-      <div class="stat__n">$157K</div>
-      <div class="stat__l">median annual salary for AI roles in the United States</div>
-      <div class="stat__src">DemandSage, Q1 2025</div>
+      <div class="stat__n">Build</div>
+      <div class="stat__l">Turn each concept into an experiment, activity, or working project</div>
+      <div class="stat__src">Practical evidence · Portfolio ready</div>
     </div>
     <div>
-      <div class="stat__n">6 wks</div>
-      <div class="stat__l">From "what is an AI agent?" to building and demoing your own</div>
-      <div class="stat__src">AgenticEd · Free · No coding needed</div>
+      <div class="stat__n">Break</div>
+      <div class="stat__l">Test failures, evaluate results, and decide when humans must intervene</div>
+      <div class="stat__src">Responsible AI · Human judgment</div>
     </div>
   </div>
 </div>
 
+<!-- ── LEARNING LEVELS ── -->
+<section class="levels">
+  <div class="levels__head">
+    <div><span class="sec__eye">Three levels, one clear path</span><h2 class="sec__h2">Begin where you are. Keep building.</h2></div>
+    <p>AgenticEd begins with accessible AI literacy, adds a Python bridge for technical learners, and progresses toward reliable agentic systems.</p>
+  </div>
+  <div class="levels__grid">
+    <article class="level level--active">
+      <span class="level__n">01</span><div class="level__status">Available now</div>
+      <h3 class="level__title">AI &amp; Agent Foundations</h3>
+      <p class="level__desc">AI literacy, generative AI, prompting, tools, memory, basic agents, responsible use, and a first project.</p>
+      <div class="level__meta"><span>6 weeks</span><span>No coding</span><span>Beginner</span></div>
+      <a href="week1.html" class="btn btn--primary btn--sm">Start Level 1 →</a>
+    </article>
+    <article class="level">
+      <span class="level__n">02</span><div class="level__status">In development</div>
+      <h3 class="level__title">AI Application &amp; Agent Builder</h3>
+      <p class="level__desc">Python, APIs, JSON, structured outputs, semantic search, RAG, tools, state, memory, and evaluation.</p>
+      <div class="level__meta"><span>8 weeks</span><span>Python bridge</span><span>Intermediate</span></div>
+      <a href="learn.html" class="btn btn--ghost btn--sm">Preview the path →</a>
+    </article>
+    <article class="level">
+      <span class="level__n">03</span><div class="level__status">Roadmap</div>
+      <h3 class="level__title">Production Agentic Systems</h3>
+      <p class="level__desc">Architecture, orchestration, multi-agent patterns, security, observability, evaluation, and deployment.</p>
+      <div class="level__meta"><span>8 weeks</span><span>Advanced</span><span>Capstone</span></div>
+      <a href="learn.html" class="btn btn--ghost btn--sm">See the roadmap →</a>
+    </article>
+  </div>
+</section>
+
 <!-- ── JOURNEY ── -->
 <section class="sec" id="course">
-  <span class="sec__eye">The Course</span>
-  <h2 class="sec__h2">Six weeks. One session each. Real skills you can show.</h2>
-  <p class="sec__desc">Each session takes 60–90 minutes and builds directly on the last. Start anytime, go at your own pace. Week 1 is open right now.</p>
+  <span class="sec__eye">Level 1 · Beginner Foundations</span>
+  <h2 class="sec__h2">Six weekly missions. Visible progress. Real evidence.</h2>
+  <p class="sec__desc">Each week combines a concept, experiment, activity, quiz, and portfolio artifact. Complete it in six weeks or move at your own pace.</p>
 
   <div class="journey-grid">
     <div class="wk wk--open">
       <div class="wk__num">WEEK 1 · OPEN NOW</div>
-      <div class="wk__title">What Is an AI Agent?</div>
-      <p class="wk__desc">Understand what makes AI "agentic." Map the Think → Act → Observe loop. Find AI agents hiding in products you already use every day.</p>
+      <div class="wk__title">AI Foundations: From Automation to Agents</div>
+      <p class="wk__desc">Distinguish automation, AI, machine learning, generative AI, and agents. Then map the Think → Act → Observe loop.</p>
       <div class="wk__activity"><strong>✦ Activity:</strong> The Agent Hunt — map a real AI agent's full decision loop</div>
       <a href="week1.html" class="btn btn--primary btn--sm wk__cta">Start Week 1 →</a>
     </div>
 
     <div class="wk">
       <div class="wk__num">WEEK 2</div>
-      <div class="wk__title">The Brain Behind the Agent</div>
+      <div class="wk__title">Generative AI &amp; LLMs</div>
       <p class="wk__desc">How Large Language Models actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
       <div class="wk__activity"><strong>✦ Activity:</strong> Prompt Engineering Challenge — 3 rounds</div>
       <a href="week2.html" class="btn btn--ghost btn--sm wk__cta">Start Week 2 →</a>
@@ -307,7 +356,7 @@
 
     <div class="wk">
       <div class="wk__num">WEEK 3</div>
-      <div class="wk__title">Tools &amp; Memory</div>
+      <div class="wk__title">Tools, Retrieval &amp; Memory</div>
       <p class="wk__desc">Why a bare LLM is limited — and how tools and memory transform it. Web search, calculators, databases. RAG explained simply.</p>
       <div class="wk__activity"><strong>✦ Activity:</strong> Memory Bot — test what an AI actually remembers</div>
       <a href="week3.html" class="btn btn--ghost btn--sm wk__cta">Start Week 3 →</a>
@@ -315,8 +364,8 @@
 
     <div class="wk">
       <div class="wk__num">WEEK 4</div>
-      <div class="wk__title">Multi-Agent Systems</div>
-      <p class="wk__desc">When one agent isn't enough. Orchestrators, workers, handoffs. How real enterprise AI pipelines are actually structured.</p>
+      <div class="wk__title">Agent Workflows &amp; Handoffs</div>
+      <p class="wk__desc">Move from one response to a controlled workflow. Explore orchestrators, workers, handoffs, failure propagation, and human checkpoints.</p>
       <div class="wk__activity"><strong>✦ Activity:</strong> Design your own multi-agent pipeline</div>
       <a href="week4.html" class="btn btn--ghost btn--sm wk__cta">Start Week 4 →</a>
     </div>
@@ -331,7 +380,7 @@
 
     <div class="wk">
       <div class="wk__num">WEEK 6</div>
-      <div class="wk__title">AI Safety &amp; Your Future</div>
+      <div class="wk__title">Responsible AI &amp; Your Future</div>
       <p class="wk__desc">What can go wrong with AI agents. Who is responsible. The ethics of autonomous systems. And where careers in AI are actually heading.</p>
       <div class="wk__activity"><strong>✦ Activity:</strong> The Hospital Debate — three sides, one decision</div>
       <a href="week6.html" class="btn btn--ghost btn--sm wk__cta">Start Week 6 →</a>
@@ -445,27 +494,19 @@
 <div class="signup" id="start">
   <div class="signup__inner">
     <h2 class="signup__h2">Ready to start learning?</h2>
-    <p class="signup__desc">Week 1 is open right now — no signup needed. Drop your email and we'll notify you when new weeks go live.</p>
+    <p class="signup__desc">Begin with Week 1 or open your private, device-local dashboard to continue where you left off.</p>
     <div style="margin-bottom:20px;">
       <a href="week1.html" class="btn btn--ghost" style="background:var(--white);color:var(--brown);border-color:transparent;font-size:16px;padding:15px 32px;">Start Week 1 Now — No Signup Needed →</a>
     </div>
-    <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px;">— or drop your email for updates + a free reference card —</p>
-    <div class="signup__form" id="frm">
-      <input class="signup__inp" id="em" type="email" placeholder="Your email address" />
-      <button class="signup__btn" onclick="sub()">Send Me the Reference Card →</button>
-    </div>
-    <div id="thanks">✓ Check your inbox! Your quick reference card is on the way.</div>
-    <p class="signup__fine">No spam. Your reference card + one email when each new week drops.</p>
-    <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.55);">
-      Or <a href="./AgenticEd_StudentReference.pdf" download style="color:rgba(255,255,255,0.75);">download the reference card directly ↓</a>
-    </p>
+    <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px;">Your progress, quiz results, and portfolio notes stay in this browser.</p>
+    <a href="dashboard.html" class="btn btn--ghost" style="color:var(--white);border-color:rgba(255,255,255,.5);">Open My Dashboard →</a>
   </div>
 </div>
 
 <!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footer__inner">
-    <div class="footer__logo">Agent<em>Edu</em></div>
+    <div class="footer__logo">Agentic<em>Ed</em></div>
     <ul class="footer__links">
       <li><a href="week1.html">Start Week 1</a></li>
       <li><a href="#resources">Resources</a></li>

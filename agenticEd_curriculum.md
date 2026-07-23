@@ -1,6 +1,4 @@
 # Agentic AI: A 6-Week Course for Everyone
-### A Free Curriculum by AgenticEd · Created by Jothsna Praveena Pendyala
-
 ---
 
 **Course Description**

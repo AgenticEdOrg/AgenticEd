@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Learning Dashboard — AgenticEd</title>
+  <meta name="description" content="Track weekly AgenticEd lessons, activities, quizzes, projects, and certificate progress.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#18120d;--cream:#fbf6ed;--paper:#fff;--coral:#e65f45;--amber:#f5b544;--sage:#2f6f62;--muted:#74675c;--line:#dfd5c7}
+    *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,sans-serif;line-height:1.55}.nav{height:70px;display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1160px)/2));border-bottom:1px solid var(--line);background:rgba(251,246,237,.96)}.logo{font:900 22px Outfit;text-decoration:none;color:var(--ink)}.logo span{color:var(--coral)}.links{display:flex;gap:22px;align-items:center}.links a{text-decoration:none;color:var(--muted);font-size:14px;font-weight:700}.links .cta{background:var(--ink);color:#fff;padding:10px 16px;border-radius:9px}.shell{max-width:1160px;margin:auto;padding:58px 24px 100px}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:800;color:var(--coral)}h1{font:900 clamp(38px,6vw,62px)/1 Outfit;margin:12px 0}.lead{font-size:17px;color:var(--muted);max-width:670px}.summary{margin:34px 0;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:14px}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px}.big{font:900 36px Outfit}.label{color:var(--muted);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.bar{height:12px;background:#eee6db;border-radius:99px;overflow:hidden;margin:16px 0 8px}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--coral),var(--amber));border-radius:inherit}.weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}.week{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative}.week.current{border:2px solid var(--coral)}.week.complete:after{content:"✓";position:absolute;right:18px;top:18px;width:27px;height:27px;border-radius:50%;display:grid;place-items:center;background:var(--sage);color:#fff;font-weight:900}.week__num{font-size:11px;font-weight:800;color:var(--coral);letter-spacing:.1em;text-transform:uppercase}.week h2{font:800 20px Outfit;margin:8px 35px 12px 0}.check{display:flex;justify-content:space-between;padding:6px 0;color:var(--muted);font-size:13px}.check.done{color:var(--sage);font-weight:700}.week a{display:inline-block;margin-top:14px;color:var(--coral);font-weight:800;text-decoration:none}.privacy{margin-top:28px;padding:16px 18px;border-left:4px solid var(--amber);background:#fff7e5;font-size:13px;color:var(--muted)}@media(max-width:850px){.summary{grid-template-columns:1fr 1fr}.summary .course{grid-column:1/-1}.weeks{grid-template-columns:1fr 1fr}}@media(max-width:600px){.links a:not(.cta){display:none}.summary,.weeks{grid-template-columns:1fr}.summary .course{grid-column:auto}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="logo" href="index.html">Agentic<span>Ed</span></a>
+    <div class="links"><a href="learn.html">Learn</a><a href="portfolio.html">Portfolio</a><a href="glossary.html">Resources</a><a class="cta" id="continue-top" href="week1.html">Continue</a></div>
+  </nav>
+  <main class="shell">
+    <div class="eyebrow">Your learning dashboard</div>
+    <h1>Build momentum, one week at a time.</h1>
+    <p class="lead">Your Beginner Foundations progress is calculated from lessons visited, saved activities, quiz results, and portfolio evidence.</p>
+    <section class="summary">
+      <div class="card course"><div class="label">Beginner · AI &amp; Agent Foundations</div><div class="bar"><span id="overall-fill"></span></div><strong id="overall-label">0% complete</strong></div>
+      <div class="card"><div class="big" id="weeks-done">0/6</div><div class="label">Weeks complete</div></div>
+      <div class="card"><div class="big" id="quiz-average">—</div><div class="label">Quiz points earned</div></div>
+      <div class="card"><div class="big" id="artifacts">0</div><div class="label">Portfolio artifacts</div></div>
+    </section>
+    <div class="eyebrow">Weekly progress</div>
+    <section class="weeks" id="weeks"></section>
+    <div class="privacy">Progress is stored only in this browser on this device. AgenticEd does not create an account or upload this learning record.</div>
+  </main>
+  <script src="progress.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var titles=["What Is AI & an Agent?","Generative AI & LLMs","Tools, Retrieval & Memory","Agent Workflows & Handoffs","Build Your First Agent","Responsible AI & Your Future"];
+      var progress=window.AgenticEdProgress.allWeeks();
+      var complete=progress.filter(function(w){return w.complete;}).length;
+      var total=progress.reduce(function(sum,w){return sum+w.percent;},0);
+      var overall=Math.round(total/6);
+      var quizPoints=progress.reduce(function(sum,w){return sum+w.quizScore;},0);
+      var artifacts=progress.filter(function(w){return w.artifact;}).length;
+      var current=progress.find(function(w){return !w.complete;})||progress[5];
+      document.getElementById("overall-fill").style.width=overall+"%";
+      document.getElementById("overall-label").textContent=overall+"% complete";
+      document.getElementById("weeks-done").textContent=complete+"/6";
+      document.getElementById("quiz-average").textContent=quizPoints?quizPoints+" pts":"—";
+      document.getElementById("artifacts").textContent=artifacts;
+      document.getElementById("continue-top").href="week"+current.week+".html";
+      document.getElementById("weeks").innerHTML=progress.map(function(w){
+        return '<article class="week '+(w.complete?'complete ':'')+(w.week===current.week?'current':'')+'">'+
+          '<div class="week__num">Week '+w.week+' · '+w.percent+'%</div><h2>'+titles[w.week-1]+'</h2>'+
+          check("Lesson opened",w.visited)+check("Activity saved",w.activity)+check("Quiz passed",w.quiz)+check("Portfolio evidence",w.artifact)+
+          '<div class="bar"><span style="width:'+w.percent+'%"></span></div><a href="week'+w.week+'.html">'+(w.week===current.week?"Continue week":"Open week")+' →</a></article>';
+      }).join("");
+      function check(label,done){return '<div class="check '+(done?'done':'')+'"><span>'+label+'</span><span>'+(done?'✓':'○')+'</span></div>';}
+    });
+  </script>
+</body>
+</html>
