@@ -146,10 +146,17 @@
 
     /* ── INSTRUCTOR ── */
     .instructor { background: var(--brown); padding: 80px 32px; }
-    .instructor__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .instructor__inner { max-width: 1140px; margin: 0 auto; }
+    .instructor__intro { max-width: 720px; margin-bottom: 34px; }
+    .instructor__intro h2 { font-family:'Outfit',sans-serif; font-size:clamp(30px,4vw,42px); line-height:1.1; color:var(--cream); margin-bottom:12px; }
+    .instructor__intro p { color:rgba(250,243,232,.68); font-size:16px; }
+    .instructor__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+    .instructor__profile { background:rgba(250,243,232,.05); border:1px solid rgba(250,243,232,.12); border-radius:18px; padding:28px; display:grid; grid-template-columns:132px 1fr; gap:24px; align-items:start; }
+    .instructor__photo { width:132px; aspect-ratio:4/5; object-fit:cover; object-position:center top; border-radius:14px; border:2px solid rgba(250,243,232,.16); }
     .instructor__eye { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
-    .instructor__name { font-family: 'Outfit', sans-serif; font-size: 32px; font-weight: 900; color: var(--cream); margin-bottom: 16px; line-height: 1.1; }
-    .instructor__bio { font-size: 15px; color: rgba(250,243,232,0.72); line-height: 1.8; margin-bottom: 20px; }
+    .instructor__name { font-family: 'Outfit', sans-serif; font-size: 25px; font-weight: 900; color: var(--cream); margin-bottom: 7px; line-height: 1.1; }
+    .instructor__role { font-size:13px; line-height:1.5; color:var(--amber); font-weight:700; margin-bottom:14px; }
+    .instructor__bio { font-size: 14px; color: rgba(250,243,232,0.72); line-height: 1.7; margin-bottom: 16px; }
     .instructor__creds { display: flex; flex-direction: column; gap: 9px; }
     .cred { font-size: 13px; color: rgba(250,243,232,0.82); display: flex; align-items: flex-start; gap: 9px; }
     .cred::before { content: '✦'; color: var(--coral); font-size: 9px; margin-top: 4px; flex-shrink: 0; }
@@ -195,7 +202,7 @@
       .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
       .loop-wrap { max-width: 280px; margin: 0 auto; }
       .stats__inner { grid-template-columns: 1fr; gap: 32px; }
-      .instructor__inner { grid-template-columns: 1fr; }
+      .instructor__grid { grid-template-columns: 1fr; }
       .journey-grid, .build-grid { grid-template-columns: 1fr 1fr; }
       .levels__grid { grid-template-columns:1fr; }
       .levels__head { display:block; }
@@ -204,6 +211,8 @@
     }
     @media (max-width: 600px) {
       .journey-grid, .build-grid { grid-template-columns: 1fr; }
+      .instructor__profile { grid-template-columns:1fr; }
+      .instructor__photo { width:110px; }
     }
   </style>
 </head>
@@ -416,29 +425,43 @@
   </div>
 </section>
 
-<!-- ── INSTRUCTOR ── -->
+<!-- ── INSTRUCTORS ── -->
 <div class="instructor">
   <div class="instructor__inner">
-    <div>
-      <p class="instructor__eye">Built by someone who does this for a living</p>
-      <h2 class="instructor__name">Jothsna Praveena Pendyala</h2>
-      <p class="instructor__bio">I build production AI agent systems that are used by millions of people. The tools in this course — LLMs, tool-calling, multi-agent orchestration — are the same ones I work with every day at one of the largest companies in the US.</p>
-      <p class="instructor__bio">I built AgenticEd because I kept seeing students graduate without knowing how to build the things they were already using. This course closes that gap.</p>
-      <div class="instructor__creds">
-        <div class="cred">AI Platform Architect &amp; Senior Data Scientist — Infosys / AT&amp;T, Dallas</div>
-        <div class="cred">Claude Certified Architect · IEEE Senior Member</div>
-        <div class="cred">Director of Innovation, ACM Dallas Chapter</div>
-        <div class="cred">Co-editor, <em>RAG In Action</em> · Creator, <em>The Agentic Stack</em> newsletter</div>
-      </div>
+    <div class="instructor__intro">
+      <p class="instructor__eye">Meet your instructors</p>
+      <h2>Built by technology leaders who work on real systems.</h2>
+      <p>AgenticEd connects accessible explanations with the engineering judgment required to build dependable AI applications.</p>
     </div>
-    <div class="instructor__card">
-      <p class="instructor__quote">"The students who understand how to build AI agents — not just use them — are going to have an extraordinary advantage. That window is right now."</p>
-      <p class="instructor__handle">@jothsna.aitales</p>
-      <div class="instructor__links">
-        <a href="https://instagram.com/jothsna.aitales" class="instructor__link" target="_blank">Instagram</a>
-        <a href="https://linkedin.com" class="instructor__link" target="_blank">LinkedIn</a>
-        <a href="https://github.com/jothsnapraveena/AgenticEd" class="instructor__link" target="_blank">GitHub</a>
-      </div>
+    <div class="instructor__grid">
+      <article class="instructor__profile">
+        <img class="instructor__photo" src="images/Jothsna%20headshot.jpg" alt="Jothsna Praveena Pendyala">
+        <div>
+          <h3 class="instructor__name">Jothsna Praveena Pendyala</h3>
+          <p class="instructor__role">AI Platform Architect &amp; Senior Data Scientist</p>
+          <p class="instructor__bio">Jothsna builds production agentic AI systems at enterprise scale and created AgenticEd to make the technology understandable, practical, and responsible for new learners.</p>
+          <div class="instructor__creds">
+            <div class="cred">Claude Certified Architect · IEEE Senior Member</div>
+            <div class="cred">Director of Innovation, ACM Dallas Chapter</div>
+            <div class="cred">Co-editor, <em>RAG In Action</em></div>
+          </div>
+          <div class="instructor__links" style="margin-top:16px;">
+            <a href="https://instagram.com/jothsna.aitales" class="instructor__link" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </article>
+      <article class="instructor__profile">
+        <img class="instructor__photo" src="images/Nithesh.jpeg" alt="Nithesh Gudipuri">
+        <div>
+          <h3 class="instructor__name">Nithesh Gudipuri</h3>
+          <p class="instructor__role">Associate Director of Technology · Raymond James Financial</p>
+          <p class="instructor__bio">Nithesh leads the engineering team behind securities back-office infrastructure, bringing experience in technology leadership, dependable financial systems, and production engineering to AgenticEd.</p>
+          <div class="instructor__creds">
+            <div class="cred">Engineering leadership for securities infrastructure</div>
+            <div class="cred">Production technology and operational reliability</div>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </div>
@@ -516,7 +539,7 @@
       <li><a href="https://github.com/jothsnapraveena/AgenticEd" target="_blank">GitHub</a></li>
       <li><a href="mailto:hello@agenticed.org">Contact</a></li>
     </ul>
-    <p class="footer__copy">© 2026 AgenticEd · Created by Jothsna Praveena Pendyala · Free for any student, anywhere · CC BY 4.0</p>
+    <p class="footer__copy">© 2026 AgenticEd · Created by Jothsna Praveena Pendyala &amp; Nithesh Gudipuri · Free for any learner, anywhere · CC BY 4.0</p>
   </div>
 </footer>
 

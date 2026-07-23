@@ -2,7 +2,7 @@
 
 **Free, practitioner-authored learning paths that take people from AI literacy to building and evaluating agentic systems.**
 
-Created by [Jothsna Praveena Pendyala](https://instagram.com/jothsna.aitales) · AI Platform Architect & Senior Data Scientist
+Created by **Jothsna Praveena Pendyala** and **Nithesh Gudipuri**.
 ⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher or a friend
 
 ---
@@ -35,7 +35,10 @@ The 6-week course covers:
 
 ## Who Made This?
 
-This curriculum was designed and written by **Jothsna Praveena Pendyala**, an AI Platform Architect who builds production agentic AI systems at enterprise scale (Infosys / AT&T). She is a Claude Certified Architect, IEEE Senior Member, Director of Innovation at ACM Dallas, and co-editor of *RAG In Action*.
+This curriculum is led by:
+
+- **Jothsna Praveena Pendyala** — AI Platform Architect and Senior Data Scientist. She builds production agentic AI systems at enterprise scale and is a Claude Certified Architect, IEEE Senior Member, Director of Innovation at ACM Dallas, and co-editor of *RAG In Action*.
+- **Nithesh Gudipuri** — Associate Director of Technology at Raymond James Financial, leading the engineering team behind securities back-office infrastructure.
 
 This isn't textbook theory. It's the real technology, made accessible.
 
@@ -185,7 +188,7 @@ You are free to:
 - Adapt and remix it for your context
 - Share it with other teachers
 
-**Please credit:** *AgenticEd · Created by Jothsna Praveena Pendyala · agenticed.org*
+**Please credit:** *AgenticEd · Created by Jothsna Praveena Pendyala and Nithesh Gudipuri · agenticed.org*
 
 ---
 
