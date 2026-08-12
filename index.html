@@ -216,6 +216,7 @@
       .instructor__photo { width:110px; }
     }
   </style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
 </head>
 <body>
 
@@ -468,8 +469,6 @@
 
 <!-- ── RESOURCES ── -->
 <style>
-  .qa-proof{padding:64px 32px;background:var(--brown);color:var(--white)}
-  .qa-proof__inner{max-width:1140px;margin:0 auto}.qa-proof__eye{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}.qa-proof h2{font:900 clamp(26px,4vw,38px)/1.1 'Outfit',sans-serif;margin-bottom:24px}.qa-proof__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.qa-proof__metric{padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.06)}.qa-proof__value{display:block;font:900 32px 'Outfit',sans-serif}.qa-proof__label{font-size:13px;color:rgba(255,255,255,.75)}.qa-proof__link{display:inline-block;margin-top:22px;color:var(--white);font-weight:800;text-decoration:none}@media(max-width:700px){.qa-proof__grid{grid-template-columns:1fr 1fr}}
   .resources{background:var(--light);padding:64px 32px;}
   .resources__inner{max-width:1140px;margin:0 auto;}
   .resources__eye{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;}
@@ -482,27 +481,6 @@
   .rcard__t{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:var(--brown);}
   .rcard__d{font-size:13.5px;color:var(--warm);line-height:1.5;}
 </style>
-<section class="qa-proof" aria-labelledby="qa-proof-title">
-  <div class="qa-proof__inner">
-    <p class="qa-proof__eye">Built and continuously validated</p>
-    <h2 id="qa-proof-title">Real browser journeys test the full learning path.</h2>
-    <div class="qa-proof__grid">
-      <div class="qa-proof__metric"><span class="qa-proof__value" id="qa-journeys">0</span><span class="qa-proof__label">Automated learning journeys</span></div>
-      <div class="qa-proof__metric"><span class="qa-proof__value" id="qa-reliability">0%</span><span class="qa-proof__label">Journey reliability</span></div>
-      <div class="qa-proof__metric"><span class="qa-proof__value" id="qa-regions">0</span><span class="qa-proof__label">Verified regions tested</span></div>
-      <div class="qa-proof__metric"><span class="qa-proof__value" id="qa-profiles">0</span><span class="qa-proof__label">Browser &amp; device profiles</span></div>
-    </div>
-    <a class="qa-proof__link" href="qa-impact.html">View platform validation →</a>
-  </div>
-</section>
-<script>
-fetch('metrics/qa_metrics.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
-  document.getElementById('qa-journeys').textContent=new Intl.NumberFormat().format(m.journeys.successful_runs);
-  document.getElementById('qa-reliability').textContent=m.journeys.success_rate+'%';
-  document.getElementById('qa-regions').textContent=m.coverage.geographic_regions;
-  document.getElementById('qa-profiles').textContent=m.coverage.browser_profiles;
-}).catch(function(){});
-</script>
 <div class="resources" id="resources">
   <div class="resources__inner">
     <p class="resources__eye">Free Resources</p>
@@ -558,6 +536,7 @@ fetch('metrics/qa_metrics.json',{cache:'no-store'}).then(function(r){return r.js
       <li><a href="#resources">Resources</a></li>
       <li><a href="glossary.html">Glossary</a></li>
       <li><a href="faq.html">FAQ</a></li>
+      <li><a href="impact.html">Live Activity</a></li>
       <li><a href="privacy.html">Privacy</a></li>
       <li><a href="https://github.com/jothsnapraveena/AgenticEd" target="_blank">GitHub</a></li>
       <li><a href="mailto:hello@agenticed.org">Contact</a></li>

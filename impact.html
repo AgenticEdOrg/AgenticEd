@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Activity — AgenticEd</title>
+  <meta name="description" content="A real, honest count of visits to AgenticEd — no projections, no estimates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar a.back{color:rgba(250,249,255,0.6);font-size:13px;text-decoration:none;}
+    .topbar a.back:hover{color:var(--cream);}
+    .hero{background:var(--brown);padding:56px 32px 48px;border-bottom:3px solid var(--coral);}
+    .hero__inner{max-width:900px;margin:0 auto;}
+    .hero__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .hero__h1{font-family:'Outfit',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+    .hero__sub{font-size:16px;color:rgba(250,249,255,0.72);max-width:620px;}
+    main{max-width:900px;margin:0 auto;padding:44px 32px 80px;}
+    .stats-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+    .stat{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:32px 20px;text-align:center;}
+    .stat__n{font-family:'Outfit',sans-serif;font-size:clamp(36px,6vw,56px);font-weight:900;color:var(--coral);line-height:1;letter-spacing:-.02em;}
+    .stat__l{font-size:14px;color:var(--warm);margin-top:8px;font-weight:600;}
+    @media(max-width:560px){.stats-row{grid-template-columns:1fr;}}
+    h2{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin:36px 0 14px;}
+    .pages{display:flex;flex-direction:column;gap:8px;}
+    .page-row{display:flex;justify-content:space-between;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:14px;}
+    .page-row span:first-child{color:var(--brown);font-weight:600;}
+    .page-row span:last-child{color:var(--warm);}
+    .note{margin-top:36px;padding:20px 22px;border-left:4px solid var(--amber);background:var(--light);color:var(--warm);font-size:14px;line-height:1.6;}
+    .note strong{color:var(--brown);}
+    .note a{color:var(--coral);font-weight:700;text-decoration:none;}
+    .empty{color:var(--warm);font-size:14px;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">Agentic<em>Ed</em></a>
+  <a href="index.html" class="back">← Back to Course</a>
+</div>
+<div class="hero">
+  <div class="hero__inner">
+    <p class="hero__eye">Live Activity</p>
+    <h1 class="hero__h1">Every visit shown here actually happened.</h1>
+    <p class="hero__sub">A real, running count of page visits to AgenticEd. No projections, no estimates, no bots — just what this counter has actually recorded.</p>
+  </div>
+</div>
+<main>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat__n" id="sessions">—</div>
+      <div class="stat__l">Learner sessions started</div>
+    </div>
+    <div class="stat">
+      <div class="stat__n" id="total">—</div>
+      <div class="stat__l">Total page visits</div>
+    </div>
+  </div>
+
+  <h2>Most-visited pages</h2>
+  <div class="pages" id="pages"><p class="empty">Loading…</p></div>
+
+  <div class="note">
+    <strong>What this does — and does not — measure.</strong> "Learner sessions" counts each time someone opens AgenticEd in a new browser tab (not each person — the same visitor on two tabs, two devices, or after clearing their browser counts twice). "Total page visits" counts every page load, including reloads. Neither number is a count of distinct people. See <a href="privacy.html">exactly what's collected and why</a>.
+  </div>
+</main>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="index.html">← Back to Course</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script src="metrics-config.js"></script>
+<script src="analytics.js"></script>
+<script>
+(function () {
+  var cfg = window.AGENTICED_SUPABASE;
+  var fmt = new Intl.NumberFormat();
+  if (!cfg || !cfg.url || !cfg.key) return;
+  fetch(cfg.url.replace(/\/$/, "") + "/rest/v1/rpc/get_visit_stats", {
+    method: "POST",
+    headers: { apikey: cfg.key, Authorization: "Bearer " + cfg.key, "Content-Type": "application/json" },
+    body: "{}"
+  }).then(function (r) { return r.json(); }).then(function (rows) {
+    var row = rows && rows[0];
+    if (!row) throw new Error("no data");
+    document.getElementById("total").textContent = fmt.format(row.total_visits || 0);
+    document.getElementById("sessions").textContent = fmt.format(row.learner_sessions || 0);
+    var pages = row.top_pages || [];
+    var el = document.getElementById("pages");
+    if (!pages.length) { el.innerHTML = '<p class="empty">No visits recorded yet.</p>'; return; }
+    el.innerHTML = pages.map(function (p) {
+      return '<div class="page-row"><span>' + p.path + '</span><span>' + fmt.format(p.count) + '</span></div>';
+    }).join("");
+  }).catch(function () {
+    document.getElementById("total").textContent = "0";
+    document.getElementById("sessions").textContent = "0";
+    document.getElementById("pages").innerHTML = '<p class="empty">Metrics have not been generated yet.</p>';
+  });
+})();
+</script>
+</body>
+</html>
