@@ -62,6 +62,10 @@
     .hero__trust { display: flex; align-items: center; gap: 12px; }
     .hero__trust-text { font-size: 13px; color: var(--warm); }
     .hero__trust-text strong { color: var(--brown); }
+    .hero__live { display: none; align-items: center; gap: 8px; margin-top: 14px; font-size: 13px; color: var(--warm); }
+    .hero__live.is-ready { display: flex; }
+    .hero__live i { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; flex-shrink: 0; }
+    .hero__live strong { color: var(--brown); }
 
     /* ── BUTTONS ── */
     .btn {
@@ -246,6 +250,7 @@
     <div class="hero__trust">
       <div class="hero__trust-text"><strong>No experience required</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
     </div>
+    <div class="hero__live" id="hero-live"><i></i><span><strong id="hero-live-count">0</strong> real learner sessions and counting</span></div>
   </div>
   <div class="loop-wrap">
     <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
@@ -467,8 +472,18 @@
   </div>
 </div>
 
-<!-- ── RESOURCES ── -->
+<!-- ── IMPACT ── -->
 <style>
+  .impact{padding:64px 32px;background:var(--brown);color:var(--white)}
+  .impact__inner{max-width:1140px;margin:0 auto}
+  .impact__eye{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+  .impact h2{font:900 clamp(26px,4vw,38px)/1.1 'Outfit',sans-serif;margin-bottom:24px}
+  .impact__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:520px}
+  .impact__metric{padding:20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.06)}
+  .impact__value{display:block;font:900 clamp(28px,4vw,40px)/1 'Outfit',sans-serif}
+  .impact__label{font-size:13px;color:rgba(255,255,255,.75);margin-top:6px}
+  .impact__link{display:inline-block;margin-top:22px;color:var(--white);font-weight:800;text-decoration:none}
+  @media(max-width:500px){.impact__grid{grid-template-columns:1fr}}
   .resources{background:var(--light);padding:64px 32px;}
   .resources__inner{max-width:1140px;margin:0 auto;}
   .resources__eye{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;}
@@ -481,6 +496,17 @@
   .rcard__t{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:var(--brown);}
   .rcard__d{font-size:13.5px;color:var(--warm);line-height:1.5;}
 </style>
+<section class="impact" aria-labelledby="impact-title">
+  <div class="impact__inner">
+    <p class="impact__eye">Real activity, tracked live</p>
+    <h2 id="impact-title">Used by learners, one real session at a time.</h2>
+    <div class="impact__grid">
+      <div class="impact__metric"><span class="impact__value" id="impact-sessions">—</span><span class="impact__label">Learner sessions started</span></div>
+      <div class="impact__metric"><span class="impact__value" id="impact-visits">—</span><span class="impact__label">Total page visits</span></div>
+    </div>
+    <a class="impact__link" href="impact.html">See the full Live Activity page →</a>
+  </div>
+</section>
 <div class="resources" id="resources">
   <div class="resources__inner">
     <p class="resources__eye">Free Resources</p>
@@ -584,6 +610,30 @@
     document.getElementById('frm').style.display='none';
     document.getElementById('thanks').style.display='block';
   }
+
+  /* Live impact numbers */
+  (function () {
+    var cfg = window.AGENTICED_SUPABASE;
+    var fmt = new Intl.NumberFormat();
+    if (!cfg || !cfg.url || !cfg.key) return;
+    fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/rpc/get_visit_stats', {
+      method: 'POST',
+      headers: { apikey: cfg.key, Authorization: 'Bearer ' + cfg.key, 'Content-Type': 'application/json' },
+      body: '{}'
+    }).then(function (r) { return r.json(); }).then(function (rows) {
+      var row = rows && rows[0];
+      if (!row) throw new Error('no data');
+      var sessions = fmt.format(row.learner_sessions || 0);
+      var visits = fmt.format(row.total_visits || 0);
+      var heroCount = document.getElementById('hero-live-count');
+      var heroLive = document.getElementById('hero-live');
+      if (heroCount && heroLive) { heroCount.textContent = sessions; heroLive.classList.add('is-ready'); }
+      var impactSessions = document.getElementById('impact-sessions');
+      if (impactSessions) impactSessions.textContent = sessions;
+      var impactVisits = document.getElementById('impact-visits');
+      if (impactVisits) impactVisits.textContent = visits;
+    }).catch(function () {});
+  })();
 </script>
 </body>
 </html>
