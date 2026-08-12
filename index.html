@@ -62,11 +62,6 @@
     .hero__trust { display: flex; align-items: center; gap: 12px; }
     .hero__trust-text { font-size: 13px; color: var(--warm); }
     .hero__trust-text strong { color: var(--brown); }
-    .hero__live { display: none; align-items: center; gap: 14px; margin-top: 20px; }
-    .hero__live.is-ready { display: flex; }
-    .hero__live-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(36px,4.5vw,48px); color: var(--coral); line-height: 1; letter-spacing: -0.02em; }
-    .hero__live-text { font-size: 13px; color: var(--warm); line-height: 1.4; }
-    .hero__live-text i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22C55E; margin-right: 6px; }
 
     /* ── BUTTONS ── */
     .btn {
@@ -251,7 +246,6 @@
     <div class="hero__trust">
       <div class="hero__trust-text"><strong>Choose course based on your goals and experience</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
     </div>
-    <div class="hero__live" id="hero-live"><span class="hero__live-num" id="hero-live-count">0</span><span class="hero__live-text"><i></i>Trusted by learners<br>real sessions and counting</span></div>
   </div>
   <div class="loop-wrap">
     <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
@@ -293,6 +287,29 @@
       <text x="200" y="196" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">The Agent</text>
       <text x="200" y="214" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">Reasoning Loop</text>
     </svg>
+  </div>
+</section>
+
+<!-- ── IMPACT ── -->
+<style>
+  .impact{padding:44px 32px 56px;background:var(--brown);color:var(--white)}
+  .impact__inner{max-width:1140px;margin:0 auto}
+  .impact__eye{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
+  .impact h2{font:900 clamp(24px,3.4vw,32px)/1.1 'Outfit',sans-serif;margin-bottom:22px}
+  .impact__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:520px}
+  .impact__metric{padding:20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.06)}
+  .impact__value{display:block;font:900 clamp(32px,5vw,48px)/1 'Outfit',sans-serif}
+  .impact__label{font-size:13px;color:rgba(255,255,255,.75);margin-top:6px}
+  @media(max-width:500px){.impact__grid{grid-template-columns:1fr}}
+</style>
+<section class="impact" aria-labelledby="impact-title">
+  <div class="impact__inner">
+    <p class="impact__eye">Live &amp; Real</p>
+    <h2 id="impact-title">A growing community of AI learners.</h2>
+    <div class="impact__grid">
+      <div class="impact__metric"><span class="impact__value" id="impact-sessions">—</span><span class="impact__label">Learner sessions started</span></div>
+      <div class="impact__metric"><span class="impact__value" id="impact-visits">—</span><span class="impact__label">Total page visits</span></div>
+    </div>
   </div>
 </section>
 
@@ -473,18 +490,8 @@
   </div>
 </div>
 
-<!-- ── IMPACT ── -->
+<!-- ── RESOURCES ── -->
 <style>
-  .impact{padding:64px 32px;background:var(--brown);color:var(--white)}
-  .impact__inner{max-width:1140px;margin:0 auto}
-  .impact__eye{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
-  .impact h2{font:900 clamp(26px,4vw,38px)/1.1 'Outfit',sans-serif;margin-bottom:24px}
-  .impact__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:520px}
-  .impact__metric{padding:20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.06)}
-  .impact__value{display:block;font:900 clamp(28px,4vw,40px)/1 'Outfit',sans-serif}
-  .impact__label{font-size:13px;color:rgba(255,255,255,.75);margin-top:6px}
-  .impact__link{display:inline-block;margin-top:22px;color:var(--white);font-weight:800;text-decoration:none}
-  @media(max-width:500px){.impact__grid{grid-template-columns:1fr}}
   .resources{background:var(--light);padding:64px 32px;}
   .resources__inner{max-width:1140px;margin:0 auto;}
   .resources__eye{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;}
@@ -497,15 +504,6 @@
   .rcard__t{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:var(--brown);}
   .rcard__d{font-size:13.5px;color:var(--warm);line-height:1.5;}
 </style>
-<section class="impact" aria-labelledby="impact-title">
-  <div class="impact__inner">
-    <h2 id="impact-title">A growing community of AI learners.</h2>
-    <div class="impact__grid">
-      <div class="impact__metric"><span class="impact__value" id="impact-sessions">—</span><span class="impact__label">Learner sessions started</span></div>
-      <div class="impact__metric"><span class="impact__value" id="impact-visits">—</span><span class="impact__label">Total page visits</span></div>
-    </div>
-  </div>
-</section>
 <div class="resources" id="resources">
   <div class="resources__inner">
     <p class="resources__eye">Free Resources</p>
@@ -623,9 +621,6 @@
       if (!row) throw new Error('no data');
       var sessions = fmt.format(row.learner_sessions || 0);
       var visits = fmt.format(row.total_visits || 0);
-      var heroCount = document.getElementById('hero-live-count');
-      var heroLive = document.getElementById('hero-live');
-      if (heroCount && heroLive) { heroCount.textContent = sessions; heroLive.classList.add('is-ready'); }
       var impactSessions = document.getElementById('impact-sessions');
       if (impactSessions) impactSessions.textContent = sessions;
       var impactVisits = document.getElementById('impact-visits');
