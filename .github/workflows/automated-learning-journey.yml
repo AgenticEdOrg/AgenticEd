@@ -1,0 +1,70 @@
+name: Automated learning journey
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      qa_region:
+        description: Verified runner region (leave blank if unknown)
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: agenticed-qa-metrics
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      QA_RUN_ID: github-${{ github.run_id }}-${{ github.run_attempt }}
+      QA_REGION: ${{ inputs.qa_region || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Run learner journeys
+        id: tests
+        shell: bash
+        run: |
+          set +e
+          npx playwright test
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          set -e
+      - name: Aggregate genuine validation events
+        if: always()
+        run: python metrics/aggregate_qa_metrics.py
+      - name: Preserve QA reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agenticed-qa-${{ github.run_id }}
+          path: |
+            playwright-report
+            test-results
+            metrics/raw/latest-run.json
+            metrics/qa_metrics.json
+          retention-days: 30
+      - name: Commit cumulative metrics
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "agenticed-qa[bot]"
+          git config user.email "agenticed-qa[bot]@users.noreply.github.com"
+          git add metrics/qa_metrics.json metrics/qa_history.json
+          git diff --cached --quiet || git commit -m "chore: update automated QA metrics [skip ci]"
+          git push
+      - name: Fail when validation failed
+        if: steps.tests.outputs.exit_code != '0'
+        run: exit 1

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Evidence-backed automated platform validation metrics for AgenticEd." />
+  <title>Platform Validation — AgenticEd</title>
+  <style>
+    :root{--ink:#171522;--muted:#676174;--paper:#fbf9f4;--card:#fff;--line:#e8e1d7;--coral:#b84330;--violet:#7257d8;--green:#287a5a}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}.top{display:flex;justify-content:space-between;align-items:center;padding:20px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);background:#fff}.logo{font-size:24px;font-weight:900;text-decoration:none;color:var(--ink)}.logo span{color:var(--coral)}.top a:last-child{color:var(--coral);font-weight:700;text-decoration:none}.hero{max-width:1120px;margin:0 auto;padding:68px 24px 34px}.eyebrow{color:var(--coral);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.hero h1{font-size:clamp(36px,7vw,66px);line-height:1.02;margin:12px 0 18px;max-width:850px}.hero p{color:var(--muted);font-size:18px;max-width:750px}.status{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);font-size:13px}.status i{width:8px;height:8px;border-radius:50%;background:var(--green)}main{max-width:1120px;margin:0 auto;padding:0 24px 72px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;min-height:150px}.value{font-size:clamp(30px,4vw,46px);font-weight:900;letter-spacing:-.04em}.label{font-weight:750;margin-top:5px}.detail{font-size:13px;color:var(--muted);margin-top:8px}.wide{grid-column:span 2}.section-title{font-size:22px;margin:42px 0 14px}.weeks{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.week{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.week b{display:block;font-size:25px;margin-top:5px}.note{margin-top:34px;padding:20px 22px;border-left:4px solid var(--violet);background:#f5f1ff;color:var(--muted)}.note strong{color:var(--ink)}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.weeks{grid-template-columns:repeat(3,1fr)}}@media(max-width:520px){.grid{grid-template-columns:1fr}.wide{grid-column:auto}.weeks{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+  <nav class="top"><a class="logo" href="index.html">Agentic<span>Ed</span></a><a href="index.html">Back to course →</a></nav>
+  <header class="hero">
+    <div class="eyebrow">AgenticEd platform validation</div>
+    <h1>Every number comes from an automated learner journey.</h1>
+    <p>Playwright bots complete activities, pass quizzes, save portfolio evidence, and generate a certificate across real browser and device profiles.</p>
+    <div class="status"><i></i><span id="updated">Waiting for the first QA run</span></div>
+  </header>
+  <main>
+    <section class="grid" aria-label="Platform validation metrics">
+      <article class="card wide"><div class="value" id="journeys">0</div><div class="label">Automated Learning Journeys Validated</div><div class="detail">Complete six-week paths only</div></article>
+      <article class="card"><div class="value" id="success">0%</div><div class="label">Journey Success Rate</div></article>
+      <article class="card"><div class="value" id="lessons">0</div><div class="label">Lesson Flows Validated</div></article>
+      <article class="card"><div class="value" id="activities">0</div><div class="label">Activities Validated</div></article>
+      <article class="card"><div class="value" id="assessments">0</div><div class="label">Assessments Validated</div></article>
+      <article class="card"><div class="value" id="certificates">0</div><div class="label">Certificate Flows Validated</div></article>
+      <article class="card"><div class="value" id="certificate-rate">0%</div><div class="label">Certificate Reliability</div></article>
+      <article class="card"><div class="value" id="profiles">0</div><div class="label">Browser &amp; Device Profiles Tested</div></article>
+      <article class="card"><div class="value" id="regions">0</div><div class="label">Geographic Regions Tested</div><div class="detail">Counts only explicitly identified execution regions</div></article>
+      <article class="card"><div class="value" id="links">0</div><div class="label">Broken Core Learning Links</div></article>
+      <article class="card"><div class="value" id="load">0 sec</div><div class="label">Median Lesson Load Time</div></article>
+      <article class="card"><div class="value" id="under-three">0%</div><div class="label">Pages Loaded Under 3 Seconds</div></article>
+      <article class="card"><div class="value" id="components">0%</div><div class="label">Core Curriculum Components Available</div></article>
+    </section>
+    <h2 class="section-title">Lesson reliability</h2>
+    <section class="weeks" id="weeks" aria-label="Weekly lesson reliability"></section>
+    <aside class="note"><strong>What this does—and does not—measure.</strong> These are platform quality and availability checks, not learners, countries reached, certificates earned by people, or proof of complete accessibility. Geographic coverage remains zero until tests run on infrastructure with a verified region.</aside>
+  </main>
+  <script>
+    const fmt=new Intl.NumberFormat();
+    const put=(id,value)=>document.getElementById(id).textContent=value;
+    fetch('metrics/qa_metrics.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('metrics unavailable');return r.json();}).then(m=>{
+      put('journeys',fmt.format(m.journeys.successful_runs)); put('success',m.journeys.success_rate+'%');
+      put('lessons',fmt.format(m.curriculum.lesson_flows_validated)); put('activities',fmt.format(m.curriculum.activity_flows_validated));
+      put('assessments',fmt.format(m.curriculum.assessment_flows_validated)); put('certificates',fmt.format(m.curriculum.certificate_flows_validated));
+      put('certificate-rate',m.reliability.certificate_success_rate+'%'); put('profiles',m.coverage.browser_profiles);
+      put('regions',m.coverage.geographic_regions); put('links',m.reliability.broken_core_links);
+      put('load',m.performance.median_lesson_load_seconds+' sec'); put('under-three',m.performance.pages_under_3_seconds_percent+'%');
+      put('components',m.curriculum.core_components_available_percent+'%');
+      if(m.updated_at)put('updated','Last validated '+new Date(m.updated_at).toLocaleString());
+      const weeks=m.reliability.lessons||{};
+      document.getElementById('weeks').innerHTML=[1,2,3,4,5,6].map(n=>{const w=weeks['week_'+n]||{success_rate:0,attempts:0};return `<article class="week"><span>Week ${n}</span><b>${w.success_rate}%</b><small>${w.attempts} attempts</small></article>`}).join('');
+    }).catch(()=>put('updated','Metrics have not been generated yet'));
+  </script>
+</body>
+</html>

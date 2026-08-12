@@ -154,6 +154,23 @@ No student accounts required for basic use. Teachers should test tool access fro
 
 ---
 
+## Automated platform validation
+
+AgenticEd uses Playwright to complete the six-week learner journey across Chromium, Firefox, WebKit, Mobile Chrome, and Mobile Safari profiles. The suite validates activities, quizzes, portfolio persistence, certificate generation, core links, curriculum structure, and page timing.
+
+```bash
+npm install
+npx playwright install
+npm run qa
+npm run qa:aggregate
+```
+
+The custom reporter writes the current run to `metrics/raw/latest-run.json`. The aggregator merges that evidence into cumulative `metrics/qa_history.json` and public `metrics/qa_metrics.json`; rerunning the same `QA_RUN_ID` replaces that run instead of double-counting it. The public dashboard is `qa-impact.html`.
+
+Scheduled GitHub Actions run every six hours. Set `QA_REGION` only when the execution infrastructure has a known, verifiable region; ordinary GitHub-hosted runs deliberately do not increase the geographic-region metric.
+
+---
+
 ## 🤝 How to Contribute
 
 This is an open curriculum. Contributions are welcome:
