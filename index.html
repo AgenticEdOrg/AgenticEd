@@ -62,10 +62,11 @@
     .hero__trust { display: flex; align-items: center; gap: 12px; }
     .hero__trust-text { font-size: 13px; color: var(--warm); }
     .hero__trust-text strong { color: var(--brown); }
-    .hero__live { display: none; align-items: center; gap: 8px; margin-top: 14px; font-size: 13px; color: var(--warm); }
+    .hero__live { display: none; align-items: center; gap: 14px; margin-top: 20px; }
     .hero__live.is-ready { display: flex; }
-    .hero__live i { width: 8px; height: 8px; border-radius: 50%; background: #22C55E; flex-shrink: 0; }
-    .hero__live strong { color: var(--brown); }
+    .hero__live-num { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(36px,4.5vw,48px); color: var(--coral); line-height: 1; letter-spacing: -0.02em; }
+    .hero__live-text { font-size: 13px; color: var(--warm); line-height: 1.4; }
+    .hero__live-text i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22C55E; margin-right: 6px; }
 
     /* ── BUTTONS ── */
     .btn {
@@ -248,9 +249,9 @@
       <a href="learn.html" class="btn btn--ghost">Explore learning paths</a>
     </div>
     <div class="hero__trust">
-      <div class="hero__trust-text"><strong>No experience required</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
+      <div class="hero__trust-text"><strong>Choose course based on your goals and experience</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
     </div>
-    <div class="hero__live" id="hero-live"><i></i><span>Trusted by learners · <strong id="hero-live-count">0</strong> sessions and counting</span></div>
+    <div class="hero__live" id="hero-live"><span class="hero__live-num" id="hero-live-count">0</span><span class="hero__live-text"><i></i>Trusted by learners<br>real sessions and counting</span></div>
   </div>
   <div class="loop-wrap">
     <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
@@ -498,8 +499,7 @@
 </style>
 <section class="impact" aria-labelledby="impact-title">
   <div class="impact__inner">
-    <p class="impact__eye">Real activity, tracked live</p>
-    <h2 id="impact-title">Trusted by real learners — no inflated numbers.</h2>
+    <h2 id="impact-title">A growing community of AI learners.</h2>
     <div class="impact__grid">
       <div class="impact__metric"><span class="impact__value" id="impact-sessions">—</span><span class="impact__label">Learner sessions started</span></div>
       <div class="impact__metric"><span class="impact__value" id="impact-visits">—</span><span class="impact__label">Total page visits</span></div>
