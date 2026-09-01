@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Feedback - AgenticEd</title>
+  <meta name="description" content="Share feedback about AgenticEd lessons, activities, resources, and the learning experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{--cream:#FAF9FF;--brown:#121526;--purple:#7C3AED;--purple-dark:#6824D9;--purple-light:#F1E9FF;--accent:#A855F7;--muted:#646579;--border:#E4E1F0;--white:#fff;--success:#237A57;--danger:#B42318}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,sans-serif;background:var(--cream);color:var(--brown);line-height:1.65;-webkit-font-smoothing:antialiased}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font:900 16px Outfit,sans-serif;color:var(--cream);text-decoration:none}.logo em{font-style:normal;color:var(--purple)}
+    .back{color:rgba(250,249,255,.65);font-size:13px;text-decoration:none}.back:hover{color:var(--cream)}
+    .hero{background:var(--brown);border-bottom:3px solid var(--purple);padding:48px 32px 54px;position:relative;overflow:hidden}
+    .hero::after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;right:-100px;top:-210px;background:rgba(168,85,247,.18)}
+    .hero__inner{max-width:860px;margin:auto;position:relative;z-index:1}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+    h1{font:900 clamp(32px,5vw,48px)/1.08 Outfit,sans-serif;color:var(--cream);margin-bottom:14px}.hero__copy{font-size:16px;color:rgba(250,249,255,.72);max-width:650px}
+    main{max-width:860px;margin:auto;padding:42px 32px 80px}
+    .tips{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}.tip{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px}.tip strong{font:800 15px Outfit,sans-serif;display:block;margin-bottom:4px}.tip p{font-size:13px;color:var(--muted)}
+    form{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:32px;box-shadow:0 14px 34px rgba(18,21,38,.06)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}.field{margin-bottom:22px}.full{grid-column:1/-1}
+    label,.field-label{display:block;font-size:12px;font-weight:800;letter-spacing:.045em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.optional{font-weight:500;text-transform:none;letter-spacing:0;color:#858697}
+    input,select,textarea{width:100%;border:1px solid var(--border);border-radius:9px;background:#fff;color:var(--brown);font:15px Inter,sans-serif;padding:12px 14px;transition:border-color .18s,box-shadow .18s}
+    textarea{min-height:150px;resize:vertical;line-height:1.55}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.13)}
+    fieldset{border:0}.rating{display:flex;gap:8px;flex-wrap:wrap}.rating input{position:absolute;opacity:0;pointer-events:none}.rating label{width:48px;height:46px;border:1px solid var(--border);border-radius:9px;display:grid;place-items:center;margin:0;color:var(--muted);font:800 16px Outfit,sans-serif;cursor:pointer;transition:.15s}.rating input:checked+label{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 5px 14px rgba(124,58,237,.22)}.rating input:focus-visible+label{outline:3px solid rgba(124,58,237,.25);outline-offset:2px}.rating-key{display:flex;justify-content:space-between;max-width:272px;font-size:11px;color:#858697;margin-top:6px}
+    .counter{text-align:right;font-size:11px;color:#858697;margin-top:5px}.privacy-note{background:var(--purple-light);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted);margin-bottom:22px}.privacy-note a{color:var(--purple);font-weight:700}
+    .actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}button{border:0;border-radius:9px;background:linear-gradient(135deg,var(--purple),#9333EA);color:#fff;padding:13px 24px;font:800 15px Inter,sans-serif;cursor:pointer;box-shadow:0 7px 18px rgba(124,58,237,.2)}button:hover{background:var(--purple-dark)}button:disabled{opacity:.65;cursor:wait}.status{font-size:14px;font-weight:700;min-height:22px}.success{color:var(--success)}.error{color:var(--danger)}
+    .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+    footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}footer a{color:rgba(250,249,255,.55);font-size:13px;text-decoration:none}footer a:hover{color:var(--cream)}.footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    @media(max-width:700px){.topbar{padding:10px 20px}.hero{padding:36px 20px 40px}main{padding:28px 18px 60px}.tips,.grid{grid-template-columns:1fr}form{padding:22px 18px}.full{grid-column:auto}}
+  </style>
+  <script src="metrics-config.js"></script>
+  <script src="analytics.js"></script>
+</head>
+<body>
+  <div class="topbar">
+    <a href="index.html" class="logo">Agentic<em>Ed</em></a>
+    <a href="index.html" class="back">&larr; Back to AgenticEd</a>
+  </div>
+  <header class="hero">
+    <div class="hero__inner">
+      <p class="eyebrow">Help shape AgenticEd</p>
+      <h1>Tell us what would make learning better.</h1>
+      <p class="hero__copy">Your experience helps us improve the lessons, activities, accessibility, and teacher resources. This usually takes less than two minutes.</p>
+    </div>
+  </header>
+  <main>
+    <div class="tips" aria-hidden="true">
+      <div class="tip"><strong>Specific is useful</strong><p>Tell us which lesson or resource you used and what happened.</p></div>
+      <div class="tip"><strong>Honest is welcome</strong><p>Share what worked, what was confusing, or what you want next.</p></div>
+    </div>
+    <form id="feedback-form">
+      <div class="grid">
+        <div class="field">
+          <label for="role">I am a</label>
+          <select id="role" name="role" required><option value="">Choose one</option><option value="learner">Learner</option><option value="teacher">Teacher or facilitator</option><option value="parent">Parent or caregiver</option><option value="educator">Education professional</option><option value="other">Other visitor</option></select>
+        </div>
+        <div class="field">
+          <label for="feedback-type">Feedback about</label>
+          <select id="feedback-type" name="feedback_type" required><option value="">Choose one</option><option value="content">Lesson content</option><option value="activity">Activity or quiz</option><option value="website">Website experience</option><option value="accessibility">Accessibility</option><option value="teacher_resources">Teacher resources</option><option value="idea">Suggestion or new idea</option><option value="issue">Problem or incorrect information</option><option value="other">Other</option></select>
+        </div>
+        <div class="field">
+          <label for="area">Course area</label>
+          <select id="area" name="area" required><option value="overall">Overall AgenticEd experience</option><option value="week_1">Week 1 - What Is an Agent?</option><option value="week_2">Week 2 - The Brain Behind the Agent</option><option value="week_3">Week 3 - Tools and Memory</option><option value="week_4">Week 4 - Multi-Agent Systems</option><option value="week_5">Week 5 - Build Your First Agent</option><option value="week_6">Week 6 - Safety, Ethics, and Careers</option><option value="assessment">Assessment or quiz</option><option value="dashboard">Dashboard or portfolio</option><option value="teacher_resources">Teacher resources</option><option value="other">Other</option></select>
+        </div>
+        <fieldset class="field">
+          <legend class="field-label">Overall experience</legend>
+          <div class="rating" aria-label="Overall experience rating">
+            <input type="radio" id="rating-1" name="rating" value="1" required><label for="rating-1" aria-label="1 out of 5">1</label>
+            <input type="radio" id="rating-2" name="rating" value="2"><label for="rating-2" aria-label="2 out of 5">2</label>
+            <input type="radio" id="rating-3" name="rating" value="3"><label for="rating-3" aria-label="3 out of 5">3</label>
+            <input type="radio" id="rating-4" name="rating" value="4"><label for="rating-4" aria-label="4 out of 5">4</label>
+            <input type="radio" id="rating-5" name="rating" value="5"><label for="rating-5" aria-label="5 out of 5">5</label>
+          </div>
+          <div class="rating-key"><span>Needs work</span><span>Excellent</span></div>
+        </fieldset>
+        <div class="field full">
+          <label for="message">Your feedback</label>
+          <textarea id="message" name="message" minlength="10" maxlength="3000" required placeholder="What worked well? What was confusing? What should we improve or add?"></textarea>
+          <div class="counter"><span id="message-count">0</span>/3000</div>
+        </div>
+        <div class="field full">
+          <label for="email">Email <span class="optional">(optional - only if you want a reply)</span></label>
+          <input type="email" id="email" name="email" maxlength="320" autocomplete="email" placeholder="you@example.com">
+        </div>
+      </div>
+      <div class="honeypot" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+      <p class="privacy-note">Please do not include student names, grades, or sensitive information. We use submissions only to improve AgenticEd and, if you provide an email, to reply. See our <a href="privacy.html">privacy information</a>.</p>
+      <div class="actions"><button type="submit" id="submit-feedback">Send feedback</button><p class="status" id="form-status" role="status" aria-live="polite"></p></div>
+    </form>
+  </main>
+  <footer>
+    <a href="index.html" class="logo">Agentic<em>Ed</em></a>
+    <div class="footer-links"><a href="privacy.html">Privacy</a><a href="faq.html">FAQ</a><a href="mailto:hello@agenticed.org">hello@agenticed.org</a></div>
+  </footer>
+  <script src="feedback.js"></script>
+</body>
+</html>
