@@ -22,15 +22,17 @@
     .tips{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}.tip{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px}.tip strong{font:800 15px Outfit,sans-serif;display:block;margin-bottom:4px}.tip p{font-size:13px;color:var(--muted)}
     form{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:32px;box-shadow:0 14px 34px rgba(18,21,38,.06)}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 22px}.field{margin-bottom:22px}.full{grid-column:1/-1}
+    .section-title{grid-column:1/-1;border-top:1px solid var(--border);padding-top:24px;margin:6px 0 20px}.section-title:first-child{border-top:0;padding-top:0}.section-title h2{font:800 21px Outfit,sans-serif;margin-bottom:4px}.section-title p{font-size:13px;color:var(--muted)}
     label,.field-label{display:block;font-size:12px;font-weight:800;letter-spacing:.045em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.optional{font-weight:500;text-transform:none;letter-spacing:0;color:#858697}
     input,select,textarea{width:100%;border:1px solid var(--border);border-radius:9px;background:#fff;color:var(--brown);font:15px Inter,sans-serif;padding:12px 14px;transition:border-color .18s,box-shadow .18s}
-    textarea{min-height:150px;resize:vertical;line-height:1.55}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.13)}
+    textarea{min-height:130px;resize:vertical;line-height:1.55}input:focus,select:focus,textarea:focus{outline:0;border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.13)}
+    .field-note{font-size:11px;color:#858697;margin-top:6px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border);border-radius:9px;padding:11px 12px;font-size:13px;color:var(--brown)}.check input{width:auto;margin-top:3px;accent-color:var(--purple)}.check label{font:500 13px Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--brown);margin:0}.consent{display:flex;gap:10px;align-items:flex-start}.consent input{width:auto;margin-top:4px;accent-color:var(--purple)}.consent label{font:500 13px/1.55 Inter,sans-serif;text-transform:none;letter-spacing:0;color:var(--muted);margin:0}
     fieldset{border:0}.rating{display:flex;gap:8px;flex-wrap:wrap}.rating input{position:absolute;opacity:0;pointer-events:none}.rating label{width:48px;height:46px;border:1px solid var(--border);border-radius:9px;display:grid;place-items:center;margin:0;color:var(--muted);font:800 16px Outfit,sans-serif;cursor:pointer;transition:.15s}.rating input:checked+label{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 5px 14px rgba(124,58,237,.22)}.rating input:focus-visible+label{outline:3px solid rgba(124,58,237,.25);outline-offset:2px}.rating-key{display:flex;justify-content:space-between;max-width:272px;font-size:11px;color:#858697;margin-top:6px}
     .counter{text-align:right;font-size:11px;color:#858697;margin-top:5px}.privacy-note{background:var(--purple-light);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted);margin-bottom:22px}.privacy-note a{color:var(--purple);font-weight:700}
     .actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}button{border:0;border-radius:9px;background:linear-gradient(135deg,var(--purple),#9333EA);color:#fff;padding:13px 24px;font:800 15px Inter,sans-serif;cursor:pointer;box-shadow:0 7px 18px rgba(124,58,237,.2)}button:hover{background:var(--purple-dark)}button:disabled{opacity:.65;cursor:wait}.status{font-size:14px;font-weight:700;min-height:22px}.success{color:var(--success)}.error{color:var(--danger)}
     .honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
     footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}footer a{color:rgba(250,249,255,.55);font-size:13px;text-decoration:none}footer a:hover{color:var(--cream)}.footer-links{display:flex;gap:20px;flex-wrap:wrap}
-    @media(max-width:700px){.topbar{padding:10px 20px}.hero{padding:36px 20px 40px}main{padding:28px 18px 60px}.tips,.grid{grid-template-columns:1fr}form{padding:22px 18px}.full{grid-column:auto}}
+    @media(max-width:700px){.topbar{padding:10px 20px}.hero{padding:36px 20px 40px}main{padding:28px 18px 60px}.tips,.grid,.checks{grid-template-columns:1fr}form{padding:22px 18px}.full,.section-title{grid-column:auto}}
   </style>
   <script src="metrics-config.js"></script>
   <script src="analytics.js"></script>
@@ -44,7 +46,7 @@
     <div class="hero__inner">
       <p class="eyebrow">Help shape AgenticEd</p>
       <h1>Tell us what would make learning better.</h1>
-      <p class="hero__copy">Your experience helps us improve the lessons, activities, accessibility, and teacher resources. This usually takes less than two minutes.</p>
+      <p class="hero__copy">Your experience helps us measure real-world reach and improve the lessons, activities, accessibility, and teacher resources. This usually takes three to five minutes.</p>
     </div>
   </header>
   <main>
@@ -54,6 +56,7 @@
     </div>
     <form id="feedback-form">
       <div class="grid">
+        <div class="section-title"><h2>About your experience</h2><p>These details help us understand who AgenticEd reaches and how it is being used.</p></div>
         <div class="field">
           <label for="role">I am a</label>
           <select id="role" name="role" required><option value="">Choose one</option><option value="learner">Learner</option><option value="teacher">Teacher or facilitator</option><option value="parent">Parent or caregiver</option><option value="educator">Education professional</option><option value="other">Other visitor</option></select>
@@ -63,9 +66,60 @@
           <select id="feedback-type" name="feedback_type" required><option value="">Choose one</option><option value="content">Lesson content</option><option value="activity">Activity or quiz</option><option value="website">Website experience</option><option value="accessibility">Accessibility</option><option value="teacher_resources">Teacher resources</option><option value="idea">Suggestion or new idea</option><option value="issue">Problem or incorrect information</option><option value="other">Other</option></select>
         </div>
         <div class="field">
+          <label for="organization">School or organization <span class="optional">(optional)</span></label>
+          <input id="organization" name="organization" maxlength="200" autocomplete="organization" placeholder="School, company, nonprofit, or community">
+        </div>
+        <div class="field">
+          <label for="country">Country or region</label>
+          <input id="country" name="country" maxlength="100" required placeholder="Example: United States">
+        </div>
+        <div class="section-title"><h2>Use and adoption</h2><p>Tell us how you used the curriculum. Please report only your direct, first-hand experience.</p></div>
+        <div class="field">
+          <label for="usage-context">How did you use AgenticEd?</label>
+          <select id="usage-context" name="usage_context" required><option value="">Choose one</option><option value="self_learning">Independent learning</option><option value="classroom">Classroom or course</option><option value="workshop">Workshop or bootcamp</option><option value="workplace">Workplace learning</option><option value="community">Community or nonprofit program</option><option value="evaluation">Curriculum evaluation</option><option value="other">Other</option></select>
+        </div>
+        <div class="field">
           <label for="area">Course area</label>
           <select id="area" name="area" required><option value="overall">Overall AgenticEd experience</option><option value="week_1">Week 1 - What Is an Agent?</option><option value="week_2">Week 2 - The Brain Behind the Agent</option><option value="week_3">Week 3 - Tools and Memory</option><option value="week_4">Week 4 - Multi-Agent Systems</option><option value="week_5">Week 5 - Build Your First Agent</option><option value="week_6">Week 6 - Safety, Ethics, and Careers</option><option value="assessment">Assessment or quiz</option><option value="dashboard">Dashboard or portfolio</option><option value="teacher_resources">Teacher resources</option><option value="other">Other</option></select>
         </div>
+        <div class="field">
+          <label for="completion-status">How much did you complete?</label>
+          <select id="completion-status" name="completion_status" required><option value="">Choose one</option><option value="started">Started, less than one week</option><option value="partial">Completed 1-3 weeks</option><option value="most">Completed 4-5 weeks</option><option value="completed">Completed all 6 weeks</option><option value="selected_resources">Used selected resources only</option></select>
+        </div>
+        <div class="field">
+          <label for="learners-reached">Learners directly reached</label>
+          <input type="number" id="learners-reached" name="learners_reached" min="0" max="1000000" step="1" required value="0">
+          <p class="field-note">Enter 0 for independent learning. Otherwise count learners you personally taught or facilitated; avoid double-counting shared cohorts.</p>
+        </div>
+        <div class="section-title"><h2>Learning outcomes</h2><p>Use your honest assessment. These are self-reported outcomes, not test scores.</p></div>
+        <div class="field">
+          <label for="confidence-before">Confidence before AgenticEd</label>
+          <select id="confidence-before" name="confidence_before" required><option value="">Choose 1-5</option><option value="1">1 - Not confident</option><option value="2">2</option><option value="3">3 - Moderately confident</option><option value="4">4</option><option value="5">5 - Very confident</option></select>
+        </div>
+        <div class="field">
+          <label for="confidence-after">Confidence now</label>
+          <select id="confidence-after" name="confidence_after" required><option value="">Choose 1-5</option><option value="1">1 - Not confident</option><option value="2">2</option><option value="3">3 - Moderately confident</option><option value="4">4</option><option value="5">5 - Very confident</option></select>
+        </div>
+        <div class="field">
+          <label for="project-status">Did AgenticEd help you build something?</label>
+          <select id="project-status" name="project_status" required><option value="">Choose one</option><option value="built">Yes, completed a project or agent</option><option value="in_progress">A project is in progress</option><option value="planned">I have a project planned</option><option value="not_yet">Not yet</option><option value="not_applicable">Not applicable</option></select>
+        </div>
+        <div class="field">
+          <label for="recommend-score">Likelihood to recommend</label>
+          <select id="recommend-score" name="recommend_score" required><option value="">Choose 0-10</option><option value="0">0 - Not at all likely</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10 - Extremely likely</option></select>
+        </div>
+        <fieldset class="field full" id="outcomes-field">
+          <legend class="field-label">What changed after using AgenticEd? <span class="optional">(select all that apply)</span></legend>
+          <div class="checks">
+            <div class="check"><input type="checkbox" id="outcome-concepts" name="outcomes" value="understood_concepts"><label for="outcome-concepts">Better understood agentic AI concepts</label></div>
+            <div class="check"><input type="checkbox" id="outcome-built" name="outcomes" value="built_agent"><label for="outcome-built">Built or designed an AI agent</label></div>
+            <div class="check"><input type="checkbox" id="outcome-safety" name="outcomes" value="responsible_ai"><label for="outcome-safety">Applied responsible-AI practices</label></div>
+            <div class="check"><input type="checkbox" id="outcome-teaching" name="outcomes" value="taught_others"><label for="outcome-teaching">Taught or supported other learners</label></div>
+            <div class="check"><input type="checkbox" id="outcome-applied" name="outcomes" value="applied_work_school"><label for="outcome-applied">Applied learning at work or school</label></div>
+            <div class="check"><input type="checkbox" id="outcome-none" name="outcomes" value="none_yet"><label for="outcome-none">No measurable change yet</label></div>
+          </div>
+          <p class="field-note" id="outcomes-error"></p>
+        </fieldset>
         <fieldset class="field">
           <legend class="field-label">Overall experience</legend>
           <div class="rating" aria-label="Overall experience rating">
@@ -78,17 +132,39 @@
           <div class="rating-key"><span>Needs work</span><span>Excellent</span></div>
         </fieldset>
         <div class="field full">
-          <label for="message">Your feedback</label>
-          <textarea id="message" name="message" minlength="10" maxlength="3000" required placeholder="What worked well? What was confusing? What should we improve or add?"></textarea>
-          <div class="counter"><span id="message-count">0</span>/3000</div>
+          <label for="evidence-detail">A specific result or example</label>
+          <textarea id="evidence-detail" name="evidence_detail" minlength="20" maxlength="3000" required placeholder="Describe one concrete result: a project completed, a classroom outcome, a skill applied, or a change you observed. Avoid general praise and sensitive student information."></textarea>
         </div>
         <div class="field full">
-          <label for="email">Email <span class="optional">(optional - only if you want a reply)</span></label>
+          <label for="message">What should we improve?</label>
+          <textarea id="message" name="message" minlength="10" maxlength="3000" required placeholder="What worked, what was confusing, and what should AgenticEd improve or add?"></textarea>
+          <div class="counter"><span id="message-count">0</span>/3000</div>
+        </div>
+        <div class="section-title"><h2>Attribution and follow-up</h2><p>You control whether your words may be quoted. Choosing no permission does not affect submission.</p></div>
+        <div class="field">
+          <label for="quote-permission">May we quote your feedback?</label>
+          <select id="quote-permission" name="quote_permission" required><option value="">Choose one</option><option value="none">No, use only in aggregate metrics</option><option value="anonymous">Yes, anonymously</option><option value="attributed">Yes, with my name, title, and organization</option></select>
+        </div>
+        <div class="field">
+          <label for="display-name">Name <span class="optional">(required for attributed quote)</span></label>
+          <input id="display-name" name="display_name" maxlength="150" autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="job-title">Title or role <span class="optional">(required for attributed quote)</span></label>
+          <input id="job-title" name="job_title" maxlength="150" autocomplete="organization-title">
+        </div>
+        <div class="field full">
+          <label for="email">Verification or reply email <span class="optional">(optional)</span></label>
           <input type="email" id="email" name="email" maxlength="320" autocomplete="email" placeholder="you@example.com">
+          <p class="field-note">Not displayed publicly. A verifiable contact can strengthen attributed feedback, but is not required.</p>
+        </div>
+        <div class="field full consent">
+          <input type="checkbox" id="accuracy-consent" name="accuracy_consent" required>
+          <label for="accuracy-consent">I confirm this is my honest, first-hand experience and consent to AgenticEd storing it for curriculum improvement and aggregate impact reporting. My words will be quoted only according to the permission I selected above.</label>
         </div>
       </div>
       <div class="honeypot" aria-hidden="true"><label for="company">Company</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
-      <p class="privacy-note">Please do not include student names, grades, or sensitive information. We use submissions only to improve AgenticEd and, if you provide an email, to reply. See our <a href="privacy.html">privacy information</a>.</p>
+      <p class="privacy-note">Please do not include student names, grades, or sensitive information. Aggregate reports will label outcomes as self-reported. We use submissions to improve AgenticEd and document its reach and outcomes. See our <a href="privacy.html">privacy information</a>.</p>
       <div class="actions"><button type="submit" id="submit-feedback">Send feedback</button><p class="status" id="form-status" role="status" aria-live="polite"></p></div>
     </form>
   </main>
