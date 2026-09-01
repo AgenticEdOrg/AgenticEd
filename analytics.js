@@ -53,7 +53,7 @@
     var link = document.createElement("a");
     link.id = "agenticed-feedback-button";
     link.className = "agenticed-feedback-button";
-    link.href = "feedback.html?from=" + encodeURIComponent(source);
+    link.href = "feedback.html?from=" + encodeURIComponent(source) + "&v=20260901-1";
     link.setAttribute("aria-label", "Share feedback about this page");
     link.innerHTML = '<span class="agenticed-feedback-button__icon" aria-hidden="true">&#128172;</span><span>Feedback</span>';
     document.body.appendChild(link);
