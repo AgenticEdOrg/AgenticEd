@@ -16,6 +16,7 @@ create table if not exists public.feedback_submissions (
 alter table public.feedback_submissions add column if not exists organization text;
 alter table public.feedback_submissions add column if not exists country text;
 alter table public.feedback_submissions add column if not exists usage_context text;
+alter table public.feedback_submissions add column if not exists course_level text;
 alter table public.feedback_submissions add column if not exists completion_status text;
 alter table public.feedback_submissions add column if not exists learners_reached integer;
 alter table public.feedback_submissions add column if not exists confidence_before smallint;
@@ -37,7 +38,8 @@ create policy "Anyone can submit feedback"
   with check (
     role in ('learner','teacher','parent','educator','other')
     and feedback_type in ('content','activity','website','accessibility','teacher_resources','idea','issue','other')
-    and area in ('overall','week_1','week_2','week_3','week_4','week_5','week_6','assessment','dashboard','teacher_resources','other')
+    and course_level in ('level_1','level_2','level_3','overall')
+    and area in ('overall','assessment','dashboard','teacher_resources','other','level_1_week_1','level_1_week_2','level_1_week_3','level_1_week_4','level_1_week_5','level_1_week_6','level_2_week_1','level_2_week_2','level_2_week_3','level_2_week_4','level_2_week_5','level_2_week_6','level_2_week_7','level_2_week_8','level_3_week_1','level_3_week_2','level_3_week_3','level_3_week_4','level_3_week_5','level_3_week_6','level_3_week_7','level_3_week_8')
     and usage_context in ('self_learning','classroom','workshop','workplace','community','evaluation','other')
     and completion_status in ('started','partial','most','completed','selected_resources')
     and project_status in ('built','in_progress','planned','not_yet','not_applicable')
@@ -81,7 +83,10 @@ select
   round(100.0 * (count(*) filter (where recommend_score >= 9) - count(*) filter (where recommend_score <= 6)) / nullif(count(*), 0), 1) as net_promoter_score,
   count(*) filter (where quote_permission = 'attributed') as attributed_quotes_available,
   min(created_at) as collection_started_at,
-  max(created_at) as last_response_at
+  max(created_at) as last_response_at,
+  count(*) filter (where course_level = 'level_1') as level_1_responses,
+  count(*) filter (where course_level = 'level_2') as level_2_responses,
+  count(*) filter (where course_level = 'level_3') as level_3_responses
 from public.feedback_submissions
 where consent_version is not null;
 

@@ -7,12 +7,15 @@
   var quotePermission = document.getElementById("quote-permission");
   var displayName = document.getElementById("display-name");
   var jobTitle = document.getElementById("job-title");
+  var courseLevel = document.getElementById("course-level");
+  var area = document.getElementById("area");
   var loadedAt = Date.now();
   var sourcePath = getSourcePath();
   if (!form) return;
 
   message.addEventListener("input", function () { count.textContent = message.value.length; });
   quotePermission.addEventListener("change", updateAttributionRequirements);
+  courseLevel.addEventListener("change", function () { populateAreas(courseLevel.value, ""); });
   Array.prototype.forEach.call(form.querySelectorAll('input[name="outcomes"]'), function (item) {
     item.addEventListener("change", function () {
       var none = document.getElementById("outcome-none");
@@ -60,6 +63,7 @@
       organization: form.elements.organization.value.trim() || null,
       country: form.elements.country.value.trim(),
       usage_context: form.elements.usage_context.value,
+      course_level: form.elements.course_level.value,
       area: form.elements.area.value,
       completion_status: form.elements.completion_status.value,
       learners_reached: Number(form.elements.learners_reached.value),
@@ -99,6 +103,8 @@
   function showSuccess() {
     form.reset(); count.textContent = "0"; loadedAt = Date.now();
     updateAttributionRequirements();
+    populateAreas("", "");
+    selectAreaFromSource(sourcePath);
     status.className = "status success";
     status.textContent = "Thank you - your feedback has been received.";
   }
@@ -119,13 +125,67 @@
   function selectAreaFromSource(path) {
     var page = path.split("?")[0].split("/").pop().toLowerCase();
     var areaByPage = {
-      "week1.html": "week_1", "week2.html": "week_2", "week3.html": "week_3",
-      "week4.html": "week_4", "week5.html": "week_5", "week6.html": "week_6",
-      "quiz.html": "assessment", "assessment.html": "assessment",
-      "dashboard.html": "dashboard", "portfolio.html": "dashboard", "certificate.html": "dashboard",
-      "tools.html": "teacher_resources", "plan.html": "teacher_resources"
+      "week1.html": ["level_1", "level_1_week_1"], "week2.html": ["level_1", "level_1_week_2"],
+      "week3.html": ["level_1", "level_1_week_3"], "week4.html": ["level_1", "level_1_week_4"],
+      "week5.html": ["level_1", "level_1_week_5"], "week6.html": ["level_1", "level_1_week_6"],
+      "quiz.html": ["overall", "assessment"], "assessment.html": ["overall", "assessment"],
+      "dashboard.html": ["overall", "dashboard"], "portfolio.html": ["overall", "dashboard"],
+      "certificate.html": ["overall", "dashboard"], "tools.html": ["overall", "teacher_resources"],
+      "plan.html": ["overall", "teacher_resources"]
     };
-    if (areaByPage[page]) form.elements.area.value = areaByPage[page];
+    if (areaByPage[page]) {
+      courseLevel.value = areaByPage[page][0];
+      populateAreas(areaByPage[page][0], areaByPage[page][1]);
+    }
+  }
+  function populateAreas(level, selectedArea) {
+    var areasByLevel = {
+      level_1: [
+        ["level_1_week_1", "Level 1 - Week 1: AI Foundations - From Automation to Agents"],
+        ["level_1_week_2", "Level 1 - Week 2: Generative AI & LLMs"],
+        ["level_1_week_3", "Level 1 - Week 3: Tools, Retrieval & Memory"],
+        ["level_1_week_4", "Level 1 - Week 4: Agent Workflows & Handoffs"],
+        ["level_1_week_5", "Level 1 - Week 5: Build Your First Agent"],
+        ["level_1_week_6", "Level 1 - Week 6: Responsible AI & Your Future"]
+      ],
+      level_2: [
+        ["level_2_week_1", "Level 2 - Week 1: Python & API Foundations"],
+        ["level_2_week_2", "Level 2 - Week 2: Structured Outputs & Application Patterns"],
+        ["level_2_week_3", "Level 2 - Week 3: Embeddings & Semantic Search"],
+        ["level_2_week_4", "Level 2 - Week 4: Retrieval-Augmented Generation"],
+        ["level_2_week_5", "Level 2 - Week 5: Tool Calling & Agent Actions"],
+        ["level_2_week_6", "Level 2 - Week 6: State & Memory"],
+        ["level_2_week_7", "Level 2 - Week 7: Agent Evaluation"],
+        ["level_2_week_8", "Level 2 - Week 8: Coded Agent Capstone"]
+      ],
+      level_3: [
+        ["level_3_week_1", "Level 3 - Week 1: Production Agent Architecture"],
+        ["level_3_week_2", "Level 3 - Week 2: Orchestration & Durable Workflows"],
+        ["level_3_week_3", "Level 3 - Week 3: Multi-Agent Systems"],
+        ["level_3_week_4", "Level 3 - Week 4: Advanced Retrieval"],
+        ["level_3_week_5", "Level 3 - Week 5: Security & Guardrails"],
+        ["level_3_week_6", "Level 3 - Week 6: Human Oversight"],
+        ["level_3_week_7", "Level 3 - Week 7: Evaluation & Observability"],
+        ["level_3_week_8", "Level 3 - Week 8: Deployment Capstone"]
+      ],
+      overall: [
+        ["overall", "Overall AgenticEd experience"], ["assessment", "Assessment or quiz"],
+        ["dashboard", "Dashboard, portfolio, or certificate"], ["teacher_resources", "Teacher resources"],
+        ["other", "Other site area"]
+      ]
+    };
+    var options = areasByLevel[level] || [];
+    area.innerHTML = "";
+    var prompt = document.createElement("option");
+    prompt.value = "";
+    prompt.textContent = level ? "Choose a week or area" : "Choose a level first";
+    area.appendChild(prompt);
+    options.forEach(function (item) {
+      var option = document.createElement("option");
+      option.value = item[0]; option.textContent = item[1]; area.appendChild(option);
+    });
+    area.disabled = !level;
+    if (selectedArea) area.value = selectedArea;
   }
   function showError(text) { status.className = "status error"; status.textContent = text; }
 })();
