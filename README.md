@@ -98,7 +98,7 @@ AgenticEd/
 │
 └── teacher-guide/
     ├── faq.md                       ← Common questions + answers
-    ├── standards-alignment.md       ← CSTA, AI4K12, ISTE
+    ├── standards-alignment.md       ← Classroom standards and AgenticEd framework mapping
     └── tools-setup-guide.md         ← How to set up free tools before class
 ```
 
@@ -150,7 +150,7 @@ No student accounts required for basic use. Teachers should test tool access fro
 | Prior AI knowledge required | None |
 | Prior coding knowledge required | None |
 | Tools required | Free, browser-based only |
-| Standards alignment | CSTA · AI4K12 · ISTE |
+| Framework | AgenticEd Build-Govern-Prove |
 
 ---
 
@@ -194,7 +194,7 @@ You are free to:
 
 ## 🙏 Acknowledgments
 
-Aligned with [AI4K12.org](https://ai4k12.org) Big Ideas framework.
+Built around the independent AgenticEd Build-Govern-Prove Framework.
 Inspired by the gap between what students are taught about AI and what is actually being deployed in the real world.
 
 ---

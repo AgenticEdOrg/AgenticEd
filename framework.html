@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build-Govern-Prove Framework | AgenticEd</title>
+  <meta name="description" content="The AgenticEd Build-Govern-Prove Framework teaches learners to build AI agents, govern their behavior, and prove whether they should be trusted." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#fff;--light:#F3F0FA;--green:#166534;--green-light:#DCFCE7;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:var(--coral)}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none}.logo em{font-style:normal;color:var(--coral)}
+    .back{color:rgba(250,249,255,.65);font-size:13px;text-decoration:none}
+    .hero{background:var(--brown);padding:64px 32px 72px;border-bottom:3px solid var(--coral)}
+    .hero-inner,.body{max-width:920px;margin:0 auto}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+    h1,h2,h3{font-family:'Outfit',sans-serif;line-height:1.15}.hero h1{font-size:clamp(36px,6vw,64px);color:var(--cream);max-width:760px;margin-bottom:18px}.hero h1 em{font-style:normal;color:var(--amber)}
+    .hero p{color:rgba(250,249,255,.76);font-size:18px;max-width:700px}.version{display:inline-block;margin-top:24px;padding:6px 10px;border:1px solid rgba(250,249,255,.2);border-radius:5px;color:var(--cream);font-size:12px;font-weight:700}
+    .body{padding:52px 32px 80px}.lead{font-size:20px;line-height:1.6;max-width:760px;margin-bottom:44px}.lead strong{color:var(--coral)}
+    h2{font-size:32px;margin:50px 0 16px}h3{font-size:21px;margin-bottom:8px}p{margin-bottom:14px}
+    .cycle{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 40px}.stage{background:var(--white);border:1px solid var(--border);border-top:5px solid var(--coral);padding:24px;border-radius:8px}.stage:nth-child(2){border-top-color:var(--amber)}.stage:nth-child(3){border-top-color:var(--green)}.stage__number{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--warm);margin-bottom:10px}.stage ul{padding-left:18px;color:var(--warm);font-size:14px}.stage li{margin-bottom:5px}
+    .loop{background:var(--light);border:1px solid var(--border);padding:24px;border-radius:8px;margin:24px 0}.loop strong{color:var(--coral)}.loop span{font-weight:800;color:var(--brown)}
+    .principles{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.principle{padding:18px 20px;background:var(--light);border-left:3px solid var(--coral)}.principle strong{display:block;font-family:'Outfit',sans-serif;font-size:17px;margin-bottom:4px}.principle p{font-size:14px;color:var(--warm);margin:0}
+    .mapping{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:24px 0 12px}.mapping div{background:var(--white);padding:17px}.mapping strong{display:block;font-family:'Outfit',sans-serif;font-size:16px;margin-bottom:4px}.mapping p{font-size:13px;color:var(--warm);margin:0}.mapping-head{background:var(--brown)!important;color:var(--cream)}.mapping-head p{color:rgba(250,249,255,.7)}
+    .evidence{background:var(--brown);color:var(--cream);padding:28px;border-radius:8px;margin:24px 0}.evidence h3{color:var(--amber)}.evidence ol{padding-left:20px;color:rgba(250,249,255,.78);font-size:15px}.evidence li{margin-bottom:7px}
+    .callout{background:var(--green-light);border:1px solid #86EFAC;color:var(--green);padding:18px 20px;border-radius:8px;margin:24px 0}.callout p{margin:0;font-size:14px}
+    .links{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-block;padding:11px 16px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;background:var(--coral);color:var(--white)}.btn--ghost{background:transparent;color:var(--brown);border:1px solid var(--border)}
+    footer{background:var(--brown);padding:26px 32px;color:rgba(250,249,255,.55);font-size:13px}footer .footer-inner{max-width:920px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a{color:rgba(250,249,255,.65);text-decoration:none}
+    @media(max-width:700px){.topbar{padding:10px 18px}.hero{padding:44px 20px 50px}.body{padding:36px 18px 60px}.cycle,.principles{grid-template-columns:1fr}.hero p{font-size:16px}}
+  </style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="logo" href="index.html">Agentic<em>Ed</em></a><a class="back" href="index.html">Back to course</a></header>
+  <section class="hero"><div class="hero-inner"><p class="eyebrow">AgenticEd Framework v1.0</p><h1>Build it. Govern it. <em>Prove it.</em></h1><p>A practical, open method for teaching people to design AI agents, take responsibility for their behavior, and produce evidence about whether they should be trusted.</p><span class="version">Public working specification · September 2026</span></div></section>
+  <main class="body">
+    <p class="lead">AgenticEd is organized around one rule: <strong>an agent is not finished when it works.</strong> It is finished when its purpose, risks, oversight, performance, and limitations are visible to another person.</p>
+
+    <h2>The three-stage method</h2>
+    <div class="cycle">
+      <article class="stage"><p class="stage__number">01 · Build</p><h3>Make the system</h3><p>Turn a real goal into an agent workflow that can be inspected and improved.</p><ul><li>Define the user and task</li><li>Map Think, Act, and Observe</li><li>Choose tools and data sources</li><li>Build a working prototype</li></ul></article>
+      <article class="stage"><p class="stage__number">02 · Govern</p><h3>Bound the system</h3><p>Make responsibility and failure handling part of the design, not an afterthought.</p><ul><li>Identify harms and failure modes</li><li>Protect data and source quality</li><li>Add human approval points</li><li>Define escalation and ownership</li></ul></article>
+      <article class="stage"><p class="stage__number">03 · Prove</p><h3>Test the claim</h3><p>Replace “it seems useful” with repeatable tests, artifacts, and honest limitations.</p><ul><li>Create representative test cases</li><li>Measure quality and reliability</li><li>Record failures and revisions</li><li>Publish an evidence portfolio</li></ul></article>
+    </div>
+
+    <div class="loop"><span>Every project follows:</span> <strong>Goal → Build → Govern → Test → Reflect → Revise</strong>. The cycle repeats until the learner can explain both what the agent does and when a human must intervene.</div>
+
+    <h2>Reference implementation: Research Agent</h2>
+    <p>To make the method practical, AgenticEd uses one complete project as its reference implementation. The learner builds a research agent that summarizes public sources, labels claims, refuses unsupported or high-stakes requests, and requires human verification before reuse.</p>
+    <div class="callout"><p><strong>Complete the project:</strong> define the research question, paste the tested system prompt, run five deliberate failure tests, add one governance fix, rerun the failed test, and submit the evidence portfolio.</p></div>
+    <div class="links"><a class="btn" href="research-agent.html">Build the Research Agent</a><a class="btn btn--ghost" href="week5.html">Open Week 5 build lesson</a></div>
+
+    <h2>From concepts to agent evidence</h2>
+    <p>AgenticEd's independent framework turns AI concepts into a practical project cycle. Learners do not stop at understanding how agents work; they build one, govern it, and produce evidence that another person can inspect.</p>
+    <div class="mapping">
+      <div class="mapping-head"><strong>AgenticEd concept</strong><p>What the learner understands</p></div><div class="mapping-head"><strong>AgenticEd learner action</strong><p>What the learner does in a project</p></div><div class="mapping-head"><strong>Evidence produced</strong><p>What another person can inspect</p></div>
+      <div><strong>Perception</strong><p>What the system receives and how it interprets the environment.</p></div><div><strong>Build: define inputs and goal</strong><p>Specify the user, task, inputs, assumptions, and what the agent is allowed to observe.</p></div><div><strong>Input and scope record</strong><p>Problem statement, data sources, permissions, and out-of-scope uses.</p></div>
+      <div><strong>Learning</strong><p>How systems improve from data, feedback, or experience.</p></div><div><strong>Prove: test, observe, revise</strong><p>Compare expected and observed outputs, record failures, and explain each revision.</p></div><div><strong>Test and revision log</strong><p>Representative cases, failure examples, results, and changes made.</p></div>
+      <div><strong>Natural interaction</strong><p>How people communicate with AI systems and how systems respond.</p></div><div><strong>Govern: design human control</strong><p>Define approval points, explanations, escalation, refusal behavior, and responsibility.</p></div><div><strong>Responsibility map</strong><p>Human owner, user-facing limits, intervention rules, and risk mitigations.</p></div>
+    </div>
+    <p><small>Framework note: These concepts are organized by AgenticEd around the agent lifecycle, with responsible-AI judgment and evidence required in every project.</small></p>
+
+    <h2>What makes this framework distinct</h2>
+    <div class="principles">
+      <div class="principle"><strong>Accountability is structural</strong><p>The learner maps ownership for decisions, data, tool calls, and failures.</p></div>
+      <div class="principle"><strong>Trust is earned with evidence</strong><p>Projects include tests, observed failures, revisions, and limits, not just a demo.</p></div>
+      <div class="principle"><strong>Governance is beginner-accessible</strong><p>No-code and offline paths teach the same judgment as technical implementations.</p></div>
+      <div class="principle"><strong>Artifacts compound</strong><p>One artifact per stage becomes a portfolio that shows reasoning, not only completion.</p></div>
+    </div>
+
+    <h2>Required learner evidence</h2>
+    <div class="evidence"><h3>An Agent Evidence Portfolio contains</h3><ol><li>Problem statement, intended user, and success definition</li><li>Agent workflow showing inputs, decisions, tools, and outputs</li><li>Responsibility map identifying human owners and approval points</li><li>Risk register with likely failures and mitigations</li><li>Test cases, results, and at least one documented failure</li><li>Revision log explaining what changed and why</li><li>Trust Readiness Rubric score with limitations and next steps</li></ol></div>
+
+    <div class="callout"><p><strong>Framework status:</strong> This is a public working specification. Educators are invited to test it, report outcomes, and propose revisions. Adoption and results should be documented rather than assumed.</p></div>
+
+    <div class="links"><a class="btn" href="rubric.html">Use the Trust Readiness Rubric</a><a class="btn btn--ghost" href="approach.html">Read the approach</a><a class="btn btn--ghost" href="portfolio.html">Open portfolio tracker</a></div>
+  </main>
+  <footer><div class="footer-inner"><span>AgenticEd · Build-Govern-Prove Framework v1.0</span><span><a href="index.html">Home</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div></footer>
+</body>
+</html>

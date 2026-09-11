@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trust Readiness Rubric | AgenticEd</title>
+  <meta name="description" content="A practical rubric for evaluating an AI agent's purpose, evidence, safety, reliability, and human oversight." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#fff;--light:#F3F0FA;--green:#166534;--green-light:#DCFCE7;--red:#991B1B}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.65;-webkit-font-smoothing:antialiased}a{color:var(--coral)}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center}.logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none}.logo em{font-style:normal;color:var(--coral)}.back{color:rgba(250,249,255,.65);font-size:13px;text-decoration:none}
+    .hero{background:var(--brown);padding:54px 32px 60px;border-bottom:3px solid var(--amber)}.hero-inner,.body{max-width:1000px;margin:0 auto}.eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}h1,h2,h3{font-family:'Outfit',sans-serif;line-height:1.15}.hero h1{font-size:clamp(34px,5vw,54px);color:var(--cream);margin-bottom:16px}.hero p{color:rgba(250,249,255,.75);font-size:17px;max-width:700px}.body{padding:48px 32px 76px}.intro{font-size:19px;max-width:760px;margin-bottom:34px}.intro strong{color:var(--coral)}h2{font-size:30px;margin:42px 0 14px}h3{font-size:20px;margin-bottom:6px}
+    .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:var(--white)}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;vertical-align:top;padding:16px;border-bottom:1px solid var(--border)}th{background:var(--brown);color:var(--cream);font-family:'Outfit',sans-serif;font-size:15px}th:first-child{width:20%}td{font-size:14px;color:var(--warm)}td strong{color:var(--brown);display:block;font-family:'Outfit',sans-serif;font-size:16px;margin-bottom:4px}tr:last-child td{border-bottom:0}.score{font-weight:800;color:var(--coral);white-space:nowrap}
+    .scale{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.scale-card{background:var(--light);padding:16px;border-top:4px solid var(--border);border-radius:6px}.scale-card:nth-child(2){border-top-color:#F59E0B}.scale-card:nth-child(3){border-top-color:var(--amber)}.scale-card:nth-child(4){border-top-color:#16A34A}.scale-card strong{display:block;font-family:'Outfit',sans-serif;font-size:18px;margin-bottom:4px}.scale-card p{font-size:13px;color:var(--warm);margin:0}
+    .rule{background:var(--green-light);border:1px solid #86EFAC;color:var(--green);padding:18px 20px;border-radius:8px;margin:24px 0}.rule p{font-size:14px;margin:0}.evidence{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0}.evidence div{background:var(--white);border:1px solid var(--border);padding:18px;border-radius:7px}.evidence p{font-size:14px;color:var(--warm);margin:0}.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-block;padding:11px 16px;border-radius:6px;text-decoration:none;font-size:14px;font-weight:700;background:var(--coral);color:var(--white)}.btn--ghost{background:transparent;color:var(--brown);border:1px solid var(--border)}footer{background:var(--brown);padding:26px 32px;color:rgba(250,249,255,.55);font-size:13px}footer .footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}footer a{color:rgba(250,249,255,.65);text-decoration:none}
+    @media(max-width:700px){.topbar{padding:10px 18px}.hero{padding:42px 20px 48px}.body{padding:34px 18px 58px}.scale,.evidence{grid-template-columns:1fr}.hero p{font-size:16px}}
+  </style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+</head>
+<body>
+  <header class="topbar"><a class="logo" href="index.html">Agentic<em>Ed</em></a><a class="back" href="framework.html">Framework overview</a></header>
+  <section class="hero"><div class="hero-inner"><p class="eyebrow">Build-Govern-Prove · Stage 03</p><h1>Trust Readiness Rubric</h1><p>Use this rubric to evaluate whether an agent is merely functional, or whether its behavior is understandable, testable, and appropriately controlled.</p></div></section>
+  <main class="body">
+    <p class="intro"><strong>Score the evidence, not the enthusiasm.</strong> A high score does not mean an agent is universally safe. It means the learner has defined a suitable scope, tested the system honestly, and made human responsibility visible.</p>
+
+    <h2>Scoring dimensions</h2>
+    <div class="table-wrap"><table><thead><tr><th>Dimension</th><th>1 · Emerging</th><th>2 · Developing</th><th>3 · Ready for bounded use</th></tr></thead><tbody>
+      <tr><td><strong>Purpose & scope</strong><span class="score">/ 3</span></td><td>The task or user is unclear.</td><td>The task is defined, but boundaries are incomplete.</td><td>The intended user, goal, success measure, and out-of-scope uses are explicit.</td></tr>
+      <tr><td><strong>Workflow clarity</strong><span class="score">/ 3</span></td><td>The agent is shown only as a demo.</td><td>Some inputs, tools, and outputs are documented.</td><td>Think, Act, Observe steps and tool/data dependencies are reproducible.</td></tr>
+      <tr><td><strong>Grounding & data</strong><span class="score">/ 3</span></td><td>Sources and data handling are unknown.</td><td>Sources are listed but not consistently checked.</td><td>Sources, permissions, freshness, and grounding behavior are documented.</td></tr>
+      <tr><td><strong>Reliability</strong><span class="score">/ 3</span></td><td>Only successful examples are shown.</td><td>Some test cases and failures are recorded.</td><td>Representative tests, repeatability, failure rates, and known limits are reported.</td></tr>
+      <tr><td><strong>Safety & harm</strong><span class="score">/ 3</span></td><td>Potential harms are not considered.</td><td>Risks are listed without clear mitigations.</td><td>Likely harms, mitigations, refusal behavior, and escalation paths are tested.</td></tr>
+      <tr><td><strong>Human control</strong><span class="score">/ 3</span></td><td>No owner or intervention point is defined.</td><td>A human is mentioned, but responsibility is vague.</td><td>Owners, approval checkpoints, override rules, and accountability are explicit.</td></tr>
+      <tr><td><strong>Transparency</strong><span class="score">/ 3</span></td><td>Users cannot tell how outputs were produced.</td><td>Some limitations are disclosed.</td><td>Users can understand the agent's sources, limits, confidence, and appropriate use.</td></tr>
+    </tbody></table></div>
+
+    <h2>Interpretation</h2>
+    <div class="scale"><div class="scale-card"><strong>7–11</strong><p>Early prototype. Keep testing and narrow the scope.</p></div><div class="scale-card"><strong>12–15</strong><p>Developing system. Document gaps before real use.</p></div><div class="scale-card"><strong>16–19</strong><p>Bounded-use candidate. Maintain human oversight.</p></div><div class="scale-card"><strong>20–21</strong><p>Strong evidence for the stated scope, not a universal safety claim.</p></div></div>
+    <div class="rule"><p><strong>Required rule:</strong> Any project with no documented human owner, no failure test, or an unresolved high-severity harm is not “trust ready,” regardless of its total score.</p></div>
+
+    <h2>Evidence to submit</h2>
+    <div class="evidence"><div><h3>Build evidence</h3><p>Problem statement, workflow diagram, prompts or code, tools, data sources, and a working demonstration.</p></div><div><h3>Govern evidence</h3><p>Responsibility map, risk register, privacy decisions, human checkpoints, refusal cases, and escalation rules.</p></div><div><h3>Prove evidence</h3><p>Test cases, expected versus observed results, failure log, score rationale, and limitations.</p></div><div><h3>Revision evidence</h3><p>Before-and-after comparison showing what changed, why it changed, and whether the change improved results.</p></div></div>
+
+    <div class="links"><a class="btn" href="framework.html">Read the framework</a><a class="btn btn--ghost" href="portfolio.html">Open portfolio tracker</a><a class="btn btn--ghost" href="mailto:hello@agenticed.org">Share implementation feedback</a></div>
+  </main>
+  <footer><div class="footer-inner"><span>AgenticEd · Trust Readiness Rubric v1.0</span><span><a href="index.html">Home</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div></footer>
+</body>
+</html>
