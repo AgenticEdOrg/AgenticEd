@@ -7,7 +7,7 @@ This 6-week course introduces learners to agentic AI — systems that can reason
 **Target Audience:** Open to all — no age limit, no prerequisites. Classroom-ready for grades 9–12 (AP CS Principles · Introduction to AI · Elective tech courses), and equally suited to college courses, community programs, career-switchers, and self-learners.
 **Time Commitment:** ~60–90 minutes per week
 **Prerequisites:** None. Curiosity required.
-**Standards Alignment:** CSTA K-12 CS Standards · AI4K12 Big Ideas 1, 3, 4 · ISTE Student Standards
+**Framework:** AgenticEd Build-Govern-Prove Framework — an independent method for agent building, governance, evaluation, and evidence
 
 ---
 
@@ -487,11 +487,6 @@ A web version of this tracker ships as **`portfolio.html`** in this repo — stu
 - 3A-IC-24: Evaluate the ways computing impacts personal, ethical, social, economic, and cultural practices
 - 3B-IC-25: Evaluate computational artifacts to maximize their beneficial effects and minimize harmful effects
 
-### AI4K12 Big Ideas
-- Big Idea 1: Computers perceive the world using sensors
-- Big Idea 3: Computers can learn from data
-- Big Idea 4: Intelligent agents require many kinds of knowledge to interact naturally with humans
-
 ### ISTE Student Standards
 - 1c: Knowledge constructor
 - 1d: Innovative designer
@@ -510,7 +505,6 @@ A web version of this tracker ships as **`portfolio.html`** in this repo — stu
 
 ### Background Reading for Teachers
 - "A Student's Introduction to Large Language Models" — fast.ai
-- "AI4K12 Big Ideas in AI" — ai4k12.org
 - "What Are AI Agents?" — IBM Technology (YouTube)
 
 ### Guest Speaker Ideas
