@@ -9,26 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="certifications.css"/>
   <style>
-    .status{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:24px;font-size:14px;color:var(--warm);}
+    .status{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:14px;color:var(--warm);box-shadow:var(--shadow-sm);}
     .status b{color:var(--brown);}
-    .q{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:16px;}
+    .progress{height:8px;border-radius:999px;background:var(--light);overflow:hidden;margin-bottom:24px;}
+    .progress__bar{height:100%;width:0%;background:linear-gradient(90deg,var(--coral),var(--amber));border-radius:999px;transition:width .25s ease;}
+    .q{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:16px;box-shadow:var(--shadow-sm);transition:box-shadow .2s;}
+    .q:hover{box-shadow:var(--shadow-md);}
     .q__n{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;display:flex;justify-content:space-between;}
-    .q__type{color:var(--warm);font-weight:600;letter-spacing:0;text-transform:none;}
+    .q__type{color:var(--warm);font-weight:600;letter-spacing:0;text-transform:none;background:var(--cream);padding:2px 9px;border-radius:999px;}
     .q__text{font-size:16px;font-weight:600;margin-bottom:14px;}
-    .opt{display:flex;gap:11px;align-items:flex-start;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:9px;cursor:pointer;transition:border-color .14s,background .14s;font-size:15px;}
-    .opt:hover{border-color:var(--coral);}
+    .opt{display:flex;gap:11px;align-items:flex-start;background:var(--cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:9px;cursor:pointer;transition:border-color .14s,background .14s,transform .14s;font-size:15px;}
+    .opt:hover{border-color:var(--coral);transform:translateX(2px);}
     .opt input{margin-top:5px;accent-color:var(--coral);}
     .opt--sel{border-color:var(--coral);background:var(--coral-light);}
     .q--graded .opt{cursor:default;pointer-events:none;}
+    .q--graded .opt:hover{transform:none;}
     .opt--right{border-color:var(--good)!important;background:var(--good-bg)!important;}
     .opt--wrong{border-color:var(--bad)!important;background:var(--bad-bg)!important;}
     .why{display:none;margin-top:10px;background:#FFFBEF;border-left:4px solid var(--amber);border-radius:0 8px 8px 0;padding:12px 16px;font-size:14px;color:var(--brown);}
     .why b{color:#996600;}
     .q--graded .why{display:block;}
     .submit-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:24px;}
-    .score{display:none;background:var(--brown);border-radius:16px;padding:28px 30px;margin:26px 0 6px;}
-    .score__n{font-family:'Outfit',sans-serif;font-size:38px;font-weight:900;color:var(--cream);line-height:1;}
-    .score__n em{font-style:normal;color:var(--coral);}
+    .score{display:none;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--brown),#1D2240);border-radius:18px;padding:30px 32px;margin:26px 0 6px;box-shadow:var(--shadow-lg);}
+    .score__n{font-family:'Outfit',sans-serif;font-size:40px;font-weight:900;color:var(--cream);line-height:1;}
+    .score__n em{font-style:normal;color:var(--amber);}
     .score__msg{font-size:15px;color:rgba(250,249,255,0.78);margin-top:10px;}
     .score__next{margin-top:18px;}
   </style>
@@ -48,6 +52,7 @@
 </div>
 <div class="body">
   <div class="status" id="status"></div>
+  <div class="progress"><div class="progress__bar" id="progress-bar"></div></div>
   <div id="quiz"></div>
   <div class="submit-row">
     <button class="btn btn--primary" id="grade">Submit exam</button>
@@ -112,14 +117,26 @@
         } else {
           lab.classList.toggle("opt--sel",input.checked);
         }
+        updateProgress();
       });
     });
     $("score").style.display="none";
     $("grade").style.display="";
     $("retake").style.display="none";
     window.scrollTo({top:0});
+    updateProgress();
   }
   render();
+
+  function updateProgress(){
+    var answered=0;
+    lvl.questions.forEach(function(item,qi){
+      var isMulti=item.type==="multi";
+      var chosen=selectedIndices(qi,isMulti);
+      if(isMulti ? chosen.length>0 : chosen!==null) answered++;
+    });
+    $("progress-bar").style.width=Math.round(answered/lvl.questions.length*100)+"%";
+  }
 
   function selectedIndices(qi,isMulti){
     if(isMulti){
@@ -191,6 +208,7 @@
     $("score").style.display="block";
     $("grade").style.display="none";
     $("retake").style.display="";
+    $("progress-bar").style.width="100%";
     $("score").scrollIntoView({behavior:"smooth",block:"center"});
   });
   $("retake").addEventListener("click",render);

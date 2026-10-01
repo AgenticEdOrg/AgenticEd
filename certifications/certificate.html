@@ -24,10 +24,17 @@
 
     .cert-wrap{display:flex;justify-content:center;}
     .cert{width:100%;max-width:820px;aspect-ratio:1.414/1;background:radial-gradient(circle at top left,#fffdf9,var(--white));
-      border:2px solid var(--brown);border-radius:8px;padding:6px;position:relative;box-shadow:0 12px 40px -14px rgba(60,40,15,.4);}
-    .cert__inner{height:100%;border:2px solid var(--coral);border-radius:4px;
+      border:2px solid var(--brown);border-radius:10px;padding:6px;position:relative;box-shadow:var(--shadow-lg);}
+    .cert__inner{height:100%;border:2px solid var(--coral);border-radius:6px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-      padding:6% 8%;position:relative;}
+      padding:6% 8%;position:relative;background-image:
+        linear-gradient(135deg,rgba(124,58,237,.06),transparent 30%),
+        linear-gradient(-45deg,rgba(168,85,247,.06),transparent 30%);}
+    .cert__corner{position:absolute;width:20px;height:20px;border:2px solid var(--coral);opacity:.55;}
+    .cert__corner--tl{top:10px;left:10px;border-right:none;border-bottom:none;}
+    .cert__corner--tr{top:10px;right:10px;border-left:none;border-bottom:none;}
+    .cert__corner--bl{bottom:10px;left:10px;border-right:none;border-top:none;}
+    .cert__corner--br{bottom:10px;right:10px;border-left:none;border-top:none;}
     .cert__brand{font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(15px,2.6vw,22px);letter-spacing:.02em;color:var(--brown);}
     .cert__brand em{font-style:normal;color:var(--coral);}
     .cert__eye{font-size:clamp(9px,1.5vw,12px);font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin:4% 0 3%;}
@@ -39,7 +46,7 @@
     .cert__block{text-align:center;flex:1;}
     .cert__line{border-top:1.5px solid var(--brown);padding-top:5px;font-size:clamp(9px,1.3vw,11px);color:var(--warm);}
     .cert__val{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(10px,1.6vw,14px);color:var(--brown);margin-bottom:4px;word-break:break-all;}
-    .cert__seal{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);width:clamp(40px,8vw,64px);height:clamp(40px,8vw,64px);border-radius:50%;background:var(--coral);color:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3.6vw,28px);box-shadow:0 4px 12px -3px rgba(124,58,237,.6);}
+    .cert__seal{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);width:clamp(40px,8vw,64px);height:clamp(40px,8vw,64px);border-radius:50%;background:linear-gradient(135deg,var(--coral),var(--amber));color:#fff;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3.6vw,28px);box-shadow:0 6px 18px -4px rgba(124,58,237,.65),0 0 0 4px rgba(124,58,237,.12);}
 
     .print-actions{margin:26px 0 6px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
     .share{margin-top:22px;}
@@ -89,6 +96,8 @@
     <div class="cert-wrap">
       <div class="cert" id="cert">
         <div class="cert__inner">
+          <span class="cert__corner cert__corner--tl"></span><span class="cert__corner cert__corner--tr"></span>
+          <span class="cert__corner cert__corner--bl"></span><span class="cert__corner cert__corner--br"></span>
           <div class="cert__brand">AgenticEd <em>Certifications</em></div>
           <div class="cert__eye" id="c-tier">Certificate</div>
           <div class="cert__pre">This certifies that</div>

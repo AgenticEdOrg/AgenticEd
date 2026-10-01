@@ -9,22 +9,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="certifications.css"/>
   <style>
-    .levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:26px 0 36px;}
-    .lvl{display:flex;flex-direction:column;gap:12px;}
-    .lvl__top{display:flex;align-items:center;gap:10px;}
-    .lvl__badge{font-size:28px;}
-    .lvl__tier{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);}
-    .lvl__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;color:var(--brown);}
-    .lvl__tagline{font-size:13px;color:var(--warm);}
+    :root{--tier-foundational:#10B981;--tier-foundational-bg:#E4F7EF;--tier-associate:#7C3AED;--tier-associate-bg:#F1E9FF;--tier-advanced:#D97706;--tier-advanced-bg:#FCEFD8;}
+    .levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;margin:28px 0 40px;}
+    .lvl{display:flex;flex-direction:column;gap:13px;position:relative;overflow:hidden;padding-top:28px;}
+    .lvl::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:var(--tier-accent,var(--coral));}
+    .lvl:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);}
+    .lvl--foundational{--tier-accent:var(--tier-foundational);}
+    .lvl--associate{--tier-accent:var(--tier-associate);}
+    .lvl--advanced{--tier-accent:var(--tier-advanced);}
+    .lvl__top{display:flex;align-items:center;gap:13px;}
+    .lvl__badge{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--tier-bg,var(--light));flex-shrink:0;}
+    .lvl--foundational .lvl__badge{background:var(--tier-foundational-bg);}
+    .lvl--associate .lvl__badge{background:var(--tier-associate-bg);}
+    .lvl--advanced .lvl__badge{background:var(--tier-advanced-bg);}
+    .lvl__tier{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tier-accent,var(--amber));}
+    .lvl__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:17.5px;color:var(--brown);line-height:1.25;}
+    .lvl__tagline{font-size:13px;color:var(--warm);font-weight:600;}
     .lvl__summary{font-size:14px;color:var(--brown);flex:1;}
-    .lvl__meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--warm);}
-    .lvl__status{margin-top:4px;}
+    .lvl__meta{display:flex;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--warm);}
+    .lvl__meta span{background:var(--cream);border:1px solid var(--border);border-radius:999px;padding:4px 10px;}
+    .lvl__status{margin-top:2px;}
+    .lvl .btn{justify-content:center;}
     .verify{margin-top:8px;}
     .verify .form__row{display:flex;gap:10px;flex-wrap:wrap;}
-    .verify input{flex:1;min-width:220px;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;}
+    .verify input{flex:1;min-width:220px;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color .15s;}
     .verify input:focus{border-color:var(--coral);}
     .verify__hint{font-size:13px;color:var(--warm);margin-top:10px;}
-    h2.section{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
+    h2.section{font-family:'Outfit',sans-serif;font-size:21px;font-weight:800;margin-bottom:6px;}
     p.section-sub{font-size:14px;color:var(--warm);margin-bottom:16px;}
   </style>
   <script src="cert-data.js"></script>
@@ -37,8 +48,13 @@
 <div class="lhdr">
   <div class="lhdr__inner">
     <p class="lhdr__eye">AI Agent Certification Program</p>
-    <h1 class="lhdr__h1">Get certified, like AWS — but for AI agents.</h1>
+    <h1 class="lhdr__h1">Get certified in AI agents.</h1>
     <p class="lhdr__sub">Three tiers, one exam each: 20 questions, 70% to pass. Every certification you earn comes with a shareable, independently verifiable certificate link.</p>
+    <div class="lhdr__stats">
+      <span class="lhdr__stat">🎓 3 certification tiers</span>
+      <span class="lhdr__stat">📝 60 exam questions</span>
+      <span class="lhdr__stat">🔗 Verified, shareable certificates</span>
+    </div>
   </div>
 </div>
 <div class="body">
@@ -84,7 +100,7 @@
     } else {
       statusHtml='<span class="pill pill--neutral">Not attempted</span>';
     }
-    html+='<div class="card lvl">'+
+    html+='<div class="card lvl lvl--'+id+'">'+
       '<div class="lvl__top"><span class="lvl__badge">'+lvl.badge+'</span><div>'+
         '<div class="lvl__tier">'+lvl.tier+'</div><div class="lvl__name">'+lvl.name+'</div></div></div>'+
       '<p class="lvl__tagline">'+lvl.tagline+'</p>'+

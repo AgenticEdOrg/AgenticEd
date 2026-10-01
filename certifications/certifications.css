@@ -1,33 +1,43 @@
 /* AgenticEd Certifications — shared brand styles */
-:root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;--good:#2E7D57;--good-bg:#DBEBE0;--bad:#C0392B;--bad-bg:#F9E2DE;}
+:root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;--good:#2E7D57;--good-bg:#DBEBE0;--bad:#C0392B;--bad-bg:#F9E2DE;--shadow-sm:0 2px 8px -4px rgba(18,21,38,.12);--shadow-md:0 10px 30px -12px rgba(18,21,38,.22);--shadow-lg:0 20px 50px -18px rgba(124,58,237,.35);}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
 a{color:inherit;}
 .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
 .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
-.topbar__logo em{font-style:normal;color:var(--coral);}
-.topbar a.back{color:rgba(250,249,255,0.6);font-size:13px;text-decoration:none;}
+.topbar__logo em{font-style:normal;color:var(--coral);background:linear-gradient(135deg,var(--coral),var(--amber));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.topbar a.back{color:rgba(250,249,255,0.6);font-size:13px;text-decoration:none;transition:color .15s;}
 .topbar a.back:hover{color:var(--cream);}
-.lhdr{background:var(--brown);padding:40px 32px 44px;border-bottom:3px solid var(--coral);}
-.lhdr__inner{max-width:900px;margin:0 auto;}
-.lhdr__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-.lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:12px;}
-.lhdr__sub{font-size:15px;color:rgba(250,249,255,0.72);max-width:660px;}
+.lhdr{position:relative;background:
+    radial-gradient(640px 320px at 12% -10%,rgba(124,58,237,.55),transparent 60%),
+    radial-gradient(520px 280px at 95% 10%,rgba(168,85,247,.35),transparent 65%),
+    var(--brown);
+  padding:52px 32px 56px;border-bottom:3px solid var(--coral);overflow:hidden;}
+.lhdr::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:22px 22px;opacity:.5;pointer-events:none;}
+.lhdr__inner{position:relative;max-width:900px;margin:0 auto;}
+.lhdr__eye{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;}
+.lhdr__eye::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(168,85,247,.25);}
+.lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(28px,5vw,44px);font-weight:900;color:var(--cream);line-height:1.12;margin-bottom:14px;letter-spacing:-.01em;}
+.lhdr__sub{font-size:15.5px;color:rgba(250,249,255,0.74);max-width:660px;}
+.lhdr__stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;}
+.lhdr__stat{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;color:rgba(250,249,255,.88);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 14px;backdrop-filter:blur(6px);}
 .body{max-width:900px;margin:0 auto;padding:34px 32px 80px;}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;border:2px solid transparent;font-family:'Inter',sans-serif;transition:all .18s;text-decoration:none;}
-.btn--primary{background:var(--coral);color:#fff;}
-.btn--primary:hover{background:#6824D9;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;border:2px solid transparent;font-family:'Inter',sans-serif;transition:all .2s cubic-bezier(.2,.8,.2,1);text-decoration:none;}
+.btn--primary{background:linear-gradient(135deg,var(--coral),#9D4FEF);color:#fff;box-shadow:0 8px 20px -8px rgba(124,58,237,.65);}
+.btn--primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px -8px rgba(124,58,237,.8);}
+.btn--primary:active{transform:translateY(0);}
 .btn--ghost{background:transparent;color:var(--brown);border:2px solid var(--border);}
-.btn--ghost:hover{border-color:var(--brown);}
-.btn:disabled{opacity:.55;cursor:not-allowed;}
-.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 26px;}
+.btn--ghost:hover{border-color:var(--coral);color:var(--coral);}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important;box-shadow:none!important;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 26px;box-shadow:var(--shadow-sm);transition:box-shadow .2s,transform .2s;}
 .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-.lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;}
+.lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;transition:color .15s;}
 .lesson-footer a:hover{color:var(--cream);}
 .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
 .lesson-footer__logo em{font-style:normal;color:var(--coral);}
-.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px;}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:999px;}
 .pill--good{background:var(--good-bg);color:var(--good);}
 .pill--bad{background:var(--bad-bg);color:var(--bad);}
 .pill--neutral{background:var(--light);color:var(--warm);}
-@media(max-width:700px){.body{padding:24px 16px 60px;}.lhdr{padding:30px 20px 34px;}}
+@media(max-width:700px){.body{padding:24px 16px 60px;}.lhdr{padding:34px 20px 38px;}}
+
