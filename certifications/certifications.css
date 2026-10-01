@@ -1,0 +1,33 @@
+/* AgenticEd Certifications — shared brand styles */
+:root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;--good:#2E7D57;--good-bg:#DBEBE0;--bad:#C0392B;--bad-bg:#F9E2DE;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:inherit;}
+.topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+.topbar__logo em{font-style:normal;color:var(--coral);}
+.topbar a.back{color:rgba(250,249,255,0.6);font-size:13px;text-decoration:none;}
+.topbar a.back:hover{color:var(--cream);}
+.lhdr{background:var(--brown);padding:40px 32px 44px;border-bottom:3px solid var(--coral);}
+.lhdr__inner{max-width:900px;margin:0 auto;}
+.lhdr__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(26px,5vw,40px);font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:12px;}
+.lhdr__sub{font-size:15px;color:rgba(250,249,255,0.72);max-width:660px;}
+.body{max-width:900px;margin:0 auto;padding:34px 32px 80px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;border:2px solid transparent;font-family:'Inter',sans-serif;transition:all .18s;text-decoration:none;}
+.btn--primary{background:var(--coral);color:#fff;}
+.btn--primary:hover{background:#6824D9;}
+.btn--ghost{background:transparent;color:var(--brown);border:2px solid var(--border);}
+.btn--ghost:hover{border-color:var(--brown);}
+.btn:disabled{opacity:.55;cursor:not-allowed;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:24px 26px;}
+.lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;}
+.lesson-footer a:hover{color:var(--cream);}
+.lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+.lesson-footer__logo em{font-style:normal;color:var(--coral);}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 11px;border-radius:999px;}
+.pill--good{background:var(--good-bg);color:var(--good);}
+.pill--bad{background:var(--bad-bg);color:var(--bad);}
+.pill--neutral{background:var(--light);color:var(--warm);}
+@media(max-width:700px){.body{padding:24px 16px 60px;}.lhdr{padding:30px 20px 34px;}}

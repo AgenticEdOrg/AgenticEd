@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgenticEd Certifications</title>
+  <meta name="description" content="Three-tier AI agent certification program — Foundational, Associate, and Advanced/Specialty — with shareable, verifiable certificates."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="certifications.css"/>
+  <style>
+    .levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin:26px 0 36px;}
+    .lvl{display:flex;flex-direction:column;gap:12px;}
+    .lvl__top{display:flex;align-items:center;gap:10px;}
+    .lvl__badge{font-size:28px;}
+    .lvl__tier{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);}
+    .lvl__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;color:var(--brown);}
+    .lvl__tagline{font-size:13px;color:var(--warm);}
+    .lvl__summary{font-size:14px;color:var(--brown);flex:1;}
+    .lvl__meta{display:flex;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--warm);}
+    .lvl__status{margin-top:4px;}
+    .verify{margin-top:8px;}
+    .verify .form__row{display:flex;gap:10px;flex-wrap:wrap;}
+    .verify input{flex:1;min-width:220px;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;}
+    .verify input:focus{border-color:var(--coral);}
+    .verify__hint{font-size:13px;color:var(--warm);margin-top:10px;}
+    h2.section{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;margin-bottom:6px;}
+    p.section-sub{font-size:14px;color:var(--warm);margin-bottom:16px;}
+  </style>
+  <script src="cert-data.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <a href="index.html" class="topbar__logo">AgenticEd <em>Certifications</em></a>
+  <a href="/" class="back">← AgenticEd.com</a>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">AI Agent Certification Program</p>
+    <h1 class="lhdr__h1">Get certified, like AWS — but for AI agents.</h1>
+    <p class="lhdr__sub">Three tiers, one exam each: 20 questions, 70% to pass. Every certification you earn comes with a shareable, independently verifiable certificate link.</p>
+  </div>
+</div>
+<div class="body">
+  <h2 class="section">Certification tracks</h2>
+  <p class="section-sub">Start at Foundational and work up, or jump to the tier that matches your experience.</p>
+  <div class="levels" id="levels"></div>
+
+  <div class="card verify">
+    <h2 class="section">Verify a certificate</h2>
+    <p class="section-sub">Paste a certificate link or ID to confirm it's genuine and on record.</p>
+    <div class="form__row">
+      <input type="text" id="verify-input" placeholder="e.g. certificate.html?id=... or just the ID"/>
+      <button class="btn btn--primary" id="verify-btn">Verify</button>
+    </div>
+    <p class="verify__hint" id="verify-hint"></p>
+  </div>
+</div>
+<div class="lesson-footer">
+  <a href="index.html" class="lesson-footer__logo">AgenticEd <em>Certifications</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="/">AgenticEd Course</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id);};
+  var certs=window.AGENTICED_CERTS;
+
+  function bestRecord(levelId){
+    try{return JSON.parse(localStorage.getItem("agenticed_certs:exam:"+levelId)||"null");}catch(e){return null;}
+  }
+
+  var html="";
+  certs.order.forEach(function(id){
+    var lvl=certs.levels[id];
+    var rec=bestRecord(id);
+    var statusHtml;
+    if(rec&&rec.best>=lvl.passScore){
+      statusHtml='<span class="pill pill--good">✓ Passed · best '+rec.best+'/'+lvl.total+'</span>';
+    } else if(rec){
+      statusHtml='<span class="pill pill--bad">Not yet passed · best '+rec.best+'/'+lvl.total+'</span>';
+    } else {
+      statusHtml='<span class="pill pill--neutral">Not attempted</span>';
+    }
+    html+='<div class="card lvl">'+
+      '<div class="lvl__top"><span class="lvl__badge">'+lvl.badge+'</span><div>'+
+        '<div class="lvl__tier">'+lvl.tier+'</div><div class="lvl__name">'+lvl.name+'</div></div></div>'+
+      '<p class="lvl__tagline">'+lvl.tagline+'</p>'+
+      '<p class="lvl__summary">'+lvl.summary+'</p>'+
+      '<div class="lvl__meta"><span>📝 '+lvl.total+' questions</span><span>✅ 70% to pass</span><span>⏱ ~'+lvl.minutes+' min</span></div>'+
+      '<div class="lvl__status">'+statusHtml+'</div>'+
+      '<a class="btn btn--primary" href="exam.html?level='+id+'">Start exam →</a>'+
+    '</div>';
+  });
+  $("levels").innerHTML=html;
+
+  function extractId(raw){
+    raw=(raw||"").trim();
+    if(!raw) return null;
+    var m=raw.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/);
+    return m?m[0]:null;
+  }
+  $("verify-btn").addEventListener("click",function(){
+    var id=extractId($("verify-input").value);
+    if(!id){$("verify-hint").textContent="That doesn't look like a valid certificate ID or link.";return;}
+    location.href="certificate.html?id="+encodeURIComponent(id);
+  });
+  $("verify-input").addEventListener("keydown",function(e){if(e.key==="Enter")$("verify-btn").click();});
+})();
+</script>
+</body>
+</html>
