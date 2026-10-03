@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>International Advisory Board — AgenticEd</title>
+  <meta name="description" content="Meet the International Advisory Board guiding AgenticEd's agentic-AI curriculum."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
+    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
+    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
+    .topbar__logo em{font-style:normal;color:var(--coral);}
+    .topbar a.back{color:rgba(250,249,255,0.6);font-size:13px;text-decoration:none;}
+    .topbar a.back:hover{color:var(--cream);}
+    .lhdr{background:var(--brown);padding:44px 32px 48px;border-bottom:3px solid var(--coral);}
+    .lhdr__inner{max-width:1080px;margin:0 auto;}
+    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(28px,5vw,42px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:14px;}
+    .lhdr__sub{font-size:16px;color:rgba(250,249,255,0.72);max-width:680px;}
+    .body{max-width:1080px;margin:0 auto;padding:48px 32px 80px;}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .member{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px 24px;}
+    .member__name{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--brown);margin-bottom:6px;}
+    .member__title{font-size:14px;font-weight:600;color:var(--coral);margin-bottom:4px;}
+    .member__affil{font-size:13px;color:var(--warm);margin-bottom:10px;}
+    .member__linkedin{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#0A66C2;text-decoration:none;}
+    .member__linkedin:hover{text-decoration:underline;}
+    .member__linkedin svg{width:16px;height:16px;flex-shrink:0;}
+    .empty{color:var(--warm);font-size:15px;}
+    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;}
+    .lesson-footer a:hover{color:var(--cream);}
+    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
+    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
+    @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:600px){.grid{grid-template-columns:1fr;}.body{padding:32px 20px 60px;}.lhdr{padding:32px 20px 36px;}}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <a href="https://agenticedacademy.com" class="topbar__logo">Agentic<em>Ed</em></a>
+  <a href="https://agenticedacademy.com" class="back">← Back to AgenticEd</a>
+</div>
+<div class="lhdr">
+  <div class="lhdr__inner">
+    <p class="lhdr__eye">Governance</p>
+    <h1 class="lhdr__h1">International Advisory Board</h1>
+    <p class="lhdr__sub">A global group of educators, researchers, and technologists who guide AgenticEd's curriculum, standards, and strategic direction.</p>
+  </div>
+</div>
+<div class="body">
+  <div id="grid" class="grid"></div>
+</div>
+<div class="lesson-footer">
+  <a href="https://agenticedacademy.com" class="lesson-footer__logo">Agentic<em>Ed</em></a>
+  <div style="display:flex;gap:20px;">
+    <a href="https://agenticedacademy.com">← Back to AgenticEd</a>
+    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
+  </div>
+</div>
+<script src="members.js"></script>
+<script>
+  (function(){
+    var grid = document.getElementById('grid');
+    var members = window.IAB_MEMBERS || [];
+    if (!members.length) {
+      grid.innerHTML = '<p class="empty">Members will be listed here soon.</p>';
+      return;
+    }
+    grid.innerHTML = members.map(function(m){
+      return '<div class="member">' +
+        '<div class="member__name"></div>' +
+        '<div class="member__title"></div>' +
+        '<div class="member__affil"></div>' +
+        '<a class="member__linkedin" target="_blank" rel="noopener noreferrer">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>' +
+          'LinkedIn' +
+        '</a>' +
+      '</div>';
+    }).join('');
+    var cards = grid.querySelectorAll('.member');
+    members.forEach(function(m, i){
+      var card = cards[i];
+      card.querySelector('.member__name').textContent = m.name || '';
+      card.querySelector('.member__title').textContent = m.title || '';
+      card.querySelector('.member__affil').textContent = m.affiliation || '';
+      var link = card.querySelector('.member__linkedin');
+      if (m.linkedin) {
+        link.href = m.linkedin;
+      } else {
+        link.remove();
+      }
+    });
+  })();
+</script>
+</body>
+</html>
