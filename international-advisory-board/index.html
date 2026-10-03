@@ -27,6 +27,7 @@
     .member__name{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:var(--brown);margin-bottom:6px;}
     .member__title{font-size:14px;font-weight:600;color:var(--coral);margin-bottom:4px;}
     .member__affil{font-size:13px;color:var(--warm);margin-bottom:10px;}
+    .member__country{font-size:12px;color:var(--warm);margin-bottom:10px;display:flex;align-items:center;gap:5px;}
     .member__linkedin{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#0A66C2;text-decoration:none;}
     .member__linkedin:hover{text-decoration:underline;}
     .member__linkedin svg{width:16px;height:16px;flex-shrink:0;}
@@ -79,6 +80,7 @@
         '<div class="member__name"></div>' +
         '<div class="member__title"></div>' +
         '<div class="member__affil"></div>' +
+        '<div class="member__country"></div>' +
         '<a class="member__linkedin" target="_blank" rel="noopener noreferrer">' +
           '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>' +
           'LinkedIn' +
@@ -91,6 +93,7 @@
       card.querySelector('.member__name').textContent = m.name || '';
       card.querySelector('.member__title').textContent = m.title || '';
       card.querySelector('.member__affil').textContent = m.affiliation || '';
+      card.querySelector('.member__country').textContent = m.country ? ('📍 ' + m.country) : '';
       var link = card.querySelector('.member__linkedin');
       if (m.linkedin) {
         link.href = m.linkedin;
