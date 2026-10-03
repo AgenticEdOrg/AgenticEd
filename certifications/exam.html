@@ -34,13 +34,18 @@
     .score__n{font-family:'Outfit',sans-serif;font-size:40px;font-weight:900;color:var(--cream);line-height:1;}
     .score__n em{font-style:normal;color:var(--amber);}
     .score__msg{font-size:15px;color:rgba(250,249,255,0.78);margin-top:10px;}
+    .score__missed{font-size:13.5px;color:rgba(250,249,255,0.78);margin-top:10px;}
+    .score__missed b{color:var(--amber);}
     .score__next{margin-top:18px;}
   </style>
   <script src="cert-data.js"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png"/>
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
 </head>
 <body>
 <div class="topbar">
-  <a href="index.html" class="topbar__logo">AgenticEd <em>Certifications</em></a>
+  <a href="index.html" class="topbar__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>AgenticEd <em>Certifications</em></a>
   <a href="index.html" class="back">← All certifications</a>
 </div>
 <div class="lhdr">
@@ -61,11 +66,12 @@
   <div class="score" id="score">
     <div class="score__n" id="score-n"></div>
     <p class="score__msg" id="score-msg"></p>
+    <p class="score__missed" id="score-missed"></p>
     <div class="score__next" id="score-next"></div>
   </div>
 </div>
 <div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo">AgenticEd <em>Certifications</em></a>
+  <a href="index.html" class="lesson-footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>AgenticEd <em>Certifications</em></a>
   <div style="display:flex;gap:20px;">
     <a href="index.html">← All certifications</a>
     <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
@@ -162,6 +168,7 @@
     if(unanswered.length){alert("Answer every question first — missing: "+unanswered.join(", "));return;}
 
     var right=0;
+    var wrongQs=[];
     lvl.questions.forEach(function(item,qi){
       var isMulti=item.type==="multi";
       var chosen=selectedIndices(qi,isMulti);
@@ -175,7 +182,7 @@
         if(correctSet.indexOf(oi)!==-1) lab.classList.add("opt--right");
         else if(chosenSet.indexOf(oi)!==-1) lab.classList.add("opt--wrong");
       });
-      if(correct) right++;
+      if(correct) right++; else wrongQs.push(qi+1);
     });
 
     var total=lvl.questions.length;
@@ -184,6 +191,9 @@
     $("score-msg").textContent=passed
       ?"Passed! You scored above the "+lvl.passScore+"/"+total+" threshold — you can now issue your certificate."
       :"Not yet — you need "+lvl.passScore+"/"+total+" to pass. Review the explanations below and retake when ready.";
+    $("score-missed").innerHTML=wrongQs.length
+      ?"Questions you missed: <b>"+wrongQs.join(", ")+"</b> — scroll down to review the explanations."
+      :"";
 
     if(passed){
       try{
