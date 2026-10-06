@@ -203,7 +203,7 @@
     <div>
       <p class="next__eye">You finished AgenticEd</p>
       <p class="next__title">You finished AgenticEd!</p>
-      <p class="next__desc">Share what you built. Follow @jothsna.aitales for advanced topics coming soon.</p>
+      <p class="next__desc">Share what you built. Advanced topics are coming soon.</p>
     </div>
     <div style="font-size:14px;font-weight:700;color:var(--coral);">&#127881; Course Complete!</div>
   </div>
@@ -226,7 +226,7 @@ function submitActivity(){
   if(!pos||!arg||!counter){alert('Choose a position and write both arguments first.');return;}
   const prin=document.getElementById('principle').value.trim();
   const res=document.getElementById('activity-result');res.style.display='block';
-  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">&#127881; You Completed AgenticEd!</strong><p style="margin-bottom:10px;">Six weeks ago you did not know what an AI agent was. Now you understand the reasoning loop, LLMs, tools, memory, multi-agent systems, and the ethics of autonomous AI. You built something real. And you can think critically about the most important technology of your generation.</p>'+(prin?'<p style="margin-bottom:8px;font-size:14px;"><strong>Your principle:</strong> '+prin+'</p>':'')+'<p style="font-size:13px;color:var(--warm);">Share what you built. Write about what you learned. Follow <a href="https://instagram.com/jothsna.aitales" target="_blank" style="color:var(--coral);">@jothsna.aitales</a> for advanced topics &mdash; LangGraph, production deployment, and more.</p>';
+  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">&#127881; You Completed AgenticEd!</strong><p style="margin-bottom:10px;">Six weeks ago you did not know what an AI agent was. Now you understand the reasoning loop, LLMs, tools, memory, multi-agent systems, and the ethics of autonomous AI. You built something real. And you can think critically about the most important technology of your generation.</p>'+(prin?'<p style="margin-bottom:8px;font-size:14px;"><strong>Your principle:</strong> '+prin+'</p>':'')+'<p style="font-size:13px;color:var(--warm);">Share what you built. Write about what you learned. Advanced topics are coming soon &mdash; LangGraph, production deployment, and more.</p>';
   res.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function clearActivity(){['arg','counter','principle'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('pos').value='';document.getElementById('activity-result').style.display='none';}

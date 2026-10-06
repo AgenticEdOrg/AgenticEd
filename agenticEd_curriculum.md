@@ -518,7 +518,7 @@ A web version of this tracker ships as **`portfolio.html`** in this repo — stu
 ## License
 
 This curriculum is free to use, adapt, and share under Creative Commons Attribution 4.0 (CC BY 4.0).
-Please credit: *AgenticEd · Created by Jothsna Praveena Pendyala · agenticed.org*
+Please credit: *AgenticEd · agenticed.org*
 
 If you use this curriculum in your classroom, we'd love to hear from you.
-📬 hello@agenticed.org · 📸 @jothsna.aitales
+📬 hello@agenticed.org

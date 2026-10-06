@@ -2,7 +2,6 @@
 
 **Free, practitioner-authored learning paths that take people from AI literacy to building and evaluating agentic systems.**
 
-Created by **Jothsna Praveena Pendyala**, **Nithesh Gudipuri**, **Mohan**, and **Pramod**.
 ⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher or a friend
 
 ---
@@ -30,19 +29,6 @@ The 6-week course covers:
 - AI safety, ethics, and careers
 
 **No prior AI knowledge required — for anyone.**
-
----
-
-## Who Made This?
-
-This curriculum is led by:
-
-- **Jothsna Praveena Pendyala** — AI Platform Architect and Senior Data Scientist. She builds production agentic AI systems at enterprise scale and is a Claude Certified Architect, IEEE Senior Member, Director of Innovation at ACM Dallas, and co-editor of *RAG In Action*.
-- **Nithesh Gudipuri** — Associate Director of Technology at Raymond James Financial, leading the engineering team behind securities back-office infrastructure.
-- **Mohan** — Co-founder, AgenticEd.
-- **Pramod** — Co-founder, AgenticEd.
-
-This isn't textbook theory. It's the real technology, made accessible.
 
 ---
 
@@ -175,8 +161,6 @@ New weeks, translated versions, and teacher resources are added regularly.
 
 - 🌐 Website: [agenticed.org](https://agenticed.org)
 - 📧 Teacher list: [hello@agenticed.org](mailto:hello@agenticed.org)
-- 💼 LinkedIn: [Jothsna Praveena Pendyala](https://www.linkedin.com/in/jothsna/)
-- 💼 LinkedIn: [Nithesh Gudipuri](https://www.linkedin.com/in/nithesh-gudipuri-8abb54225/)
 - 📰 Newsletter: [The Agentic Stack](https://agenticestack.beehiiv.com)
 
 ---
@@ -190,7 +174,7 @@ You are free to:
 - Adapt and remix it for your context
 - Share it with other teachers
 
-**Please credit:** *AgenticEd · Created by Jothsna Praveena Pendyala, Nithesh Gudipuri, Mohan, and Pramod · agenticed.org*
+**Please credit:** *AgenticEd · agenticed.org*
 
 ---
 
