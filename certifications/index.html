@@ -30,6 +30,7 @@
     .lvl__meta span{background:var(--cream);border:1px solid var(--border);border-radius:999px;padding:4px 10px;}
     .lvl__status{margin-top:2px;}
     .lvl .btn{justify-content:center;}
+    .lvl__actions{display:flex;flex-direction:column;gap:9px;}
     .verify{margin-top:8px;}
     .verify .form__row{display:flex;gap:10px;flex-wrap:wrap;}
     .verify input{flex:1;min-width:220px;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color .15s;}
@@ -39,6 +40,7 @@
     p.section-sub{font-size:14px;color:var(--warm);margin-bottom:16px;}
   </style>
   <script src="cert-data.js"></script>
+  <script src="course-data.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
   <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
@@ -52,9 +54,10 @@
   <div class="lhdr__inner">
     <p class="lhdr__eye">AI Agent Certification Program</p>
     <h1 class="lhdr__h1">Get certified in AI agents.</h1>
-    <p class="lhdr__sub">Three tiers, one exam each: 20 questions, 70% to pass. Every certification you earn comes with a shareable, independently verifiable certificate link.</p>
+    <p class="lhdr__sub">Three tiers, each with a free prep course and one exam: 20 questions, 70% to pass. Every certification you earn comes with a shareable, independently verifiable certificate link.</p>
     <div class="lhdr__stats">
       <span class="lhdr__stat">🎓 3 certification tiers</span>
+      <span class="lhdr__stat">📚 3 prep courses</span>
       <span class="lhdr__stat">📝 60 exam questions</span>
       <span class="lhdr__stat">🔗 Verified, shareable certificates</span>
     </div>
@@ -62,7 +65,7 @@
 </div>
 <div class="body">
   <h2 class="section">Certification tracks</h2>
-  <p class="section-sub">Start at Foundational and work up, or jump to the tier that matches your experience.</p>
+  <p class="section-sub">Start at Foundational and work up, or jump to the tier that matches your experience. Each tier's prep course covers everything its exam tests.</p>
   <div class="levels" id="levels"></div>
 
   <div class="card verify">
@@ -91,10 +94,21 @@
     try{return JSON.parse(localStorage.getItem("agenticed_certs:exam:"+levelId)||"null");}catch(e){return null;}
   }
 
+  function courseProgress(levelId){
+    var course=(window.AGENTICED_COURSES||{})[levelId];
+    if(!course) return null;
+    var done=[];
+    try{var rec=JSON.parse(localStorage.getItem("agenticed_certs:course:"+levelId)||"null");if(rec&&rec.done)done=rec.done;}catch(e){}
+    var n=course.modules.filter(function(m){return done.indexOf(m.id)!==-1;}).length;
+    return {done:n,total:course.modules.length};
+  }
+
   var html="";
   certs.order.forEach(function(id){
     var lvl=certs.levels[id];
     var rec=bestRecord(id);
+    var cp=courseProgress(id);
+    var courseLabel=!cp?"":cp.done===cp.total?"📚 Review prep course ✓":cp.done>0?"📚 Continue prep course ("+cp.done+"/"+cp.total+")":"📚 Start prep course";
     var statusHtml;
     if(rec&&rec.best>=lvl.passScore){
       statusHtml='<span class="pill pill--good">✓ Passed · best '+rec.best+'/'+lvl.total+'</span>';
@@ -110,7 +124,10 @@
       '<p class="lvl__summary">'+lvl.summary+'</p>'+
       '<div class="lvl__meta"><span>📝 '+lvl.total+' questions</span><span>✅ 70% to pass</span><span>⏱ ~'+lvl.minutes+' min</span></div>'+
       '<div class="lvl__status">'+statusHtml+'</div>'+
-      '<a class="btn btn--primary" href="exam.html?level='+id+'">Start exam →</a>'+
+      '<div class="lvl__actions">'+
+        (cp?'<a class="btn btn--ghost" href="course.html?level='+id+'">'+courseLabel+'</a>':'')+
+        '<a class="btn btn--primary" href="exam.html?level='+id+'">Start exam →</a>'+
+      '</div>'+
     '</div>';
   });
   $("levels").innerHTML=html;
