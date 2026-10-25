@@ -7,7 +7,7 @@
   <meta name="description" content="Take an AgenticEd certification exam — 20 questions, 70% to pass, instant scoring with explanations."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="certifications.css"/>
+  <link rel="stylesheet" href="certifications.css?v=20261025"/>
   <style>
     .status{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px;font-size:14px;color:var(--warm);box-shadow:var(--shadow-sm);}
     .status b{color:var(--brown);}
@@ -39,6 +39,7 @@
     .score__next{margin-top:18px;}
   </style>
   <script src="cert-data.js?v=20261024"></script>
+  <script src="config.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
   <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
@@ -201,7 +202,7 @@
       }catch(e){}
       $("score-next").innerHTML='<a class="btn btn--primary" href="certificate.html?level='+levelId+'">Get your certificate →</a>';
     } else {
-      $("score-next").innerHTML='<a class="btn btn--primary" href="course.html?level='+levelId+'">Study the prep course</a> <a class="btn btn--ghost" href="index.html" style="color:var(--cream);">← Back to all certifications</a>';
+      $("score-next").innerHTML='<a class="btn btn--primary" href="course.html?level='+levelId+'">Study the prep course</a> <a class="btn btn--outline-light" href="index.html">← Back to all certifications</a>';
     }
 
     try{
@@ -213,6 +214,17 @@
       rec.when=Date.now();
       localStorage.setItem(KEY,JSON.stringify(rec));
     }catch(e){}
+
+    /* Anonymous attempt record for the program metrics: level, score, total only — no name or ID. */
+    var cfg=window.AGENTICED_SUPABASE;
+    if(cfg&&cfg.url&&cfg.key){
+      fetch(cfg.url.replace(/\/$/,"")+"/rest/v1/cert_exam_attempts",{
+        method:"POST",
+        headers:{apikey:cfg.key,Authorization:"Bearer "+cfg.key,"Content-Type":"application/json",Prefer:"return=minimal"},
+        body:JSON.stringify({level:levelId,score:right,total:total}),
+        keepalive:true
+      }).catch(function(){});
+    }
     showStatus();
 
     $("score").style.display="block";

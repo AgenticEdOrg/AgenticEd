@@ -7,7 +7,7 @@
   <meta name="description" content="Three-tier AI agent certification program — Foundational, Associate, and Advanced/Specialty — with shareable, verifiable certificates."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="certifications.css"/>
+  <link rel="stylesheet" href="certifications.css?v=20261025"/>
   <style>
     :root{--tier-foundational:#10B981;--tier-foundational-bg:#E4F7EF;--tier-associate:#7C3AED;--tier-associate-bg:#F1E9FF;--tier-advanced:#D97706;--tier-advanced-bg:#FCEFD8;}
     .levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;margin:28px 0 40px;}
@@ -38,7 +38,16 @@
     .verify__hint{font-size:13px;color:var(--warm);margin-top:10px;}
     h2.section{font-family:'Outfit',sans-serif;font-size:21px;font-weight:800;margin-bottom:6px;}
     p.section-sub{font-size:14px;color:var(--warm);margin-bottom:16px;}
+    .metrics{display:none;grid-template-columns:repeat(3,1fr);gap:14px;margin:0 0 36px;}
+    .metrics--on{display:grid;}
+    .metric{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 24px;box-shadow:var(--shadow-sm);}
+    .metric__n{font-family:'Outfit',sans-serif;font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1;background:linear-gradient(100deg,#F59E0B,#38BDF8 40%,#8B5CF6 70%,#EC4899);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+    .metric__l{font-size:13.5px;color:var(--muted);margin-top:8px;}
+    .lvl__community{font-size:13px;color:var(--muted);display:none;}
+    .lvl__community b{color:var(--ink);}
+    @media(max-width:700px){.metrics{grid-template-columns:1fr;}}
   </style>
+  <script src="config.js"></script>
   <script src="cert-data.js?v=20261024"></script>
   <script src="course-foundational.js?v=20261024"></script>
   <script src="course-associate.js?v=20261024"></script>
@@ -66,6 +75,11 @@
   </div>
 </div>
 <div class="body">
+  <div class="metrics" id="metrics" aria-live="polite">
+    <div class="metric"><div class="metric__n" id="m-certs">—</div><div class="metric__l">certificates issued</div></div>
+    <div class="metric"><div class="metric__n" id="m-exams">—</div><div class="metric__l">exams taken</div></div>
+    <div class="metric"><div class="metric__n" id="m-rate">—</div><div class="metric__l">exam pass rate</div></div>
+  </div>
   <h2 class="section">Certification tracks</h2>
   <p class="section-sub">Start at Foundational and work up, or jump to the tier that matches your experience. Each tier's prep course covers everything its exam tests.</p>
   <div class="levels" id="levels"></div>
@@ -126,6 +140,7 @@
       '<p class="lvl__summary">'+lvl.summary+'</p>'+
       '<div class="lvl__meta"><span>'+lvl.total+' questions</span><span>70% to pass</span><span>~'+lvl.minutes+' min</span>'+(cp?'<span>'+cp.total+'-module prep course</span>':'')+'</div>'+
       '<div class="lvl__status">'+statusHtml+'</div>'+
+      '<div class="lvl__community" id="community-'+id+'"></div>'+
       '<div class="lvl__actions">'+
         (cp?'<a class="btn btn--ghost" href="course.html?level='+id+'">'+courseLabel+'</a>':'')+
         '<a class="btn btn--primary" href="exam.html?level='+id+'">Start exam →</a>'+
@@ -133,6 +148,34 @@
     '</div>';
   });
   $("levels").innerHTML=html;
+
+  /* Live, aggregate-only program metrics (get_certification_stats in supabase/certifications.sql).
+     Hidden until real data arrives, so nothing misleading shows before the SQL has been run. */
+  var cfg=window.AGENTICED_SUPABASE;
+  if(cfg&&cfg.url&&cfg.key){
+    fetch(cfg.url.replace(/\/$/,"")+"/rest/v1/rpc/get_certification_stats",{
+      method:"POST",
+      headers:{apikey:cfg.key,Authorization:"Bearer "+cfg.key,"Content-Type":"application/json"},
+      body:"{}"
+    }).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }).then(function(rows){
+      var s=rows&&rows[0]; if(!s) return;
+      var fmt=new Intl.NumberFormat();
+      var exams=Number(s.exams_taken||0), certsIssued=Number(s.certificates_issued||0), passed=Number(s.exams_passed||0);
+      if(exams===0&&certsIssued===0) return;
+      $("m-certs").textContent=fmt.format(certsIssued);
+      $("m-exams").textContent=fmt.format(exams);
+      $("m-rate").textContent=exams?Math.round(passed/exams*100)+"%":"—";
+      $("metrics").classList.add("metrics--on");
+      var by=s.by_level||{};
+      certs.order.forEach(function(id){
+        var b=by[id], el=$("community-"+id); if(!b||!el) return;
+        var c=Number(b.certificates||0), a=Number(b.attempts||0);
+        if(!c&&!a) return;
+        el.innerHTML="<b>"+fmt.format(c)+"</b> certified · <b>"+fmt.format(a)+"</b> exam attempt"+(a===1?"":"s");
+        el.style.display="block";
+      });
+    }).catch(function(){});
+  }
 
   function extractId(raw){
     raw=(raw||"").trim();
