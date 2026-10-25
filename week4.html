@@ -3,273 +3,287 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 4: Agent Workflows and Handoffs &mdash; AgenticEd</title>
+  <title>Week 4: Agent Workflows &amp; Handoffs · AgenticEd</title>
+  <meta name="description" content="Week 4 of AgenticEd Foundations: multi-agent patterns, handoffs, error compounding, verification, guardrails, and human checkpoints — with a design lab and a developer notebook."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
-    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
-    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
-    .topbar__logo em{font-style:normal;color:var(--coral);}
-    .topbar__progress{display:flex;align-items:center;gap:10px;}
-    .topbar__label{font-size:12px;color:rgba(250,249,255,0.6);}
-    .progress-dots{display:flex;gap:5px;}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,249,255,0.2);}
-    .dot--done{background:var(--coral);}
-    .dot--active{background:var(--white);}
-    .lhdr{background:var(--brown);padding:48px 32px 52px;border-bottom:3px solid var(--coral);}
-    .lhdr__inner{max-width:780px;margin:0 auto;}
-    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
-    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
-    .lhdr__chip{display:inline-flex;align-items:center;gap:6px;background:rgba(250,249,255,0.08);border:1px solid rgba(250,249,255,0.15);color:rgba(250,249,255,0.75);padding:5px 13px;border-radius:20px;font-size:13px;}
-    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
-    .lsec{margin-bottom:52px;}
-    .lsec__num{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
-    .lsec__num::before{content:'';display:block;width:24px;height:2px;background:var(--coral);}
-    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
-    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
-    .lsec p:last-child{margin-bottom:0;}
-    strong{font-weight:600;}em{font-style:italic;}
-    .callout{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;}
-    .callout--amber{background:#FFFBEF;border-left-color:var(--amber);}
-    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .callout--amber .callout__label{color:#996600;}
-    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
-    .compare{width:100%;border-collapse:collapse;margin:24px 0;overflow:hidden;}
-    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
-    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
-    .compare tr:nth-child(even) td{background:var(--light);}
-    .compare tr:last-child td{border-bottom:none;}
-    .compare td:first-child{font-weight:600;color:var(--coral);}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
-    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;}
-    .card__icon{font-size:28px;}
-    .card__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--brown);}
-    .card__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .steps{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
-    .step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;}
-    .step__num{background:var(--coral);color:var(--white);font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-    .step__title{font-weight:700;font-size:14px;color:var(--brown);margin-bottom:4px;}
-    .step__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:20px 0;}
-    .tool-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;}
-    .tool-card__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--brown);}
-    .tool-card__url{font-size:12px;color:var(--coral);font-weight:600;}
-    .tool-card__desc{font-size:13px;color:var(--warm);line-height:1.5;}
-    .activity{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px;margin:40px 0;}
-    .activity__badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber);color:var(--brown);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
-    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
-    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
-    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
-    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
-    .field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color 0.18s;resize:vertical;width:100%;}
-    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);}
-    .field textarea{min-height:80px;}
-    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .round-box{background:var(--light);border-radius:12px;padding:20px;margin:12px 0;border-left:3px solid var(--coral);}
-    .round-box__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .round-box__task{font-size:15px;font-weight:600;color:var(--brown);margin-bottom:8px;}
-    .round-box__hint{font-size:13px;color:var(--warm);}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
-    .btn--primary{background:var(--coral);color:var(--white);}
-    .btn--primary:hover{background:#6824D9;}
-    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
-    .btn--ghost:hover{border-color:var(--brown);}
-    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
-    .notebook{background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
-    .notebook__left{flex:1;min-width:220px;}
-    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
-    .notebook__desc{font-size:14px;color:rgba(250,249,255,0.65);line-height:1.7;}
-    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
-    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
-    .notebook__btn:hover{background:#6824D9;}
-    .notebook__btn-icon{font-size:22px;}
-    .notebook__secondary{font-size:13px;color:rgba(250,249,255,0.5);text-align:center;}
-    .notebook__secondary a{color:rgba(250,249,255,0.7);text-decoration:underline;}
-    .next{background:var(--light);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;}
-    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
-    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
-    .next__desc{font-size:14px;color:var(--warm);}
-    .next__btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:var(--white);padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
-    .next__btn:hover{background:#6824D9;}
-    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
-    .lesson-footer a:hover{color:var(--cream);}
-    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
-    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
-    @media(max-width:700px){.body{padding:32px 20px 60px;}.field-row{grid-template-columns:1fr;}.notebook{flex-direction:column;gap:24px;}.lhdr{padding:32px 20px 36px;}}
-</style>
-  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css?v=20261025"/>
+  <link rel="stylesheet" href="lesson.css?v=20261025"/>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
-  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <style>
+    .pipe{display:flex;align-items:center;gap:6px;margin:16px 0;}
+    @media(max-width:700px){.pipe{flex-direction:column;align-items:stretch;}.arrow-s{transform:rotate(90deg);text-align:center;}}
+    .stage{flex:1;min-width:0;padding:14px 8px;border-radius:14px;border:1.5px solid var(--line);background:#fff;text-align:center;transition:all .35s;}
+    .stage b{display:block;font-family:'Outfit',sans-serif;font-size:15px;}
+    .stage small{font-size:12px;color:var(--muted);}
+    .stage--on{border-color:#8B5CF6;box-shadow:0 0 0 4px rgba(139,92,246,.12);}
+    .stage--bad{border-color:#F87171;background:#FEF2F2;}
+    .stage--ok{border-color:#34D399;background:#ECFDF5;}
+    .stage--off{opacity:.35;}
+    .arrow-s{color:var(--muted);font-weight:700;}
+    .toggles{display:flex;gap:16px;flex-wrap:wrap;font-size:14.5px;margin:6px 0 4px;}
+    .toggles label{display:flex;gap:8px;align-items:center;cursor:pointer;}
+    .toggles input{accent-color:var(--violet);width:17px;height:17px;}
+  </style>
 </head>
 <body>
-<div class="topbar">
-  <a href="index.html" class="topbar__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div class="topbar__progress">
-    <span class="topbar__label">Your progress:</span>
-    <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--done" title="Week 2 Done"></div><div class="dot dot--done" title="Week 3 Done"></div><div class="dot dot--active" title="Week 4 Current"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="learn.html">Learning Paths</a></li>
+      <li><a href="certifications/index.html">Certifications</a></li>
+      <li><a href="sessions.html">Live Sessions</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="week5.html" class="nav__cta">Next: Week 5</a></li>
+    </ul>
   </div>
-</div>
-<div class="lhdr">
-  <div class="lhdr__inner">
-    <p class="lhdr__eye">Week 4 of 6</p>
-    <h1 class="lhdr__h1">Agent Workflows and Handoffs</h1>
-    <div class="lhdr__meta"><div class="lhdr__chip">60-75 minutes</div><div class="lhdr__chip">Design Your Agent Team</div><div class="lhdr__chip">Colab notebook</div><div class="lhdr__chip">Paper and pencil OK</div></div>
-  </div>
-</div>
-<div class="body">
+</nav>
 
-  <div class="lsec">
-    <div class="lsec__num">Part 1</div>
-    <h2 class="lsec__h2">When one agent hits its ceiling</h2>
-    <p>A single agent is powerful. But ask it to do something genuinely complex &mdash; research a topic, write a report, verify all the facts, format it, and deliver it &mdash; and you quickly hit limits. It loses track of earlier steps. Contradicts itself. Runs out of context window.</p>
-    <p>The most powerful AI systems in production are not single agents. They are <strong>teams of agents</strong>, each with a specific role, working together on a shared goal.</p>
-    <div class="callout">
-      <div class="callout__label">The team analogy</div>
-      <p>You would not ask one person to simultaneously be researcher, writer, editor, fact-checker, and publisher for a major report. You build a team. Multi-agent systems apply the same logic to AI.</p>
+<header class="lhero">
+  <div class="wash wash--fade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span>/</span><a href="learn.html">Foundations</a><span>/</span><span>Week 4</span></div>
+    <div class="lhero__grid">
+      <div>
+        <span class="eye">Week 4 of 6 · Foundations</span>
+        <h1>Agent Workflows &amp; <span class="grad-text">Handoffs</span></h1>
+        <p class="lead">When work is split across several agents, mistakes can travel and grow. Learn the main patterns, why handoffs are where things break, and where a human must approve.</p>
+        <div class="chips">
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>75–90 min</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>Design lab</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>Developer notebook</span>
+        </div>
+      </div>
+      <div class="weekbar">
+        <div class="weekbar__lbl topbar__label">Your progress</div>
+        <div class="progress-dots"><a class="dot" href="week1.html">1</a><a class="dot" href="week2.html">2</a><a class="dot" href="week3.html">3</a><a class="dot" href="week4.html">4</a><a class="dot" href="week5.html">5</a><a class="dot" href="week6.html">6</a></div>
+        <p class="weekbar__note">Progress is saved in this browser only.</p>
+      </div>
     </div>
   </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 2</div>
-    <h2 class="lsec__h2">Orchestrators, workers, and handoffs</h2>
-    <table class="compare">
-      <tr><th>Orchestrator Agent</th><th>Worker / Specialist Agent</th></tr>
-      <tr><td>Breaks the goal into subtasks</td><td>Executes one specific subtask</td></tr>
-      <tr><td>Assigns tasks to the right workers</td><td>Focused on one skill or domain</td></tr>
-      <tr><td>Tracks progress, reassigns on failure</td><td>Returns a result to the orchestrator</td></tr>
-      <tr><td>Makes the final output decision</td><td>Does not need to know the big picture</td></tr>
-      <tr><td>Like a project manager</td><td>Like a specialist consultant</td></tr>
-    </table>
-    <p>A <strong>handoff</strong> is when one agent passes its output to another. The quality of handoffs determines the quality of the whole system. A bad handoff &mdash; wrong format, incomplete information, ambiguous instructions &mdash; causes errors that compound through every subsequent step.</p>
-    <div class="cards">
-      <div class="card"><div class="card__title">Research Agent</div><div class="card__desc">Searches and extracts key facts. Passes structured findings to the writer.</div></div>
-      <div class="card"><div class="card__title">Writer Agent</div><div class="card__desc">Takes research and produces a first draft. Passes to the fact-checker.</div></div>
-      <div class="card"><div class="card__title">Fact-Check Agent</div><div class="card__desc">Verifies claims against sources. Returns corrections or approves for delivery.</div></div>
-    </div>
-  </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 3</div>
-    <h2 class="lsec__h2">Error propagation and human checkpoints</h2>
-    <p>The biggest risk in multi-agent systems is <strong>error propagation</strong>. If the research agent gets something wrong, the writer builds on that error, the fact-checker may miss it, and the user receives confidently wrong output. One bad step poisons everything downstream.</p>
-    <div class="callout callout--amber">
-      <div class="callout__label">Rule of thumb</div>
-      <p>Put a human checkpoint before any <strong>irreversible action</strong> &mdash; sending an email, making a purchase, publishing content, executing code in production. Everything before that can be autonomous. Everything after needs a human approval step.</p>
-    </div>
-  </div>
+</header>
 
-  <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
-    <div class="callout__label" style="color:#996600;">Responsible-AI Beat &mdash; Oversight by design</div>
-    <p>Good agent teams decide <strong>where a human approves</strong> <em>before</em> they&rsquo;re built &mdash; not after something goes wrong. After you draw your pipeline below, mark a everywhere a human must approve before the agent continues. The rule of thumb: a checkpoint is required before any action that is <strong>irreversible or affects someone else</strong> &mdash; sending an email, spending money, publishing, submitting a form, sharing personal data. Litmus test: <em>&ldquo;If the agent gets this step wrong, can you undo it?&rdquo;</em> If no, a human belongs in the loop there.</p>
-  </div>
+<div class="wrap lesson">
+  <aside class="toc"><div class="toc__lbl">On this page</div><nav id="toc-links"></nav></aside>
+  <main class="content">
 
-  <div class="activity">
-    <div class="activity__badge">Activity &mdash; Design Your Agent Team</div>
-    <h3>Map a multi-agent pipeline from scratch</h3>
-    <p class="activity__intro">Choose a scenario and design the full pipeline. Be specific &mdash; name each agent, describe what it receives, what it produces, and where handoffs happen.</p>
-    <div class="field"><label>Choose your scenario</label>
-      <select id="scenario"><option value="">Select...</option><option>Homework Helper &mdash; research, write, and check a school essay</option><option>News Digest &mdash; find, summarize, and deliver daily headlines</option><option>Travel Planner &mdash; research destinations and build an itinerary</option><option>Job Application Assistant &mdash; tailor resume and write cover letter</option><option>My own scenario</option></select>
-    </div>
-    <div class="field"><label>Custom scenario (if applicable)</label><input type="text" id="custom" placeholder="Describe your pipeline..."/></div>
-    <div class="field"><label>Orchestrator &mdash; its job and what it manages</label><textarea id="orch" placeholder="What goal does it break down? What workers does it direct?"></textarea></div>
-    <div class="field"><label>Worker Agent 1 &mdash; name, specialty, input, output</label><textarea id="w1" placeholder="e.g. Research Agent &mdash; searches for relevant information, outputs structured facts"></textarea></div>
-    <div class="field"><label>Worker Agent 2 &mdash; name, specialty, input, output</label><textarea id="w2" placeholder="What does this agent specialize in?"></textarea></div>
-    <div class="field"><label>Worker Agent 3 (optional)</label><textarea id="w3" placeholder="Add a third worker if needed..."></textarea></div>
-    <div class="field"><label>Approval checkpoints &mdash; where must a human approve before the agent continues?</label><textarea id="human" placeholder="List each checkpoint: which action it's before, why a human must approve, and what they're checking for. (Anything irreversible or affecting someone else needs one.)"></textarea></div>
-    <div class="field"><label>Biggest risk if one agent fails</label><textarea id="risk" placeholder="What cascades if Worker 1 produces bad output?"></textarea></div>
-    <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Complete Activity</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
-    <div id="activity-result"></div>
-  </div>
+    <section id="objectives" data-toc="Objectives">
+      <div class="objectives">
+        <h3>By the end of this week you can</h3>
+        <ul>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Pick the right pattern: chaining, routing, parallel, orchestrator–workers</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Explain error compounding and how verification stops it</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Place human checkpoints with one simple test</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Design a three-agent team with guardrails</li>
+        </ul>
+      </div>
+    </section>
 
-  <div class="notebook">
-    <div class="notebook__left">
-      <p class="notebook__eye">Go Deeper &mdash; Optional</p>
-      <div class="notebook__title">Week 4 Python Notebook</div>
-      <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
-    </div>
-    <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj" target="_blank" class="notebook__btn">Open in Google Colab</a>
-      <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
-    </div>
-  </div>
-  <div class="next">
-    <div>
-      <p class="next__eye">Coming up &mdash; Week 5</p>
-      <p class="next__title">Build Your First Agent</p>
-      <p class="next__desc">Project week. Build, test, and demo a real working AI agent using free no-code tools.</p>
-    </div>
-    <a href="week5.html" class="next__btn">Start Week 5 &rarr;</a>
-  </div>
+    <section id="patterns" data-toc="Patterns">
+      <p class="sec-n">Part 1</p>
+      <h2>Four ways to organise AI work</h2>
+      <div class="grid2">
+        <div class="mini"><span class="tagline">A → B → C</span><b>Prompt chaining</b><p>Fixed stages, each using the last one's output. Outline → draft → edit.</p></div>
+        <div class="mini"><span class="tagline">classify → specialist</span><b>Routing</b><p>Send each request to the right specialist: billing, technical, policy.</p></div>
+        <div class="mini"><span class="tagline">many at once</span><b>Parallel workers</b><p>Independent subtasks run simultaneously, then results are merged.</p></div>
+        <div class="mini"><span class="tagline">manager + team</span><b>Orchestrator–workers</b><p>A planner breaks the goal into subtasks, assigns them, and assembles the result.</p></div>
+      </div>
+      <figure class="figure">
+        <svg viewBox="0 0 720 230" role="img" aria-label="An orchestrator sends tasks to a researcher and a writer; a fact-checker verifies; a human approves before publishing.">
+          <defs><marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8B5CF6"/></marker></defs>
+          <rect x="260" y="10" width="200" height="56" rx="16" fill="#0B1020"/><text x="360" y="44" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="16" fill="#fff">Orchestrator</text>
+          <rect x="30" y="100" width="170" height="56" rx="16" fill="#EEF6FF" stroke="#CFE3FA"/><text x="115" y="134" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="15" fill="#0B1020">Researcher</text>
+          <rect x="230" y="100" width="170" height="56" rx="16" fill="#F1EBFF" stroke="#DDD0FB"/><text x="315" y="134" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="15" fill="#0B1020">Writer</text>
+          <rect x="430" y="100" width="170" height="56" rx="16" fill="#E6F8F1" stroke="#A7E3CB"/><text x="515" y="134" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="15" fill="#0B1020">Fact-checker</text>
+          <rect x="430" y="176" width="270" height="44" rx="14" fill="#FFF7ED" stroke="#FED7AA"/><text x="565" y="203" text-anchor="middle" font-family="Inter" font-weight="600" font-size="13" fill="#9A3412">Human approves → publish</text>
+          <path d="M320 68 L130 98" stroke="#8B5CF6" stroke-width="2" marker-end="url(#a4)"/><path d="M360 68 L330 98" stroke="#8B5CF6" stroke-width="2" marker-end="url(#a4)"/>
+          <path d="M202 128 H226" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a4)"/><path d="M402 128 H426" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a4)"/><path d="M515 158 V172" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a4)"/>
+          <text x="214" y="118" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#5B6175">handoff</text><text x="414" y="118" text-anchor="middle" font-family="Inter" font-size="10.5" fill="#5B6175">handoff</text>
+        </svg>
+      </figure>
+    </section>
+
+    <section id="compounding" data-toc="Error compounding">
+      <p class="sec-n">Part 2</p>
+      <h2>Handoffs are where errors travel</h2>
+      <p>A wrong fact from the researcher becomes a confident paragraph from the writer, then a published mistake. Each step makes the error <em>look</em> more trustworthy. Try it:</p>
+      <div class="widget">
+        <span class="widget__lbl">Interactive</span>
+        <h3>Pipeline simulator</h3>
+        <div class="toggles">
+          <label><input type="checkbox" id="t-err" checked/>Researcher makes a mistake</label>
+          <label><input type="checkbox" id="t-check"/>Add fact-check stage</label>
+          <label><input type="checkbox" id="t-human"/>Human approves before publish</label>
+        </div>
+        <div class="pipe" id="pipe">
+          <div class="stage" data-s="research"><b>Research</b><small>finds facts</small></div><span class="arrow-s">→</span>
+          <div class="stage" data-s="write"><b>Write</b><small>drafts article</small></div><span class="arrow-s">→</span>
+          <div class="stage" data-s="check"><b>Fact-check</b><small>verifies sources</small></div><span class="arrow-s">→</span>
+          <div class="stage" data-s="human"><b>Human</b><small>approves</small></div><span class="arrow-s">→</span>
+          <div class="stage" data-s="publish"><b>Publish</b><small>goes public</small></div>
+        </div>
+        <div class="submit-row"><button class="btn btn--primary btn--sm" type="button" id="run-pipe">Run pipeline</button></div>
+        <div class="feedback" id="pipe-out"></div>
+      </div>
+      <div class="key"><div class="key__lbl">Make handoffs safe</div><p>Pass <strong>structured</strong> data (fields, not loose prose), require <strong>evidence</strong> (a source for every claim), and <strong>verify</strong> before the next agent builds on it.</p></div>
+    </section>
+
+    <section id="checkpoints" data-toc="Human checkpoints">
+      <p class="sec-n">Part 3</p>
+      <h2>Where a human must approve</h2>
+      <div class="key"><div class="key__lbl">The test</div><p><strong>If this step goes wrong, can it be undone — and does it affect anyone other than the user?</strong> Can't be undone, or affects others → a human approves first.</p></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Step</th><th>Undo?</th><th>Affects others?</th><th>Checkpoint?</th></tr>
+        <tr><td>Search the web</td><td>Nothing to undo</td><td>No</td><td>No</td></tr>
+        <tr><td>Draft a message</td><td>Yes</td><td>No</td><td>No</td></tr>
+        <tr><td>Send the message</td><td>No</td><td>Yes</td><td><b>Yes</b></td></tr>
+        <tr><td>Spend money</td><td>Hard</td><td>Yes</td><td><b>Yes</b></td></tr>
+        <tr><td>Delete files</td><td>Often no</td><td>Maybe</td><td><b>Yes</b></td></tr>
+      </table></div>
+      <p><strong>Guardrails</strong> work alongside checkpoints: hard limits the agent can't cross even if its reasoning goes wrong — no sending to outside addresses, a spending cap, a list of allowed tools.</p>
+    </section>
+
+    <section id="lab" data-toc="No-code lab">
+      <p class="sec-n">Lab A · No code</p>
+      <h2>Design your agent team</h2>
+      <div class="lab">
+        <div class="lab__hdr">
+          <span class="lab__tag">Design lab · 30 min</span>
+          <h3>Map a three-agent pipeline with checkpoints</h3>
+          <p>Draw it in <a href="https://excalidraw.com" target="_blank" rel="noopener">Excalidraw</a> (free, no account) or on paper, then record it in the activity below.</p>
+          <div class="lab__meta"><span>Excalidraw or paper</span><span>Evidence: 1 diagram</span></div>
+        </div>
+        <div class="lab__body">
+          <ol class="steps">
+            <li><input type="checkbox" class="chk" id="l4-s1"/><div><b class="st">Pick a scenario</b><p>Homework helper, news digest, trip planner, job application helper — or your own.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l4-s2"/><div><b class="st">Draw the orchestrator and 2–3 workers</b><p>For each worker: its specialty, what it receives, what it hands on.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l4-s3"/><div><b class="st">Mark every handoff</b><p>Write what each handoff must contain (for example "facts + source link for each").</p></div></li>
+            <li><input type="checkbox" class="chk" id="l4-s4"/><div><b class="st">Add a verification step and checkpoints</b><p>Apply the undo test to every action. Mark checkpoints in a different colour.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l4-s5"/><div><b class="st">Break it on paper</b><p>Pick one worker and imagine it gets something wrong. Trace where the error goes. Does your design catch it?</p></div></li>
+          </ol>
+          <div class="evidence"><b>Evidence for your portfolio</b>Your diagram with checkpoints marked, and the failure trace from step 5.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dev-lab" data-toc="Developer lab">
+      <p class="sec-n">Lab B · For developers</p>
+      <h2>Multi-agent systems in LangGraph and CrewAI</h2>
+      <div class="nb">
+        <div class="nb__main">
+          <span class="nb__tag">Jupyter notebook · 90–110 min</span>
+          <h3>Orchestration, verification, human checkpoints</h3>
+          <p>Build an orchestrator–workers graph with parallel fan-out and typed handoffs, verify claims against their sources, inject a fault, pause with <code style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15);color:#fff;">interrupt()</code> for approval, and compare with CrewAI.</p>
+          <ol><li>Typed state and reducers</li><li>Quote-verified handoffs</li><li>Fault injection</li><li>Checkpointed human approval</li></ol>
+        </div>
+        <div class="nb__side">
+          <a class="btn btn--light" href="https://colab.research.google.com/github/AgenticEdOrg/AgenticEd/blob/main/labs/week4_multi_agent_systems.ipynb" target="_blank" rel="noopener">Open in Colab <span class="arrow">→</span></a>
+          <a class="btn btn--outline-light" href="https://github.com/AgenticEdOrg/AgenticEd/blob/main/labs/week4_multi_agent_systems.ipynb" target="_blank" rel="noopener">View on GitHub</a>
+          <p class="nb__fine">Python plus your own OpenAI or Anthropic key (about US$0.15).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="beat" data-toc="Responsible AI">
+      <div class="beat">
+        <span class="beat__lbl">Responsible AI</span>
+        <h3>Oversight by design, not after the incident</h3>
+        <p>Teams that add human review only after something goes wrong learn the expensive way. Decide where humans approve <em>before</em> you build — and when several agents contribute, keep a record of who handed what to whom, so a mistake can be traced and owned.</p>
+      </div>
+    </section>
+
+    <section id="activity" data-toc="Activity">
+      <div class="activity" id="act-w4" data-week="4" data-required="scenario,orch,w1,w2,human,risk" data-done="Pipeline design saved">
+        <span class="activity__tag">Portfolio activity · Design your agent team</span>
+        <h3>Your pipeline</h3>
+        <div class="row2">
+          <div class="field"><label for="scenario">Scenario</label><select id="scenario" data-label="Scenario"><option value="">Select…</option><option>Homework helper — research, write, and check an essay</option><option>News digest — find, summarise, deliver headlines</option><option>Trip planner — research and build an itinerary</option><option>Job application helper — tailor a CV and cover letter</option><option>My own scenario</option></select></div>
+          <div class="field"><label for="custom">Your own scenario (optional)</label><input id="custom" data-label="Custom scenario"/></div>
+        </div>
+        <div class="field"><label for="orch">Orchestrator — what it plans and manages</label><textarea id="orch" data-label="Orchestrator"></textarea></div>
+        <div class="row3">
+          <div class="field"><label for="w1">Worker 1 — specialty, input, output</label><textarea id="w1" data-label="Worker 1"></textarea></div>
+          <div class="field"><label for="w2">Worker 2</label><textarea id="w2" data-label="Worker 2"></textarea></div>
+          <div class="field"><label for="w3">Worker 3 (optional)</label><textarea id="w3" data-label="Worker 3"></textarea></div>
+        </div>
+        <div class="field"><label for="human">Checkpoints — before which actions, and what the human checks</label><textarea id="human" data-label="Checkpoints"></textarea></div>
+        <div class="field"><label for="risk">Biggest risk if one worker fails, and how your design catches it</label><textarea id="risk" data-label="Risk"></textarea></div>
+        <div class="submit-row"><button class="btn btn--primary" type="button" onclick="agenticedActivity('act-w4')">Save my design</button><button class="btn btn--ghost" type="button" onclick="agenticedClear('act-w4')">Clear</button></div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="terms" data-toc="Key terms">
+      <h2>Key terms</h2>
+      <div class="terms">
+        <div class="term"><b>Orchestrator</b><span>The agent that plans subtasks and assigns them to workers.</span></div>
+        <div class="term"><b>Handoff</b><span>Passing work or data from one agent to the next.</span></div>
+        <div class="term"><b>Error compounding</b><span>A mistake growing as later steps build on it unchecked.</span></div>
+        <div class="term"><b>Verification</b><span>Checking a claim against its source before it's used.</span></div>
+        <div class="term"><b>Checkpoint</b><span>A point where a human must approve before the agent continues.</span></div>
+        <div class="term"><b>Guardrail</b><span>A hard limit the agent cannot cross, whatever it decides.</span></div>
+      </div>
+    </section>
+
+    <section id="reading" data-toc="Go further">
+      <h2>Go further</h2>
+      <ul class="reading">
+        <li><a href="https://www.anthropic.com/engineering/built-multi-agent-research-system" target="_blank" rel="noopener">How a multi-agent research system was built <small>Anthropic · engineering</small></a></li>
+        <li><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Building effective agents — workflow patterns <small>Anthropic · article</small></a></li>
+      </ul>
+      <div id="progress-slot" style="margin-top:28px;"></div>
+      <div class="next-week">
+        <div><small>Up next · Week 5</small><h3>Build Your First Agent</h3><p>Write a system prompt, test it, break it, and present it at Demo Day.</p></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="btn btn--outline-light" href="quiz.html?week=4">Take the Week 4 quiz</a><a class="btn btn--light" href="week5.html">Start Week 5 <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+  </main>
 </div>
-<div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div style="display:flex;gap:20px;">
-    <a href="index.html">&larr; Back to Course</a>
-    <a href="quiz.html?week=4">Week 4 Quiz</a>
-    <a href="portfolio.html">Your Portfolio</a>
-    <a href="glossary.html">Glossary</a>
-    <a href="dashboard.html">Learning Dashboard</a>
-    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
-  </div>
-</div>
+
+<footer class="footer"><div class="wrap"><div class="footer__copy"><span>© 2026 AgenticEd · CC BY 4.0</span><span><a href="glossary.html">Glossary</a> · <a href="portfolio.html">Portfolio</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div></div></footer>
+
 <script>
-
-function submitActivity(){
-  if(!document.getElementById('scenario').value||!document.getElementById('orch').value.trim()||!document.getElementById('w1').value.trim()||!document.getElementById('w2').value.trim()){alert('Fill in the scenario, orchestrator, and at least 2 workers.');return;}
-  const res=document.getElementById('activity-result');res.style.display='block';
-  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">Agent Team Design Complete!</strong><p>You designed the kind of system AI engineers build in production every day. The hardest part is exactly what you just did: deciding where to split responsibilities, how to hand off cleanly, and where humans need to stay in the loop. Week 5 is project week &mdash; you will build a real version of one of these pipelines.</p>';
-  res.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function clearActivity(){['orch','w1','w2','w3','human','risk','custom'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('scenario').value='';document.getElementById('activity-result').style.display='none';}
-
-</script>
-
-<script>
-/* AgenticEd auto-save (E1): persists activity answers in this browser only */
 (function(){
-  var page=(location.pathname.split("/").pop()||"index");
-  var NS="agenticed:autosave:"+page+":";
-  var els=document.querySelectorAll("input,textarea,select");
-  els.forEach(function(el){
-    if(!el.id) return;
-    var k=NS+el.id;
-    try{
-      var v=localStorage.getItem(k);
-      if(v!==null){
-        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
-        else{el.value=v;}
+  var $=function(id){return document.getElementById(id);};
+  var stages=function(s){return document.querySelector('.stage[data-s="'+s+'"]');};
+  function layout(){
+    stages("check").classList.toggle("stage--off",!$("t-check").checked);
+    stages("human").classList.toggle("stage--off",!$("t-human").checked);
+  }
+  ["t-err","t-check","t-human"].forEach(function(id){$(id).addEventListener("change",layout);});
+  layout();
+  $("run-pipe").addEventListener("click",function(){
+    var err=$("t-err").checked,check=$("t-check").checked,human=$("t-human").checked;
+    var order=["research","write"].concat(check?["check"]:[]).concat(human?["human"]:[]).concat(["publish"]);
+    document.querySelectorAll(".stage").forEach(function(s){s.classList.remove("stage--on","stage--bad","stage--ok");});
+    var out=$("pipe-out"); out.classList.remove("show");
+    var i=0,stopped=null;
+    (function step(){
+      if(i>=order.length||stopped){
+        out.textContent=!err?"Clean run — but you only know that because nothing went wrong this time. Add checks before you need them."
+          :stopped==="check"?"Caught. The fact-checker compared the claim with its source, found no support, and stopped the pipeline before anything was published."
+          :stopped==="human"?"Caught by a person. The reviewer spotted the dubious claim and refused to publish. Slower than an automatic check, but the error never went public."
+          :"Published with the error. The wrong fact became a confident paragraph, then a public mistake — error compounding. Add a fact-check stage or a human checkpoint and run again.";
+        out.classList.add("show"); return;
       }
-    }catch(e){}
-    var save=function(){
-      try{
-        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
-        else{localStorage.setItem(k,el.value);}
-      }catch(e){}
-    };
-    el.addEventListener("input",save);
-    el.addEventListener("change",save);
-  });
-  document.addEventListener("click",function(e){
-    var b=e.target.closest&&e.target.closest("button");
-    if(b&&b.textContent.trim().toLowerCase()==="clear"){
+      var s=order[i++],el=stages(s); el.classList.add("stage--on");
       setTimeout(function(){
-        try{
-          var rm=[];
-          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
-          rm.forEach(function(kk){localStorage.removeItem(kk);});
-        }catch(e){}
-      },0);
-    }
+        el.classList.remove("stage--on");
+        if(err&&(s==="check"||(s==="human"&&!check))){ el.classList.add("stage--ok"); stopped=s; }
+        else if(err&&(s==="research"||s==="write"||s==="publish")) el.classList.add("stage--bad");
+        else el.classList.add("stage--ok");
+        step();
+      },550);
+    })();
   });
 })();
 </script>
+<script src="site.js?v=20261025"></script>
+<script src="lesson.js?v=20261025"></script>
 <script src="progress.js"></script>
 </body>
 </html>

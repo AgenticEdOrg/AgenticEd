@@ -3,294 +3,274 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 3: Tools, Retrieval and Memory &mdash; AgenticEd</title>
+  <title>Week 3: Tools, Retrieval &amp; Memory · AgenticEd</title>
+  <meta name="description" content="Week 3 of AgenticEd Foundations: why bare models need tools, how retrieval-augmented generation (RAG) grounds answers with citations, and how AI memory works — with a NotebookLM lab and a developer notebook."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
-    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
-    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
-    .topbar__logo em{font-style:normal;color:var(--coral);}
-    .topbar__progress{display:flex;align-items:center;gap:10px;}
-    .topbar__label{font-size:12px;color:rgba(250,249,255,0.6);}
-    .progress-dots{display:flex;gap:5px;}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,249,255,0.2);}
-    .dot--done{background:var(--coral);}
-    .dot--active{background:var(--white);}
-    .lhdr{background:var(--brown);padding:48px 32px 52px;border-bottom:3px solid var(--coral);}
-    .lhdr__inner{max-width:780px;margin:0 auto;}
-    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
-    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
-    .lhdr__chip{display:inline-flex;align-items:center;gap:6px;background:rgba(250,249,255,0.08);border:1px solid rgba(250,249,255,0.15);color:rgba(250,249,255,0.75);padding:5px 13px;border-radius:20px;font-size:13px;}
-    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
-    .lsec{margin-bottom:52px;}
-    .lsec__num{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
-    .lsec__num::before{content:'';display:block;width:24px;height:2px;background:var(--coral);}
-    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
-    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
-    .lsec p:last-child{margin-bottom:0;}
-    strong{font-weight:600;}em{font-style:italic;}
-    .callout{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;}
-    .callout--amber{background:#FFFBEF;border-left-color:var(--amber);}
-    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .callout--amber .callout__label{color:#996600;}
-    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
-    .compare{width:100%;border-collapse:collapse;margin:24px 0;overflow:hidden;}
-    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
-    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
-    .compare tr:nth-child(even) td{background:var(--light);}
-    .compare tr:last-child td{border-bottom:none;}
-    .compare td:first-child{font-weight:600;color:var(--coral);}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
-    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;}
-    .card__icon{font-size:28px;}
-    .card__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--brown);}
-    .card__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .steps{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
-    .step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;}
-    .step__num{background:var(--coral);color:var(--white);font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-    .step__title{font-weight:700;font-size:14px;color:var(--brown);margin-bottom:4px;}
-    .step__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:20px 0;}
-    .tool-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;}
-    .tool-card__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--brown);}
-    .tool-card__url{font-size:12px;color:var(--coral);font-weight:600;}
-    .tool-card__desc{font-size:13px;color:var(--warm);line-height:1.5;}
-    .activity{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px;margin:40px 0;}
-    .activity__badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber);color:var(--brown);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
-    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
-    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
-    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
-    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
-    .field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color 0.18s;resize:vertical;width:100%;}
-    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);}
-    .field textarea{min-height:80px;}
-    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .round-box{background:var(--light);border-radius:12px;padding:20px;margin:12px 0;border-left:3px solid var(--coral);}
-    .round-box__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .round-box__task{font-size:15px;font-weight:600;color:var(--brown);margin-bottom:8px;}
-    .round-box__hint{font-size:13px;color:var(--warm);}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
-    .btn--primary{background:var(--coral);color:var(--white);}
-    .btn--primary:hover{background:#6824D9;}
-    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
-    .btn--ghost:hover{border-color:var(--brown);}
-    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
-    .notebook{background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
-    .notebook__left{flex:1;min-width:220px;}
-    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
-    .notebook__desc{font-size:14px;color:rgba(250,249,255,0.65);line-height:1.7;}
-    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
-    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
-    .notebook__btn:hover{background:#6824D9;}
-    .notebook__btn-icon{font-size:22px;}
-    .notebook__secondary{font-size:13px;color:rgba(250,249,255,0.5);text-align:center;}
-    .notebook__secondary a{color:rgba(250,249,255,0.7);text-decoration:underline;}
-    .next{background:var(--light);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;}
-    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
-    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
-    .next__desc{font-size:14px;color:var(--warm);}
-    .next__btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:var(--white);padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
-    .next__btn:hover{background:#6824D9;}
-    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
-    .lesson-footer a:hover{color:var(--cream);}
-    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
-    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
-    @media(max-width:700px){.body{padding:32px 20px 60px;}.field-row{grid-template-columns:1fr;}.notebook{flex-direction:column;gap:24px;}.lhdr{padding:32px 20px 36px;}}
-</style>
-  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css?v=20261025"/>
+  <link rel="stylesheet" href="lesson.css?v=20261025"/>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
-  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <style>
+    .hit{display:grid;grid-template-columns:1fr 110px;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--line);background:#fff;margin:6px 0;font-size:14px;}
+    .hit--top{border-color:#CDBFF7;background:#FBF9FF;}
+    .hit b{display:block;font-size:13px;color:var(--violet);margin-bottom:2px;}
+    .hit__bar{height:10px;border-radius:999px;background:var(--soft);overflow:hidden;}
+    .hit__bar span{display:block;height:100%;background:linear-gradient(90deg,#8B5CF6,#38BDF8);border-radius:999px;transition:width .4s;}
+  </style>
 </head>
 <body>
-<div class="topbar">
-  <a href="index.html" class="topbar__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div class="topbar__progress">
-    <span class="topbar__label">Your progress:</span>
-    <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--done" title="Week 2 Done"></div><div class="dot dot--active" title="Week 3 Current"></div><div class="dot" title="Week 4"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="learn.html">Learning Paths</a></li>
+      <li><a href="certifications/index.html">Certifications</a></li>
+      <li><a href="sessions.html">Live Sessions</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="week4.html" class="nav__cta">Next: Week 4</a></li>
+    </ul>
   </div>
-</div>
-<div class="lhdr">
-  <div class="lhdr__inner">
-    <p class="lhdr__eye">Week 3 of 6</p>
-    <h1 class="lhdr__h1">Tools, Retrieval and Memory</h1>
-    <div class="lhdr__meta"><div class="lhdr__chip">60-75 minutes</div><div class="lhdr__chip">Memory Bot Experiment</div><div class="lhdr__chip">Colab notebook</div><div class="lhdr__chip">Claude.ai or ChatGPT needed</div></div>
-  </div>
-</div>
-<div class="body">
+</nav>
 
-  <div class="lsec">
-    <div class="lsec__num">Part 1</div>
-    <h2 class="lsec__h2">Three things a bare LLM cannot do</h2>
-    <p>After Week 2 you understand how LLMs work. Now the honest problem: <strong>a bare LLM is severely limited</strong>. Without tools and memory it cannot do most of the things that make agents genuinely useful.</p>
-    <div class="cards">
-      <div class="card"><div class="card__title">Frozen in time</div><div class="card__desc">Knowledge ends at training cutoff. Ask it about yesterday's news and it either says it does not know &mdash; or makes something up.</div></div>
-      <div class="card"><div class="card__title">Cannot compute reliably</div><div class="card__desc">LLMs are unreliable at math. Arithmetic is not pattern matching. It will often give a wrong answer stated with full confidence.</div></div>
-      <div class="card"><div class="card__title">Forgets everything</div><div class="card__desc">Every conversation starts fresh. Close the chat, open a new one &mdash; no memory of who you are or what you decided before.</div></div>
-    </div>
-    <p>This is why tools exist. Each tool solves exactly one of these limitations. Together they turn a limited text predictor into a genuinely capable agent.</p>
-  </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 2</div>
-    <h2 class="lsec__h2">Tool calling: how agents use the outside world</h2>
-    <p><strong>Tool calling</strong> is the ability of an agent to invoke an external function and use the result in its response. When an agent searches the web, it is calling a search tool. When it runs code, it is calling a code interpreter.</p>
-    <div class="steps">
-      <div class="step"><div class="step__num">1</div><div class="step__content"><div class="step__title">Agent decides it needs a tool</div><div class="step__desc">During THINK: "I need current information. I should use the search tool."</div></div></div>
-      <div class="step"><div class="step__num">2</div><div class="step__content"><div class="step__title">Agent calls the tool with parameters</div><div class="step__desc">It generates: search("KEDA autoscaling best practices 2025")</div></div></div>
-      <div class="step"><div class="step__num">3</div><div class="step__content"><div class="step__title">Tool returns a result</div><div class="step__desc">The search API returns 10 results with titles, URLs, and snippets.</div></div></div>
-      <div class="step"><div class="step__num">4</div><div class="step__content"><div class="step__title">Agent uses the result to continue reasoning</div><div class="step__desc">The result is injected back into the context. Now it reasons with real current information.</div></div></div>
-    </div>
-    <div class="callout">
-      <div class="callout__label">Common agent tools</div>
-      <p><strong>Web search</strong> &mdash; real-time info &nbsp;&#183;&nbsp; <strong>Calculator</strong> &mdash; reliable math &nbsp;&#183;&nbsp; <strong>Code interpreter</strong> &mdash; run and verify code &nbsp;&#183;&nbsp; <strong>Database</strong> &mdash; query structured data &nbsp;&#183;&nbsp; <strong>Browser</strong> &mdash; navigate websites</p>
+<header class="lhero">
+  <div class="wash wash--fade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span>/</span><a href="learn.html">Foundations</a><span>/</span><span>Week 3</span></div>
+    <div class="lhero__grid">
+      <div>
+        <span class="eye">Week 3 of 6 · Foundations</span>
+        <h1>Tools, Retrieval &amp; <span class="grad-text">Memory</span></h1>
+        <p class="lead">A bare model can't check today's facts, do exact maths, or remember you. Tools, retrieval (RAG), and memory fix that — and each brings new responsibilities.</p>
+        <div class="chips">
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>75–90 min</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>NotebookLM lab</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>Developer notebook</span>
+        </div>
+      </div>
+      <div class="weekbar">
+        <div class="weekbar__lbl topbar__label">Your progress</div>
+        <div class="progress-dots"><a class="dot" href="week1.html">1</a><a class="dot" href="week2.html">2</a><a class="dot" href="week3.html">3</a><a class="dot" href="week4.html">4</a><a class="dot" href="week5.html">5</a><a class="dot" href="week6.html">6</a></div>
+        <p class="weekbar__note">Progress is saved in this browser only.</p>
+      </div>
     </div>
   </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 3</div>
-    <h2 class="lsec__h2">Memory: short-term, long-term, and RAG</h2>
-    <p>Agents have two kinds of memory. Understanding the difference is critical for building agents that work across multiple conversations.</p>
-    <table class="compare">
-      <tr><th>Short-Term (Context Window)</th><th>Long-Term (External Storage)</th></tr>
-      <tr><td>Everything the agent can see right now</td><td>Stored in a database outside the LLM</td></tr>
-      <tr><td>Lost when the conversation ends</td><td>Persists across conversations</td></tr>
-      <tr><td>Limited to ~100k-200k tokens</td><td>Effectively unlimited</td></tr>
-      <tr><td>Always available, no retrieval needed</td><td>Must be retrieved when relevant</td></tr>
-    </table>
-    <div class="callout callout--amber">
-      <div class="callout__label">The open-book test analogy for RAG</div>
-      <p>A bare LLM is like a closed-book test &mdash; it can only use what it memorized during training. <strong>RAG (Retrieval-Augmented Generation)</strong> is like an open-book test &mdash; you look up the right pages before answering. The LLM still does the reasoning, but now with access to real specific information.</p>
-    </div>
-  </div>
+</header>
 
-  <div class="activity">
-    <div class="activity__badge">Activity A &mdash; See RAG Work (no code)</div>
-    <h3>Ground an AI in a real document &mdash; and watch it retrieve</h3>
-    <p class="activity__intro">RAG is easier to <em>see</em> than to explain. Use a free no-code RAG tool to feed in a document and watch the AI answer <strong>from that source</strong>, with citations. Pick one tool: <strong>NotebookLM</strong> (notebooklm.google.com) &mdash; answers cite the exact source passage &mdash; or <strong>Perplexity</strong> (perplexity.ai) &mdash; shows the pages it retrieved.</p>
-    <div class="steps" style="margin-bottom:20px;">
-      <div class="step"><div class="step__num">1</div><div class="step__content"><div class="step__title">Add one shared document</div><div class="step__desc">Use a <em>public, non-identifying</em> document everyone has &mdash; the school handbook, a class syllabus, or a public article. (See the access note below before using student data.)</div></div></div>
-      <div class="step"><div class="step__num">2</div><div class="step__content"><div class="step__title">Ask 3 questions it answers + 1 it can&rsquo;t</div><div class="step__desc">e.g. &ldquo;What&rsquo;s the attendance policy?&rdquo; Then ask one question the document does <strong>not</strong> cover.</div></div></div>
-      <div class="step"><div class="step__num">3</div><div class="step__content"><div class="step__title">Watch where answers come from</div><div class="step__desc">For answerable questions, follow the citation back to the source. For the unanswerable one: did it say &ldquo;not in the source,&rdquo; or invent something?</div></div></div>
-    </div>
-    <div class="field"><label>Tool used</label><input type="text" id="rag-tool" placeholder="NotebookLM / Perplexity"/></div>
-    <div class="field"><label>Which answers were grounded in the source vs. invented?</label><textarea id="rag-grounded" placeholder="What did the citations show? Did the unanswerable question get a made-up answer?"></textarea></div>
-    <div class="field"><label>How did seeing the citation change how much you trusted the answer?</label><textarea id="rag-trust" placeholder="Your insight..."></textarea></div>
-    <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;margin-top:20px;">
-      <div class="callout__label" style="color:#996600;">Access note</div>
-      <p>No logins or tools allowed at your school? Two fallbacks: <strong>(1) Teacher-projected mode</strong> &mdash; the teacher runs one document on the projector and the class directs it together. <strong>(2) Paper RAG</strong> &mdash; groups get a one-page source and may only answer using highlighted lines, citing each one; a question the page can&rsquo;t answer must be marked &ldquo;not in the source.&rdquo; That <em>is</em> RAG, by hand.</p>
-    </div>
-  </div>
+<div class="wrap lesson">
+  <aside class="toc"><div class="toc__lbl">On this page</div><nav id="toc-links"></nav></aside>
+  <main class="content">
 
-  <div class="activity">
-    <div class="activity__badge">Activity B &mdash; Memory Bot Experiment (optional)</div>
-    <h3>Test what an AI actually remembers</h3>
-    <p class="activity__intro">Run this real experiment using Claude.ai or ChatGPT. Follow the four steps and document what you find.</p>
-    <div class="steps" style="margin-bottom:20px;">
-      <div class="step"><div class="step__num">1</div><div class="step__content"><div class="step__title">Share 4 personal facts</div><div class="step__desc">Tell the AI your name, favourite subject, a hobby, and something specific you are working on this week.</div></div></div>
-      <div class="step"><div class="step__num">2</div><div class="step__content"><div class="step__title">Ask it what it knows about you</div><div class="step__desc">Type: "What do you know about me so far?" Check if it recalls all 4 facts correctly.</div></div></div>
-      <div class="step"><div class="step__num">3</div><div class="step__content"><div class="step__title">Close and open a brand new conversation</div><div class="step__desc">Do not continue the same chat. Start completely fresh.</div></div></div>
-      <div class="step"><div class="step__num">4</div><div class="step__content"><div class="step__title">Ask what it remembers about you</div><div class="step__desc">Type: "Do you remember anything about me?" Document what happens.</div></div></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Tool used</label><select id="tool-used"><option value="">Select...</option><option>Claude.ai</option><option>ChatGPT</option><option>Other</option></select></div>
-      <div class="field"><label>4 facts you shared</label><input type="text" id="facts" placeholder="Name, subject, hobby, project..."/></div>
-    </div>
-    <div class="field"><label>Step 2 result &mdash; did it recall all 4 facts?</label><textarea id="step2" placeholder="What did it remember? What was wrong or missing?"></textarea></div>
-    <div class="field"><label>Step 4 result &mdash; what persisted in the new conversation?</label><textarea id="step4" placeholder="Did it remember you? What survived? What was lost?"></textarea></div>
-    <div class="field"><label>What does this tell you about designing agents that need to remember users?</label><textarea id="insight" placeholder="Your insight..."></textarea></div>
-    <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Complete Activity</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
-    <div id="activity-result"></div>
-  </div>
+    <section id="objectives" data-toc="Objectives">
+      <div class="objectives">
+        <h3>By the end of this week you can</h3>
+        <ul>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Name the three blind spots of a bare model and the tool that fixes each</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Explain how tool calling works — and who actually runs the tool</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Describe the RAG pipeline and check an answer against its citations</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tell short-term from long-term memory and what each means for privacy</li>
+        </ul>
+      </div>
+    </section>
 
-  <div class="notebook">
-    <div class="notebook__left">
-      <p class="notebook__eye">Go Deeper &mdash; Optional</p>
-      <div class="notebook__title">Week 3 Python Notebook</div>
-      <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
-    </div>
-    <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1h1yA0bNglgi2d3xXqOBdbRkMTY31L2QT" target="_blank" class="notebook__btn">Open in Google Colab</a>
-      <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1h1yA0bNglgi2d3xXqOBdbRkMTY31L2QT/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
-    </div>
-  </div>
-  <div class="next">
-    <div>
-      <p class="next__eye">Coming up &mdash; Week 4</p>
-      <p class="next__title">Agent Workflows and Handoffs</p>
-      <p class="next__desc">Orchestrators, workers, handoffs, and why one agent is never enough for hard problems.</p>
-    </div>
-    <a href="week4.html" class="next__btn">Start Week 4 &rarr;</a>
-  </div>
+    <section id="gaps" data-toc="Three blind spots">
+      <p class="sec-n">Part 1</p>
+      <h2>Three blind spots of a bare model</h2>
+      <div class="grid3">
+        <div class="mini"><span class="tagline">Fix: search &amp; APIs</span><b>Frozen in time</b><p>Its knowledge stops at training. It can't know yesterday's news — but may still answer as if it does.</p></div>
+        <div class="mini"><span class="tagline">Fix: calculator, code</span><b>Unreliable maths</b><p>It predicts digits instead of computing them. 48,213 × 7,689 often comes out wrong.</p></div>
+        <div class="mini"><span class="tagline">Fix: memory store</span><b>Forgets you</b><p>Each new conversation starts empty unless the app saves and re-supplies what matters.</p></div>
+      </div>
+    </section>
+
+    <section id="tools" data-toc="Tool calling">
+      <p class="sec-n">Part 2</p>
+      <h2>How tool calling works</h2>
+      <figure class="figure">
+        <svg viewBox="0 0 720 190" role="img" aria-label="The model requests a tool call; the application checks and runs the tool; the result goes back to the model, which answers.">
+          <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8B5CF6"/></marker></defs>
+          <rect x="10" y="50" width="190" height="90" rx="18" fill="#0B1020"/><text x="105" y="90" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#fff">Model</text><text x="105" y="114" text-anchor="middle" font-family="Inter" font-size="12" fill="#C4B5FD">"call get_weather('Oslo')"</text>
+          <rect x="265" y="50" width="190" height="90" rx="18" fill="#F1EBFF" stroke="#DDD0FB"/><text x="360" y="86" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">Your app</text><text x="360" y="108" text-anchor="middle" font-family="Inter" font-size="12" fill="#5B6175">checks permission,</text><text x="360" y="124" text-anchor="middle" font-family="Inter" font-size="12" fill="#5B6175">runs the real function</text>
+          <rect x="520" y="50" width="190" height="90" rx="18" fill="#EEF6FF" stroke="#CFE3FA"/><text x="615" y="90" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">Weather API</text><text x="615" y="114" text-anchor="middle" font-family="Inter" font-size="12" fill="#5B6175">returns live data</text>
+          <path d="M202 80 H261" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a3)"/><path d="M457 80 H516" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a3)"/>
+          <path d="M516 118 H457" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#a3)"/><path d="M261 118 H202" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#a3)"/>
+          <text x="360" y="172" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">The model only asks. Your code decides what actually runs — that's where safety checks live.</text>
+        </svg>
+      </figure>
+    </section>
+
+    <section id="rag" data-toc="RAG">
+      <p class="sec-n">Part 3</p>
+      <h2>RAG: an open-book exam for AI</h2>
+      <p><strong>Retrieval-augmented generation</strong> finds the most relevant passages in trusted documents, hands them to the model, and asks it to answer <em>only from them</em>, with citations.</p>
+      <div class="grid3">
+        <div class="mini"><span class="tagline">Step 1</span><b>Chunk &amp; index</b><p>Split documents into passages and store them for searching.</p></div>
+        <div class="mini"><span class="tagline">Step 2</span><b>Retrieve</b><p>Find the passages most similar in meaning to the question.</p></div>
+        <div class="mini"><span class="tagline">Step 3</span><b>Generate with citations</b><p>Answer from those passages only — or say "not in the sources".</p></div>
+      </div>
+      <div class="widget">
+        <span class="widget__lbl">Interactive</span>
+        <h3>Be the retriever</h3>
+        <p class="hint">Ask a question about the (fictional) Lakeview school AI policy. The bars show how well each passage matches — the top one is what a RAG system would hand to the model.</p>
+        <div class="field"><input id="rq" value="Can a 12 year old use AI at home?" aria-label="Question"/></div>
+        <div id="hits"></div>
+        <p class="hint">Try: <em>how long do vendors keep data</em> · <em>what happens if I'm caught</em> · <em>cafeteria menu</em> (not covered — notice every score is low).</p>
+      </div>
+      <div class="key"><div class="key__lbl">Embeddings</div><p>Real systems compare <em>meaning</em>, not just words: text is turned into lists of numbers (embeddings) so "Can I get my money back?" matches a passage titled "Refunds". This demo uses simple word overlap so you can see the scoring; the developer lab uses real embeddings.</p></div>
+    </section>
+
+    <section id="memory" data-toc="Memory">
+      <p class="sec-n">Part 4</p>
+      <h2>Memory: short-term and long-term</h2>
+      <div class="grid2">
+        <div class="mini"><span class="tagline">Short-term</span><b>The context window</b><p>The conversation so far, re-sent with every message. Limited in size; gone when the chat ends.</p></div>
+        <div class="mini"><span class="tagline">Long-term</span><b>A memory store</b><p>Facts the app saves (your name, preferences) and loads into later chats. Useful — and personal data with privacy duties.</p></div>
+      </div>
+    </section>
+
+    <section id="lab" data-toc="No-code labs">
+      <p class="sec-n">Lab A · No code</p>
+      <h2>Ground an AI in a real document</h2>
+      <div class="lab">
+        <div class="lab__hdr">
+          <span class="lab__tag">No-code lab · 25 min</span>
+          <h3>NotebookLM and the Lakeview AI policy</h3>
+          <p>NotebookLM answers only from sources you give it and shows citations. You'll test it with questions you can check — including ones the document can't answer.</p>
+          <div class="lab__meta"><span>notebooklm.google.com</span><span>Free Google account</span><span>Fictional policy, safe to share</span></div>
+        </div>
+        <div class="lab__body">
+          <ol class="steps">
+            <li><input type="checkbox" class="chk" id="l3-s1"/><div><b class="st">Get the source</b><p>Open the <a href="https://github.com/AgenticEdOrg/AgenticEd/blob/main/labs/data/corpus/01_ai_use_policy.md" target="_blank" rel="noopener">Lakeview AI Use Policy</a> and copy its text.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l3-s2"/><div><b class="st">Create a notebook</b><p>In <a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM</a>, create a notebook and add the text as a <em>Copied text</em> source.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l3-s3"/><div><b class="st">Ask three answerable questions</b>
+              <div class="prompt">Can a 12-year-old use the AI assistant at home?
+What must students include when they hand in work that used AI?
+Can AI be used to decide a student's grade?</div>
+              <div class="expect"><b>Expect:</b> supervised lessons only under 13 · an AI-use statement · no. Click each citation and check the quoted passage.</div></div></li>
+            <li><input type="checkbox" class="chk" id="l3-s4"/><div><b class="st">Ask one it can't answer</b><p><code>What is the policy on students using AI to compose music?</code> The document doesn't cover this. Does it say so, or invent an answer?</p></div></li>
+            <li><input type="checkbox" class="chk" id="l3-s5"/><div><b class="st">Compare with no sources</b><p>Ask the same first question to a general chatbot with no document. What changes?</p></div></li>
+          </ol>
+          <div class="evidence"><b>Evidence for your portfolio</b>A screenshot of one answer with its citation opened, and your notes on the unanswerable question.</div>
+        </div>
+      </div>
+      <div class="lab">
+        <div class="lab__hdr">
+          <span class="lab__tag">Optional · 10 min</span>
+          <h3>Memory Bot experiment</h3>
+          <p>Find out what an assistant actually remembers — within a chat, and across chats.</p>
+        </div>
+        <div class="lab__body">
+          <ol class="steps">
+            <li><input type="checkbox" class="chk" id="l3-m1"/><div><b class="st">Share four facts</b><p>Tell an assistant four made-up facts (a name, a subject, a hobby, a project). Never use real personal details.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l3-m2"/><div><b class="st">Test recall in the same chat</b><p>Ask it to list all four.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l3-m3"/><div><b class="st">Open a new chat</b><p>Ask what it knows about you. If it has a memory feature, check its settings: can you see and delete what it stored?</p></div></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="dev-lab" data-toc="Developer lab">
+      <p class="sec-n">Lab B · For developers</p>
+      <h2>Production RAG and memory in Python</h2>
+      <div class="nb">
+        <div class="nb__main">
+          <span class="nb__tag">Jupyter notebook · 90–110 min</span>
+          <h3>Tools, RAG, MCP and memory</h3>
+          <p>Index the Lakeview corpus in ChromaDB, compare BM25, dense, hybrid and reranked retrieval with recall@k and MRR, build cited answers with abstention, serve the corpus over MCP, and add long-term memory with erasure.</p>
+          <ol><li>Chunking and ChromaDB</li><li>Hybrid search and reranking, measured</li><li>Cited, abstaining answers</li><li>MCP server and memory lifecycle</li></ol>
+        </div>
+        <div class="nb__side">
+          <a class="btn btn--light" href="https://colab.research.google.com/github/AgenticEdOrg/AgenticEd/blob/main/labs/week3_tools_rag_memory.ipynb" target="_blank" rel="noopener">Open in Colab <span class="arrow">→</span></a>
+          <a class="btn btn--outline-light" href="https://github.com/AgenticEdOrg/AgenticEd/blob/main/labs/week3_tools_rag_memory.ipynb" target="_blank" rel="noopener">View on GitHub</a>
+          <p class="nb__fine">Python plus your own OpenAI or Anthropic key (about US$0.10).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="beat" data-toc="Responsible AI">
+      <div class="beat">
+        <span class="beat__lbl">Responsible AI</span>
+        <h3>Citations are a promise you can check</h3>
+        <p>A citation lets anyone verify an answer in seconds — so check them, especially when the answer matters. And treat memory as personal data: an assistant that remembers you should let you see, correct, and delete what it stored.</p>
+      </div>
+    </section>
+
+    <section id="activity" data-toc="Activity">
+      <div class="activity" id="act-w3" data-week="3" data-required="rag-tool,rag-grounded,rag-trust" data-done="RAG findings saved">
+        <span class="activity__tag">Portfolio activity · RAG with citations</span>
+        <h3>What did grounding change?</h3>
+        <div class="field"><label for="rag-tool">Tool used</label><input id="rag-tool" data-label="Tool" placeholder="NotebookLM"/></div>
+        <div class="field"><label for="rag-grounded">Which answers were grounded in the source, and what happened with the unanswerable question?</label><textarea id="rag-grounded" data-label="Grounded vs invented"></textarea></div>
+        <div class="field"><label for="rag-trust">How did checking citations change how much you trusted the answers?</label><textarea id="rag-trust" data-label="Trust"></textarea></div>
+        <h3 style="margin-top:22px;font-size:19px;">Memory Bot (optional)</h3>
+        <div class="row2">
+          <div class="field"><label for="tool-used">Assistant used</label><input id="tool-used" data-label="Assistant"/></div>
+          <div class="field"><label for="facts">The four made-up facts</label><input id="facts" data-label="Facts shared"/></div>
+        </div>
+        <div class="field"><label for="step2">Same chat: what did it recall?</label><textarea id="step2" data-label="Same-chat recall"></textarea></div>
+        <div class="field"><label for="step4">New chat: what survived?</label><textarea id="step4" data-label="New-chat recall"></textarea></div>
+        <div class="field"><label for="insight">What does this mean for designing an assistant that remembers users?</label><textarea id="insight" data-label="Design insight"></textarea></div>
+        <div class="submit-row"><button class="btn btn--primary" type="button" onclick="agenticedActivity('act-w3')">Save my findings</button><button class="btn btn--ghost" type="button" onclick="agenticedClear('act-w3')">Clear</button></div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="terms" data-toc="Key terms">
+      <h2>Key terms</h2>
+      <div class="terms">
+        <div class="term"><b>Tool calling</b><span>The model requests a function; the app runs it and returns the result.</span></div>
+        <div class="term"><b>RAG</b><span>Retrieve relevant passages, then generate an answer grounded in them.</span></div>
+        <div class="term"><b>Embedding</b><span>Numbers that represent the meaning of text, used for similarity search.</span></div>
+        <div class="term"><b>Vector database</b><span>Stores embeddings and finds the most similar ones quickly.</span></div>
+        <div class="term"><b>Citation</b><span>A pointer to the exact source passage behind a claim.</span></div>
+        <div class="term"><b>Long-term memory</b><span>Saved information reloaded into later conversations.</span></div>
+      </div>
+    </section>
+
+    <section id="reading" data-toc="Go further">
+      <h2>Go further</h2>
+      <ul class="reading">
+        <li><a href="https://notebooklm.google.com" target="_blank" rel="noopener">NotebookLM <small>Google · tool</small></a></li>
+        <li><a href="https://arxiv.org/abs/2005.11401" target="_blank" rel="noopener">Retrieval-Augmented Generation <small>Research paper</small></a></li>
+        <li><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol <small>Open standard for AI tools</small></a></li>
+      </ul>
+      <div id="progress-slot" style="margin-top:28px;"></div>
+      <div class="next-week">
+        <div><small>Up next · Week 4</small><h3>Agent Workflows &amp; Handoffs</h3><p>Teams of agents, the handoffs between them, and where humans must approve.</p></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="btn btn--outline-light" href="quiz.html?week=3">Take the Week 3 quiz</a><a class="btn btn--light" href="week4.html">Start Week 4 <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+  </main>
 </div>
-<div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div style="display:flex;gap:20px;">
-    <a href="index.html">&larr; Back to Course</a>
-    <a href="quiz.html?week=3">Week 3 Quiz</a>
-    <a href="portfolio.html">Your Portfolio</a>
-    <a href="glossary.html">Glossary</a>
-    <a href="dashboard.html">Learning Dashboard</a>
-    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
-  </div>
-</div>
+
+<footer class="footer"><div class="wrap"><div class="footer__copy"><span>© 2026 AgenticEd · CC BY 4.0</span><span><a href="glossary.html">Glossary</a> · <a href="portfolio.html">Portfolio</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div></div></footer>
+
 <script>
-
-function submitActivity(){
-  if(!document.getElementById('tool-used').value||!document.getElementById('step2').value.trim()||!document.getElementById('step4').value.trim()){alert('Fill in the tool, Step 2 result, and Step 4 result first.');return;}
-  const res=document.getElementById('activity-result');res.style.display='block';
-  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">Memory Experiment Complete!</strong><p>You just experienced the core challenge every AI product team faces: short-term context is powerful but temporary. Long-term memory requires deliberate design. Week 4 scales this up to whole teams of agents.</p>';
-  res.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function clearActivity(){['step2','step4','insight','facts'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('tool-used').value='';document.getElementById('activity-result').style.display='none';}
-
-</script>
-
-<script>
-/* AgenticEd auto-save (E1): persists activity answers in this browser only */
 (function(){
-  var page=(location.pathname.split("/").pop()||"index");
-  var NS="agenticed:autosave:"+page+":";
-  var els=document.querySelectorAll("input,textarea,select");
-  els.forEach(function(el){
-    if(!el.id) return;
-    var k=NS+el.id;
-    try{
-      var v=localStorage.getItem(k);
-      if(v!==null){
-        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
-        else{el.value=v;}
-      }
-    }catch(e){}
-    var save=function(){
-      try{
-        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
-        else{localStorage.setItem(k,el.value);}
-      }catch(e){}
-    };
-    el.addEventListener("input",save);
-    el.addEventListener("change",save);
-  });
-  document.addEventListener("click",function(e){
-    var b=e.target.closest&&e.target.closest("button");
-    if(b&&b.textContent.trim().toLowerCase()==="clear"){
-      setTimeout(function(){
-        try{
-          var rm=[];
-          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
-          rm.forEach(function(kk){localStorage.removeItem(kk);});
-        }catch(e){}
-      },0);
-    }
-  });
+  var P=[
+    ["Approved tools","Students may only use AI tools on the approved list: Lakeview Assist and NotebookLM through a district account. Other tools need written teacher approval."],
+    ["Age requirements","Students under 13 may use approved AI tools only during supervised lessons on school devices. Students 13 and older may use approved tools at home for schoolwork."],
+    ["Disclosure","Every graded assignment that used AI must include a short AI-use statement naming the tool and how it was used."],
+    ["Vendor data retention","AI vendors must delete prompts and outputs containing student data within 30 days and must not use them to train models."],
+    ["Consequences","Violations are handled under the Academic Integrity Policy. A first violation normally results in a conference with the teacher and a chance to redo the work."],
+    ["Accuracy","AI tools can produce confident but false information. Students must verify important facts against a textbook, a teacher, or another reliable source."]
+  ];
+  var STOP={"a":1,"an":1,"the":1,"is":1,"are":1,"to":1,"of":1,"and":1,"or":1,"in":1,"on":1,"at":1,"for":1,"can":1,"i":1,"my":1,"do":1,"does":1,"what":1,"if":1,"be":1,"use":0};
+  var words=function(s){return (s.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(function(w){return !STOP[w];});};
+  function stem(w){return w.replace(/(ing|ed|s)$/,"");}
+  function run(){
+    var q=words(document.getElementById("rq").value).map(stem);
+    var scored=P.map(function(p,i){var d=words(p[0]+" "+p[1]).map(stem);var hits=q.filter(function(w){return d.indexOf(w)!==-1;}).length;return {i:i,s:q.length?hits/q.length:0};}).sort(function(a,b){return b.s-a.s;});
+    document.getElementById("hits").innerHTML=scored.map(function(h,k){var p=P[h.i];
+      return '<div class="hit'+(k===0&&h.s>0?' hit--top':'')+'"><div><b>'+p[0]+'</b>'+p[1]+'</div><div class="hit__bar"><span style="width:'+Math.round(h.s*100)+'%"></span></div></div>';}).join("");
+  }
+  document.getElementById("rq").addEventListener("input",run); run();
 })();
 </script>
+<script src="site.js?v=20261025"></script>
+<script src="lesson.js?v=20261025"></script>
 <script src="progress.js"></script>
 </body>
 </html>

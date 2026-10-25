@@ -1,0 +1,20 @@
+{"id": "q01", "question": "Can a 12-year-old use the AI assistant at home for homework?", "doc": "ai-use-policy", "answer_keywords": ["supervised", "13"], "answerable": true}
+{"id": "q02", "question": "Which AI tools are students allowed to use without asking a teacher?", "doc": "ai-use-policy", "answer_keywords": ["Lakeview Assist", "NotebookLM"], "answerable": true}
+{"id": "q03", "question": "What must I include when I hand in work that used AI?", "doc": "ai-use-policy", "answer_keywords": ["statement"], "answerable": true}
+{"id": "q04", "question": "Can AI decide a student's grade or discipline outcome?", "doc": "ai-use-policy", "answer_keywords": ["no", "not"], "answerable": true}
+{"id": "q05", "question": "Is a teacher allowed to paste a student's essay with their name into ChatGPT for feedback?", "doc": "student-data-privacy", "answer_keywords": ["no", "approved"], "answerable": true}
+{"id": "q06", "question": "How long do AI vendors keep prompts that contain student data?", "doc": "student-data-privacy", "answer_keywords": ["30"], "answerable": true}
+{"id": "q07", "question": "Can disability information be entered into Lakeview Assist?", "doc": "student-data-privacy", "answer_keywords": ["never", "no", "not"], "answerable": true}
+{"id": "q08", "question": "Who do I contact to find out what data an AI tool collected about my child?", "doc": "student-data-privacy", "answer_keywords": ["privacy@lakeview.example"], "answerable": true}
+{"id": "q09", "question": "What happens the first time a student is caught submitting AI-written work?", "doc": "academic-integrity", "answer_keywords": ["conference", "redo"], "answerable": true}
+{"id": "q10", "question": "How long do I have to appeal an academic integrity decision?", "doc": "academic-integrity", "answer_keywords": ["ten"], "answerable": true}
+{"id": "q11", "question": "How much does a second laptop repair cost?", "doc": "device-acceptable-use", "answer_keywords": ["25"], "answerable": true}
+{"id": "q12", "question": "My account is locked. Where do I unlock it?", "doc": "device-acceptable-use", "answer_keywords": ["library", "help desk"], "answerable": true}
+{"id": "q13", "question": "When are the fall final exams?", "doc": "assessment-calendar", "answer_keywords": ["14", "18 December"], "answerable": true}
+{"id": "q14", "question": "Can I use a calculator in every exam?", "doc": "assessment-calendar", "answer_keywords": ["only", "paper"], "answerable": true}
+{"id": "q15", "question": "How soon must an accommodation plan be filed before exams?", "doc": "assessment-calendar", "answer_keywords": ["15"], "answerable": true}
+{"id": "q16", "question": "How many hours per week does Robotics Club meet?", "doc": "clubs-and-activities", "answer_keywords": ["3"], "answerable": true}
+{"id": "q17", "question": "Is there an activity bus on Wednesdays?", "doc": "clubs-and-activities", "answer_keywords": ["no", "Tuesdays and Thursdays"], "answerable": true}
+{"id": "q18", "question": "Why was StudyPal AI not approved?", "doc": "vendor-review-notes", "answer_keywords": ["365", "training"], "answerable": true}
+{"id": "q19", "question": "What is the district's policy on students using AI to compose music?", "doc": null, "answer_keywords": [], "answerable": false}
+{"id": "q20", "question": "What is the cafeteria menu on Fridays?", "doc": null, "answer_keywords": [], "answerable": false}

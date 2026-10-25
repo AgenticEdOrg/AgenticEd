@@ -138,6 +138,8 @@ a{color:inherit;}
 .footer ul a:hover{color:#fff;}
 .footer__copy{border-top:1px solid rgba(255,255,255,.08);padding-top:22px;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .footer__copy a{text-decoration:none;}
+.footer:has(.footer__copy:first-child){padding:26px 0;}
+.footer__copy:first-child{border-top:0;padding-top:0;}
 
 /* ── KEYFRAMES ── */
 @keyframes grad-flow{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}

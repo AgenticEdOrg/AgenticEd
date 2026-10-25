@@ -3,573 +3,318 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 1: AI Foundations — AgenticEd</title>
+  <title>Week 1: AI Foundations — From Automation to Agents · AgenticEd</title>
+  <meta name="description" content="Week 1 of AgenticEd Foundations: what AI agents are, the Think → Act → Observe loop, agent anatomy, autonomy, and accountability — with a no-code lab and a developer notebook."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --cream:#FAF9FF; --brown:#121526; --coral:#7C3AED;
-      --coral-light:#F1E9FF; --amber:#A855F7; --warm:#646579;
-      --border:#E4E1F0; --white:#FFFFFF; --light:#F3F0FA;
-      --think:#121526; --act:#7C3AED; --obs:#A855F7;
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
-
-    /* TOP BAR */
-    .topbar{
-      background:var(--brown);padding:10px 32px;
-      display:flex;justify-content:space-between;align-items:center;
-    }
-    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
-    .topbar__logo em{font-style:normal;color:var(--coral);}
-    .topbar__progress{display:flex;align-items:center;gap:10px;}
-    .topbar__label{font-size:12px;color:rgba(250,249,255,0.6);}
-    .progress-dots{display:flex;gap:5px;}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,249,255,0.2);}
-    .dot--done{background:var(--coral);}
-    .dot--active{background:var(--white);}
-
-    /* LESSON HEADER */
-    .lhdr{
-      background:var(--brown);padding:48px 32px 52px;
-      border-bottom:3px solid var(--coral);
-    }
-    .lhdr__inner{max-width:780px;margin:0 auto;}
-    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
-    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
-    .lhdr__chip{
-      display:inline-flex;align-items:center;gap:6px;
-      background:rgba(250,249,255,0.08);border:1px solid rgba(250,249,255,0.15);
-      color:rgba(250,249,255,0.75);padding:5px 13px;border-radius:20px;font-size:13px;
-    }
-
-    /* LESSON BODY */
-    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
-
-    /* SECTIONS */
-    .lsec{margin-bottom:52px;}
-    .lsec__num{
-      display:inline-flex;align-items:center;gap:8px;
-      font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-      color:var(--coral);margin-bottom:10px;
-    }
-    .lsec__num::before{
-      content:'';display:block;width:24px;height:2px;background:var(--coral);
-    }
-    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
-    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
-    .lsec p:last-child{margin-bottom:0;}
-    strong{font-weight:600;}
-    em{font-style:italic;}
-
-    /* CALLOUT BOX */
-    .callout{
-      background:var(--coral-light);border-left:4px solid var(--coral);
-      border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;
-    }
-    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
-
-    /* COMPARISON TABLE */
-    .compare{width:100%;border-collapse:collapse;margin:24px 0;border-radius:10px;overflow:hidden;}
-    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
-    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
-    .compare tr:nth-child(even) td{background:var(--light);}
-    .compare tr:last-child td{border-bottom:none;}
-    .compare td:first-child{font-weight:600;color:var(--coral);}
-
-    /* AGENT LOOP VISUAL */
-    .loop-section{background:var(--brown);border-radius:16px;padding:40px 32px;margin:32px 0;text-align:center;}
-    .loop-section h3{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--cream);margin-bottom:6px;}
-    .loop-section p{font-size:14px;color:rgba(250,249,255,0.65);margin-bottom:28px;}
-    .loop-nodes{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;}
-    .loop-node{
-      text-align:center;padding:20px 24px;border-radius:12px;min-width:140px;
-    }
-    .loop-node--think{background:var(--brown);border:2px solid rgba(250,249,255,0.2);}
-    .loop-node--act{background:var(--coral);}
-    .loop-node--obs{background:var(--amber);}
-    .loop-node__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;letter-spacing:2px;margin-bottom:4px;}
-    .loop-node--think .loop-node__title{color:var(--cream);}
-    .loop-node--act .loop-node__title{color:var(--white);}
-    .loop-node--obs .loop-node__title{color:var(--brown);}
-    .loop-node__sub{font-size:12px;font-weight:500;}
-    .loop-node--think .loop-node__sub{color:rgba(250,249,255,0.65);}
-    .loop-node--act .loop-node__sub{color:rgba(255,255,255,0.82);}
-    .loop-node--obs .loop-node__sub{color:rgba(18,21,38,0.65);}
-    .loop-arrow{font-size:22px;color:rgba(250,249,255,0.3);padding:0 8px;display:flex;align-items:center;}
-
-    /* EXAMPLE CARDS */
-    .examples{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:24px 0;}
-    .ex-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:10px;}
-    .ex-card__icon{font-size:28px;}
-    .ex-card__product{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:var(--brown);}
-    .ex-card__think{font-size:12px;background:rgba(18,21,38,0.06);padding:7px 10px;border-radius:6px;}
-    .ex-card__act{font-size:12px;background:var(--coral-light);padding:7px 10px;border-radius:6px;color:var(--coral);}
-    .ex-card__obs{font-size:12px;background:#FFFBF0;padding:7px 10px;border-radius:6px;color:#996600;}
-    .ex-card__label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;opacity:0.6;display:block;margin-bottom:2px;}
-
-    /* ACTIVITY SECTION */
-    .activity{
-      background:var(--white);border:2px solid var(--amber);
-      border-radius:16px;padding:36px;margin:40px 0;
-    }
-    .activity__badge{
-      display:inline-flex;align-items:center;gap:7px;
-      background:var(--amber);color:var(--brown);
-      padding:5px 14px;border-radius:20px;
-      font-size:11px;font-weight:700;letter-spacing:0.08em;
-      text-transform:uppercase;margin-bottom:16px;
-    }
-    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
-    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
-    .field-group{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-    .field{display:flex;flex-direction:column;gap:6px;}
-    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
-    .field input,.field textarea{
-      background:var(--cream);border:1px solid var(--border);
-      border-radius:8px;padding:12px 14px;
-      font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);
-      outline:none;transition:border-color 0.18s;resize:vertical;
-    }
-    .field input:focus,.field textarea:focus{border-color:var(--coral);}
-    .field textarea{min-height:80px;}
-    .loop-fields{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
-    .loop-field{padding:16px;border-radius:10px;display:flex;flex-direction:column;gap:8px;}
-    .loop-field--think{background:rgba(18,21,38,0.05);border:1px solid rgba(18,21,38,0.12);}
-    .loop-field--act{background:var(--coral-light);border:1px solid rgba(124,58,237,0.2);}
-    .loop-field--obs{background:#FFFBEF;border:1px solid rgba(245,166,35,0.25);}
-    .loop-field__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}
-    .loop-field--think .loop-field__label{color:var(--brown);}
-    .loop-field--act .loop-field__label{color:var(--coral);}
-    .loop-field--obs .loop-field__label{color:#996600;}
-    .loop-field textarea{background:rgba(255,255,255,0.7);border-color:rgba(0,0,0,0.08);}
-    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
-    .btn--primary{background:var(--coral);color:var(--white);}
-    .btn--primary:hover{background:#6824D9;}
-    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
-    .btn--ghost:hover{border-color:var(--brown);}
-    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
-
-    /* NOTEBOOK SECTION */
-    .notebook{
-      background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;
-      display:flex;align-items:center;gap:40px;flex-wrap:wrap;
-    }
-    .notebook__left{flex:1;min-width:220px;}
-    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
-    .notebook__desc{font-size:14px;color:rgba(250,249,255,0.65);line-height:1.7;margin-bottom:0;}
-    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
-    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
-    .notebook__btn:hover{background:#6824D9;}
-    .notebook__btn-icon{font-size:22px;}
-    .notebook__secondary{font-size:13px;color:rgba(250,249,255,0.5);text-align:center;}
-    .notebook__secondary a{color:rgba(250,249,255,0.7);text-decoration:underline;}
-
-    /* CODE PREVIEW */
-    .code-preview{background:#0D1117;border-radius:10px;padding:24px;margin:16px 0;overflow-x:auto;}
-    .code-preview pre{font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;color:#E6EDF3;}
-    .code-preview .cm{color:#8B949E;}
-    .code-preview .ck{color:#FF7B72;}
-    .code-preview .cs{color:#A5D6FF;}
-    .code-preview .cf{color:#D2A8FF;}
-    .code-preview .cn{color:#79C0FF;}
-    .code-preview .co{color:#FFA657;}
-
-    /* NEXT WEEK */
-    .next{
-      background:var(--light);border-radius:16px;padding:32px;
-      display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
-      margin-top:48px;
-    }
-    .next__left{}
-    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
-    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
-    .next__desc{font-size:14px;color:var(--warm);}
-    .next__lock{font-size:13px;color:var(--warm);background:var(--border);padding:5px 12px;border-radius:20px;font-weight:600;}
-
-    /* FOOTER */
-    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
-    .lesson-footer a:hover{color:var(--cream);}
-    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
-    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
-
-    @media(max-width:700px){
-      .body{padding:32px 20px 60px;}
-      .loop-nodes{flex-direction:column;gap:8px;}
-      .loop-arrow{transform:rotate(90deg);}
-      .field-group,.loop-fields{grid-template-columns:1fr;}
-      .notebook{flex-direction:column;gap:24px;}
-      .lhdr{padding:32px 20px 36px;}
-    }
-  </style>
-  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css?v=20261025"/>
+  <link rel="stylesheet" href="lesson.css?v=20261025"/>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
-  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
 </head>
 <body>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="learn.html">Learning Paths</a></li>
+      <li><a href="certifications/index.html">Certifications</a></li>
+      <li><a href="sessions.html">Live Sessions</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="week2.html" class="nav__cta">Next: Week 2</a></li>
+    </ul>
+  </div>
+</nav>
 
-<!-- TOP BAR -->
-<div class="topbar">
-  <a href="index.html" class="topbar__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div class="topbar__progress">
-    <span class="topbar__label">Your progress:</span>
-    <div class="progress-dots">
-      <div class="dot dot--active" title="Week 1 — Now"></div>
-      <div class="dot" title="Week 2"></div>
-      <div class="dot" title="Week 3"></div>
-      <div class="dot" title="Week 4"></div>
-      <div class="dot" title="Week 5"></div>
-      <div class="dot" title="Week 6"></div>
+<header class="lhero">
+  <div class="wash wash--fade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span>/</span><a href="learn.html">Foundations</a><span>/</span><span>Week 1</span></div>
+    <div class="lhero__grid">
+      <div>
+        <span class="eye">Week 1 of 6 · Foundations</span>
+        <h1>AI Foundations: From Automation to <span class="grad-text">Agents</span></h1>
+        <p class="lead">What separates an AI agent from a chatbot or a script, how every agent runs the same Think → Act → Observe loop, and why someone is always accountable for what it does.</p>
+        <div class="chips">
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>75–90 min</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>No-code lab</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>Developer notebook</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Quiz + portfolio</span>
+        </div>
+      </div>
+      <div class="weekbar">
+        <div class="weekbar__lbl topbar__label">Your progress</div>
+        <div class="progress-dots">
+          <a class="dot" href="week1.html">1</a><a class="dot" href="week2.html">2</a><a class="dot" href="week3.html">3</a>
+          <a class="dot" href="week4.html">4</a><a class="dot" href="week5.html">5</a><a class="dot" href="week6.html">6</a>
+        </div>
+        <p class="weekbar__note">Progress is saved in this browser only.</p>
+      </div>
     </div>
   </div>
+</header>
+
+<div class="wrap lesson">
+  <aside class="toc"><div class="toc__lbl">On this page</div><nav id="toc-links"></nav></aside>
+  <main class="content">
+
+    <section id="objectives" data-toc="Objectives" class="reveal">
+      <div class="objectives">
+        <h3>By the end of this week you can</h3>
+        <ul>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Place automation, machine learning, generative AI, and agents on one map</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tell a tool, a workflow, and an agent apart with one question</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Trace a real agent's Think → Act → Observe loop step by step</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Name an agent's five parts and choose a sensible level of autonomy</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="family" data-toc="The AI family">
+      <p class="sec-n">Part 1</p>
+      <h2>The AI family, in one picture</h2>
+      <p>"AI" gets used for everything, so start with precise terms. They nest inside each other:</p>
+      <figure class="figure">
+        <svg viewBox="0 0 720 300" role="img" aria-label="Nested diagram: artificial intelligence contains machine learning, which contains deep learning, which contains generative AI; agents use generative AI plus tools and a loop.">
+          <rect x="10" y="10" width="700" height="280" rx="26" fill="#F6F7FB" stroke="#E7E8F0"/>
+          <text x="34" y="44" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">Artificial intelligence</text>
+          <text x="34" y="66" font-family="Inter" font-size="12.5" fill="#5B6175">tasks we'd call intelligent: rules, search, prediction</text>
+          <rect x="60" y="84" width="600" height="190" rx="22" fill="#EEF6FF" stroke="#CFE3FA"/>
+          <text x="84" y="114" font-family="Outfit" font-weight="700" font-size="16" fill="#0B1020">Machine learning</text>
+          <text x="84" y="134" font-family="Inter" font-size="12.5" fill="#5B6175">behaviour learned from data</text>
+          <rect x="110" y="150" width="500" height="110" rx="18" fill="#F1EBFF" stroke="#DDD0FB"/>
+          <text x="134" y="178" font-family="Outfit" font-weight="700" font-size="15" fill="#0B1020">Deep learning → Generative AI</text>
+          <text x="134" y="198" font-family="Inter" font-size="12.5" fill="#5B6175">neural networks that create text, images, code</text>
+          <rect x="390" y="208" width="200" height="40" rx="12" fill="#0B1020"/>
+          <text x="490" y="233" text-anchor="middle" font-family="Inter" font-weight="600" font-size="13" fill="#fff">Agents = GenAI + tools + loop</text>
+        </svg>
+        <figcaption>Not every AI is generative, and not every generative AI is an agent.</figcaption>
+      </figure>
+      <p>A rule that emails a reminder every Friday is <strong>automation</strong>. A spam filter that learned from millions of examples is <strong>machine learning</strong>. A chatbot that drafts an essay is <strong>generative AI</strong>. A system that takes a goal, decides its own steps, uses tools, checks results, and keeps going is an <strong>agent</strong>.</p>
+    </section>
+
+    <section id="tool-agent" data-toc="Tool, workflow, or agent?">
+      <p class="sec-n">Part 2</p>
+      <h2>Tool, workflow, or agent? One question decides</h2>
+      <div class="key"><div class="key__lbl">The test</div><p><strong>Who decides what happens next?</strong> Nobody (it answers once and stops) → a tool. The developer, in advance → a workflow. The AI itself, as it goes → an agent.</p></div>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th></th><th>Tool / chatbot</th><th>Workflow</th><th>Agent</th></tr>
+        <tr><td><b>Who picks the steps?</b></td><td>No steps</td><td>The developer</td><td>The AI, at run time</td></tr>
+        <tr><td><b>Takes actions?</b></td><td>Rarely</td><td>Yes, in a fixed order</td><td>Yes, chosen as it goes</td></tr>
+        <tr><td><b>Adapts to results?</b></td><td>No</td><td>Only planned branches</td><td>Yes</td></tr>
+        <tr><td><b>Example</b></td><td>"What's the capital of Kenya?"</td><td>Every new form is summarised and emailed to a teacher</td><td>"Find out why club sign-ups dropped and draft a plan"</td></tr>
+      </table></div>
+      <p>Workflows are predictable and cheap; agents are flexible but cost more and are harder to test. Good builders use the simplest option that works.</p>
+
+      <div class="widget" id="sorter">
+        <span class="widget__lbl">Interactive</span>
+        <h3>Sort these six systems</h3>
+        <p class="hint">Pick tool, workflow, or agent for each. Explanations appear as you answer.</p>
+        <div id="sort-items"></div>
+        <p id="sort-score" class="hint" style="margin-top:12px;"></p>
+      </div>
+    </section>
+
+    <section id="loop" data-toc="The agent loop">
+      <p class="sec-n">Part 3</p>
+      <h2>The loop every agent runs</h2>
+      <figure class="figure">
+        <svg viewBox="0 0 720 220" role="img" aria-label="Think, then Act, then Observe, then back to Think until the goal is met or a limit is reached.">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8B5CF6"/></marker></defs>
+          <rect x="30" y="60" width="180" height="96" rx="20" fill="#0B1020"/><text x="120" y="102" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="20" fill="#fff">THINK</text><text x="120" y="126" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#C4B5FD">reason about the goal</text>
+          <rect x="270" y="60" width="180" height="96" rx="20" fill="#6D28D9"/><text x="360" y="102" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="20" fill="#fff">ACT</text><text x="360" y="126" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#EDE7FF">use a tool</text>
+          <rect x="510" y="60" width="180" height="96" rx="20" fill="#E9E3FF" stroke="#CDBFF7"/><text x="600" y="102" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="20" fill="#0B1020">OBSERVE</text><text x="600" y="126" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">read the result</text>
+          <path d="M212 108 H266" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M452 108 H506" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#ar)"/>
+          <path d="M600 160 C600 205 120 205 120 162" fill="none" stroke="#8B5CF6" stroke-width="2.5" stroke-dasharray="6 6" marker-end="url(#ar)"/>
+          <text x="360" y="200" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">repeat until the goal is met — or a step, time, or cost limit is reached</text>
+        </svg>
+      </figure>
+      <p>Here is a real trace of an agent asked to plan a study schedule:</p>
+      <div class="trace"><span class="c"># Goal: plan 3 days of study before Friday's biology test</span>
+<span class="t">THINK</span>   I need the test date and the student's weak topics.
+<span class="a">ACT</span>     calendar.find("biology test")
+<span class="o">OBSERVE</span> Friday 9:00 — 3 days left.
+<span class="t">THINK</span>   Check recent quiz scores to find weak topics.
+<span class="a">ACT</span>     notes.search("quiz scores")
+<span class="o">OBSERVE</span> genetics 55%, cell transport 62%, ecology 88%.
+<span class="r">ANSWER</span>  Day 1 genetics · Day 2 cell transport · Day 3 mixed practice. Add to calendar? [needs your approval]</div>
+      <p>Notice the last step: adding to <em>your</em> calendar changes something outside the conversation, so a well-designed agent asks first.</p>
+    </section>
+
+    <section id="anatomy" data-toc="Anatomy of an agent">
+      <p class="sec-n">Part 4</p>
+      <h2>Five parts of every agent</h2>
+      <div class="grid3">
+        <div class="mini"><span class="tagline">Brain</span><b>Model</b><p>The language model that reasons and decides the next step.</p></div>
+        <div class="mini"><span class="tagline">Job description</span><b>Instructions</b><p>The system prompt: role, goal, rules, boundaries.</p></div>
+        <div class="mini"><span class="tagline">Hands</span><b>Tools</b><p>Search, calculators, calendars, databases, email — ways to act.</p></div>
+        <div class="mini"><span class="tagline">Notebook</span><b>Memory</b><p>What it can see now, plus what it saved from before.</p></div>
+        <div class="mini"><span class="tagline">Manager</span><b>Orchestration</b><p>The code that runs the loop, enforces limits, and asks for approval.</p></div>
+        <div class="mini"><span class="tagline">Key idea</span><b>The model proposes</b><p>Only the orchestration code actually runs a tool — that's where safety lives.</p></div>
+      </div>
+      <h3>Autonomy is a dial, not a switch</h3>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Level</th><th>What it does</th><th>Example</th></tr>
+        <tr><td><b>1 · Assistant</b></td><td>Suggests; you do everything</td><td>Autocomplete in a document</td></tr>
+        <tr><td><b>2 · Copilot</b></td><td>Drafts actions; you approve each one</td><td>Drafts an email you review and send</td></tr>
+        <tr><td><b>3 · Supervised agent</b></td><td>Acts alone on low-risk steps, asks before risky ones</td><td>Books a study slot, asks before inviting others</td></tr>
+        <tr><td><b>4 · Autonomous agent</b></td><td>Works end to end inside set boundaries, monitored</td><td>Tidies your files every night, with a log</td></tr>
+      </table></div>
+    </section>
+
+    <section id="lab" data-toc="No-code lab">
+      <p class="sec-n">Lab A · No code</p>
+      <h2>Watch a real agent work</h2>
+      <div class="lab">
+        <div class="lab__hdr">
+          <span class="lab__tag">No-code lab · 25 min</span>
+          <h3>Trace an AI assistant's loop on a real task</h3>
+          <p>Use any AI assistant that can search the web and shows its steps — for example ChatGPT with search, Gemini, Perplexity, or Claude with web search. Use the one your school or workplace allows.</p>
+          <div class="lab__meta"><span>Free tier is fine</span><span>Browser only</span><span>Evidence: 1 screenshot + your trace</span></div>
+        </div>
+        <div class="lab__body">
+          <ol class="steps">
+            <li><input type="checkbox" class="chk" id="l1-s1" aria-label="Step 1 done"/><div><b class="st">Ask a one-shot question</b><p>Type: <code>What is the capital of Kenya?</code> Notice it answers once and stops — tool behaviour.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l1-s2" aria-label="Step 2 done"/><div><b class="st">Give it a goal instead</b><p>Paste the goal below. Open any "searching" or "thinking" panel it shows.</p>
+              <div class="prompt">Plan a 3-day study schedule for a biology test next Friday on cell transport and genetics. Find two reliable sources to study from, and list each source with its link.</div>
+              <div class="expect"><b>Expect:</b> several searches, pages opened, and a plan with links — multiple steps chosen by the AI.</div></div></li>
+            <li><input type="checkbox" class="chk" id="l1-s3" aria-label="Step 3 done"/><div><b class="st">Write the trace</b><p>For each step you can see, note THINK (what it was trying to find), ACT (what it searched or opened), OBSERVE (what it learned). Use the activity form below.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l1-s4" aria-label="Step 4 done"/><div><b class="st">Verify one claim</b><p>Open one of its links. Does the page actually support what the assistant said? Note any mismatch.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l1-s5" aria-label="Step 5 done"/><div><b class="st">Find the approval point</b><p>Ask: <code>Add this plan to my calendar and invite my study group.</code> Does it ask first, refuse, or do it? Which of those is right, and why?</p></div></li>
+          </ol>
+          <div class="evidence"><b>Evidence for your portfolio</b>A screenshot of the assistant's steps, your THINK/ACT/OBSERVE trace, and your answer to step 5.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dev-lab" data-toc="Developer lab">
+      <p class="sec-n">Lab B · For developers</p>
+      <h2>Build the agent loop in Python</h2>
+      <div class="nb">
+        <div class="nb__main">
+          <span class="nb__tag">Jupyter notebook · 75–90 min</span>
+          <h3>Agent Fundamentals: from API call to agent loop</h3>
+          <p>Write the tool-calling loop from scratch with real weather and Wikipedia APIs, measure agent vs workflow cost, then rebuild it in Pydantic AI and the OpenAI Agents SDK.</p>
+          <ol>
+            <li>Metered model calls: tokens, latency, cost</li>
+            <li>Hand-written tool schemas and the loop in ~40 lines</li>
+            <li>Typed output, usage limits, approval-gated tools</li>
+            <li>Exercises with automatic checks</li>
+          </ol>
+        </div>
+        <div class="nb__side">
+          <a class="btn btn--light" href="https://colab.research.google.com/github/AgenticEdOrg/AgenticEd/blob/main/labs/week1_agent_fundamentals.ipynb" target="_blank" rel="noopener">Open in Colab <span class="arrow">→</span></a>
+          <a class="btn btn--outline-light" href="https://github.com/AgenticEdOrg/AgenticEd/blob/main/labs/week1_agent_fundamentals.ipynb" target="_blank" rel="noopener">View on GitHub</a>
+          <p class="nb__fine">Needs Python and your own OpenAI or Anthropic API key (about US$0.05 for this lab). Start with the <a href="https://colab.research.google.com/github/AgenticEdOrg/AgenticEd/blob/main/labs/00_environment_check.ipynb" target="_blank" rel="noopener" style="color:#C4B5FD;">environment check</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="beat" data-toc="Responsible AI">
+      <div class="beat">
+        <span class="beat__lbl">Responsible AI</span>
+        <h3>Who owns this agent's decisions?</h3>
+        <p>When an agent gets something wrong, "the AI did it" is never the answer. Responsibility sits with people: whoever built it, whoever deployed it, and whoever relied on its output. That's why good agents ask before actions that can't be undone or that affect other people.</p>
+        <p>The apps you map in this week's activity also collect data about <em>you</em> to make their decisions. Look at what they collect — you usually have a say in it.</p>
+      </div>
+    </section>
+
+    <section id="activity" data-toc="Activity">
+      <div class="activity" id="act-w1" data-week="1" data-required="f-product,f-goal,f-think,f-act,f-obs" data-done="Agent Profile saved">
+        <span class="activity__tag">Portfolio activity · The Agent Hunt</span>
+        <h3>Map an agent you use</h3>
+        <p class="activity__intro">Choose the assistant from Lab A, or any "smart" product you use (recommendations, navigation, a tutoring app). Map its loop.</p>
+        <div class="row2">
+          <div class="field"><label for="f-product">Product or system</label><input id="f-product" data-label="Product" placeholder="e.g. Google Maps, Duolingo, the assistant from Lab A"/></div>
+          <div class="field"><label for="f-goal">What goal does it pursue?</label><input id="f-goal" data-label="Goal" placeholder="What is it trying to achieve for you?"/></div>
+        </div>
+        <div class="row3">
+          <div class="field"><label for="f-think">THINK — what does it reason about?</label><textarea id="f-think" data-label="Think"></textarea></div>
+          <div class="field"><label for="f-act">ACT — what does it do?</label><textarea id="f-act" data-label="Act"></textarea></div>
+          <div class="field"><label for="f-obs">OBSERVE — how does it learn it worked?</label><textarea id="f-obs" data-label="Observe"></textarea></div>
+        </div>
+        <div class="field"><label for="f-auto">Autonomy level (1–4) and where a human stays in the loop</label><textarea id="f-auto" data-label="Autonomy"></textarea></div>
+        <div class="field"><label for="f-fail">One way it could fail or cause harm, and who'd be responsible</label><textarea id="f-fail" data-label="Failure & responsibility"></textarea></div>
+        <div class="submit-row">
+          <button class="btn btn--primary" type="button" onclick="agenticedActivity('act-w1')">Save my Agent Profile</button>
+          <button class="btn btn--ghost" type="button" onclick="agenticedClear('act-w1')">Clear</button>
+        </div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="terms" data-toc="Key terms">
+      <h2>Key terms</h2>
+      <div class="terms">
+        <div class="term"><b>Agent</b><span>Software that pursues a goal over several steps, choosing its own next action.</span></div>
+        <div class="term"><b>Workflow</b><span>Steps fixed in advance by a developer, even if AI is used inside them.</span></div>
+        <div class="term"><b>Tool</b><span>A function an agent can call to get information or take an action.</span></div>
+        <div class="term"><b>Autonomy</b><span>How much an agent decides on its own — a dial, not a switch.</span></div>
+        <div class="term"><b>Orchestration</b><span>The code that runs the loop, enforces limits, and asks for approval.</span></div>
+        <div class="term"><b>Accountability</b><span>The people responsible for an AI system's outcomes.</span></div>
+      </div>
+    </section>
+
+    <section id="reading" data-toc="Go further">
+      <h2>Go further</h2>
+      <ul class="reading">
+        <li><a href="blog/what-is-an-ai-agent.html">What is an AI agent, really? <small>AgenticEd blog · 6 min</small></a></li>
+        <li><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Building effective agents <small>Anthropic · article</small></a></li>
+        <li><a href="https://arxiv.org/abs/2210.03629" target="_blank" rel="noopener">ReAct: reasoning and acting in language models <small>Research paper</small></a></li>
+      </ul>
+      <div id="progress-slot" style="margin-top:28px;"></div>
+      <div class="next-week">
+        <div><small>Up next · Week 2</small><h3>Generative AI &amp; LLMs</h3><p>How models predict text, why they hallucinate, and how to prompt them well.</p></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="btn btn--outline-light" href="quiz.html?week=1">Take the Week 1 quiz</a><a class="btn btn--light" href="week2.html">Start Week 2 <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+  </main>
 </div>
 
-<!-- LESSON HEADER -->
-<div class="lhdr">
-  <div class="lhdr__inner">
-    <p class="lhdr__eye">Week 1 of 6</p>
-    <h1 class="lhdr__h1">AI Foundations: From Automation to Agents</h1>
-    <div class="lhdr__meta">
-      <div class="lhdr__chip">⏱ 60–75 minutes</div>
-      <div class="lhdr__chip">1 hands-on activity</div>
-      <div class="lhdr__chip">Optional Colab notebook</div>
-      <div class="lhdr__chip">✓ No coding required</div>
-    </div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__copy"><span>© 2026 AgenticEd · CC BY 4.0</span><span><a href="glossary.html">Glossary</a> · <a href="portfolio.html">Portfolio</a> · <a href="AgenticEd_Week1_Worksheet.pdf" download>Worksheet PDF</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div>
   </div>
-</div>
-
-<!-- LESSON BODY -->
-<div class="body">
-
-  <!-- SECTION 1 -->
-  <div class="lsec">
-    <div class="lsec__num">Part 1</div>
-    <h2 class="lsec__h2">What is AI — and what is not?</h2>
-    <p><strong>Artificial intelligence</strong> is the broad field of building computer systems that perform tasks associated with human intelligence, such as recognizing patterns, understanding language, making predictions, and selecting actions. <strong>Machine learning</strong> learns patterns from data. <strong>Generative AI</strong> creates new content from those patterns. <strong>Agentic AI</strong> adds goals, decisions, tools, and repeated action.</p>
-    <p>Not every automated system is AI, and not every AI system is an agent. A fixed rule that sends a scheduled email is automation. A model that predicts whether an email is spam uses AI. A system that reads a request, plans several steps, calls tools, checks results, and adjusts its approach behaves like an agent.</p>
-    <h2 class="lsec__h2">From tools to agents — what changed?</h2>
-    <p>You may already have typed a question into a generative AI assistant and received an answer. That is useful, but answering once is different from pursuing a goal through multiple actions.</p>
-    <p>Here's the difference. A <strong>tool</strong> does one thing when you ask it to. A <strong>calculator</strong> computes. A <strong>search engine</strong> retrieves. A <strong>basic chatbot</strong> answers. You push, it responds, done.</p>
-    <p>An <strong>AI agent</strong> is different. Give it a goal, not a command — and it takes a sequence of actions to achieve it. It plans, acts, observes what happened, adjusts, and tries again. It doesn't stop after one response. It keeps going until the job is done — or until it decides it can't do it.</p>
-
-    <div class="callout">
-      <div class="callout__label">Key Definition</div>
-      <p>An <strong>AI agent</strong> is a software system that perceives its environment, reasons about a goal, takes actions using tools, observes the results, and adapts — repeating until the goal is reached or it gives up.</p>
-    </div>
-
-    <p>The shift from "AI that answers questions" to "AI that completes tasks" is the shift from model-assisted tools toward agents. Understanding that distinction is the foundation for everything that follows.</p>
-
-    <table class="compare">
-      <tr><th>AI Tool</th><th>AI Agent</th></tr>
-      <tr><td>Answers one question</td><td>Completes multi-step tasks</td></tr>
-      <tr><td>You direct every action</td><td>Pursues a goal autonomously</td></tr>
-      <tr><td>No memory between turns</td><td>Tracks state across steps</td></tr>
-      <tr><td>Can't use external tools</td><td>Searches, computes, reads, writes</td></tr>
-      <tr><td>You: "What's 2+2?"</td><td>You: "Research this topic and summarize it"</td></tr>
-    </table>
-  </div>
-
-  <!-- SECTION 2 -->
-  <div class="lsec">
-    <div class="lsec__num">Part 2</div>
-    <h2 class="lsec__h2">The reasoning loop: Think → Act → Observe</h2>
-    <p>Every AI agent — from the simplest research bot to the most complex enterprise pipeline — runs on the same fundamental loop. Understanding this loop is the foundation of everything in this course.</p>
-
-    <div class="loop-section">
-      <h3>The Agent Reasoning Loop</h3>
-      <p>Every agent repeats this cycle until it reaches its goal</p>
-      <div class="loop-nodes">
-        <div class="loop-node loop-node--think">
-          <div class="loop-node__title">THINK</div>
-          <div class="loop-node__sub">Reason &amp; plan<br/>what to do next</div>
-        </div>
-        <div class="loop-arrow">→</div>
-        <div class="loop-node loop-node--act">
-          <div class="loop-node__title">ACT</div>
-          <div class="loop-node__sub">Use a tool or<br/>take an action</div>
-        </div>
-        <div class="loop-arrow">→</div>
-        <div class="loop-node loop-node--obs">
-          <div class="loop-node__title">OBSERVE</div>
-          <div class="loop-node__sub">See what happened<br/>and update memory</div>
-        </div>
-        <div class="loop-arrow">→</div>
-        <div class="loop-node loop-node--think" style="opacity:0.5;">
-          <div class="loop-node__title">THINK</div>
-          <div class="loop-node__sub">Repeat until<br/>goal is reached</div>
-        </div>
-      </div>
-    </div>
-
-    <p>Let's trace through a real example. Say you tell a research agent: <em>"Find me everything published about KEDA autoscaling in 2025."</em></p>
-    <p><strong>THINK:</strong> "I need to search for academic papers and blog posts about KEDA autoscaling from 2025. I'll start with a web search."<br/>
-    <strong>ACT:</strong> Calls the web search tool with the query "KEDA autoscaling 2025"<br/>
-    <strong>OBSERVE:</strong> Gets 10 results back. Three are relevant, seven are not.<br/>
-    <strong>THINK:</strong> "I have 3 good sources. I should read each one fully and also try a more specific search."<br/>
-    <strong>ACT:</strong> Opens the 3 URLs. Calls search again with a refined query.<br/>
-    <strong>OBSERVE:</strong> Now has 5 good sources with full content.<br/>
-    <strong>THINK:</strong> "I have enough. I'll synthesize this into a summary."<br/>
-    <strong>ACT:</strong> Writes the summary.<br/>
-    <strong>OBSERVE:</strong> Done. Goal reached.</p>
-
-    <p>That whole sequence happened <em>without you directing each step</em>. You gave it a goal. It figured out how to get there.</p>
-  </div>
-
-  <!-- SECTION 3 -->
-  <div class="lsec">
-    <div class="lsec__num">Part 3</div>
-    <h2 class="lsec__h2">AI agents you already use</h2>
-    <p>Agents aren't science fiction. You interact with them constantly — most people just don't recognize them as agents. Here are three you know, mapped to the loop:</p>
-
-    <div class="examples">
-      <div class="ex-card">
-        
-        <div class="ex-card__product">Spotify Discover Weekly</div>
-        <div class="ex-card__think"><span class="ex-card__label">Think</span>What should this user enjoy based on what they skip vs. replay?</div>
-        <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and sequences 30 songs</div>
-        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Tracks which songs get skipped, saved, or repeated</div>
-      </div>
-      <div class="ex-card">
-        
-        <div class="ex-card__product">Google Maps Navigation</div>
-        <div class="ex-card__think"><span class="ex-card__label">Think</span>What's the fastest route right now given live traffic?</div>
-        <div class="ex-card__act"><span class="ex-card__label">Act</span>Plans a route and gives turn-by-turn directions</div>
-        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Monitors your location and traffic; reroutes when needed</div>
-      </div>
-      <div class="ex-card">
-        
-        <div class="ex-card__product">Amazon Recommendations</div>
-        <div class="ex-card__think"><span class="ex-card__label">Think</span>What is this person likely to buy next?</div>
-        <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and displays personalized product recommendations</div>
-        <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Tracks clicks, purchases, time spent, and returns</div>
-      </div>
-    </div>
-
-    <div class="callout">
-      <div class="callout__label">Notice something?</div>
-      <p>All three agents are <strong>continuous</strong>. They don't answer one question and stop. They observe feedback and keep adjusting. That continuity — acting, observing, and adapting in a loop — is what makes them agents.</p>
-    </div>
-  </div>
-
-  <!-- RESPONSIBLE-AI BEAT -->
-  <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
-    <div class="callout__label" style="color:#996600;">Responsible-AI Beat — Who owns this agent's decisions?</div>
-    <p>When an AI agent makes a decision and it turns out to be wrong, <strong>who is responsible</strong>? The person who built it? The person who used it? The company that sold it? The agent itself? There's no clean answer — and that's the point. Every agent decision traces back to a <strong>human who is accountable for it</strong>. Hold onto this question; it comes back at Demo Day in Week 5. (Heads up: the apps you map below collect data about <em>you</em> to make their decisions — you have a say in that.)</p>
-  </div>
-
-  <!-- ACTIVITY -->
-  <div class="activity">
-    <div class="activity__badge">Activity — The Agent Hunt</div>
-    <h3>Map your own AI agent</h3>
-    <p class="activity__intro">Choose a technology you use regularly — a recommendation engine, a voice assistant, a navigation app, a tutoring tool, or any product that feels "smart." Fill in the Agent Profile below.</p>
-
-    <div class="field-group">
-      <div class="field">
-        <label>Name of the technology / product</label>
-        <input type="text" id="f-product" placeholder="e.g. Netflix, Siri, Duolingo..."/>
-      </div>
-      <div class="field">
-        <label>What goal does it pursue?</label>
-        <input type="text" id="f-goal" placeholder="What is it trying to achieve for you?"/>
-      </div>
-    </div>
-
-    <div class="loop-fields">
-      <div class="loop-field loop-field--think">
-        <div class="loop-field__label">THINK — What does it reason about?</div>
-        <textarea id="f-think" placeholder="What information does it consider before acting?"></textarea>
-      </div>
-      <div class="loop-field loop-field--act">
-        <div class="loop-field__label">ACT — What action does it take?</div>
-        <textarea id="f-act" placeholder="What does it actually do?"></textarea>
-      </div>
-      <div class="loop-field loop-field--obs">
-        <div class="loop-field__label">OBSERVE — How does it learn?</div>
-        <textarea id="f-obs" placeholder="How does it know if it succeeded?"></textarea>
-      </div>
-    </div>
-
-    <div class="field">
-      <label>Is it fully autonomous, or does a human stay in the loop?</label>
-      <textarea id="f-auto" placeholder="Give an example of when it acts on its own vs. when it checks with you." style="min-height:60px;"></textarea>
-    </div>
-    <div class="field" style="margin-top:12px;">
-      <label>One way this agent could fail or cause harm</label>
-      <textarea id="f-fail" placeholder="What happens when it gets it wrong? Has it ever made a bad recommendation for you?" style="min-height:60px;"></textarea>
-    </div>
-
-    <div class="submit-row">
-      <button class="btn btn--primary" onclick="submitActivity()">Complete Activity ✓</button>
-      <button class="btn btn--ghost" onclick="clearActivity()">Clear</button>
-    </div>
-    <div id="activity-result"></div>
-  </div>
-
-  <!-- NOTEBOOK -->
-  <div class="notebook">
-    <div class="notebook__left">
-      <p class="notebook__eye">Go Deeper — Optional</p>
-      <div class="notebook__title">Week 1 Python Notebook</div>
-      <p class="notebook__desc">Run in Google Colab — no setup, no API key, no install. Trace the agent loop in real Python code, build a simple rule-based agent, and complete an interactive activity.</p>
-    </div>
-    <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/12gsjTm3hsfHB88IlVhZg7zZQB-jpDjQt"
-         target="_blank" class="notebook__btn">
-        
-        Open in Google Colab
-      </a>
-      <p class="notebook__secondary">
-        Or <a href="https://drive.google.com/file/d/12gsjTm3hsfHB88IlVhZg7zZQB-jpDjQt/view?usp=sharing" target="_blank">view on Google Drive</a>
-      </p>
-    </div>
-  </div>
-
-  <!-- CODE PREVIEW -->
-  <div class="lsec">
-    <div class="lsec__num">Preview</div>
-    <h2 class="lsec__h2">What the notebook covers</h2>
-    <p>Here's a sneak peek at what you'll run in the notebook. This is real Python — a simple simulation of the agent reasoning loop. No AI API needed.</p>
-    <div class="code-preview">
-<pre><span class="cm"># Week 1: AgenticEd — Simulating the Think → Act → Observe loop</span>
-
-<span class="ck">def</span> <span class="cf">simple_agent</span>(goal, tools, max_steps=<span class="cn">5</span>):
-    <span class="cs">"""A minimal agent loop in Python."""</span>
-    memory = []
-    step = <span class="cn">0</span>
-
-    <span class="ck">while</span> step &lt; max_steps:
-        <span class="cm"># THINK: Decide what to do next</span>
-        thought = think(goal, memory)
-        <span class="co">print</span>(<span class="cs">f"THINK: {thought}"</span>)
-
-        <span class="cm"># ACT: Use a tool</span>
-        action, result = act(thought, tools)
-        <span class="co">print</span>(<span class="cs">f" ACT: {action}"</span>)
-
-        <span class="cm"># OBSERVE: See what happened</span>
-        observation = observe(result)
-        memory.append(observation)
-        <span class="co">print</span>(<span class="cs">f" OBSERVE: {observation}\n"</span>)
-
-        <span class="ck">if</span> goal_reached(result):
-            <span class="ck">break</span>
-        step += <span class="cn">1</span>
-
-    <span class="ck">return</span> memory
-
-<span class="cm"># Run it:</span>
-simple_agent(goal=<span class="cs">"Find 3 facts about AI agents"</span>, tools=[<span class="cs">"search"</span>, <span class="cs">"summarize"</span>])</pre>
-    </div>
-    <p style="font-size:14px;color:var(--warm);">The notebook walks you through building this from scratch, step by step. Each cell explains what's happening and why.</p>
-  </div>
-
-  <!-- NEXT WEEK -->
-  <div class="next">
-    <div class="next__left">
-      <p class="next__eye">Coming up — Week 2</p>
-      <p class="next__title">Generative AI and LLMs</p>
-      <p class="next__desc">How LLMs actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
-    </div>
-    <div class="next__lock">Unlocks after you complete Week 1</div>
-  </div>
-
-</div><!-- end .body -->
-
-<!-- FOOTER -->
-<div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div style="display:flex;gap:20px;">
-    <a href="index.html">← Back to Course</a>
-    <a href="quiz.html?week=1">Week 1 Quiz</a>
-    <a href="portfolio.html">Your Portfolio</a>
-    <a href="glossary.html">Glossary</a>
-    <a href="./AgenticEd_Week1_Worksheet.pdf" download>Download Worksheet PDF</a>
-    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
-  </div>
-</div>
+</footer>
 
 <script>
-function submitActivity(){
-  const p=document.getElementById('f-product').value.trim();
-  const g=document.getElementById('f-goal').value.trim();
-  const t=document.getElementById('f-think').value.trim();
-  const a=document.getElementById('f-act').value.trim();
-  const o=document.getElementById('f-obs').value.trim();
-
-  if(!p||!g||!t||!a||!o){
-    alert('Fill in at least the product name, goal, and all three loop steps before submitting.');
-    return;
-  }
-  const res=document.getElementById('activity-result');
-  res.style.display='block';
-  res.innerHTML=`
-    <strong style="color:var(--coral);display:block;margin-bottom:8px;">✓ Great work! Here's your Agent Profile for <em>${p}</em></strong>
-    <p style="margin-bottom:6px;"><strong>Goal:</strong> ${g}</p>
-    <p style="margin-bottom:6px;"><strong>Think:</strong> ${t}</p>
-    <p style="margin-bottom:6px;"><strong>Act:</strong> ${a}</p>
-    <p style="margin-bottom:10px;"><strong>Observe:</strong> ${o}</p>
-    <p style="font-size:13px;color:var(--warm);">
-      You've just done what AI engineers do every day — trace how a system reasons, acts, and learns.
-      Keep this mental model. Every agent system you build in Week 5 will follow this same loop.
-    </p>`;
-  res.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-function clearActivity(){
-  ['f-product','f-goal','f-think','f-act','f-obs','f-auto','f-fail'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.value='';
-  });
-  document.getElementById('activity-result').style.display='none';
-}
-</script>
-
-<script>
-/* AgenticEd auto-save (E1): persists activity answers in this browser only */
 (function(){
-  var page=(location.pathname.split("/").pop()||"index");
-  var NS="agenticed:autosave:"+page+":";
-  var els=document.querySelectorAll("input,textarea,select");
-  els.forEach(function(el){
-    if(!el.id) return;
-    var k=NS+el.id;
-    try{
-      var v=localStorage.getItem(k);
-      if(v!==null){
-        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
-        else{el.value=v;}
-      }
-    }catch(e){}
-    var save=function(){
-      try{
-        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
-        else{localStorage.setItem(k,el.value);}
-      }catch(e){}
-    };
-    el.addEventListener("input",save);
-    el.addEventListener("change",save);
-  });
-  document.addEventListener("click",function(e){
-    var b=e.target.closest&&e.target.closest("button");
-    if(b&&b.textContent.trim().toLowerCase()==="clear"){
-      setTimeout(function(){
-        try{
-          var rm=[];
-          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
-          rm.forEach(function(kk){localStorage.removeItem(kk);});
-        }catch(e){}
-      },0);
-    }
+  var items=[
+    ["A calculator app adds a column of numbers.","tool","It does one thing when asked and stops."],
+    ["Every night, a script summarises new support tickets with AI and emails the summary to a manager.","workflow","AI is used, but the developer fixed the steps in advance."],
+    ["A navigation app reroutes you when traffic builds up ahead.","agent","It keeps observing and changes its plan to reach the goal."],
+    ["You ask a chatbot to translate one sentence into Spanish.","tool","One request, one answer — no goal-seeking loop."],
+    ["An assistant is asked to find out why club sign-ups dropped; it searches records, compares terms, and drafts a plan.","agent","It chooses its own steps based on what it finds."],
+    ["When a form is submitted, it's saved, tagged by an AI classifier, and routed to the right teacher.","workflow","Fixed steps, even though one step uses AI."]
+  ];
+  var box=document.getElementById("sort-items"),score=0,answered=0;
+  items.forEach(function(it,i){
+    var row=document.createElement("div"); row.className="mini"; row.style.marginBottom="10px";
+    var p=document.createElement("p"); p.style.color="var(--ink)"; p.style.marginBottom="10px"; p.textContent=(i+1)+". "+it[0];
+    var btns=document.createElement("div"); btns.style.display="flex"; btns.style.gap="8px"; btns.style.flexWrap="wrap";
+    var fb=document.createElement("div"); fb.className="feedback";
+    ["tool","workflow","agent"].forEach(function(choice){
+      var b=document.createElement("button"); b.type="button"; b.className="opt-btn"; b.textContent=choice;
+      b.addEventListener("click",function(){
+        if(row.dataset.done) return; row.dataset.done="1"; answered++;
+        var right=choice===it[1]; if(right) score++;
+        b.classList.add(right?"right":"wrong");
+        if(!right) btns.querySelectorAll("button").forEach(function(x){ if(x.textContent===it[1]) x.classList.add("right"); });
+        fb.textContent=(right?"Correct — ":"It's a "+it[1]+" — ")+it[2]; fb.classList.add("show");
+        document.getElementById("sort-score").textContent=answered===items.length?("You scored "+score+" / "+items.length+"."):"";
+      });
+      btns.appendChild(b);
+    });
+    row.appendChild(p); row.appendChild(btns); row.appendChild(fb); box.appendChild(row);
   });
 })();
 </script>
+<script src="site.js?v=20261025"></script>
+<script src="lesson.js?v=20261025"></script>
 <script src="progress.js"></script>
 </body>
 </html>

@@ -3,279 +3,275 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Week 2: Generative AI and LLMs &mdash; AgenticEd</title>
+  <title>Week 2: Generative AI &amp; LLMs · AgenticEd</title>
+  <meta name="description" content="Week 2 of AgenticEd Foundations: how large language models are built, tokens and next-word prediction, hallucination, and prompting techniques — with a no-code lab and a developer notebook."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root{--cream:#FAF9FF;--brown:#121526;--coral:#7C3AED;--coral-light:#F1E9FF;--amber:#A855F7;--warm:#646579;--border:#E4E1F0;--white:#FFFFFF;--light:#F3F0FA;}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;}
-    body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--brown);line-height:1.7;-webkit-font-smoothing:antialiased;}
-    .topbar{background:var(--brown);padding:10px 32px;display:flex;justify-content:space-between;align-items:center;}
-    .topbar__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);text-decoration:none;}
-    .topbar__logo em{font-style:normal;color:var(--coral);}
-    .topbar__progress{display:flex;align-items:center;gap:10px;}
-    .topbar__label{font-size:12px;color:rgba(250,249,255,0.6);}
-    .progress-dots{display:flex;gap:5px;}
-    .dot{width:10px;height:10px;border-radius:50%;background:rgba(250,249,255,0.2);}
-    .dot--done{background:var(--coral);}
-    .dot--active{background:var(--white);}
-    .lhdr{background:var(--brown);padding:48px 32px 52px;border-bottom:3px solid var(--coral);}
-    .lhdr__inner{max-width:780px;margin:0 auto;}
-    .lhdr__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
-    .lhdr__h1{font-family:'Outfit',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:16px;}
-    .lhdr__meta{display:flex;gap:20px;flex-wrap:wrap;}
-    .lhdr__chip{display:inline-flex;align-items:center;gap:6px;background:rgba(250,249,255,0.08);border:1px solid rgba(250,249,255,0.15);color:rgba(250,249,255,0.75);padding:5px 13px;border-radius:20px;font-size:13px;}
-    .body{max-width:780px;margin:0 auto;padding:48px 32px 80px;}
-    .lsec{margin-bottom:52px;}
-    .lsec__num{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:10px;}
-    .lsec__num::before{content:'';display:block;width:24px;height:2px;background:var(--coral);}
-    .lsec__h2{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:var(--brown);margin-bottom:14px;line-height:1.25;}
-    .lsec p{font-size:16px;color:var(--brown);line-height:1.8;margin-bottom:14px;}
-    .lsec p:last-child{margin-bottom:0;}
-    strong{font-weight:600;}em{font-style:italic;}
-    .callout{background:var(--coral-light);border-left:4px solid var(--coral);border-radius:0 10px 10px 0;padding:18px 22px;margin:24px 0;}
-    .callout--amber{background:#FFFBEF;border-left-color:var(--amber);}
-    .callout__label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .callout--amber .callout__label{color:#996600;}
-    .callout p{font-size:15px;color:var(--brown);line-height:1.7;margin:0;}
-    .compare{width:100%;border-collapse:collapse;margin:24px 0;overflow:hidden;}
-    .compare th{background:var(--brown);color:var(--cream);padding:13px 18px;font-size:13px;font-weight:700;text-align:left;}
-    .compare td{padding:12px 18px;font-size:14px;border-bottom:1px solid var(--border);}
-    .compare tr:nth-child(even) td{background:var(--light);}
-    .compare tr:last-child td{border-bottom:none;}
-    .compare td:first-child{font-weight:600;color:var(--coral);}
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin:24px 0;}
-    .card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px;display:flex;flex-direction:column;gap:8px;}
-    .card__icon{font-size:28px;}
-    .card__title{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:var(--brown);}
-    .card__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .steps{display:flex;flex-direction:column;gap:12px;margin:20px 0;}
-    .step{display:flex;gap:16px;align-items:flex-start;padding:16px;background:var(--white);border:1px solid var(--border);border-radius:10px;}
-    .step__num{background:var(--coral);color:var(--white);font-family:'Outfit',sans-serif;font-weight:900;font-size:14px;min-width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-    .step__title{font-weight:700;font-size:14px;color:var(--brown);margin-bottom:4px;}
-    .step__desc{font-size:13px;color:var(--warm);line-height:1.6;}
-    .tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:20px 0;}
-    .tool-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:6px;}
-    .tool-card__name{font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:var(--brown);}
-    .tool-card__url{font-size:12px;color:var(--coral);font-weight:600;}
-    .tool-card__desc{font-size:13px;color:var(--warm);line-height:1.5;}
-    .activity{background:var(--white);border:2px solid var(--amber);border-radius:16px;padding:36px;margin:40px 0;}
-    .activity__badge{display:inline-flex;align-items:center;gap:7px;background:var(--amber);color:var(--brown);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
-    .activity h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--brown);margin-bottom:8px;}
-    .activity__intro{font-size:15px;color:var(--warm);line-height:1.7;margin-bottom:24px;}
-    .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
-    .field label{font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--warm);}
-    .field input,.field textarea,.field select{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Inter',sans-serif;color:var(--brown);outline:none;transition:border-color 0.18s;resize:vertical;width:100%;}
-    .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--coral);}
-    .field textarea{min-height:80px;}
-    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-    .round-box{background:var(--light);border-radius:12px;padding:20px;margin:12px 0;border-left:3px solid var(--coral);}
-    .round-box__label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--coral);margin-bottom:6px;}
-    .round-box__task{font-size:15px;font-weight:600;color:var(--brown);margin-bottom:8px;}
-    .round-box__hint{font-size:13px;color:var(--warm);}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;border:2px solid transparent;transition:all 0.18s;font-family:'Inter',sans-serif;}
-    .btn--primary{background:var(--coral);color:var(--white);}
-    .btn--primary:hover{background:#6824D9;}
-    .btn--ghost{background:transparent;color:var(--brown);border-color:var(--border);}
-    .btn--ghost:hover{border-color:var(--brown);}
-    .submit-row{margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
-    #activity-result{display:none;margin-top:20px;background:var(--cream);border-radius:10px;padding:18px;font-size:14px;line-height:1.6;border-left:4px solid var(--coral);}
-    .notebook{background:var(--brown);border-radius:16px;padding:40px;margin:40px 0;display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
-    .notebook__left{flex:1;min-width:220px;}
-    .notebook__eye{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-    .notebook__title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:800;color:var(--cream);margin-bottom:10px;line-height:1.3;}
-    .notebook__desc{font-size:14px;color:rgba(250,249,255,0.65);line-height:1.7;}
-    .notebook__right{display:flex;flex-direction:column;gap:10px;min-width:200px;}
-    .notebook__btn{display:flex;align-items:center;gap:10px;background:var(--coral);color:var(--white);padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:15px;transition:background 0.18s;}
-    .notebook__btn:hover{background:#6824D9;}
-    .notebook__btn-icon{font-size:22px;}
-    .notebook__secondary{font-size:13px;color:rgba(250,249,255,0.5);text-align:center;}
-    .notebook__secondary a{color:rgba(250,249,255,0.7);text-decoration:underline;}
-    .next{background:var(--light);border-radius:16px;padding:32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:48px;}
-    .next__eye{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm);margin-bottom:6px;}
-    .next__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--brown);margin-bottom:6px;}
-    .next__desc{font-size:14px;color:var(--warm);}
-    .next__btn{display:inline-flex;align-items:center;gap:8px;background:var(--coral);color:var(--white);padding:12px 22px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;transition:background 0.18s;}
-    .next__btn:hover{background:#6824D9;}
-    .lesson-footer{background:var(--brown);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
-    .lesson-footer a{color:rgba(250,249,255,0.5);font-size:13px;text-decoration:none;transition:color 0.18s;}
-    .lesson-footer a:hover{color:var(--cream);}
-    .lesson-footer__logo{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--cream);}
-    .lesson-footer__logo em{font-style:normal;color:var(--coral);}
-    @media(max-width:700px){.body{padding:32px 20px 60px;}.field-row{grid-template-columns:1fr;}.notebook{flex-direction:column;gap:24px;}.lhdr{padding:32px 20px 36px;}}
-</style>
-  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="site.css?v=20261025"/>
+  <link rel="stylesheet" href="lesson.css?v=20261025"/>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
-  <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
-  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
+  <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <style>
+    .tok{display:inline-block;margin:3px 2px;padding:4px 7px;border-radius:7px;font-family:'JetBrains Mono',monospace;font-size:13.5px;}
+    .tok:nth-child(5n+1){background:#F1EBFF;}.tok:nth-child(5n+2){background:#E8F4FF;}.tok:nth-child(5n+3){background:#FFF1E6;}
+    .tok:nth-child(5n+4){background:#E6F8F1;}.tok:nth-child(5n+5){background:#FDECF6;}
+    .bar{display:grid;grid-template-columns:90px 1fr 48px;gap:10px;align-items:center;font-size:14px;margin:6px 0;}
+    .bar__t{height:12px;border-radius:999px;background:var(--soft);overflow:hidden;}
+    .bar__f{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#8B5CF6,#38BDF8);transition:width .4s;}
+    .pb-out{white-space:pre-wrap;font-family:'JetBrains Mono',monospace;font-size:13.5px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px;}
+  </style>
 </head>
 <body>
-<div class="topbar">
-  <a href="index.html" class="topbar__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div class="topbar__progress">
-    <span class="topbar__label">Your progress:</span>
-    <div class="progress-dots"><div class="dot dot--done" title="Week 1 Done"></div><div class="dot dot--active" title="Week 2 Current"></div><div class="dot" title="Week 3"></div><div class="dot" title="Week 4"></div><div class="dot" title="Week 5"></div><div class="dot" title="Week 6"></div></div>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="learn.html">Learning Paths</a></li>
+      <li><a href="certifications/index.html">Certifications</a></li>
+      <li><a href="sessions.html">Live Sessions</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="week3.html" class="nav__cta">Next: Week 3</a></li>
+    </ul>
   </div>
-</div>
-<div class="lhdr">
-  <div class="lhdr__inner">
-    <p class="lhdr__eye">Week 2 of 6</p>
-    <h1 class="lhdr__h1">Generative AI and LLMs</h1>
-    <div class="lhdr__meta"><div class="lhdr__chip">60-75 minutes</div><div class="lhdr__chip">Prompt Engineering Challenge</div><div class="lhdr__chip">Colab notebook</div><div class="lhdr__chip">Claude.ai or ChatGPT needed</div></div>
-  </div>
-</div>
-<div class="body">
+</nav>
 
-  <div class="lsec">
-    <div class="lsec__num">Part 1</div>
-    <h2 class="lsec__h2">How LLMs actually work</h2>
-    <p>Every AI agent runs on a <strong>Large Language Model</strong>. Understanding how it works at a basic level is the difference between using AI and truly building with it.</p>
-    <p>Here is the simplest accurate explanation: an LLM is a <strong>next-token predictor</strong>. It was trained on a massive amount of text and learned one thing extremely well: given everything that came before, what word is most likely to come next? Scaled to hundreds of billions of parameters trained on trillions of words, that becomes something that looks a lot like reasoning and knowledge.</p>
-    <div class="callout">
-      <div class="callout__label">The key insight</div>
-      <p>An LLM does not know facts the way you know your own name. It learned patterns so well that it can <strong>generate text that looks like knowledge</strong>. Most of the time that is indistinguishable from real knowledge. Sometimes it is not &mdash; and that is hallucination.</p>
-    </div>
-    <p>When an agent uses an LLM to reason, it is asking: given my goal, what I know, and the tools available to me &mdash; what should I do next? The LLM generates the next step. Then the agent acts on it. Then feeds the result back in. The loop from Week 1, powered by a text predictor.</p>
-  </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 2</div>
-    <h2 class="lsec__h2">Why hallucination is structural &mdash; not a bug</h2>
-    <p>You have probably seen this: you ask an AI a question, it answers confidently, and the answer is completely wrong. That is <strong>hallucination</strong> &mdash; and understanding why it happens changes how you use AI forever.</p>
-    <p>LLMs generate <strong>plausible text</strong>, not verified facts. The model was trained to predict what a reasonable response looks like &mdash; not to retrieve truth from a database. When it does not know the answer, it does not say so. It generates what an answer would look like. Confidently.</p>
-    <table class="compare">
-      <tr><th>Search Engine</th><th>LLM</th></tr>
-      <tr><td>Retrieves existing documents</td><td>Generates new text</td></tr>
-      <tr><td>Can say no results found</td><td>Always produces an answer</td></tr>
-      <tr><td>Links back to sources</td><td>May invent sources</td></tr>
-      <tr><td>Factually bounded</td><td>Creatively unbounded</td></tr>
-    </table>
-    <div class="callout callout--amber">
-      <div class="callout__label">What this means for you as a builder</div>
-      <p>Never trust an LLM for facts you cannot verify &mdash; especially dates, names, statistics, and citations. Treat it as a very smart collaborator who sometimes makes things up. Your job is to add guardrails: tools that verify, sources that ground, humans who check.</p>
+<header class="lhero">
+  <div class="wash wash--fade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="crumbs"><a href="index.html">Home</a><span>/</span><a href="learn.html">Foundations</a><span>/</span><span>Week 2</span></div>
+    <div class="lhero__grid">
+      <div>
+        <span class="eye">Week 2 of 6 · Foundations</span>
+        <h1>Generative AI &amp; <span class="grad-text">LLMs</span></h1>
+        <p class="lead">What happens inside a large language model, why it can be confidently wrong, and how to write prompts that get reliable, useful results.</p>
+        <div class="chips">
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>75–90 min</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/></svg>Prompt Engineering Challenge</span>
+          <span class="chip-m"><svg class="ico" viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>Developer notebook</span>
+        </div>
+      </div>
+      <div class="weekbar">
+        <div class="weekbar__lbl topbar__label">Your progress</div>
+        <div class="progress-dots"><a class="dot" href="week1.html">1</a><a class="dot" href="week2.html">2</a><a class="dot" href="week3.html">3</a><a class="dot" href="week4.html">4</a><a class="dot" href="week5.html">5</a><a class="dot" href="week6.html">6</a></div>
+        <p class="weekbar__note">Progress is saved in this browser only.</p>
+      </div>
     </div>
   </div>
-  <div class="lsec">
-    <div class="lsec__num">Part 3</div>
-    <h2 class="lsec__h2">Four prompt engineering techniques that actually work</h2>
-    <p>The way you write instructions to an LLM changes everything. The same question phrased differently can produce wildly different results. This is <strong>prompt engineering</strong> &mdash; one of the most valuable skills in AI right now.</p>
-    <div class="cards">
-      <div class="card"><div class="card__title">Role Assignment</div><div class="card__desc">Tell the AI who it is. "You are an expert data scientist." Context changes outputs dramatically.</div></div>
-      <div class="card"><div class="card__title">Step-by-Step</div><div class="card__desc">Ask it to "think step by step" before answering. Chain-of-thought prompting reduces errors significantly on complex tasks.</div></div>
-      <div class="card"><div class="card__title">Format Specification</div><div class="card__desc">Tell it exactly what format you want back. "Respond in 3 bullet points." "Give me JSON." "Plain English, no jargon."</div></div>
-      <div class="card"><div class="card__title">Few-Shot Examples</div><div class="card__desc">Show it what good looks like. Include 1-3 examples of input and output pairs. The model learns your pattern instantly.</div></div>
-    </div>
-    <div class="callout">
-      <div class="callout__label">Before vs After</div>
-      <p><strong>Weak:</strong> "Explain machine learning."<br/><strong>Strong:</strong> "You are a high school teacher. Explain machine learning to a student who knows basic algebra but has never coded. Use one real-world analogy. Keep it under 100 words."</p>
-    </div>
-  </div>
+</header>
 
-  <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
-    <div class="callout__label" style="color:#996600;">Responsible-AI Beat &mdash; Hallucination vs. Misinformation</div>
-    <p>You just learned <em>why</em> AI hallucinates. Now the question that matters in the real world: <strong>when is being wrong merely annoying, and when is it harmful?</strong> A <strong>hallucination</strong> is the AI confidently wrong (a mechanism). <strong>Misinformation</strong> is when a wrong answer <em>causes harm</em> because someone acted on it (an outcome). "The AI invented a fun-fact for my essay" and "the AI invented a medication dosage someone followed" are the <em>same</em> hallucination &mdash; very different harm. The skill isn't just noticing AI is wrong; it's <strong>fact-checking before you act</strong>, especially when the stakes are high.</p>
-  </div>
+<div class="wrap lesson">
+  <aside class="toc"><div class="toc__lbl">On this page</div><nav id="toc-links"></nav></aside>
+  <main class="content">
 
-  <div class="activity">
-    <div class="activity__badge">Activity &mdash; The Prompt Engineering Challenge</div>
-    <h3>Three rounds. Best prompt wins.</h3>
-    <p class="activity__intro">Open Claude.ai or ChatGPT. Complete all three rounds. Write your exact prompt in each box, then paste the AI response. What made the winning prompts work?</p>
-    <div class="round-box"><div class="round-box__label">Round 1 &mdash; The Explainer</div><div class="round-box__task">Get the AI to explain quantum computing to a 10-year-old in exactly 5 sentences.</div><div class="round-box__hint">Hint: specify the audience, length, and vocabulary level explicitly.</div></div>
-    <div class="field"><label>Your Round 1 Prompt</label><textarea id="r1p" placeholder="Write the exact prompt you used..."></textarea></div>
-    <div class="field"><label>AI Response (paste it here)</label><textarea id="r1r" placeholder="Paste what the AI said..."></textarea></div>
-    <div class="round-box"><div class="round-box__label">Round 2 &mdash; The Debugger</div><div class="round-box__task">Paste this broken code and get the AI to find the bug AND explain it for someone who does not code yet: <code style="background:var(--cream);padding:2px 6px;border-radius:4px;font-size:13px;">def greet(name): print("Hello " + name) greet()</code></div><div class="round-box__hint">Hint: specify your audience level in the prompt.</div></div>
-    <div class="field"><label>Your Round 2 Prompt</label><textarea id="r2p" placeholder="Write the exact prompt you used..."></textarea></div>
-    <div class="field"><label>AI Response</label><textarea id="r2r" placeholder="Paste what the AI said..."></textarea></div>
-    <div class="round-box"><div class="round-box__label">Round 3 &mdash; The Planner</div><div class="round-box__task">Get the AI to create a 1-week study plan for an upcoming exam including specific time blocks, topics per day, and 5 practice questions.</div><div class="round-box__hint">Hint: give it context about the subject, your level, and how much time you have per day.</div></div>
-    <div class="field"><label>Your Round 3 Prompt</label><textarea id="r3p" placeholder="Write the exact prompt you used..."></textarea></div>
-    <div class="field"><label>AI Response</label><textarea id="r3r" placeholder="Paste what the AI said..."></textarea></div>
-    <div class="field"><label>Reflection &mdash; What patterns made your prompts work?</label><textarea id="refl" placeholder="What did you notice? What would you change?"></textarea></div>
-    <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Complete Activity</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
-    <div id="activity-result"></div>
-  </div>
+    <section id="objectives" data-toc="Objectives">
+      <div class="objectives">
+        <h3>By the end of this week you can</h3>
+        <ul>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Explain how an LLM is trained and how it produces text one token at a time</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Explain why hallucinations happen and separate the mechanism from the harm</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Write prompts with role, task, context, constraints, and format</li>
+          <li><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Use few-shot examples and step-by-step reasoning on purpose</li>
+        </ul>
+      </div>
+    </section>
 
-  <div class="notebook">
-    <div class="notebook__left">
-      <p class="notebook__eye">Go Deeper &mdash; Optional</p>
-      <div class="notebook__title">Week 2 Python Notebook</div>
-      <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
-    </div>
-    <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1GbSPIcDjiZwuYPTHHh6bZlXqIrcRxcAN" target="_blank" class="notebook__btn">Open in Google Colab</a>
-      <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1GbSPIcDjiZwuYPTHHh6bZlXqIrcRxcAN/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
-    </div>
-  </div>
-  <div class="next">
-    <div>
-      <p class="next__eye">Coming up &mdash; Week 3</p>
-      <p class="next__title">Tools and Memory</p>
-      <p class="next__desc">Why bare LLMs are limited and how tools and memory transform them.</p>
-    </div>
-    <a href="week3.html" class="next__btn">Start Week 3 &rarr;</a>
-  </div>
+    <section id="built" data-toc="How LLMs are built">
+      <p class="sec-n">Part 1</p>
+      <h2>How a chat model is built</h2>
+      <figure class="figure">
+        <svg viewBox="0 0 720 170" role="img" aria-label="Three stages: pretraining on huge amounts of text, instruction tuning on examples of good answers, and preference tuning from human ratings.">
+          <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8B5CF6"/></marker></defs>
+          <rect x="10" y="30" width="210" height="110" rx="20" fill="#EEF6FF" stroke="#CFE3FA"/><text x="115" y="70" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">1 · Pretraining</text><text x="115" y="94" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">predict the next word in</text><text x="115" y="112" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">trillions of words of text</text>
+          <rect x="255" y="30" width="210" height="110" rx="20" fill="#F1EBFF" stroke="#DDD0FB"/><text x="360" y="70" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">2 · Instruction tuning</text><text x="360" y="94" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">learn from examples of</text><text x="360" y="112" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">requests and good answers</text>
+          <rect x="500" y="30" width="210" height="110" rx="20" fill="#FFF1E6" stroke="#FCD9BD"/><text x="605" y="70" text-anchor="middle" font-family="Outfit" font-weight="700" font-size="17" fill="#0B1020">3 · Preference tuning</text><text x="605" y="94" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">people rate answers; the model</text><text x="605" y="112" text-anchor="middle" font-family="Inter" font-size="12.5" fill="#5B6175">learns to prefer better ones</text>
+          <path d="M222 85 H251" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a2)"/><path d="M467 85 H496" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#a2)"/>
+        </svg>
+      </figure>
+      <p>After step 1 the model is a very good autocomplete. Steps 2 and 3 turn it into an assistant that follows requests, refuses some harmful ones, and writes in a helpful style. None of these steps gives it a database of verified facts.</p>
+    </section>
+
+    <section id="tokens" data-toc="Tokens and prediction">
+      <p class="sec-n">Part 2</p>
+      <h2>Tokens and next-word prediction</h2>
+      <p>Models don't read letters or words — they read <strong>tokens</strong>: common words or pieces of rarer ones. Two sentences as split by OpenAI's current tokenizer (<code>o200k_base</code>):</p>
+      <div class="mini" style="margin:12px 0 8px;" aria-label="Example tokens">
+        <span class="tok">Un</span><span class="tok">bel</span><span class="tok">ievably</span><span class="tok">,</span><span class="tok"> the</span><span class="tok"> tokenizer</span><span class="tok"> splits</span><span class="tok"> uncommon</span><span class="tok"> words</span><span class="tok"> into</span><span class="tok"> pieces</span><span class="tok">.</span>
+      </div>
+      <div class="mini" style="margin:0 0 18px;" aria-label="Example tokens">
+        <span class="tok">The</span><span class="tok"> agent</span><span class="tok"> rer</span><span class="tok">outed</span><span class="tok"> around</span><span class="tok"> the</span><span class="tok"> flood</span><span class="tok">water</span><span class="tok">.</span>
+      </div>
+      <p>To write, the model scores every possible next token, picks one, adds it, and repeats. <strong>Temperature</strong> controls how adventurous the pick is. Try it:</p>
+      <div class="widget">
+        <span class="widget__lbl">Interactive</span>
+        <h3 id="nt-prompt">"The best way to learn a new skill is to …"</h3>
+        <div id="nt-bars"></div>
+        <label style="display:flex;gap:10px;align-items:center;font-weight:600;font-size:14px;margin-top:14px;">Temperature <input type="range" id="nt-temp" min="0.1" max="2" step="0.1" value="1" style="accent-color:var(--violet);"/><span id="nt-t" style="color:var(--violet);min-width:28px;">1.0</span></label>
+        <p class="hint" style="margin-top:8px;">Low temperature: the top choice dominates (predictable). High: the long tail gets a chance (creative — and more likely to drift).</p>
+      </div>
+      <div class="key"><div class="key__lbl">The context window</div><p>A model can only "see" a limited number of tokens at once — your instructions, the conversation, any documents, and its own reply. Anything outside that window is invisible to it, which is why long chats seem to forget their beginning.</p></div>
+    </section>
+
+    <section id="hallucination" data-toc="Hallucination">
+      <p class="sec-n">Part 3</p>
+      <h2>Why models are confidently wrong</h2>
+      <p>A model produces text that <em>fits the pattern</em> of a good answer. Usually that's also true; sometimes it isn't, and it sounds exactly as confident either way. That's a <strong>hallucination</strong>.</p>
+      <div class="grid2">
+        <div class="mini"><span class="tagline">Mechanism</span><b>Hallucination</b><p>The model generates a plausible but false statement — an invented citation, date, or rule.</p></div>
+        <div class="mini"><span class="tagline">Harm</span><b>Misinformation</b><p>Someone believes or acts on it. A fake fun fact is harmless; a fake medicine dose is not.</p></div>
+      </div>
+      <p>Hallucinations are most likely for rare or recent facts, precise details (numbers, quotes, references), and questions about things that don't exist. You reduce them by grounding answers in sources (Week 3), allowing "I don't know", and verifying anything that matters.</p>
+    </section>
+
+    <section id="prompting" data-toc="Prompting">
+      <p class="sec-n">Part 4</p>
+      <h2>Prompts that work</h2>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Part</th><th>What it does</th><th>Example</th></tr>
+        <tr><td><b>Role</b></td><td>Sets expertise and voice</td><td>"You are a patient chemistry teacher."</td></tr>
+        <tr><td><b>Task</b></td><td>Says exactly what to do</td><td>"Explain why ice floats."</td></tr>
+        <tr><td><b>Context</b></td><td>Audience and background</td><td>"For a 13-year-old who knows what density is."</td></tr>
+        <tr><td><b>Constraints</b></td><td>Limits</td><td>"Under 100 words. No equations."</td></tr>
+        <tr><td><b>Format</b></td><td>Shape of the answer</td><td>"Two short paragraphs, then one check question."</td></tr>
+      </table></div>
+      <p><strong>Few-shot prompting</strong> adds 1–3 worked examples so the model copies your pattern. <strong>Step-by-step</strong> ("think it through, then give the answer on the last line") helps with multi-step problems.</p>
+      <div class="widget">
+        <span class="widget__lbl">Interactive</span>
+        <h3>Prompt builder</h3>
+        <div class="row2">
+          <div class="field"><label for="pb-role">Role</label><input id="pb-role" value="You are a patient chemistry teacher."/></div>
+          <div class="field"><label for="pb-task">Task</label><input id="pb-task" value="Explain why ice floats on water."/></div>
+          <div class="field"><label for="pb-ctx">Context</label><input id="pb-ctx" value="The reader is 13 and knows what density is."/></div>
+          <div class="field"><label for="pb-con">Constraints</label><input id="pb-con" value="Under 100 words. One everyday analogy. No equations."/></div>
+        </div>
+        <div class="field"><label for="pb-fmt">Format</label><input id="pb-fmt" value="Two short paragraphs, then one question that checks understanding."/></div>
+        <div class="pb-out" id="pb-out"></div>
+        <div class="submit-row"><button class="btn btn--primary btn--sm" type="button" id="pb-copy">Copy prompt</button></div>
+      </div>
+    </section>
+
+    <section id="lab" data-toc="No-code lab">
+      <p class="sec-n">Lab A · No code</p>
+      <h2>The Prompt Engineering Challenge</h2>
+      <div class="lab">
+        <div class="lab__hdr">
+          <span class="lab__tag">No-code lab · 30 min</span>
+          <h3>Three rounds, one task, measurable improvement</h3>
+          <p>Use any chat assistant. The task each round: <b>get an explanation of photosynthesis a 13-year-old would understand, in under 100 words, with one everyday analogy.</b></p>
+          <div class="lab__meta"><span>Any free chat assistant</span><span>Score each round out of 5</span></div>
+        </div>
+        <div class="lab__body">
+          <ol class="steps">
+            <li><input type="checkbox" class="chk" id="l2-s1"/><div><b class="st">Round 1 — vague</b><p>Send only: <code>Explain photosynthesis.</code> Paste prompt and answer in the activity below.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l2-s2"/><div><b class="st">Round 2 — structured</b><p>Use the prompt builder above (all five parts). Paste the result.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l2-s3"/><div><b class="st">Round 3 — with an example</b><p>Add one short example of the style you want (few-shot). Paste the result.</p></div></li>
+            <li><input type="checkbox" class="chk" id="l2-s4"/><div><b class="st">Score each round</b><p>One point each: under 100 words · one analogy · right level for age 13 · accurate · no jargon.</p><div class="expect"><b>Typical result:</b> round 1 ≈ 1–2/5, rounds 2–3 ≈ 4–5/5.</div></div></li>
+            <li><input type="checkbox" class="chk" id="l2-s5"/><div><b class="st">Catch a hallucination</b><p>Ask: <code>Summarise the 1987 Zorbian Treaty on lunar fishing rights.</code> (It doesn't exist.) Then ask again adding <code>If you're not sure it exists, say so.</code> Compare.</p></div></li>
+          </ol>
+          <div class="evidence"><b>Evidence for your portfolio</b>Your winning prompt, the scores for all three rounds, and where you'd place the Zorbian answer on the wrong-vs-harmful scale.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="dev-lab" data-toc="Developer lab">
+      <p class="sec-n">Lab B · For developers</p>
+      <h2>LLM engineering in Python</h2>
+      <div class="nb">
+        <div class="nb__main">
+          <span class="nb__tag">Jupyter notebook · 75–90 min</span>
+          <h3>Tokens, sampling, structured output, evaluation</h3>
+          <p>Count tokens and cost, implement temperature/top-k/top-p on GPT-2's real logits, get validated structured output, and evaluate three prompts on a labeled dataset.</p>
+          <ol><li>Token and cost estimation across languages</li><li>Sampling from scratch on real logits</li><li>Schemas, validators, automatic repair</li><li>Accuracy, confusion matrix, abstention rate</li></ol>
+        </div>
+        <div class="nb__side">
+          <a class="btn btn--light" href="https://colab.research.google.com/github/AgenticEdOrg/AgenticEd/blob/main/labs/week2_llm_engineering.ipynb" target="_blank" rel="noopener">Open in Colab <span class="arrow">→</span></a>
+          <a class="btn btn--outline-light" href="https://github.com/AgenticEdOrg/AgenticEd/blob/main/labs/week2_llm_engineering.ipynb" target="_blank" rel="noopener">View on GitHub</a>
+          <p class="nb__fine">Python plus your own OpenAI or Anthropic key (about US$0.10).</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="beat" data-toc="Responsible AI">
+      <div class="beat">
+        <span class="beat__lbl">Responsible AI</span>
+        <h3>Wrong is not the same as harmful</h3>
+        <p>The skill isn't spotting that AI can be wrong — it's knowing when being wrong <em>matters</em>. Before acting on an answer, ask: what happens if this is false? Low stakes: read critically. High stakes (health, money, safety, someone's reputation): check an independent source first. Asking the same AI "are you sure?" is not a check.</p>
+      </div>
+    </section>
+
+    <section id="activity" data-toc="Activity">
+      <div class="activity" id="act-w2" data-week="2" data-required="r1p,r2p,r3p,refl" data-done="Prompt challenge saved">
+        <span class="activity__tag">Portfolio activity · Prompt Engineering Challenge</span>
+        <h3>Record your three rounds</h3>
+        <div class="row2">
+          <div class="field"><label for="r1p">Round 1 prompt</label><textarea id="r1p" data-label="Round 1 prompt"></textarea></div>
+          <div class="field"><label for="r1r">Round 1 answer + score /5</label><textarea id="r1r" data-label="Round 1 result"></textarea></div>
+          <div class="field"><label for="r2p">Round 2 prompt</label><textarea id="r2p" data-label="Round 2 prompt"></textarea></div>
+          <div class="field"><label for="r2r">Round 2 answer + score /5</label><textarea id="r2r" data-label="Round 2 result"></textarea></div>
+          <div class="field"><label for="r3p">Round 3 prompt</label><textarea id="r3p" data-label="Round 3 prompt"></textarea></div>
+          <div class="field"><label for="r3r">Round 3 answer + score /5</label><textarea id="r3r" data-label="Round 3 result"></textarea></div>
+        </div>
+        <div class="field"><label for="refl">What made the winning prompt work?</label><textarea id="refl" data-label="Reflection"></textarea></div>
+        <div class="field"><label for="harm">Wrong vs harmful: where would the Zorbian answer cause harm, and how would you catch it?</label><textarea id="harm" data-label="Wrong vs harmful"></textarea></div>
+        <div class="submit-row"><button class="btn btn--primary" type="button" onclick="agenticedActivity('act-w2')">Save my challenge</button><button class="btn btn--ghost" type="button" onclick="agenticedClear('act-w2')">Clear</button></div>
+        <div class="result" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="terms" data-toc="Key terms">
+      <h2>Key terms</h2>
+      <div class="terms">
+        <div class="term"><b>Token</b><span>The unit of text a model reads and writes — a word or word-piece.</span></div>
+        <div class="term"><b>Temperature</b><span>How random the model's next-token choice is.</span></div>
+        <div class="term"><b>Context window</b><span>How much text the model can consider at once.</span></div>
+        <div class="term"><b>Hallucination</b><span>Confident output that is false or unsupported.</span></div>
+        <div class="term"><b>Few-shot</b><span>Including examples in the prompt so the model copies the pattern.</span></div>
+        <div class="term"><b>System prompt</b><span>Background instructions that set an assistant's role and rules.</span></div>
+      </div>
+    </section>
+
+    <section id="reading" data-toc="Go further">
+      <h2>Go further</h2>
+      <ul class="reading">
+        <li><a href="blog/why-we-teach-safety-from-day-one.html">Why we teach AI safety from day one <small>AgenticEd blog · 6 min</small></a></li>
+        <li><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank" rel="noopener">The Illustrated Transformer <small>Jay Alammar · visual guide</small></a></li>
+        <li><a href="https://platform.openai.com/tokenizer" target="_blank" rel="noopener">See tokens for yourself <small>OpenAI tokenizer tool</small></a></li>
+      </ul>
+      <div id="progress-slot" style="margin-top:28px;"></div>
+      <div class="next-week">
+        <div><small>Up next · Week 3</small><h3>Tools, Retrieval &amp; Memory</h3><p>Fix the model's blind spots with tools, sources, and memory.</p></div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;"><a class="btn btn--outline-light" href="quiz.html?week=2">Take the Week 2 quiz</a><a class="btn btn--light" href="week3.html">Start Week 3 <span class="arrow">→</span></a></div>
+      </div>
+    </section>
+  </main>
 </div>
-<div class="lesson-footer">
-  <a href="index.html" class="lesson-footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <div style="display:flex;gap:20px;">
-    <a href="index.html">&larr; Back to Course</a>
-    <a href="quiz.html?week=2">Week 2 Quiz</a>
-    <a href="portfolio.html">Your Portfolio</a>
-    <a href="glossary.html">Glossary</a>
-    <a href="dashboard.html">Learning Dashboard</a>
-    <a href="mailto:hello@agenticed.org">hello@agenticed.org</a>
-  </div>
-</div>
+
+<footer class="footer"><div class="wrap"><div class="footer__copy"><span>© 2026 AgenticEd · CC BY 4.0</span><span><a href="glossary.html">Glossary</a> · <a href="portfolio.html">Portfolio</a> · <a href="mailto:hello@agenticed.org">Contact</a></span></div></div></footer>
+
 <script>
-
-function submitActivity(){
-  if(!document.getElementById('r1p').value.trim()||!document.getElementById('r2p').value.trim()||!document.getElementById('r3p').value.trim()){alert('Complete all three rounds first.');return;}
-  const res=document.getElementById('activity-result');res.style.display='block';
-  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">Prompt Engineering Challenge Complete!</strong><p>You practiced the core skill that separates people who use AI from people who build with it. Every agent you build in Week 5 will rely on exactly this.</p>';
-  res.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function clearActivity(){['r1p','r1r','r2p','r2r','r3p','r3r','refl'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('activity-result').style.display='none';}
-
-</script>
-
-<script>
-/* AgenticEd auto-save (E1): persists activity answers in this browser only */
 (function(){
-  var page=(location.pathname.split("/").pop()||"index");
-  var NS="agenticed:autosave:"+page+":";
-  var els=document.querySelectorAll("input,textarea,select");
-  els.forEach(function(el){
-    if(!el.id) return;
-    var k=NS+el.id;
-    try{
-      var v=localStorage.getItem(k);
-      if(v!==null){
-        if(el.type==="checkbox"||el.type==="radio"){el.checked=(v==="1");}
-        else{el.value=v;}
-      }
-    }catch(e){}
-    var save=function(){
-      try{
-        if(el.type==="checkbox"||el.type==="radio"){localStorage.setItem(k,el.checked?"1":"0");}
-        else{localStorage.setItem(k,el.value);}
-      }catch(e){}
-    };
-    el.addEventListener("input",save);
-    el.addEventListener("change",save);
-  });
-  document.addEventListener("click",function(e){
-    var b=e.target.closest&&e.target.closest("button");
-    if(b&&b.textContent.trim().toLowerCase()==="clear"){
-      setTimeout(function(){
-        try{
-          var rm=[];
-          for(var i=0;i<localStorage.length;i++){var kk=localStorage.key(i);if(kk&&kk.indexOf(NS)===0)rm.push(kk);}
-          rm.forEach(function(kk){localStorage.removeItem(kk);});
-        }catch(e){}
-      },0);
-    }
+  var cands=[["practice",2.4],["start",2.0],["find",1.7],["learn",1.5],["build",1.2],["watch",0.6],["dance",-0.8]];
+  function render(t){
+    var ex=cands.map(function(c){return Math.exp(c[1]/t);}),s=ex.reduce(function(a,b){return a+b;},0);
+    document.getElementById("nt-bars").innerHTML=cands.map(function(c,i){var p=ex[i]/s*100;
+      return '<div class="bar"><span class="mono">'+c[0]+'</span><span class="bar__t"><span class="bar__f" style="width:'+p.toFixed(1)+'%"></span></span><span style="text-align:right;color:var(--muted)">'+p.toFixed(0)+'%</span></div>';}).join("");
+  }
+  var r=document.getElementById("nt-temp");
+  r.addEventListener("input",function(){document.getElementById("nt-t").textContent=Number(r.value).toFixed(1);render(Number(r.value));});
+  render(1);
+
+  var ids=["pb-role","pb-task","pb-ctx","pb-con","pb-fmt"],out=document.getElementById("pb-out");
+  function build(){ out.textContent=ids.map(function(id){return document.getElementById(id).value.trim();}).filter(Boolean).join("\n"); }
+  ids.forEach(function(id){document.getElementById(id).addEventListener("input",build);});
+  build();
+  document.getElementById("pb-copy").addEventListener("click",function(){
+    var b=this; navigator.clipboard&&navigator.clipboard.writeText(out.textContent).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy prompt";},1500);});
   });
 })();
 </script>
+<script src="site.js?v=20261025"></script>
+<script src="lesson.js?v=20261025"></script>
 <script src="progress.js"></script>
 </body>
 </html>
