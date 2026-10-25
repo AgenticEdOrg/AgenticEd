@@ -7,7 +7,7 @@ window.AGENTICED_CERTS = {
     foundational: {
       id: "foundational",
       tier: "Foundational",
-      badge: "🌱",
+      badge: "F",
       name: "AgenticEd Certified: AI & Agent Foundations",
       tagline: "Entry-level credential — core AI agent literacy.",
       summary: "Validates understanding of what an AI agent is, how large language models work, effective prompting, and the basics of responsible AI use.",
@@ -82,7 +82,7 @@ window.AGENTICED_CERTS = {
     associate: {
       id: "associate",
       tier: "Associate",
-      badge: "🛠️",
+      badge: "A",
       name: "AgenticEd Certified: Agent Builder — Associate",
       tagline: "Mid-level credential — building and operating agents.",
       summary: "Validates the ability to design agent system prompts, connect tools and memory, use retrieval-augmented generation, and coordinate multi-agent workflows with human checkpoints.",
@@ -157,7 +157,7 @@ window.AGENTICED_CERTS = {
     advanced: {
       id: "advanced",
       tier: "Advanced / Specialty",
-      badge: "🛡️",
+      badge: "S",
       name: "AgenticEd Certified: AI Safety & Governance — Specialty",
       tagline: "Top-tier credential — safety, alignment, and oversight.",
       summary: "Validates the ability to reason about alignment, bias, prompt injection, guardrail design, oversight checkpoints, and deployment risk for agentic systems.",
