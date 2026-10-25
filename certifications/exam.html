@@ -39,6 +39,7 @@
     .score__next{margin-top:18px;}
   </style>
   <script src="cert-data.js?v=20261024"></script>
+  <script src="config.js"></script>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
   <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
@@ -213,6 +214,17 @@
       rec.when=Date.now();
       localStorage.setItem(KEY,JSON.stringify(rec));
     }catch(e){}
+
+    /* Anonymous attempt record for the program metrics: level, score, total only — no name or ID. */
+    var cfg=window.AGENTICED_SUPABASE;
+    if(cfg&&cfg.url&&cfg.key){
+      fetch(cfg.url.replace(/\/$/,"")+"/rest/v1/cert_exam_attempts",{
+        method:"POST",
+        headers:{apikey:cfg.key,Authorization:"Bearer "+cfg.key,"Content-Type":"application/json",Prefer:"return=minimal"},
+        body:JSON.stringify({level:levelId,score:right,total:total}),
+        keepalive:true
+      }).catch(function(){});
+    }
     showStatus();
 
     $("score").style.display="block";
