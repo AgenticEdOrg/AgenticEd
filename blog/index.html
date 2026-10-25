@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — AgenticEd</title>
+  <meta name="description" content="Plain-English writing on AI agents, responsible AI, and teaching AI — from the AgenticEd team."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../site.css?v=20261024"/>
+  <link rel="stylesheet" href="blog.css?v=20261024"/>
+  <link rel="icon" type="image/png" href="../images/favicon.png"/>
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+  <script src="../metrics-config.js"></script><script src="../analytics.js"></script>
+  <script src="posts.js?v=20261024"></script>
+  <style>
+    .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+    .filter{border:1px solid var(--border);background:var(--white);color:var(--warm);border-radius:999px;padding:8px 16px;font:600 13.5px 'Inter',sans-serif;cursor:pointer;transition:all .18s;}
+    .filter:hover{border-color:var(--coral);color:var(--coral);}
+    .filter--on{background:var(--brown);border-color:var(--brown);color:#fff;}
+    .post-card--hidden{display:none;}
+  </style>
+</head>
+<body>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo"><img class="brand-mark" src="../images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="../learn.html">Learning Paths</a></li>
+      <li><a href="../certifications/index.html">Certifications</a></li>
+      <li><a href="../sessions.html">Live Sessions</a></li>
+      <li><a href="index.html" aria-current="page">Blog</a></li>
+      <li><a href="../international-advisory-board/index.html">Advisory Board</a></li>
+      <li><a href="../week1.html" class="nav__cta">Start Learning →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="phdr">
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="gridlines" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative;">
+    <p class="eye reveal">The AgenticEd Blog</p>
+    <h1 class="h2 reveal" style="--d:.08s;">Ideas worth <span class="grad-text">understanding.</span></h1>
+    <p class="lead reveal" style="--d:.16s;">Plain-English writing on AI agents, responsible AI, and how to teach both — for students, educators, and builders.</p>
+  </div>
+</header>
+
+<main class="sec">
+  <div class="wrap">
+    <div class="filters" id="filters"></div>
+    <div class="posts" id="posts" data-stagger=".08"></div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div><a class="footer__logo" href="../index.html">Agentic<em>Ed</em></a><p class="footer__about">Free, practical AI-agent education for students, educators, and everyone else.</p></div>
+      <div><h4>Learn</h4><ul><li><a href="../learn.html">Learning Paths</a></li><li><a href="../week1.html">Start Week 1</a></li><li><a href="../certifications/index.html">Certifications</a></li><li><a href="../glossary.html">Glossary</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="../sessions.html">Live Sessions</a></li><li><a href="index.html">Blog</a></li><li><a href="../international-advisory-board/index.html">Advisory Board</a></li><li><a href="../feedback.html">Feedback</a></li></ul></div>
+      <div><h4>About</h4><ul><li><a href="../approach.html">Our Approach</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="../privacy.html">Privacy</a></li><li><a href="mailto:hello@agenticed.org">Contact</a></li></ul></div>
+    </div>
+    <div class="footer__copy"><span>© 2026 AgenticEd · Free for any learner, anywhere · CC BY 4.0</span><a href="https://github.com/AgenticEdOrg/AgenticEd" target="_blank" rel="noopener">GitHub</a></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var posts=window.AGENTICED_POSTS||[];
+  var fmt=function(d){return new Date(d+"T00:00:00").toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});};
+  var tags=["All"];
+  posts.forEach(function(p){p.tags.forEach(function(t){if(tags.indexOf(t)===-1)tags.push(t);});});
+  document.getElementById("filters").innerHTML=tags.map(function(t,i){
+    return '<button class="filter'+(i===0?' filter--on':'')+'" data-tag="'+t+'">'+t+'</button>';
+  }).join("");
+  document.getElementById("posts").innerHTML=posts.map(function(p){
+    return '<a class="card spot post-card reveal" href="'+p.slug+'.html" data-tags="'+p.tags.join("|")+'">'+
+      '<div class="post-card__art" aria-hidden="true"><span></span><span></span><span></span><b>'+p.tags[0]+'</b></div>'+
+      '<div class="post-card__body">'+
+        '<div class="post-meta"><span>'+fmt(p.date)+'</span><span class="dot"></span><span>'+p.readMins+' min read</span></div>'+
+        '<h2 class="post-card__title">'+p.title+'</h2>'+
+        '<p class="post-card__excerpt">'+p.excerpt+'</p>'+
+        '<span class="post-card__more">Read article <span class="arrow">→</span></span>'+
+      '</div></a>';
+  }).join("");
+  document.getElementById("filters").addEventListener("click",function(e){
+    var b=e.target.closest(".filter"); if(!b) return;
+    document.querySelectorAll(".filter").forEach(function(x){x.classList.toggle("filter--on",x===b);});
+    var tag=b.getAttribute("data-tag");
+    document.querySelectorAll(".post-card").forEach(function(c){
+      c.classList.toggle("post-card--hidden",tag!=="All"&&c.getAttribute("data-tags").split("|").indexOf(tag)===-1);
+    });
+  });
+})();
+</script>
+<script src="../site.js?v=20261024"></script>
+</body>
+</html>

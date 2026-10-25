@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What is an AI agent, really? A plain-English guide — AgenticEd Blog</title>
+  <meta name="description" content="Chatbot, workflow, agent: the words get used interchangeably, but the differences matter. A clear way to tell them apart, with everyday examples."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../site.css?v=20261024"/>
+  <link rel="stylesheet" href="blog.css?v=20261024"/>
+  <link rel="icon" type="image/png" href="../images/favicon.png"/>
+  <script src="../metrics-config.js"></script><script src="../analytics.js"></script>
+</head>
+<body>
+<div class="progress-line" id="progress-line"></div>
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="../index.html" class="nav__logo"><img class="brand-mark" src="../images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="../learn.html">Learning Paths</a></li>
+      <li><a href="../certifications/index.html">Certifications</a></li>
+      <li><a href="../sessions.html">Live Sessions</a></li>
+      <li><a href="index.html" aria-current="page">Blog</a></li>
+      <li><a href="../international-advisory-board/index.html">Advisory Board</a></li>
+      <li><a href="../week1.html" class="nav__cta">Start Learning →</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="phdr article-hdr">
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="gridlines" aria-hidden="true"></div>
+  <div class="wrap" style="position:relative;max-width:820px;">
+    <a class="back" href="index.html">← All articles</a>
+    <p class="eye">Foundations · Agents</p>
+    <h1 class="h2">What is an AI agent, really? A plain-English guide</h1>
+    <div class="post-meta"><span>AgenticEd Team</span><span class="dot"></span><span>Oct 8, 2026</span><span class="dot"></span><span>6 min read</span></div>
+  </div>
+</header>
+
+<article class="article">
+  <p>"Agent" might be the most overused word in technology right now. Product launches call everything an agent: chat assistants, automated email rules, even search boxes. That makes it hard for students, teachers, and decision-makers to know what they're actually looking at. This guide gives you one simple test and a handful of everyday examples so you can tell the difference.</p>
+
+  <h2>The one-question test</h2>
+  <p>Ask: <strong>who decides what happens next?</strong></p>
+  <ul>
+    <li>If nothing happens next — you ask, it answers, done — it's a <strong>chatbot</strong> (or a single AI call).</li>
+    <li>If a <em>developer</em> decided the steps in advance — "every night, summarize new tickets, then email the manager" — it's a <strong>workflow</strong>, even if AI is used inside it.</li>
+    <li>If the <em>AI itself</em> decides the next step based on what it has seen so far, it's an <strong>agent</strong>.</li>
+  </ul>
+  <blockquote>An agent is software that pursues a goal over several steps, choosing its own next action based on what it observes.</blockquote>
+
+  <h2>The loop at the heart of every agent</h2>
+  <p>Every agent, from a research assistant to a coding tool, runs the same cycle: <strong>Think → Act → Observe</strong>. It reasons about the goal, takes an action (search the web, read a file, run a calculation, send a message), looks at the result, and decides what to do next. It repeats until the goal is met, it gets stuck, or it hits a limit someone set for it.</p>
+  <p>A navigation app is a helpful everyday picture. It doesn't compute one route and stop. It keeps watching traffic and changes the plan when conditions change. That continuous observe-and-adapt behavior is what makes something agentic.</p>
+
+  <h2>Chatbot vs. workflow vs. agent</h2>
+  <table>
+    <tr><th></th><th>Chatbot</th><th>Workflow</th><th>Agent</th></tr>
+    <tr><td>Who picks the steps?</td><td>No steps</td><td>The developer</td><td>The AI, at run time</td></tr>
+    <tr><td>Takes actions?</td><td>Rarely</td><td>Yes, fixed order</td><td>Yes, chosen as it goes</td></tr>
+    <tr><td>Adapts to results?</td><td>No</td><td>Only pre-planned branches</td><td>Yes</td></tr>
+    <tr><td>Example</td><td>Answering a homework question</td><td>Auto-summarizing every new form submission</td><td>"Find out why our club's sign-ups dropped and draft a plan"</td></tr>
+  </table>
+
+  <h2>What agents are made of</h2>
+  <p>Under the hood, nearly every agent has the same five parts:</p>
+  <ol>
+    <li><strong>A model</strong> — the large language model that does the reasoning.</li>
+    <li><strong>Instructions</strong> — a system prompt describing its role, goal, and rules.</li>
+    <li><strong>Tools</strong> — things it can call: search, calculators, databases, calendars, email.</li>
+    <li><strong>Memory</strong> — what it can see right now, plus anything saved for later sessions.</li>
+    <li><strong>Orchestration</strong> — the code that runs the loop, enforces limits, and asks a human for approval when needed.</li>
+  </ol>
+
+  <h2>Autonomy is a dial, not a switch</h2>
+  <p>"Autonomous" doesn't mean "unsupervised". A useful way to think about it is a dial: an assistant only suggests; a copilot drafts and you approve each step; a supervised agent acts on low-risk steps and asks before risky ones; a fully autonomous agent works end to end inside boundaries you set, with monitoring.</p>
+  <div class="callout"><p><strong>Rule of thumb:</strong> match the autonomy to the stakes. An agent tidying your notes can be highly autonomous. An agent that sends messages to other people or spends money should ask first.</p></div>
+
+  <h2>Why the distinction matters</h2>
+  <p>Agents are powerful precisely because they act. That also means their mistakes are actions, not just wrong sentences. When you know you're dealing with an agent, you know to ask the right questions: What can it do? What can't it undo? Where does a human check its work? Those questions are the start of using AI well — and they're exactly what our <a href="../week1.html">free Week 1 lesson</a> is built around.</p>
+</article>
+
+<div class="article-end">
+  <div class="card spot">
+    <div><p class="eye" style="margin-bottom:6px;">Keep learning</p><p style="font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;">Map a real agent's decision loop in Week 1.</p></div>
+    <a class="btn btn--primary btn--sm" href="../week1.html">Start Week 1 <span class="arrow">→</span></a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__copy"><span>© 2026 AgenticEd · CC BY 4.0</span><span><a href="index.html" style="text-decoration:none;">More articles</a> · <a href="../index.html" style="text-decoration:none;">Home</a></span></div>
+  </div>
+</footer>
+<script>
+(function(){
+  var bar=document.getElementById("progress-line"),art=document.querySelector(".article");
+  window.addEventListener("scroll",function(){
+    var r=art.getBoundingClientRect(),total=art.offsetHeight-window.innerHeight;
+    bar.style.width=Math.max(0,Math.min(1,-r.top/Math.max(total,1)))*100+"%";
+  },{passive:true});
+})();
+</script>
+<script src="../site.js?v=20261024"></script>
+</body>
+</html>

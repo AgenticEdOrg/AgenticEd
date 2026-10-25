@@ -1,0 +1,42 @@
+/* AgenticEd blog — listing cards and article typography. Builds on ../site.css. */
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+.post-card{display:flex;flex-direction:column;text-decoration:none;color:inherit;overflow:hidden;padding:0;}
+.post-card__art{height:170px;position:relative;overflow:hidden;background:var(--brown);}
+.post-card__art span{position:absolute;border-radius:50%;filter:blur(30px);opacity:.85;transition:transform .8s cubic-bezier(.2,.8,.2,1);}
+.post-card__art span:nth-child(1){width:180px;height:180px;left:-30px;top:-40px;background:#7C3AED;}
+.post-card__art span:nth-child(2){width:150px;height:150px;right:-20px;bottom:-50px;background:#EC4899;opacity:.6;}
+.post-card__art span:nth-child(3){width:110px;height:110px;left:45%;top:30%;background:#22D3EE;opacity:.35;}
+.post-card:hover .post-card__art span:nth-child(1){transform:translate(40px,20px);}
+.post-card:hover .post-card__art span:nth-child(2){transform:translate(-30px,-20px);}
+.post-card__art b{position:absolute;left:24px;bottom:18px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);}
+.post-card__body{padding:24px 26px 26px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.post-card__title{font-family:'Outfit',sans-serif;font-size:21px;font-weight:800;line-height:1.25;}
+.post-card__excerpt{font-size:14.5px;color:var(--warm);flex:1;}
+.post-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--warm);}
+.post-meta .dot{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6;}
+.post-card__more{font-size:14px;font-weight:700;color:var(--coral);display:inline-flex;gap:6px;align-items:center;}
+.post-card:hover .post-card__more .arrow{transform:translateX(4px);}
+.post-card__more .arrow{transition:transform .2s;}
+
+/* Article */
+.progress-line{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:200;transition:width .1s linear;}
+.article-hdr .post-meta{color:rgba(250,249,255,.65);margin-top:18px;}
+.article-hdr .back{display:inline-block;color:rgba(250,249,255,.6);text-decoration:none;font-size:14px;margin-bottom:22px;}
+.article-hdr .back:hover{color:#fff;}
+.article{max-width:720px;margin:0 auto;padding:64px 32px 40px;}
+.article p{font-size:17.5px;line-height:1.85;margin-bottom:20px;color:#262A40;}
+.article h2{font-family:'Outfit',sans-serif;font-size:28px;font-weight:800;line-height:1.2;margin:44px 0 14px;}
+.article h3{font-family:'Outfit',sans-serif;font-size:21px;font-weight:800;margin:30px 0 10px;}
+.article ul,.article ol{padding-left:24px;margin-bottom:22px;}
+.article li{font-size:17px;line-height:1.8;margin-bottom:8px;color:#262A40;}
+.article strong{color:var(--brown);}
+.article blockquote{margin:30px 0;padding:22px 26px;border-left:4px solid var(--coral);background:var(--coral-light);border-radius:0 14px 14px 0;font-family:'Outfit',sans-serif;font-size:21px;font-weight:600;line-height:1.5;color:var(--brown);}
+.article .callout{margin:26px 0;padding:20px 24px;border:1px solid var(--border);border-radius:16px;background:var(--white);box-shadow:var(--shadow-sm);}
+.article .callout p:last-child{margin-bottom:0;}
+.article table{width:100%;border-collapse:collapse;margin:20px 0 26px;font-size:15px;}
+.article th,.article td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top;}
+.article th{background:var(--light);}
+.article pre{background:var(--brown);color:#E7E5F5;padding:18px 20px;border-radius:14px;overflow-x:auto;font-size:14px;line-height:1.6;margin:20px 0 26px;}
+.article-end{max-width:720px;margin:0 auto 90px;padding:0 32px;}
+.article-end .card{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+@media(max-width:700px){.article{padding:44px 16px 30px;}.article p,.article li{font-size:16.5px;}.article-end{padding:0 16px;}}
