@@ -150,9 +150,9 @@
     </table>
     <p>A <strong>handoff</strong> is when one agent passes its output to another. The quality of handoffs determines the quality of the whole system. A bad handoff &mdash; wrong format, incomplete information, ambiguous instructions &mdash; causes errors that compound through every subsequent step.</p>
     <div class="cards">
-      <div class="card"><div class="card__icon">&#128269;</div><div class="card__title">Research Agent</div><div class="card__desc">Searches and extracts key facts. Passes structured findings to the writer.</div></div>
-      <div class="card"><div class="card__icon">&#9997;</div><div class="card__title">Writer Agent</div><div class="card__desc">Takes research and produces a first draft. Passes to the fact-checker.</div></div>
-      <div class="card"><div class="card__icon">&#9989;</div><div class="card__title">Fact-Check Agent</div><div class="card__desc">Verifies claims against sources. Returns corrections or approves for delivery.</div></div>
+      <div class="card"><div class="card__title">Research Agent</div><div class="card__desc">Searches and extracts key facts. Passes structured findings to the writer.</div></div>
+      <div class="card"><div class="card__title">Writer Agent</div><div class="card__desc">Takes research and produces a first draft. Passes to the fact-checker.</div></div>
+      <div class="card"><div class="card__title">Fact-Check Agent</div><div class="card__desc">Verifies claims against sources. Returns corrections or approves for delivery.</div></div>
     </div>
   </div>
   <div class="lsec">
@@ -166,12 +166,12 @@
   </div>
 
   <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
-    <div class="callout__label" style="color:#996600;">&#128737; Responsible-AI Beat &mdash; Oversight by design</div>
-    <p>Good agent teams decide <strong>where a human approves</strong> <em>before</em> they&rsquo;re built &mdash; not after something goes wrong. After you draw your pipeline below, mark a &#128721; everywhere a human must approve before the agent continues. The rule of thumb: a checkpoint is required before any action that is <strong>irreversible or affects someone else</strong> &mdash; sending an email, spending money, publishing, submitting a form, sharing personal data. Litmus test: <em>&ldquo;If the agent gets this step wrong, can you undo it?&rdquo;</em> If no, a human belongs in the loop there.</p>
+    <div class="callout__label" style="color:#996600;">Responsible-AI Beat &mdash; Oversight by design</div>
+    <p>Good agent teams decide <strong>where a human approves</strong> <em>before</em> they&rsquo;re built &mdash; not after something goes wrong. After you draw your pipeline below, mark a everywhere a human must approve before the agent continues. The rule of thumb: a checkpoint is required before any action that is <strong>irreversible or affects someone else</strong> &mdash; sending an email, spending money, publishing, submitting a form, sharing personal data. Litmus test: <em>&ldquo;If the agent gets this step wrong, can you undo it?&rdquo;</em> If no, a human belongs in the loop there.</p>
   </div>
 
   <div class="activity">
-    <div class="activity__badge">&#9999; Activity &mdash; Design Your Agent Team</div>
+    <div class="activity__badge">Activity &mdash; Design Your Agent Team</div>
     <h3>Map a multi-agent pipeline from scratch</h3>
     <p class="activity__intro">Choose a scenario and design the full pipeline. Be specific &mdash; name each agent, describe what it receives, what it produces, and where handoffs happen.</p>
     <div class="field"><label>Choose your scenario</label>
@@ -182,7 +182,7 @@
     <div class="field"><label>Worker Agent 1 &mdash; name, specialty, input, output</label><textarea id="w1" placeholder="e.g. Research Agent &mdash; searches for relevant information, outputs structured facts"></textarea></div>
     <div class="field"><label>Worker Agent 2 &mdash; name, specialty, input, output</label><textarea id="w2" placeholder="What does this agent specialize in?"></textarea></div>
     <div class="field"><label>Worker Agent 3 (optional)</label><textarea id="w3" placeholder="Add a third worker if needed..."></textarea></div>
-    <div class="field"><label>&#128721; Approval checkpoints &mdash; where must a human approve before the agent continues?</label><textarea id="human" placeholder="List each checkpoint: which action it's before, why a human must approve, and what they're checking for. (Anything irreversible or affecting someone else needs one.)"></textarea></div>
+    <div class="field"><label>Approval checkpoints &mdash; where must a human approve before the agent continues?</label><textarea id="human" placeholder="List each checkpoint: which action it's before, why a human must approve, and what they're checking for. (Anything irreversible or affecting someone else needs one.)"></textarea></div>
     <div class="field"><label>Biggest risk if one agent fails</label><textarea id="risk" placeholder="What cascades if Worker 1 produces bad output?"></textarea></div>
     <div class="submit-row"><button class="btn btn--primary" onclick="submitActivity()">Complete Activity</button><button class="btn btn--ghost" onclick="clearActivity()">Clear</button></div>
     <div id="activity-result"></div>
@@ -195,7 +195,7 @@
       <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
     </div>
     <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj" target="_blank" class="notebook__btn"><span class="notebook__btn-icon">&#9889;</span>Open in Google Colab</a>
+      <a href="https://colab.research.google.com/drive/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj" target="_blank" class="notebook__btn">Open in Google Colab</a>
       <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1jaqUfjPZYnY6ogrV-ogTIrkQ8r1-Vwdj/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
     </div>
   </div>

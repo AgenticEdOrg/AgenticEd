@@ -4,651 +4,806 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgenticEd — Learn to Build AI Agents. Free.</title>
+  <meta name="description" content="Free, practical learning paths from AI literacy to building and evaluating AI agents — with verifiable certifications, live sessions, and a classroom-ready curriculum." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="site.css?v=20261025" />
   <style>
-    :root {
-      --cream:  #FAF9FF;
-      --brown:  #121526;
-      --coral:  #7C3AED;
-      --coral-light: #F1E9FF;
-      --amber:  #A855F7;
-      --warm:   #646579;
-      --border: #E4E1F0;
-      --white:  #FFFFFF;
-      --light:  #F3F0FA;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--brown); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-
-    /* ── NAV ── */
-    .nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(250,249,255,0.95); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 32px; display: flex; justify-content: space-between; align-items: center;
-    }
-    .nav__logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 20px; color: var(--brown); text-decoration: none; }
-    .nav__logo em { font-style: normal; color: var(--coral); }
-    .nav__links { display: flex; gap: 28px; list-style: none; align-items: center; }
-    .nav__links a { text-decoration: none; color: var(--warm); font-size: 14px; font-weight: 500; transition: color 0.18s; }
-    .nav__links a:hover { color: var(--coral); }
-    .nav__cta { background: var(--coral) !important; color: var(--white) !important; padding: 9px 22px; border-radius: 6px; font-weight: 700 !important; transition: background 0.18s !important; }
-    .nav__cta:hover { background: #6824D9 !important; }
-
     /* ── HERO ── */
-    .hero {
-      max-width: 1140px; margin: 0 auto; padding: 80px 32px 64px;
-      display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: center;
-      position:relative;
+    .hero{position:relative;overflow:hidden;padding:72px 0 40px;}
+    .hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
+    .hero__grid>*{min-width:0;}
+    .hero__pill{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border-radius:999px;background:rgba(255,255,255,.75);border:1px solid var(--line);box-shadow:var(--shadow-sm);font-size:13.5px;font-weight:500;color:var(--ink);text-decoration:none;margin-bottom:26px;animation:rise .8s both;}
+    .hero__pill b{font-size:11.5px;font-weight:700;color:#fff;background:var(--ink);padding:3px 9px;border-radius:999px;}
+    .hero__pill:hover{box-shadow:var(--shadow-md);}
+    .hero__h1{font-family:'Outfit',sans-serif;font-size:clamp(44px,6.4vw,84px);font-weight:700;line-height:1.02;letter-spacing:-.04em;margin-bottom:24px;}
+    .hero__h1 .line{display:block;animation:rise 1s cubic-bezier(.2,.8,.2,1) both;}
+    .hero__h1 .line:nth-child(2){animation-delay:.1s;}
+    .hero__h1 .accent{font-style:italic;font-weight:600;padding-right:.08em;}
+    .hero__sub{font-size:19px;color:var(--muted);line-height:1.7;max-width:560px;margin-bottom:32px;animation:rise 1s .22s both;}
+
+    /* Search */
+    .search{position:relative;max-width:560px;margin-bottom:34px;animation:rise 1s .32s both;}
+    .search__box{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 7px 7px 22px;box-shadow:0 18px 40px -22px rgba(11,16,32,.3);transition:box-shadow .25s,border-color .25s;}
+    .search__box:focus-within{border-color:#C9BCF5;box-shadow:0 0 0 4px rgba(139,92,246,.12),0 18px 40px -22px rgba(11,16,32,.3);}
+    .search__slash{color:#A3A7B7;font-weight:600;}
+    .search input{flex:1;border:0;outline:0;font:500 16px 'Inter',sans-serif;color:var(--ink);background:transparent;min-width:0;}
+    .search input::placeholder{color:#9A9EAF;}
+    .search__btn{width:46px;height:46px;border-radius:50%;border:0;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .2s;}
+    .search__btn:hover{transform:scale(1.06);}
+    .search__btn .ico{width:19px;height:19px;}
+    .search__results{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-md);padding:8px;z-index:20;display:none;max-height:340px;overflow:auto;}
+    .search__results--open{display:block;animation:rise .25s both;}
+    .search__item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:11px 14px;border-radius:12px;text-decoration:none;color:var(--ink);}
+    .search__item:hover,.search__item--active{background:var(--soft);}
+    .search__item b{font-weight:600;font-size:14.5px;}
+    .search__item span{font-size:12px;color:var(--muted);white-space:nowrap;}
+    .search__empty{padding:14px;color:var(--muted);font-size:14px;}
+
+    /* Trust row (no people — non-personal signals only) */
+    .trust{display:flex;gap:28px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line);max-width:560px;animation:rise 1s .42s both;}
+    .trust__n{font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.02em;line-height:1.1;}
+    .trust__l{font-size:13px;color:var(--muted);}
+
+    /* Orbit hub */
+    .orbit{position:relative;width:100%;max-width:500px;aspect-ratio:1;margin:0 auto;animation:rise 1.1s .2s both;}
+    .orbit>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+    .orbit__ring{fill:none;stroke:#E4E2F0;stroke-width:1.2;}
+    .orbit__inner{fill:none;stroke:#D9D3F3;stroke-width:1.2;stroke-dasharray:4 8;transform-origin:240px 240px;animation:spin 60s linear infinite;}
+    .orbit__spoke{stroke:#E6E3F2;stroke-width:1.2;stroke-dasharray:200;stroke-dashoffset:200;animation:draw 1.4s .5s cubic-bezier(.2,.8,.2,1) forwards;}
+    @keyframes draw{to{stroke-dashoffset:0;}}
+    .orbit__core{position:absolute;left:50%;top:50%;width:30%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#F4F2FB);border:1px solid var(--line);box-shadow:0 30px 60px -24px rgba(109,40,217,.35),inset 0 1px 0 #fff;display:flex;align-items:center;justify-content:center;}
+    .orbit__core img{width:52%;height:auto;animation:float 6s ease-in-out infinite;}
+    .orbit__core::before,.orbit__core::after{content:"";position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(139,92,246,.25);animation:ping 3.2s cubic-bezier(.2,.8,.2,1) infinite;}
+    .orbit__core::after{animation-delay:1.6s;}
+    @keyframes ping{0%{transform:scale(.85);opacity:.9;}100%{transform:scale(1.35);opacity:0;}}
+    .orbit__node{position:absolute;transform:translate(-50%,-50%);z-index:2;}
+    .orbit__node a{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid var(--line);box-shadow:0 14px 30px -16px rgba(11,16,32,.3);font-size:14.5px;font-weight:500;color:var(--ink);text-decoration:none;animation:float 6s ease-in-out infinite;animation-delay:var(--fd,0s);transition:box-shadow .25s,border-color .25s;}
+    .orbit__node a:hover{border-color:#CDBFF7;box-shadow:0 20px 40px -16px rgba(109,40,217,.45);}
+    .orbit__node .ico{width:17px;height:17px;}
+
+    /* ── TOPIC MARQUEE ── */
+    .topics{padding:34px 0 10px;text-align:center;}
+    .topics__lbl{font-size:14px;color:var(--muted);margin-bottom:18px;}
+    .marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);}
+    .marquee__track{display:flex;gap:14px;width:max-content;animation:marquee 45s linear infinite;padding:4px 0;}
+    .marquee:hover .marquee__track{animation-play-state:paused;}
+    .chip{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:15px;font-weight:500;white-space:nowrap;box-shadow:var(--shadow-sm);}
+    .chip i{width:8px;height:8px;border-radius:50%;}
+
+    /* ── PILLARS ── */
+    .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .pillar h3{font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px;}
+    .pillar p{color:var(--muted);font-size:15px;}
+    .pillar small{display:block;margin-top:16px;font-size:12.5px;font-weight:600;color:var(--violet);}
+
+    /* ── CONSOLE ── */
+    .split{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center;}
+    .split>*{min-width:0;}
+    .console{position:relative;border-radius:24px;background:#0E1224;border:1px solid #1F2440;box-shadow:var(--shadow-pop);overflow:hidden;transition:transform .2s ease-out;}
+    .console__bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.07);font-size:12.5px;color:rgba(255,255,255,.55);}
+    .console__bar i{width:10px;height:10px;border-radius:50%;}
+    .console__bar i:nth-child(1){background:#F87171;}.console__bar i:nth-child(2){background:#FBBF24;}.console__bar i:nth-child(3){background:#34D399;}
+    .console__bar b{margin-left:8px;font-weight:500;}
+    .console__goal{padding:16px 20px;font-size:14px;color:rgba(255,255,255,.88);border-bottom:1px dashed rgba(255,255,255,.08);}
+    .console__goal span{color:#C4B5FD;font-weight:600;}
+    .console__body{padding:16px 20px 18px;min-height:290px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px;line-height:1.65;}
+    .step{display:flex;gap:10px;margin-bottom:10px;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s;}
+    .step--in{opacity:1;transform:none;}
+    .step__k{flex-shrink:0;width:74px;font-weight:700;font-size:11px;letter-spacing:.08em;padding-top:2px;}
+    .step__k--think{color:#C4B5FD;}.step__k--act{color:#F9A8D4;}.step__k--obs{color:#7DD3FC;}.step__k--ans{color:#86EFAC;}
+    .step__v{color:rgba(255,255,255,.86);}
+    .caret{display:inline-block;width:7px;height:15px;background:#C4B5FD;vertical-align:-2px;margin-left:2px;animation:blink 1s steps(1) infinite;}
+    @keyframes blink{50%{opacity:0;}}
+    .console__loop{display:flex;justify-content:center;gap:8px;padding:0 20px 20px;}
+    .console__loop span{font-size:11px;font-weight:700;letter-spacing:.1em;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);transition:all .3s;}
+    .console__loop span.on{background:#fff;color:var(--ink);}
+    .checks{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:28px;}
+    .checks li{display:flex;gap:12px;align-items:flex-start;font-size:15.5px;}
+    .checks .ico{width:22px;height:22px;padding:4px;border-radius:50%;background:var(--violet-soft);color:var(--violet);margin-top:1px;}
+
+    /* ── MISSION ── */
+    .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:48px 0 32px;}
+    .mv-card{padding:36px;}
+    .mv-card__label{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);margin-bottom:10px;}
+    .mv-card h3{font-family:'Outfit',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;}
+    .mv-card p{font-size:15.5px;color:var(--muted);line-height:1.8;}
+    .audience{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+    .audience b{font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:6px;}
+    .audience span{font-size:14px;font-weight:500;padding:9px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);transition:all .25s;}
+    .audience span:hover{border-color:#CDBFF7;transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+
+    /* ── LEVELS / WEEKS ── */
+    .levels{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .level{display:flex;flex-direction:column;overflow:hidden;}
+    .level__n{position:absolute;right:24px;top:18px;font-family:'Outfit',sans-serif;font-size:56px;font-weight:700;line-height:1;color:#F0EFF6;transition:color .4s,transform .4s;}
+    .level:hover .level__n{color:var(--violet-soft);transform:scale(1.06);}
+    .level--active{border-color:#CDBFF7;box-shadow:0 0 0 4px rgba(139,92,246,.08),var(--shadow-sm);}
+    .level__status{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--violet);position:relative;}
+    .level h3{font-family:'Outfit',sans-serif;font-size:23px;font-weight:700;letter-spacing:-.02em;margin:12px 0 10px;max-width:240px;position:relative;}
+    .level p{font-size:14.5px;color:var(--muted);flex:1;margin-bottom:18px;}
+    .level__meta{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px;}
+    .level .btn{align-self:flex-start;}
+    .weeks{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .wk{display:flex;flex-direction:column;gap:10px;}
+    .wk__num{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+    .wk--open{border-color:#CDBFF7;}
+    .wk--open .wk__num{color:var(--violet);}
+    .wk h3{font-family:'Outfit',sans-serif;font-size:19px;font-weight:700;letter-spacing:-.01em;line-height:1.25;}
+    .wk p{font-size:14px;color:var(--muted);flex:1;}
+    .wk__act{font-size:13px;background:var(--soft);padding:10px 12px;border-radius:12px;color:var(--muted);}
+    .wk__act b{color:var(--ink);font-weight:600;}
+    .wk .btn{align-self:flex-start;margin-top:4px;}
+
+    /* ── TOKEN DEMO ── */
+    .demo__panel{padding:32px;}
+    .demo__prompt{font-family:'Outfit',sans-serif;font-size:25px;font-weight:600;letter-spacing:-.01em;line-height:1.35;margin-bottom:24px;min-height:68px;}
+    .demo__prompt em{font-style:normal;background:var(--violet-soft);color:var(--violet);border-radius:8px;padding:0 6px;animation:rise .4s both;}
+    .bars{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+    .bar{display:grid;grid-template-columns:96px 1fr 52px;gap:12px;align-items:center;font-size:14px;}
+    .bar__label{font-weight:600;font-family:ui-monospace,Consolas,monospace;}
+    .bar__track{height:12px;border-radius:999px;background:var(--soft);overflow:hidden;}
+    .bar__fill{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#8B5CF6,#38BDF8);transition:width .5s cubic-bezier(.2,.8,.2,1);}
+    .bar__pct{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;}
+    .bar--picked .bar__label{color:var(--violet);}
+    .demo__controls{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+    .demo__controls label{font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;}
+    .demo__controls input[type=range]{accent-color:var(--violet);width:150px;}
+    .demo__temp{font-variant-numeric:tabular-nums;color:var(--violet);min-width:30px;}
+    .demo__note{font-size:13px;color:var(--muted);margin-top:16px;}
+
+    /* ── CERTIFICATIONS (the one dark band) ── */
+    .certs{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .cert{padding:32px;text-decoration:none;color:#fff;transition:transform .4s cubic-bezier(.2,.8,.2,1),border-color .3s,background .3s;}
+    .cert:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.09);}
+    .cert__badge{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:20px;}
+    .cert__tier{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#C4B5FD;}
+    .cert h3{font-family:'Outfit',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.01em;margin:6px 0 10px;line-height:1.25;}
+    .cert p{font-size:14.5px;color:rgba(255,255,255,.66);margin-bottom:20px;}
+    .cert__meta{display:flex;gap:8px;flex-wrap:wrap;}
+    .cert__meta span{font-size:12.5px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.8);}
+
+    /* ── BUILD / LIVE / BLOG / RESOURCES ── */
+    .builds{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .build h3{font-family:'Outfit',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;}
+    .build p{font-size:15px;color:var(--muted);margin-bottom:16px;}
+    .build small{font-size:13px;font-weight:600;color:var(--violet);}
+    .live{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:56px;border-radius:32px;border:1px solid var(--line);background:#fff;}
+    .live>*:not(.wash){position:relative;z-index:1;min-width:0;}
+    .live__list{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .live__item{padding:20px;}
+    .live__item b{display:block;font-family:'Outfit',sans-serif;font-size:17px;font-weight:600;margin-bottom:4px;}
+    .live__item span{font-size:13.5px;color:var(--muted);}
+    .bposts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+    .bpost{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;}
+    .bpost__tag{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--violet);}
+    .bpost h3{font-family:'Outfit',sans-serif;font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.3;}
+    .bpost p{font-size:14.5px;color:var(--muted);flex:1;}
+    .bpost__meta{font-size:13px;color:var(--muted);}
+    .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
+    .rcard{display:flex;gap:14px;align-items:flex-start;text-decoration:none;padding:20px;}
+    .rcard .icon-tile{width:40px;height:40px;border-radius:12px;margin:0;}
+    .rcard .icon-tile .ico{width:19px;height:19px;}
+    .rcard b{display:block;font-weight:600;font-size:15px;margin-bottom:3px;}
+    .rcard span{font-size:13.5px;color:var(--muted);line-height:1.5;}
+
+    /* ── TEACHERS + START ── */
+    .teach{display:flex;justify-content:space-between;align-items:center;gap:28px;flex-wrap:wrap;padding:40px 44px;}
+    .teach h3{font-family:'Outfit',sans-serif;font-size:28px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px;}
+    .teach p{color:var(--muted);max-width:560px;}
+    .start{position:relative;overflow:hidden;border-radius:36px;padding:96px 40px;text-align:center;background:var(--ink);color:#fff;}
+    .start::before,.start::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 10s ease-in-out infinite;}
+    .start::before{width:420px;height:420px;left:-120px;top:-180px;background:#7C3AED;}
+    .start::after{width:380px;height:380px;right:-100px;bottom:-200px;background:#0EA5E9;animation-delay:-5s;}
+    .start>*{position:relative;z-index:1;}
+    .start h2{font-family:'Outfit',sans-serif;font-size:clamp(34px,4.8vw,56px);font-weight:700;letter-spacing:-.03em;line-height:1.06;margin-bottom:16px;}
+    .start p{font-size:18px;color:rgba(255,255,255,.72);max-width:560px;margin:0 auto 32px;}
+    .start__btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .start__fine{font-size:14px;color:rgba(255,255,255,.55);margin-top:22px;}
+
+    @media(max-width:980px){
+      .hero__grid,.split,.live{grid-template-columns:1fr;}
+      .orbit{max-width:440px;}
+      .levels,.certs,.builds,.bposts,.mv-grid{grid-template-columns:1fr;}
+      .weeks,.pillars{grid-template-columns:1fr 1fr;}
+      .live{padding:36px 24px;}
     }
-    .hero::before { content:""; position:absolute; inset:-80px -15vw 0; z-index:-1; pointer-events:none; background-image:linear-gradient(rgba(124,58,237,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.045) 1px,transparent 1px),radial-gradient(circle at 80% 28%,rgba(168,85,247,.17),transparent 34%); background-size:70px 70px,70px 70px,auto; }
-    .hero__badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--amber); color: var(--brown);
-      padding: 6px 14px; border-radius: 20px;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
-      text-transform: uppercase; margin-bottom: 22px;
-    }
-    .hero__h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: clamp(38px, 5vw, 60px);
-      font-weight: 900; line-height: 1.05; color: var(--brown); margin-bottom: 22px;
-    }
-    .hero__h1 em { font-style: normal; color: var(--coral); }
-    .hero__sub { font-size: 17px; color: var(--warm); line-height: 1.75; max-width: 500px; margin-bottom: 36px; }
-    .hero__btns { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
-    .hero__trust { display: flex; align-items: center; gap: 12px; }
-    .hero__trust-text { font-size: 13px; color: var(--warm); }
-    .hero__trust-text strong { color: var(--brown); }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 700;
-      text-decoration: none; cursor: pointer; border: 2px solid transparent;
-      transition: all 0.18s; font-family: 'Inter', sans-serif;
-    }
-    .btn--primary { background: linear-gradient(135deg,#7C3AED,#9333EA); color: var(--white); box-shadow:0 8px 22px rgba(124,58,237,.2); }
-    .btn--primary:hover { background: #6824D9; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.3); }
-    .btn--ghost { background: transparent; color: var(--brown); border-color: var(--border); }
-    .btn--ghost:hover { border-color: var(--brown); }
-    .btn--sm { padding: 10px 20px; font-size: 14px; }
-
-    /* ── AGENT LOOP SVG ── */
-    .loop-wrap { display: flex; justify-content: center; align-items: center; }
-    .loop-svg { width: 100%; max-width: 380px; }
-    @keyframes node-pulse {
-      0%,100% { r: 54; opacity: 1; }
-      50%      { r: 58; opacity: 0.8; }
-    }
-    .ring-think { animation: node-pulse 2.8s ease-in-out infinite; }
-    .ring-act   { animation: node-pulse 2.8s ease-in-out infinite 0.93s; }
-    .ring-obs   { animation: node-pulse 2.8s ease-in-out infinite 1.86s; }
-    @media (prefers-reduced-motion: reduce) {
-      .ring-think, .ring-act, .ring-obs { animation: none; }
-    }
-
-    /* ── STATS ── */
-    .stats { background: var(--brown); padding: 52px 32px; }
-    .stats__inner { max-width: 1140px; margin: 0 auto; display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; text-align: center; }
-    .stat__n { font-family: 'Outfit', sans-serif; font-size: 52px; font-weight: 900; color: var(--coral); line-height: 1; margin-bottom: 10px; }
-    .stat__l { font-size: 14px; color: rgba(250,249,255,0.65); line-height: 1.55; }
-    .stat__src { font-size: 11px; color: rgba(250,249,255,0.35); margin-top: 4px; }
-
-    /* ── LEARNING LEVELS ── */
-    .levels { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
-    .levels__head { display:flex; justify-content:space-between; gap:32px; align-items:end; margin-bottom:32px; }
-    .levels__head p { max-width:520px; color:var(--warm); }
-    .levels__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-    .level { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:26px; position:relative; overflow:hidden; }
-    .level--active { border:2px solid var(--coral); }
-    .level__n { font-family:'Outfit',sans-serif; font-weight:900; font-size:44px; color:var(--light); position:absolute; right:18px; top:8px; }
-    .level--active .level__n { color:var(--coral-light); }
-    .level__status { font-size:10px; text-transform:uppercase; letter-spacing:.12em; font-weight:800; color:var(--coral); }
-    .level__title { font-family:'Outfit',sans-serif; font-size:21px; font-weight:800; margin:12px 0 8px; max-width:220px; }
-    .level__desc { font-size:13px; color:var(--warm); margin-bottom:20px; min-height:82px; }
-    .level__meta { display:flex; gap:7px; flex-wrap:wrap; margin-bottom:18px; }
-    .level__meta span { font-size:11px; font-weight:700; background:var(--cream); padding:5px 8px; border-radius:99px; }
-
-    /* ── SECTION SHELL ── */
-    .sec { max-width: 1140px; margin: 0 auto; padding: 80px 32px; }
-    .sec--0top { padding-top: 0; }
-    .sec__eye { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--coral); margin-bottom: 12px; }
-    .sec__h2 { font-family: 'Outfit', sans-serif; font-size: clamp(28px,3.8vw,40px); font-weight: 800; line-height: 1.2; color: var(--brown); margin-bottom: 14px; }
-    .sec__desc { font-size: 16px; color: var(--warm); max-width: 580px; line-height: 1.75; margin-bottom: 48px; }
-
-    /* ── JOURNEY GRID ── */
-    .journey-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .wk {
-      background: var(--white); border: 1px solid var(--border); border-radius: 14px;
-      padding: 28px; display: flex; flex-direction: column; gap: 10px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .wk:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(18,21,38,.08); }
-    .wk--open { border-color: var(--coral); border-width: 2px; background: var(--coral-light); }
-    .wk__num { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm); }
-    .wk--open .wk__num { color: var(--coral); }
-    .wk__title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: var(--brown); line-height: 1.25; }
-    .wk__desc { font-size: 13px; color: var(--warm); line-height: 1.6; flex: 1; }
-    .wk__activity { font-size: 12px; color: var(--warm); background: var(--cream); padding: 8px 12px; border-radius: 6px; }
-    .wk__activity strong { color: var(--amber); }
-    .wk__cta { margin-top: 4px; }
-    .wk__soon { font-size: 12px; font-weight: 600; color: var(--warm); opacity: 0.7; margin-top: 4px; }
-
-    /* ── BUILD SECTION ── */
-    .build-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-    .build-card { background: var(--brown); border-radius: 14px; padding: 32px; color: var(--cream); }
-    .build-card__icon { font-size: 32px; margin-bottom: 14px; }
-    .build-card__title { font-family: 'Outfit', sans-serif; font-size: 19px; font-weight: 800; margin-bottom: 10px; }
-    .build-card__desc { font-size: 14px; color: rgba(250,249,255,0.72); line-height: 1.65; margin-bottom: 16px; }
-    .build-card__tools { font-size: 12px; color: var(--amber); font-weight: 600; }
-
-    /* ── INSTRUCTOR ── */
-    .instructor { background: var(--brown); padding: 80px 32px; }
-    .instructor__inner { max-width: 1140px; margin: 0 auto; }
-    .instructor__intro { max-width: 720px; margin-bottom: 34px; }
-    .instructor__intro h2 { font-family:'Outfit',sans-serif; font-size:clamp(30px,4vw,42px); line-height:1.1; color:var(--cream); margin-bottom:12px; }
-    .instructor__intro p { color:rgba(250,249,255,.68); font-size:16px; }
-    .instructor__grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
-    .instructor__profile { background:rgba(250,249,255,.05); border:1px solid rgba(250,249,255,.12); border-radius:18px; padding:28px; display:grid; grid-template-columns:132px 1fr; gap:24px; align-items:start; }
-    .instructor__photo { width:132px; aspect-ratio:4/5; object-fit:cover; object-position:center top; border-radius:14px; border:2px solid rgba(250,249,255,.16); }
-    .instructor__eye { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
-    .instructor__name { font-family: 'Outfit', sans-serif; font-size: 25px; font-weight: 900; color: var(--cream); margin-bottom: 7px; line-height: 1.1; }
-    .instructor__role { font-size:13px; line-height:1.5; color:var(--amber); font-weight:700; margin-bottom:14px; }
-    .instructor__bio { font-size: 14px; color: rgba(250,249,255,0.72); line-height: 1.7; margin-bottom: 16px; }
-    .instructor__creds { display: flex; flex-direction: column; gap: 9px; }
-    .cred { font-size: 13px; color: rgba(250,249,255,0.82); display: flex; align-items: flex-start; gap: 9px; }
-    .cred::before { content: '✦'; color: var(--coral); font-size: 9px; margin-top: 4px; flex-shrink: 0; }
-    .instructor__card { background: rgba(250,249,255,0.05); border: 1px solid rgba(250,249,255,0.1); border-radius: 14px; padding: 36px; }
-    .instructor__quote { font-family: 'Outfit', sans-serif; font-size: 20px; font-style: italic; color: var(--cream); line-height: 1.55; margin-bottom: 20px; }
-    .instructor__handle { font-size: 13px; font-weight: 700; color: var(--coral); margin-bottom: 14px; }
-    .instructor__links { display: flex; gap: 14px; flex-wrap: wrap; }
-    .instructor__link { font-size: 13px; color: rgba(250,249,255,0.5); text-decoration: none; transition: color 0.18s; }
-    .instructor__link:hover { color: var(--cream); }
-
-    /* ── FOR TEACHERS ── */
-    .teachers { background: var(--light); padding: 60px 32px; }
-    .teachers__inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px; }
-    .teachers__copy h3 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: var(--brown); margin-bottom: 8px; }
-    .teachers__copy p { font-size: 15px; color: var(--warm); max-width: 480px; line-height: 1.65; }
-    .teachers__downloads { display: flex; gap: 10px; flex-wrap: wrap; }
-
-    /* ── SIGNUP ── */
-    .signup { background: var(--coral); padding: 80px 32px; }
-    .signup__inner { max-width: 620px; margin: 0 auto; text-align: center; }
-    .signup__h2 { font-family: 'Outfit', sans-serif; font-size: 36px; font-weight: 900; color: var(--white); line-height: 1.15; margin-bottom: 12px; }
-    .signup__desc { font-size: 16px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 32px; }
-    .signup__form { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
-    .signup__inp { flex: 1; min-width: 220px; padding: 14px 18px; border: none; border-radius: 8px; font-size: 15px; font-family: 'Inter', sans-serif; outline: none; color: var(--brown); }
-    .signup__inp:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
-    .signup__btn { background: var(--brown); color: var(--cream); border: none; border-radius: 8px; padding: 14px 26px; font-size: 15px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background 0.18s; }
-    .signup__btn:hover { background: #0d0804; }
-    .signup__fine { font-size: 13px; color: rgba(255,255,255,0.62); margin-top: 16px; }
-    #thanks { display: none; font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 700; color: var(--white); padding: 20px; }
-
-    /* ── FOOTER ── */
-    .footer { background: var(--brown); padding: 36px 32px; }
-    .footer__inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer__logo { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 18px; color: var(--cream); }
-    .footer__logo em { font-style: normal; color: var(--coral); }
-    .footer__links { display: flex; gap: 20px; list-style: none; }
-    .footer__links a { text-decoration: none; color: rgba(250,249,255,0.5); font-size: 13px; transition: color 0.18s; }
-    .footer__links a:hover { color: var(--cream); }
-    .footer__copy { width: 100%; text-align: center; font-size: 13px; color: rgba(250,249,255,0.4); margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(250,249,255,0.08); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; gap: 40px; padding: 48px 20px; }
-      .loop-wrap { max-width: 280px; margin: 0 auto; }
-      .stats__inner { grid-template-columns: 1fr; gap: 32px; }
-      .instructor__grid { grid-template-columns: 1fr; }
-      .journey-grid, .build-grid { grid-template-columns: 1fr 1fr; }
-      .levels__grid { grid-template-columns:1fr; }
-      .levels__head { display:block; }
-      .nav__links li:not(:last-child) { display: none; }
-      .sec { padding: 60px 20px; }
-    }
-    @media (max-width: 600px) {
-      .journey-grid, .build-grid { grid-template-columns: 1fr; }
-      .instructor__profile { grid-template-columns:1fr; }
-      .instructor__photo { width:110px; }
+    @media(max-width:600px){
+      .hero{padding:44px 0 24px;}
+      .hero__h1{font-size:clamp(40px,12vw,52px);}
+      .weeks,.pillars,.live__list{grid-template-columns:1fr;}
+      .orbit__node a{padding:7px 11px;font-size:12.5px;gap:6px;}
+      .orbit__node .ico{width:14px;height:14px;}
+      .bar{grid-template-columns:80px 1fr 46px;}
+      .console__body{min-height:0;font-size:12px;}
+      .step__k{width:62px;}
+      .teach{padding:28px 22px;}
+      .start{padding:64px 22px;border-radius:26px;}
     }
   </style>
   <script src="metrics-config.js"></script><script src="analytics.js"></script>
+  <script src="blog/posts.js?v=20261025"></script>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
-  <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav class="nav">
-  <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
-  <ul class="nav__links">
-    <li><a href="learn.html">Learning Paths</a></li>
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="certifications/index.html">Certifications</a></li>
-    <li><a href="international-advisory-board/index.html">Advisory Board</a></li>
-    <li><a href="#mission">Mission &amp; Vision</a></li>
-    <li><a href="#build">Projects</a></li>
-    <li><a href="#teachers">For Teachers</a></li>
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="feedback.html?from=%2Findex.html&amp;v=20260901-1">Feedback</a></li>
-    <li><a href="week1.html" class="nav__cta">Start Learning →</a></li>
-  </ul>
+<div class="announce" id="announce">
+  New: in-depth prep courses for all three AgenticEd certifications.<a href="certifications/index.html">See details →</a>
+  <button class="announce__x" id="announce-x" aria-label="Dismiss announcement"><svg class="ico" viewBox="0 0 24 24" style="width:16px;height:16px;"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+</div>
+
+<nav class="nav" aria-label="Main">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
+    <button class="nav__toggle" aria-label="Open menu" aria-expanded="false"><svg class="ico" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav__links">
+      <li><a href="learn.html">Learning Paths</a></li>
+      <li><a href="certifications/index.html">Certifications</a></li>
+      <li><a href="sessions.html">Live Sessions</a></li>
+      <li><a href="blog/index.html">Blog</a></li>
+      <li><a href="#teachers">For Teachers</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="week1.html" class="nav__cta">Start learning</a></li>
+    </ul>
+  </div>
 </nav>
 
 <!-- ── HERO ── -->
-<section class="hero">
-  <div>
-    <div class="hero__badge">Free · Practical · Responsible · Open to everyone</div>
-    <h1 class="hero__h1">Learn AI.<br/>Build agents.<br/><em>Prove what you know.</em></h1>
-    <p class="hero__sub">Follow practical weekly learning paths from AI literacy and generative AI foundations to agent building and production systems. Start without coding, then grow as technical as you want.</p>
-    <div class="hero__btns">
-      <a href="week1.html" class="btn btn--primary">Start Beginner Foundations →</a>
-      <a href="learn.html" class="btn btn--ghost">Explore learning paths</a>
+<header class="hero">
+  <div class="wash wash--fade" aria-hidden="true"></div>
+  <div class="wrap hero__grid">
+    <div>
+      <a class="hero__pill" href="certifications/index.html"><b>New</b>Verifiable AI agent certifications</a>
+      <h1 class="hero__h1">
+        <span class="line">Learn to build</span>
+        <span class="line">AI agents, <span class="accent grad-text">responsibly.</span></span>
+      </h1>
+      <p class="hero__sub">Free, practical learning paths from AI literacy to building and evaluating agentic systems. Start without coding and go as deep as you want.</p>
+
+      <div class="search" role="search">
+        <div class="search__box">
+          <span class="search__slash" aria-hidden="true">/</span>
+          <input id="search" type="search" placeholder="Search lessons, courses, and articles" autocomplete="off" aria-label="Search AgenticEd" aria-controls="search-results"/>
+          <button class="search__btn" id="search-btn" aria-label="Search"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
+        </div>
+        <div class="search__results" id="search-results" role="listbox"></div>
+      </div>
+
+      <div class="trust">
+        <div><div class="trust__n" id="impact-sessions">Free</div><div class="trust__l" id="impact-sessions-l">for every learner</div></div>
+        <div><div class="trust__n">3</div><div class="trust__l">certification tiers</div></div>
+        <div><div class="trust__n">No signup</div><div class="trust__l">progress stays on your device</div></div>
+      </div>
     </div>
-    <div class="hero__trust">
-      <div class="hero__trust-text"><strong>Choose course based on your goals and experience</strong> · Learn weekly or at your own pace · Progress stays on your device</div>
+
+    <div class="orbit" id="orbit" aria-label="Explore AgenticEd">
+      <svg viewBox="0 0 480 480" aria-hidden="true">
+        <circle class="orbit__ring" cx="240" cy="240" r="192"/>
+        <circle class="orbit__inner" cx="240" cy="240" r="128"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="240" y2="48"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="406" y2="144"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="406" y2="336"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="240" y2="432"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="74" y2="336"/>
+        <line class="orbit__spoke" x1="240" y1="240" x2="74" y2="144"/>
+        <g id="orbit-signals">
+          <circle cx="240" cy="240" r="3.5" fill="#8B5CF6"><animateMotion dur="3.2s" repeatCount="indefinite" path="M0,0 L0,-192"/></circle>
+          <circle cx="240" cy="240" r="3.5" fill="#38BDF8"><animateMotion dur="3.2s" begin="0.55s" repeatCount="indefinite" path="M0,0 L166,-96"/></circle>
+          <circle cx="240" cy="240" r="3.5" fill="#EC4899"><animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite" path="M0,0 L166,96"/></circle>
+          <circle cx="240" cy="240" r="3.5" fill="#F59E0B"><animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite" path="M0,0 L0,192"/></circle>
+          <circle cx="240" cy="240" r="3.5" fill="#10B981"><animateMotion dur="3.2s" begin="2.1s" repeatCount="indefinite" path="M0,0 L-166,96"/></circle>
+          <circle cx="240" cy="240" r="3.5" fill="#8B5CF6"><animateMotion dur="3.2s" begin="2.65s" repeatCount="indefinite" path="M0,0 L-166,-96"/></circle>
+        </g>
+      </svg>
+      <div class="orbit__core"><img src="images/agenticed-mark.png" alt="AgenticEd"/></div>
+      <div class="orbit__node" style="left:50%;top:10%;"><a href="learn.html" style="--fd:0s;"><svg class="ico" viewBox="0 0 24 24" style="color:#7C3AED"><path d="M3 7l9-4 9 4-9 4-9-4zM7 9v5c0 1.7 2.2 3 5 3s5-1.3 5-3V9"/></svg>Learning Paths</a></div>
+      <div class="orbit__node" style="left:84.6%;top:30%;"><a href="certifications/index.html" style="--fd:-1s;"><svg class="ico" viewBox="0 0 24 24" style="color:#0284C7"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L8 21l4-2 4 2-1-7.5"/></svg>Certifications</a></div>
+      <div class="orbit__node" style="left:84.6%;top:70%;"><a href="sessions.html" style="--fd:-2s;"><svg class="ico" viewBox="0 0 24 24" style="color:#DB2777"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>Live Sessions</a></div>
+      <div class="orbit__node" style="left:50%;top:90%;"><a href="blog/index.html" style="--fd:-3s;"><svg class="ico" viewBox="0 0 24 24" style="color:#D97706"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>Blog</a></div>
+      <div class="orbit__node" style="left:15.4%;top:70%;"><a href="#teachers" style="--fd:-4s;"><svg class="ico" viewBox="0 0 24 24" style="color:#059669"><path d="M4 21V9l8-5 8 5v12M9 21v-6h6v6"/></svg>Schools</a></div>
+      <div class="orbit__node" style="left:15.4%;top:30%;"><a href="#build" style="--fd:-5s;"><svg class="ico" viewBox="0 0 24 24" style="color:#7C3AED"><path d="M14 6l4 4-9 9H5v-4zM12 8l4 4"/></svg>Projects</a></div>
     </div>
   </div>
-  <div class="loop-wrap">
-    <svg id="loop" class="loop-svg" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#7C3AED"/>
-        </marker>
-        <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#A855F7"/>
-        </marker>
-        <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-          <path d="M0,1 L9,5 L0,9 Z" fill="#121526"/>
-        </marker>
-      </defs>
-      <path id="p1" d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="none"/>
-      <path id="p2" d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="none"/>
-      <path id="p3" d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="none"/>
-      <path d="M 232,118 C 290,140 340,210 318,272" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a1)"/>
-      <path d="M 290,318 C 250,350 150,350 110,318" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a2)"/>
-      <path d="M 82,272  C 60,210 110,140 168,118" fill="none" stroke="#E4E1F0" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#a3)"/>
-      <circle class="ring-think" cx="200" cy="82" r="54" fill="none" stroke="rgba(18,21,38,0.1)" stroke-width="1"/>
-      <circle cx="200" cy="82" r="48" fill="#121526"/>
-      <text x="200" y="76" text-anchor="middle" fill="#FAF9FF" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">THINK</text>
-      <text x="200" y="93" text-anchor="middle" fill="#7C3AED" font-family="Inter,sans-serif" font-weight="600" font-size="10">Reason &amp; Plan</text>
-      <circle class="ring-act" cx="318" cy="305" r="54" fill="none" stroke="rgba(124,58,237,0.15)" stroke-width="1"/>
-      <circle cx="318" cy="305" r="48" fill="#7C3AED"/>
-      <text x="318" y="299" text-anchor="middle" fill="#FFFFFF" font-family="Outfit,sans-serif" font-weight="800" font-size="13" letter-spacing="2">ACT</text>
-      <text x="318" y="316" text-anchor="middle" fill="rgba(255,255,255,0.82)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Use Tools</text>
-      <circle class="ring-obs" cx="82" cy="305" r="54" fill="none" stroke="rgba(245,166,35,0.15)" stroke-width="1"/>
-      <circle cx="82" cy="305" r="48" fill="#A855F7"/>
-      <text x="82" y="299" text-anchor="middle" fill="#121526" font-family="Outfit,sans-serif" font-weight="800" font-size="11" letter-spacing="1.5">OBSERVE</text>
-      <text x="82" y="316" text-anchor="middle" fill="rgba(18,21,38,0.7)" font-family="Inter,sans-serif" font-weight="600" font-size="10">Learn &amp; Adapt</text>
-      <circle id="d1a" r="5" fill="#7C3AED" opacity="0.9"/>
-      <circle id="d1b" r="5" fill="#7C3AED" opacity="0.9"/>
-      <circle id="d2a" r="5" fill="#A855F7" opacity="0.9"/>
-      <circle id="d2b" r="5" fill="#A855F7" opacity="0.9"/>
-      <circle id="d3a" r="5" fill="#121526" opacity="0.9"/>
-      <circle id="d3b" r="5" fill="#121526" opacity="0.9"/>
-      <text x="200" y="196" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">The Agent</text>
-      <text x="200" y="214" text-anchor="middle" fill="#B0997E" font-family="Outfit,sans-serif" font-weight="600" font-size="13">Reasoning Loop</text>
-    </svg>
+
+  <div class="topics">
+    <p class="topics__lbl">What you'll learn</p>
+    <div class="marquee" aria-hidden="true"><div class="marquee__track" id="marquee"></div></div>
+  </div>
+</header>
+
+<!-- ── PILLARS ── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="center" style="margin-bottom:52px;">
+      <p class="eye reveal">How AgenticEd works</p>
+      <h2 class="h2 reveal">Learn it. Build it. <span class="grad-text">Break it.</span></h2>
+      <p class="lead reveal">Every concept becomes something you make — and then something you test, so you know when to trust AI and when a human must step in.</p>
+    </div>
+    <div class="pillars" data-stagger=".1">
+      <div class="card spot pillar reveal"><div class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-5a3 3 0 0 0-3 3"/></svg></div><h3>Learn</h3><p>Understand AI, generative models, agents, and their limits — clear concepts, no hype.</p><small>Weekly lessons and quizzes</small></div>
+      <div class="card spot pillar reveal"><div class="icon-tile"><svg class="ico" viewBox="0 0 24 24"><path d="M14 6l4 4-9 9H5v-4zM12 8l4 4"/></svg></div><h3>Build</h3><p>Turn each concept into an experiment, an activity, or a working agent you can show.</p><small>Portfolio-ready evidence</small></div>
+      <div class="card spot pillar reveal"><div class="icon-tile icon-tile--pink"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4"/></svg></div><h3>Break</h3><p>Test failures, evaluate results, and decide where human judgment belongs.</p><small>Responsible AI, practised</small></div>
+    </div>
   </div>
 </section>
 
-<!-- ── IMPACT ── -->
-<style>
-  .impact{padding:44px 32px 56px;background:var(--brown);color:var(--white)}
-  .impact__inner{max-width:1140px;margin:0 auto}
-  .impact__eye{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:8px}
-  .impact h2{font:900 clamp(24px,3.4vw,32px)/1.1 'Outfit',sans-serif;margin-bottom:22px}
-  .impact__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:520px}
-  .impact__metric{padding:20px;border:1px solid rgba(255,255,255,.18);border-radius:14px;background:rgba(255,255,255,.06)}
-  .impact__value{display:block;font:900 clamp(32px,5vw,48px)/1 'Outfit',sans-serif}
-  .impact__label{font-size:13px;color:rgba(255,255,255,.75);margin-top:6px}
-  @media(max-width:500px){.impact__grid{grid-template-columns:1fr}}
-</style>
-<section class="impact" aria-labelledby="impact-title">
-  <div class="impact__inner">
-    
-    <h2 id="impact-title">A growing community of AI learners.</h2>
-    <div class="impact__grid">
-      <div class="impact__metric"><span class="impact__value" id="impact-sessions">—</span><span class="impact__label">Learner sessions started</span></div>
-      <div class="impact__metric"><span class="impact__value" id="impact-visits">—</span><span class="impact__label">Total page visits</span></div>
+<!-- ── WATCH AN AGENT THINK ── -->
+<section class="sec sec--soft">
+  <div class="wrap split">
+    <div>
+      <p class="eye reveal">See it in action</p>
+      <h2 class="h2 reveal">Watch an agent think.</h2>
+      <p class="lead reveal">An agent doesn't just answer — it reasons, uses tools, checks the results, and adapts. You'll learn to design this loop, and to decide where a person must approve the next step.</p>
+      <ul class="checks">
+        <li class="reveal"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Think → Act → Observe, step by step</li>
+        <li class="reveal" style="--d:.08s;"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Tools, memory, and retrieval that ground answers</li>
+        <li class="reveal" style="--d:.16s;"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg>Human approval before actions that matter</li>
+      </ul>
+    </div>
+    <div class="console reveal" id="console" aria-label="Animated example of an AI agent's reasoning loop">
+      <div class="console__bar"><i></i><i></i><i></i><b>agent.run()</b></div>
+      <div class="console__goal"><span>GOAL</span>&nbsp; Plan a 3-day study schedule before my biology exam</div>
+      <div class="console__body" id="console-body"></div>
+      <div class="console__loop"><span data-k="think">THINK</span><span data-k="act">ACT</span><span data-k="obs">OBSERVE</span></div>
     </div>
   </div>
 </section>
-
-<!-- ── STATS ── -->
-<div class="stats">
-  <div class="stats__inner">
-    <div>
-      <div class="stat__n">Learn</div>
-      <div class="stat__l">Understand AI, generative models, agents, and their limitations</div>
-      <div class="stat__src">Clear concepts · No hype</div>
-    </div>
-    <div>
-      <div class="stat__n">Build</div>
-      <div class="stat__l">Turn each concept into an experiment, activity, or working project</div>
-      <div class="stat__src">Practical evidence · Portfolio ready</div>
-    </div>
-    <div>
-      <div class="stat__n">Break</div>
-      <div class="stat__l">Test failures, evaluate results, and decide when humans must intervene</div>
-      <div class="stat__src">Responsible AI · Human judgment</div>
-    </div>
-  </div>
-</div>
 
 <!-- ── MISSION & VISION ── -->
-<style>
-  .mission{background:var(--brown);padding:84px 32px;color:var(--white);}
-  .mission__inner{max-width:1140px;margin:0 auto;}
-  .mission__eye{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;}
-  .mission__h2{font-family:'Outfit',sans-serif;font-size:clamp(28px,3.8vw,40px);font-weight:900;line-height:1.15;color:var(--cream);max-width:760px;margin-bottom:16px;}
-  .mission__sub{font-size:16px;color:rgba(250,249,255,.68);max-width:640px;line-height:1.75;margin-bottom:48px;}
-  .mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px;}
-  .mv-card{background:rgba(250,249,255,.05);border:1px solid rgba(250,249,255,.12);border-radius:18px;padding:32px;transition:border-color .2s,transform .2s;}
-  .mv-card:hover{border-color:rgba(124,58,237,.55);transform:translateY(-2px);}
-  .mv-card__icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#7C3AED,#A855F7);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;}
-  .mv-card__label{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
-  .mv-card__title{font-family:'Outfit',sans-serif;font-size:20px;font-weight:800;color:var(--cream);margin-bottom:12px;line-height:1.3;}
-  .mv-card__text{font-size:14.5px;color:rgba(250,249,255,.72);line-height:1.75;}
-  .mv-audience{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
-  .mv-audience-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(250,249,255,.4);}
-  .mv-audience span.tag{font-size:12.5px;font-weight:700;background:rgba(250,249,255,.06);border:1px solid rgba(250,249,255,.16);padding:9px 16px;border-radius:99px;color:rgba(250,249,255,.88);}
-  @media(max-width:700px){.mv-grid{grid-template-columns:1fr;}}
-</style>
-<section class="mission" id="mission" aria-labelledby="mission-title">
-  <div class="mission__inner">
-    <p class="mission__eye">Why AgenticEd Exists</p>
-    <h2 class="mission__h2" id="mission-title">AI fluency shouldn't depend on your age, budget, or background.</h2>
-    <p class="mission__sub">AgenticEd closes two gaps at once: helping the next generation grow up understanding AI, and helping everyone else catch up — without either group needing to become a programmer first.</p>
-    <div class="mv-grid">
-      <div class="mv-card">
-        <div class="mv-card__icon">🎯</div>
-        <div class="mv-card__label">Our Mission</div>
-        <h3 class="mv-card__title">Teach it right, from the start.</h3>
-        <p class="mv-card__text">AgenticEd's mission is to make artificial intelligence understandable and usable for everyone. We help children and students build AI literacy alongside their coursework — ethically, and never as a substitute for their own thinking — while equipping career transitioners, developers, non-coders, and researchers across our wider community to apply AI independently and responsibly in their own work.</p>
+<section class="sec" id="mission">
+  <div class="wrap">
+    <div class="center">
+      <p class="eye reveal">Why AgenticEd exists</p>
+      <h2 class="h2 reveal" style="max-width:860px;margin-left:auto;margin-right:auto;">AI fluency shouldn't depend on your age, budget, or background.</h2>
+      <p class="lead reveal">AgenticEd closes two gaps at once: helping the next generation grow up understanding AI, and helping everyone else catch up — without either group needing to become a programmer first.</p>
+    </div>
+    <div class="mv-grid" data-stagger=".12">
+      <div class="card spot mv-card reveal">
+        <div class="icon-tile icon-tile--peach"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r=".8"/></svg></div>
+        <div class="mv-card__label">Our mission</div>
+        <h3>Teach it right, from the start.</h3>
+        <p>AgenticEd's mission is to make artificial intelligence understandable and usable for everyone. We help children and students build AI literacy alongside their coursework — ethically, and never as a substitute for their own thinking — while equipping career transitioners, developers, non-coders, and researchers across our wider community to apply AI independently and responsibly in their own work.</p>
       </div>
-      <div class="mv-card">
-        <div class="mv-card__icon">🔭</div>
-        <div class="mv-card__label">Our Vision</div>
-        <h3 class="mv-card__title">Fluency for every generation.</h3>
-        <p class="mv-card__text">We envision a future where AI fluency is not determined by age, background, or technical skill — where a student, a career changer, an experienced developer, and a first-time non-coder can all build the same judgment and confidence to use AI well, at whatever depth they choose to go.</p>
+      <div class="card spot mv-card reveal">
+        <div class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <div class="mv-card__label">Our vision</div>
+        <h3>Fluency for every generation.</h3>
+        <p>We envision a future where AI fluency is not determined by age, background, or technical skill — where a student, a career changer, an experienced developer, and a first-time non-coder can all build the same judgment and confidence to use AI well, at whatever depth they choose to go.</p>
       </div>
     </div>
-    <div class="mv-audience">
-      <span class="mv-audience-label">Built for</span>
-      <span class="tag">Youth &amp; Students</span>
-      <span class="tag">Career Transitioners</span>
-      <span class="tag">Developers &amp; Coders</span>
-      <span class="tag">Non-Coders</span>
-      <span class="tag">Researchers</span>
+    <div class="audience reveal" style="justify-content:center;">
+      <b>Built for</b><span>Youth &amp; Students</span><span>Career Transitioners</span><span>Developers &amp; Coders</span><span>Non-Coders</span><span>Researchers</span>
     </div>
   </div>
 </section>
 
 <!-- ── LEARNING LEVELS ── -->
-<section class="levels">
-  <div class="levels__head">
-    <div><span class="sec__eye">Three levels, one clear path</span><h2 class="sec__h2">Begin where you are. Keep building.</h2></div>
-    <p>AgenticEd begins with accessible AI literacy, adds a Python bridge for technical learners, and progresses toward reliable agentic systems.</p>
-  </div>
-  <div class="levels__grid">
-    <article class="level level--active">
-      <span class="level__n">01</span><div class="level__status">Available now</div>
-      <h3 class="level__title">AI &amp; Agent Foundations</h3>
-      <p class="level__desc">AI literacy, generative AI, prompting, tools, memory, basic agents, responsible use, and a first project.</p>
-      <div class="level__meta"><span>6 weeks</span><span>No coding</span><span>Beginner</span></div>
-      <a href="week1.html" class="btn btn--primary btn--sm">Start Level 1 →</a>
-    </article>
-    <article class="level">
-      <span class="level__n">02</span><div class="level__status">In development</div>
-      <h3 class="level__title">AI Application &amp; Agent Builder</h3>
-      <p class="level__desc">Python, APIs, JSON, structured outputs, semantic search, RAG, tools, state, memory, and evaluation.</p>
-      <div class="level__meta"><span>8 weeks</span><span>Python bridge</span><span>Intermediate</span></div>
-      <a href="learn.html" class="btn btn--ghost btn--sm">Preview the path →</a>
-    </article>
-    <article class="level">
-      <span class="level__n">03</span><div class="level__status">Roadmap</div>
-      <h3 class="level__title">Production Agentic Systems</h3>
-      <p class="level__desc">Architecture, orchestration, multi-agent patterns, security, observability, evaluation, and deployment.</p>
-      <div class="level__meta"><span>8 weeks</span><span>Advanced</span><span>Capstone</span></div>
-      <a href="learn.html" class="btn btn--ghost btn--sm">See the roadmap →</a>
-    </article>
+<section class="sec sec--soft">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><p class="eye reveal">Three levels, one path</p><h2 class="h2 reveal">Begin where you are.<br/>Keep building.</h2></div>
+      <p class="lead reveal">Start with accessible AI literacy, add a Python bridge for technical learners, and progress toward reliable agentic systems.</p>
+    </div>
+    <div class="levels" data-stagger=".1">
+      <article class="card spot level level--active reveal">
+        <span class="level__n">01</span><div class="level__status">Available now</div>
+        <h3>AI &amp; Agent Foundations</h3>
+        <p>AI literacy, generative AI, prompting, tools, memory, basic agents, responsible use, and a first project.</p>
+        <div class="level__meta"><span class="tag">6 weeks</span><span class="tag">No coding</span><span class="tag">Beginner</span></div>
+        <a href="week1.html" class="btn btn--primary btn--sm">Start Level 1 <span class="arrow">→</span></a>
+      </article>
+      <article class="card spot level reveal">
+        <span class="level__n">02</span><div class="level__status">In development</div>
+        <h3>AI Application &amp; Agent Builder</h3>
+        <p>Python, APIs, JSON, structured outputs, semantic search, RAG, tools, state, memory, and evaluation.</p>
+        <div class="level__meta"><span class="tag">8 weeks</span><span class="tag">Python bridge</span><span class="tag">Intermediate</span></div>
+        <a href="learn.html" class="btn btn--ghost btn--sm">Preview the path <span class="arrow">→</span></a>
+      </article>
+      <article class="card spot level reveal">
+        <span class="level__n">03</span><div class="level__status">Roadmap</div>
+        <h3>Production Agentic Systems</h3>
+        <p>Architecture, orchestration, multi-agent patterns, security, observability, evaluation, and deployment.</p>
+        <div class="level__meta"><span class="tag">8 weeks</span><span class="tag">Advanced</span><span class="tag">Capstone</span></div>
+        <a href="learn.html" class="btn btn--ghost btn--sm">See the roadmap <span class="arrow">→</span></a>
+      </article>
+    </div>
   </div>
 </section>
 
 <!-- ── JOURNEY ── -->
 <section class="sec" id="course">
-  <span class="sec__eye">Level 1 · Beginner Foundations</span>
-  <h2 class="sec__h2">Six weekly missions. Visible progress. Real evidence.</h2>
-  <p class="sec__desc">Each week combines a concept, experiment, activity, quiz, and portfolio artifact. Complete it in six weeks or move at your own pace.</p>
-
-  <div class="journey-grid">
-    <div class="wk wk--open">
-      <div class="wk__num">WEEK 1 · OPEN NOW</div>
-      <div class="wk__title">AI Foundations: From Automation to Agents</div>
-      <p class="wk__desc">Distinguish automation, AI, machine learning, generative AI, and agents. Then map the Think → Act → Observe loop.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> The Agent Hunt — map a real AI agent's full decision loop</div>
-      <a href="week1.html" class="btn btn--primary btn--sm wk__cta">Start Week 1 →</a>
+  <div class="wrap">
+    <div class="sec__head">
+      <div><p class="eye reveal">Level 1 · Beginner Foundations</p><h2 class="h2 reveal">Six weekly missions.<br/>Real evidence.</h2></div>
+      <p class="lead reveal">Each week combines a concept, experiment, activity, quiz, and portfolio artifact. Finish in six weeks or move at your own pace.</p>
     </div>
-
-    <div class="wk">
-      <div class="wk__num">WEEK 2</div>
-      <div class="wk__title">Generative AI &amp; LLMs</div>
-      <p class="wk__desc">How Large Language Models actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> Prompt Engineering Challenge — 3 rounds</div>
-      <a href="week2.html" class="btn btn--ghost btn--sm wk__cta">Start Week 2 →</a>
+    <div class="weeks" data-stagger=".07">
+      <div class="card spot wk wk--open reveal">
+        <div class="wk__num">Week 1 · Open now</div>
+        <h3>AI Foundations: From Automation to Agents</h3>
+        <p>Distinguish automation, AI, machine learning, generative AI, and agents. Then map the Think → Act → Observe loop.</p>
+        <div class="wk__act"><b>Activity:</b> The Agent Hunt — map a real AI agent's full decision loop</div>
+        <a href="week1.html" class="btn btn--primary btn--sm">Start Week 1 <span class="arrow">→</span></a>
+      </div>
+      <div class="card spot wk reveal">
+        <div class="wk__num">Week 2</div>
+        <h3>Generative AI &amp; LLMs</h3>
+        <p>How large language models actually work, why they hallucinate, and how to write prompts that get real results.</p>
+        <div class="wk__act"><b>Activity:</b> Prompt Engineering Challenge — 3 rounds</div>
+        <a href="week2.html" class="btn btn--ghost btn--sm">Start Week 2 <span class="arrow">→</span></a>
+      </div>
+      <div class="card spot wk reveal">
+        <div class="wk__num">Week 3</div>
+        <h3>Tools, Retrieval &amp; Memory</h3>
+        <p>Why a bare LLM is limited — and how tools and memory transform it. Web search, calculators, databases, and RAG explained simply.</p>
+        <div class="wk__act"><b>Activity:</b> Memory Bot — test what an AI actually remembers</div>
+        <a href="week3.html" class="btn btn--ghost btn--sm">Start Week 3 <span class="arrow">→</span></a>
+      </div>
+      <div class="card spot wk reveal">
+        <div class="wk__num">Week 4</div>
+        <h3>Agent Workflows &amp; Handoffs</h3>
+        <p>Move from one response to a controlled workflow: orchestrators, workers, handoffs, failure propagation, and human checkpoints.</p>
+        <div class="wk__act"><b>Activity:</b> Design your own multi-agent pipeline</div>
+        <a href="week4.html" class="btn btn--ghost btn--sm">Start Week 4 <span class="arrow">→</span></a>
+      </div>
+      <div class="card spot wk reveal">
+        <div class="wk__num">Week 5 · Project</div>
+        <h3>Build Your First Agent</h3>
+        <p>Build, test, break, iterate, and demo your own working AI agent using free no-code tools. Just a browser.</p>
+        <div class="wk__act"><b>Activity:</b> Demo Day — present your working agent</div>
+        <a href="week5.html" class="btn btn--ghost btn--sm">Start Week 5 <span class="arrow">→</span></a>
+      </div>
+      <div class="card spot wk reveal">
+        <div class="wk__num">Week 6</div>
+        <h3>Responsible AI &amp; Your Future</h3>
+        <p>What can go wrong with AI agents, who is responsible, the ethics of autonomy, and where AI careers are heading.</p>
+        <div class="wk__act"><b>Activity:</b> The Hospital Debate — three sides, one decision</div>
+        <a href="week6.html" class="btn btn--ghost btn--sm">Start Week 6 <span class="arrow">→</span></a>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="wk">
-      <div class="wk__num">WEEK 3</div>
-      <div class="wk__title">Tools, Retrieval &amp; Memory</div>
-      <p class="wk__desc">Why a bare LLM is limited — and how tools and memory transform it. Web search, calculators, databases. RAG explained simply.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> Memory Bot — test what an AI actually remembers</div>
-      <a href="week3.html" class="btn btn--ghost btn--sm wk__cta">Start Week 3 →</a>
+<!-- ── INTERACTIVE: NEXT-TOKEN DEMO ── -->
+<section class="sec sec--soft">
+  <div class="wrap split">
+    <div>
+      <p class="eye reveal">Try it yourself</p>
+      <h2 class="h2 reveal">See how a language model picks its next word.</h2>
+      <p class="lead reveal">A model doesn't look answers up. It scores every possible next word and samples one. Move the temperature slider: low values make it predictable, high values make it adventurous — and more likely to drift.</p>
+      <p class="lead reveal" style="margin-top:14px;font-size:15.5px;">You explore this hands-on in Week 2.</p>
     </div>
+    <div class="card demo__panel reveal">
+      <div class="demo__prompt" id="demo-prompt"></div>
+      <div class="bars" id="demo-bars"></div>
+      <div class="demo__controls">
+        <label>Temperature <input type="range" id="demo-temp" min="0.1" max="2" step="0.1" value="0.8"/><span class="demo__temp" id="demo-temp-val">0.8</span></label>
+        <button class="btn btn--primary btn--sm" id="demo-sample">Pick next word</button>
+        <button class="btn btn--ghost btn--sm" id="demo-reset">Reset</button>
+      </div>
+      <p class="demo__note">Illustrative probabilities for teaching — real models choose among tens of thousands of tokens.</p>
+    </div>
+  </div>
+</section>
 
-    <div class="wk">
-      <div class="wk__num">WEEK 4</div>
-      <div class="wk__title">Agent Workflows &amp; Handoffs</div>
-      <p class="wk__desc">Move from one response to a controlled workflow. Explore orchestrators, workers, handoffs, failure propagation, and human checkpoints.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> Design your own multi-agent pipeline</div>
-      <a href="week4.html" class="btn btn--ghost btn--sm wk__cta">Start Week 4 →</a>
+<!-- ── CERTIFICATIONS ── -->
+<section class="sec sec--dark">
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="wrap" style="position:relative;">
+    <div class="sec__head">
+      <div><p class="eye reveal">Certifications</p><h2 class="h2 reveal">Prove what you know.</h2></div>
+      <p class="lead reveal">Three tiers, each with an in-depth prep course and an exam. Every pass earns a shareable certificate that anyone can verify.</p>
     </div>
-
-    <div class="wk">
-      <div class="wk__num">WEEK 5 · PROJECT</div>
-      <div class="wk__title">Build Your First Agent</div>
-      <p class="wk__desc">This is the one. Build, test, break, iterate, and demo your own working AI agent using free no-code tools. No coding. Just a browser.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> Demo Day — present your working agent</div>
-      <a href="week5.html" class="btn btn--ghost btn--sm wk__cta">Start Week 5 →</a>
+    <div class="certs" data-stagger=".1">
+      <a class="glass spot cert reveal" href="certifications/course.html?level=foundational">
+        <div class="cert__badge" style="background:#BBF7D0;">F</div>
+        <div class="cert__tier">Foundational</div>
+        <h3>AI &amp; Agent Foundations</h3>
+        <p>How LLMs work, prompting, agents, tools, retrieval, and responsible use.</p>
+        <div class="cert__meta"><span>6 modules</span><span>20-question exam</span></div>
+      </a>
+      <a class="glass spot cert reveal" href="certifications/course.html?level=associate">
+        <div class="cert__badge" style="background:#DDD6FE;">A</div>
+        <div class="cert__tier">Associate</div>
+        <h3>Agent Builder</h3>
+        <p>Architecture, tool calling, memory, production RAG, multi-agent systems, evaluation, and deployment.</p>
+        <div class="cert__meta"><span>8 modules</span><span>Hands-on labs</span></div>
+      </a>
+      <a class="glass spot cert reveal" href="certifications/course.html?level=advanced">
+        <div class="cert__badge" style="background:#FED7AA;">S</div>
+        <div class="cert__tier">Specialty</div>
+        <h3>AI Safety &amp; Governance</h3>
+        <p>Alignment, threat modeling, prompt injection, guardrails, fairness, oversight, and governance frameworks.</p>
+        <div class="cert__meta"><span>7 modules</span><span>Red-team labs</span></div>
+      </a>
     </div>
-
-    <div class="wk">
-      <div class="wk__num">WEEK 6</div>
-      <div class="wk__title">Responsible AI &amp; Your Future</div>
-      <p class="wk__desc">What can go wrong with AI agents. Who is responsible. The ethics of autonomous systems. And where careers in AI are actually heading.</p>
-      <div class="wk__activity"><strong>✦ Activity:</strong> The Hospital Debate — three sides, one decision</div>
-      <a href="week6.html" class="btn btn--ghost btn--sm wk__cta">Start Week 6 →</a>
-    </div>
+    <div class="reveal" style="margin-top:36px;"><a class="btn btn--light" href="certifications/index.html">View all certifications <span class="arrow">→</span></a></div>
   </div>
 </section>
 
 <!-- ── WHAT YOU'LL BUILD ── -->
-<section class="sec sec--0top" id="build">
-  <span class="sec__eye">What You'll Build</span>
-  <h2 class="sec__h2">In Week 5, you build one of these.</h2>
-  <p class="sec__desc">No coding required. Using free, browser-based tools. Each one is a real, working AI agent you can show to anyone.</p>
-
-  <div class="build-grid">
-    <div class="build-card">
-      <div class="build-card__icon">🔍</div>
-      <div class="build-card__title">Research Agent</div>
-      <p class="build-card__desc">Give it a topic. It researches, summarizes findings, and generates 3 follow-up questions worth exploring. Useful for papers, projects, and curiosity.</p>
-      <div class="build-card__tools">Tools: Claude.ai · Zapier AI</div>
+<section class="sec" id="build">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><p class="eye reveal">What you'll build</p><h2 class="h2 reveal">In Week 5, you build one of these.</h2></div>
+      <p class="lead reveal">No coding required. Free, browser-based tools. Each one is a real, working AI agent you can show to anyone.</p>
     </div>
-    <div class="build-card">
-      <div class="build-card__icon">📚</div>
-      <div class="build-card__title">Study Buddy Agent</div>
-      <p class="build-card__desc">Tell it your subject and weak areas. It generates a personalized study plan with specific topics, time blocks, and practice questions tailored to you.</p>
-      <div class="build-card__tools">Tools: Claude.ai · ChatGPT</div>
-    </div>
-    <div class="build-card">
-      <div class="build-card__icon">✍️</div>
-      <div class="build-card__title">Creative Agent</div>
-      <p class="build-card__desc">Give it a genre, theme, and length. It writes a short story, then switches roles to critique its own writing. Self-evaluating AI in action.</p>
-      <div class="build-card__tools">Tools: Claude.ai · Make.com</div>
+    <div class="builds" data-stagger=".1">
+      <div class="card spot build reveal"><div class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></div><h3>Research Agent</h3><p>Give it a topic. It researches, summarizes findings, and generates three follow-up questions worth exploring.</p><small>Tools: Claude.ai · Zapier AI</small></div>
+      <div class="card spot build reveal"><div class="icon-tile icon-tile--mint"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-5a3 3 0 0 0-3 3"/></svg></div><h3>Study Buddy Agent</h3><p>Tell it your subject and weak areas. It builds a personalized study plan with time blocks and practice questions.</p><small>Tools: Claude.ai · ChatGPT</small></div>
+      <div class="card spot build reveal"><div class="icon-tile icon-tile--peach"><svg class="ico" viewBox="0 0 24 24"><path d="M14 6l4 4-9 9H5v-4zM12 8l4 4"/></svg></div><h3>Creative Agent</h3><p>Give it a genre, theme, and length. It writes a short story, then switches roles to critique its own writing.</p><small>Tools: Claude.ai · Make.com</small></div>
     </div>
   </div>
 </section>
 
-<!-- ── RESOURCES ── -->
-<style>
-  .resources{background:var(--light);padding:64px 32px;}
-  .resources__inner{max-width:1140px;margin:0 auto;}
-  .resources__eye{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);margin-bottom:8px;}
-  .resources__h2{font-family:'Outfit',sans-serif;font-size:clamp(24px,3.4vw,34px);font-weight:900;color:var(--brown);margin-bottom:8px;}
-  .resources__sub{color:var(--warm);font-size:16px;margin-bottom:28px;max-width:60ch;}
-  .rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px;}
-  .rcard{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:22px;text-decoration:none;display:flex;flex-direction:column;gap:6px;transition:transform .16s,border-color .16s,box-shadow .16s;}
-  .rcard:hover{transform:translateY(-3px);border-color:var(--coral);box-shadow:0 12px 26px -14px rgba(60,40,15,.4);}
-  .rcard__ic{font-size:26px;}
-  .rcard__t{font-family:'Outfit',sans-serif;font-weight:800;font-size:16px;color:var(--brown);}
-  .rcard__d{font-size:13.5px;color:var(--warm);line-height:1.5;}
-</style>
-<div class="resources" id="resources">
-  <div class="resources__inner">
-    <p class="resources__eye">Free Resources</p>
-    <h2 class="resources__h2">Everything you need, in one place</h2>
-    <p class="resources__sub">Reference tools, planning aids, and support pages — all free, no login required.</p>
-    <div class="rgrid">
-      <a class="rcard" href="quiz.html?week=1"><span class="rcard__ic">✅</span><span class="rcard__t">Weekly Quizzes</span><span class="rcard__d">Check your understanding after each week — every answer explained.</span></a>
-      <a class="rcard" href="assessment.html"><span class="rcard__ic">📈</span><span class="rcard__t">Baseline &amp; Final Assessment</span><span class="rcard__d">Take it before Week 1 and after Week 6 — see your growth.</span></a>
-      <a class="rcard" href="glossary.html"><span class="rcard__ic">📖</span><span class="rcard__t">Glossary</span><span class="rcard__d">Every key term from all six weeks, searchable.</span></a>
-      <a class="rcard" href="tools.html"><span class="rcard__ic">🧰</span><span class="rcard__t">Tool Setup Guide</span><span class="rcard__d">Get the free AI tools ready — with offline fallbacks.</span></a>
-      <a class="rcard" href="plan.html"><span class="rcard__ic">🗓️</span><span class="rcard__t">Pacing Plan Generator</span><span class="rcard__d">Fit the course to your class schedule, then print it.</span></a>
-      <a class="rcard" href="portfolio.html"><span class="rcard__ic">🗂️</span><span class="rcard__t">Portfolio Tracker</span><span class="rcard__d">Collect one artifact per week into a capstone piece.</span></a>
-      <a class="rcard" href="certificate.html"><span class="rcard__ic">🎓</span><span class="rcard__t">Certificate</span><span class="rcard__d">Generate proof of completion for your portfolio.</span></a>
-      <a class="rcard" href="certifications/index.html"><span class="rcard__ic">🏅</span><span class="rcard__t">Certifications</span><span class="rcard__d">Pass a 20-question exam and earn a shareable, verifiable credential.</span></a>
-      <a class="rcard" href="international-advisory-board/index.html"><span class="rcard__ic">🌐</span><span class="rcard__t">International Advisory Board</span><span class="rcard__d">Meet the educators and researchers guiding our curriculum and standards.</span></a>
-      <a class="rcard" href="approach.html"><span class="rcard__ic">🧭</span><span class="rcard__t">Our Approach</span><span class="rcard__d">What makes AgenticEd's build-plus-govern method different.</span></a>
-      <a class="rcard" href="framework.html"><span class="rcard__ic">◈</span><span class="rcard__t">AgenticEd Framework</span><span class="rcard__d">Turn AI concepts into a hands-on agent project with governance and evidence.</span></a>
-      <a class="rcard" href="rubric.html"><span class="rcard__ic">▣</span><span class="rcard__t">Trust Readiness Rubric</span><span class="rcard__d">Evaluate purpose, reliability, safety, transparency, and human control.</span></a>
-      <a class="rcard" href="faq.html"><span class="rcard__ic">❓</span><span class="rcard__t">FAQ</span><span class="rcard__d">Common questions from teachers and students.</span></a>
-      <a class="rcard" href="privacy.html"><span class="rcard__ic">🔒</span><span class="rcard__t">Privacy &amp; Your Data</span><span class="rcard__d">No accounts, browser-only storage, one-click deletion.</span></a>
-      <a class="rcard" href="feedback.html?from=%2Findex.html&amp;v=20260901-1"><span class="rcard__ic">💬</span><span class="rcard__t">Share Feedback</span><span class="rcard__d">Tell us what worked, what was confusing, and what AgenticEd should improve next.</span></a>
+<!-- ── LIVE SESSIONS TEASER ── -->
+<section class="sec sec--tight">
+  <div class="wrap">
+    <div class="live reveal">
+      <div class="wash" aria-hidden="true"></div>
+      <div>
+        <p class="eye">AgenticEd Live</p>
+        <h2 class="h2" style="font-size:clamp(30px,3.8vw,44px);">Learn from the people building AI.</h2>
+        <p class="lead" style="margin-bottom:28px;">Free live sessions with engineers, researchers, and educators — industry talks, build-along labs, and career conversations.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a class="btn btn--primary" href="sessions.html">See sessions <span class="arrow">→</span></a>
+          <a class="btn btn--ghost" href="sessions.html#speak">Become a speaker</a>
+        </div>
+      </div>
+      <div class="live__list" data-stagger=".08">
+        <div class="card spot live__item reveal"><b>Industry Talks</b><span>How real teams design, evaluate, and ship agents.</span></div>
+        <div class="card spot live__item reveal"><b>Build-Along Labs</b><span>Build a working agent with the instructor.</span></div>
+        <div class="card spot live__item reveal"><b>Educator Roundtables</b><span>Bringing AI into classrooms responsibly.</span></div>
+        <div class="card spot live__item reveal"><b>Career Conversations</b><span>Paths into AI engineering, research, and policy.</span></div>
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<!-- ── BLOG ── -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><p class="eye reveal">From the blog</p><h2 class="h2 reveal">Ideas worth understanding.</h2></div>
+      <a class="btn btn--ghost reveal" href="blog/index.html">All articles <span class="arrow">→</span></a>
+    </div>
+    <div class="bposts" id="bposts" data-stagger=".1"></div>
+  </div>
+</section>
+
+<!-- ── RESOURCES ── -->
+<section class="sec sec--soft" id="resources">
+  <div class="wrap">
+    <div class="sec__head">
+      <div><p class="eye reveal">Free resources</p><h2 class="h2 reveal">Everything you need,<br/>in one place.</h2></div>
+      <p class="lead reveal">Reference tools, planning aids, and support pages — all free, no login required.</p>
+    </div>
+    <div class="rgrid" data-stagger=".04">
+      <a class="card spot rcard reveal" href="quiz.html?week=1"><span class="icon-tile"><svg class="ico" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Weekly Quizzes</b><span>Check your understanding — every answer explained.</span></span></a>
+      <a class="card spot rcard reveal" href="assessment.html"><span class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 4-6"/></svg></span><span><b>Baseline &amp; Final Assessment</b><span>Take it before Week 1 and after Week 6 to see your growth.</span></span></a>
+      <a class="card spot rcard reveal" href="glossary.html"><span class="icon-tile icon-tile--peach"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H4zM20 5h-5a3 3 0 0 0-3 3"/></svg></span><span><b>Glossary</b><span>Every key term from all six weeks, searchable.</span></span></a>
+      <a class="card spot rcard reveal" href="tools.html"><span class="icon-tile icon-tile--mint"><svg class="ico" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/></svg></span><span><b>Tool Setup Guide</b><span>Get the free AI tools ready — with offline fallbacks.</span></span></a>
+      <a class="card spot rcard reveal" href="plan.html"><span class="icon-tile icon-tile--pink"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg></span><span><b>Pacing Plan Generator</b><span>Fit the course to your class schedule, then print it.</span></span></a>
+      <a class="card spot rcard reveal" href="portfolio.html"><span class="icon-tile"><svg class="ico" viewBox="0 0 24 24"><path d="M3 7h6l2 2h10v10H3z"/></svg></span><span><b>Portfolio Tracker</b><span>Collect one artifact per week into a capstone piece.</span></span></a>
+      <a class="card spot rcard reveal" href="certificate.html"><span class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L8 21l4-2 4 2-1-7.5"/></svg></span><span><b>Course Certificate</b><span>Generate proof of completion for your portfolio.</span></span></a>
+      <a class="card spot rcard reveal" href="certifications/index.html"><span class="icon-tile icon-tile--peach"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4zM9 12l2 2 4-4"/></svg></span><span><b>Certifications</b><span>Prep courses and exams with verifiable credentials.</span></span></a>
+      <a class="card spot rcard reveal" href="international-advisory-board/index.html"><span class="icon-tile icon-tile--mint"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></span><span><b>International Advisory Board</b><span>The educators and researchers guiding our standards.</span></span></a>
+      <a class="card spot rcard reveal" href="approach.html"><span class="icon-tile icon-tile--pink"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg></span><span><b>Our Approach</b><span>What makes the build-plus-govern method different.</span></span></a>
+      <a class="card spot rcard reveal" href="framework.html"><span class="icon-tile"><svg class="ico" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/></svg></span><span><b>AgenticEd Framework</b><span>Turn AI concepts into a governed, evidenced agent project.</span></span></a>
+      <a class="card spot rcard reveal" href="rubric.html"><span class="icon-tile icon-tile--sky"><svg class="ico" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><span><b>Trust Readiness Rubric</b><span>Evaluate reliability, safety, transparency, and control.</span></span></a>
+      <a class="card spot rcard reveal" href="faq.html"><span class="icon-tile icon-tile--peach"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5v.01"/></svg></span><span><b>FAQ</b><span>Common questions from teachers and students.</span></span></a>
+      <a class="card spot rcard reveal" href="privacy.html"><span class="icon-tile icon-tile--mint"><svg class="ico" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><b>Privacy &amp; Your Data</b><span>No accounts, browser-only storage, one-click deletion.</span></span></a>
+      <a class="card spot rcard reveal" href="feedback.html?from=%2Findex.html&amp;v=20260901-1"><span class="icon-tile icon-tile--pink"><svg class="ico" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span><span><b>Share Feedback</b><span>Tell us what worked and what we should improve next.</span></span></a>
+    </div>
+  </div>
+</section>
 
 <!-- ── FOR TEACHERS ── -->
-<div class="teachers" id="teachers">
-  <div class="teachers__inner">
-    <div class="teachers__copy">
-      <h3>Are you a teacher?</h3>
-      <p>AgenticEd works as a classroom unit too. Email us to receive lesson plans, worksheets, and a facilitation guide for running this as a 6-week course.</p>
-    </div>
-    <div class="teachers__downloads">
-      <a href="mailto:hello@agenticed.org" class="btn btn--primary btn--sm">Get the Classroom Guide →</a>
+<section class="sec sec--tight" id="teachers">
+  <div class="wrap">
+    <div class="card spot teach reveal">
+      <div>
+        <p class="eye">For teachers</p>
+        <h3>Run AgenticEd as a classroom unit.</h3>
+        <p>Email us to receive lesson plans, worksheets, and a facilitation guide for running this as a 6-week course — no technical background required.</p>
+      </div>
+      <a href="mailto:hello@agenticed.org" class="btn btn--primary">Get the Classroom Guide <span class="arrow">→</span></a>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ── SIGNUP ── -->
-<div class="signup" id="start">
-  <div class="signup__inner">
-    <h2 class="signup__h2">Ready to start learning?</h2>
-    <p class="signup__desc">Begin with Week 1 or open your private, device-local dashboard to continue where you left off.</p>
-    <div style="margin-bottom:20px;">
-      <a href="week1.html" class="btn btn--ghost" style="background:var(--white);color:var(--brown);border-color:transparent;font-size:16px;padding:15px 32px;">Start Week 1 Now — No Signup Needed →</a>
+<!-- ── START ── -->
+<section class="sec sec--tight" id="start" style="padding-bottom:104px;">
+  <div class="wrap">
+    <div class="start reveal">
+      <h2>Ready to start learning?</h2>
+      <p>Begin with Week 1 or open your private, device-local dashboard to continue where you left off.</p>
+      <div class="start__btns">
+        <a href="week1.html" class="btn btn--light">Start Week 1 — no signup needed <span class="arrow">→</span></a>
+        <a href="dashboard.html" class="btn btn--outline-light">Open my dashboard</a>
+      </div>
+      <p class="start__fine">Your progress, quiz results, and portfolio notes stay in this browser.</p>
     </div>
-    <p style="font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:20px;">Your progress, quiz results, and portfolio notes stay in this browser.</p>
-    <a href="dashboard.html" class="btn btn--ghost" style="color:var(--white);border-color:rgba(255,255,255,.5);">Open My Dashboard →</a>
   </div>
-</div>
+</section>
 
-<!-- ── FOOTER ── -->
 <footer class="footer">
-  <div class="footer__inner">
-    <div class="footer__logo"><img class="brand-mark" src="images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></div>
-    <ul class="footer__links">
-      <li><a href="week1.html">Start Week 1</a></li>
-      <li><a href="#resources">Resources</a></li>
-      <li><a href="glossary.html">Glossary</a></li>
-      <li><a href="faq.html">FAQ</a></li>
-      <li><a href="privacy.html">Privacy</a></li>
-      <li><a href="feedback.html?from=%2Findex.html&amp;v=20260901-1">Feedback</a></li>
-      <li><a href="https://github.com/AgenticEdOrg/AgenticEd" target="_blank">GitHub</a></li>
-      <li><a href="mailto:hello@agenticed.org">Contact</a></li>
-    </ul>
-    <p class="footer__copy">© 2026 AgenticEd · Free for any learner, anywhere · CC BY 4.0</p>
+  <div class="wrap">
+    <div class="footer__grid">
+      <div><a class="footer__logo" href="index.html">Agentic<em>Ed</em></a><p class="footer__about">Free, practical AI-agent education for students, educators, and everyone else.</p></div>
+      <div><h4>Learn</h4><ul><li><a href="learn.html">Learning Paths</a></li><li><a href="week1.html">Start Week 1</a></li><li><a href="certifications/index.html">Certifications</a></li><li><a href="glossary.html">Glossary</a></li></ul></div>
+      <div><h4>Community</h4><ul><li><a href="sessions.html">Live Sessions</a></li><li><a href="blog/index.html">Blog</a></li><li><a href="international-advisory-board/index.html">Advisory Board</a></li><li><a href="feedback.html?from=%2Findex.html&amp;v=20260901-1">Feedback</a></li></ul></div>
+      <div><h4>About</h4><ul><li><a href="approach.html">Our Approach</a></li><li><a href="faq.html">FAQ</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="mailto:hello@agenticed.org">Contact</a></li></ul></div>
+    </div>
+    <div class="footer__copy"><span>© 2026 AgenticEd · Free for any learner, anywhere · CC BY 4.0</span><a href="https://github.com/AgenticEdOrg/AgenticEd" target="_blank" rel="noopener">GitHub</a></div>
   </div>
 </footer>
 
 <script>
-  /* Dot animation */
-  (function(){
-    if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-    const segs=[
-      {pid:'p1',dids:['d1a','d1b'],off:0.5},
-      {pid:'p2',dids:['d2a','d2b'],off:0.5},
-      {pid:'p3',dids:['d3a','d3b'],off:0.5},
-    ];
-    const SPD=0.55;
-    const st=segs.map(({pid,dids,off})=>{
-      const el=document.getElementById(pid);
-      if(!el) return null;
-      const len=el.getTotalLength();
-      return {path:el,len,dots:dids.map((id,i)=>({el:document.getElementById(id),t:(len*i*off)%len}))};
-    }).filter(Boolean);
-    function frame(){
-      for(const s of st) for(const d of s.dots){
-        d.t=(d.t+SPD)%s.len;
-        const p=s.path.getPointAtLength(d.t);
-        d.el.setAttribute('cx',p.x.toFixed(1));
-        d.el.setAttribute('cy',p.y.toFixed(1));
-      }
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
-  })();
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(id){return document.getElementById(id);};
 
-  /* Signup */
-  function sub(){
-    const v=document.getElementById('em').value.trim();
-    if(!v||!v.includes('@')){
-      document.getElementById('em').style.boxShadow='0 0 0 3px rgba(255,255,255,0.5)';
-      setTimeout(()=>document.getElementById('em').style.boxShadow='',2000);
-      return;
+  /* Announcement bar (dismissal remembered per browser) */
+  try{ if(localStorage.getItem("agenticed:announce")==="certs-2026-10") $("announce").remove(); }catch(e){}
+  if($("announce-x")) $("announce-x").addEventListener("click",function(){
+    $("announce").remove();
+    try{localStorage.setItem("agenticed:announce","certs-2026-10");}catch(e){}
+  });
+
+  /* Stop orbit signal dots for reduced motion */
+  if(reduce){ var sig=$("orbit-signals"); if(sig) sig.remove(); }
+
+  /* Topic marquee (duplicated for a seamless loop) */
+  var topics=[["AI literacy","#F59E0B"],["Prompt engineering","#38BDF8"],["Tool calling","#8B5CF6"],["RAG","#EC4899"],["Agent memory","#10B981"],["Multi-agent systems","#F59E0B"],["Evaluation","#38BDF8"],["Guardrails","#8B5CF6"],["Prompt injection","#EC4899"],["Human oversight","#10B981"],["Responsible AI","#F59E0B"],["AI careers","#38BDF8"]];
+  var half=topics.map(function(t){return '<span class="chip"><i style="background:'+t[1]+'"></i>'+t[0]+'</span>';}).join("");
+  $("marquee").innerHTML=half+half;
+
+  /* Site search over key pages, courses, and blog posts */
+  var idx=[
+    ["Week 1 — AI Foundations: From Automation to Agents","week1.html","Lesson"],
+    ["Week 2 — Generative AI & LLMs","week2.html","Lesson"],
+    ["Week 3 — Tools, Retrieval & Memory","week3.html","Lesson"],
+    ["Week 4 — Agent Workflows & Handoffs","week4.html","Lesson"],
+    ["Week 5 — Build Your First Agent","week5.html","Lesson"],
+    ["Week 6 — Responsible AI & Your Future","week6.html","Lesson"],
+    ["Learning Paths","learn.html","Page"],
+    ["AI & Agent Foundations certification prep course","certifications/course.html?level=foundational","Certification"],
+    ["Agent Builder — Associate prep course (RAG, tools, evaluation)","certifications/course.html?level=associate","Certification"],
+    ["AI Safety & Governance — Specialty prep course (prompt injection, guardrails)","certifications/course.html?level=advanced","Certification"],
+    ["All certifications and exams","certifications/index.html","Certification"],
+    ["Live Sessions","sessions.html","Page"],
+    ["Glossary of AI terms","glossary.html","Resource"],
+    ["Weekly quizzes","quiz.html?week=1","Resource"],
+    ["Tool setup guide","tools.html","Resource"],
+    ["Pacing plan generator","plan.html","Resource"],
+    ["Portfolio tracker","portfolio.html","Resource"],
+    ["Trust readiness rubric","rubric.html","Resource"],
+    ["AgenticEd framework","framework.html","Resource"],
+    ["FAQ","faq.html","Resource"],
+    ["Privacy & your data","privacy.html","Resource"],
+    ["International Advisory Board","international-advisory-board/index.html","Page"]
+  ];
+  (window.AGENTICED_POSTS||[]).forEach(function(p){idx.push([p.title,"blog/"+p.slug+".html","Article",p.tags.join(" ")+" "+p.excerpt]);});
+  var input=$("search"),box=$("search-results"),active=-1,hits=[];
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+  function run(){
+    var q=input.value.trim().toLowerCase();
+    if(!q){box.classList.remove("search__results--open");return;}
+    var terms=q.split(/\s+/);
+    hits=idx.filter(function(r){var hay=(r[0]+" "+r[2]+" "+(r[3]||"")).toLowerCase();return terms.every(function(t){return hay.indexOf(t)!==-1;});}).slice(0,8);
+    active=-1;
+    box.innerHTML=hits.length?hits.map(function(r,i){return '<a class="search__item" role="option" href="'+r[1]+'" data-i="'+i+'"><b>'+esc(r[0])+'</b><span>'+r[2]+'</span></a>';}).join(""):'<div class="search__empty">No matches. Try "RAG", "prompt", or "week 3".</div>';
+    box.classList.add("search__results--open");
+  }
+  input.addEventListener("input",run);
+  input.addEventListener("focus",run);
+  input.addEventListener("keydown",function(e){
+    var items=box.querySelectorAll(".search__item");
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      e.preventDefault(); if(!items.length) return;
+      active=(active+(e.key==="ArrowDown"?1:-1)+items.length)%items.length;
+      items.forEach(function(el,i){el.classList.toggle("search__item--active",i===active);});
+    } else if(e.key==="Enter"){
+      var target=items[active>=0?active:0]; if(target) location.href=target.getAttribute("href");
+    } else if(e.key==="Escape"){ box.classList.remove("search__results--open"); input.blur(); }
+  });
+  $("search-btn").addEventListener("click",function(){ if(hits[0]&&input.value.trim()) location.href=hits[0][1]; else input.focus(); });
+  document.addEventListener("click",function(e){ if(!e.target.closest(".search")) box.classList.remove("search__results--open"); });
+  document.addEventListener("keydown",function(e){
+    if(e.key==="/"&&document.activeElement!==input&&!/input|textarea/i.test(document.activeElement.tagName)){e.preventDefault();input.focus();}
+  });
+
+  /* Agent console: plays a ReAct-style trace when visible, in a loop */
+  var trace=[
+    {k:"think",l:"THINK",v:"I need the exam date and the topics first."},
+    {k:"act",l:"ACT",v:"calendar.find(\"biology exam\")"},
+    {k:"obs",l:"OBSERVE",v:"Exam on Friday, 9:00 AM. 3 days left."},
+    {k:"think",l:"THINK",v:"Which topics are weakest? Check quiz history."},
+    {k:"act",l:"ACT",v:"notes.search(\"quiz scores\")"},
+    {k:"obs",l:"OBSERVE",v:"Lowest: genetics (55%), cell transport (62%)."},
+    {k:"ans",l:"ANSWER",v:"Day 1 genetics · Day 2 cell transport · Day 3 mixed practice test. Add to calendar? [Approve]"}
+  ];
+  var body=$("console-body"),loop=document.querySelectorAll(".console__loop span"),playing=false;
+  function mark(k){loop.forEach(function(s){s.classList.toggle("on",s.getAttribute("data-k")===k);});}
+  function play(){
+    playing=true; body.innerHTML=""; var i=0;
+    function next(){
+      if(i>=trace.length){mark("");setTimeout(play,3600);return;}
+      var s=trace[i++],row=document.createElement("div");
+      row.className="step";
+      row.innerHTML='<span class="step__k step__k--'+s.k+'">'+s.l+'</span><span class="step__v"></span>';
+      body.appendChild(row);
+      requestAnimationFrame(function(){row.classList.add("step--in");});
+      mark(s.k==="ans"?"":s.k);
+      var v=row.querySelector(".step__v"),c=0;
+      if(reduce){v.textContent=s.v;setTimeout(next,500);return;}
+      var caret=document.createElement("span");caret.className="caret";v.appendChild(caret);
+      (function type(){
+        if(c<s.v.length){caret.insertAdjacentText("beforebegin",s.v.charAt(c++));setTimeout(type,18);}
+        else{caret.remove();setTimeout(next,s.k==="obs"?900:550);}
+      })();
     }
-    document.getElementById('frm').style.display='none';
-    document.getElementById('thanks').style.display='block';
+    next();
+  }
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es,o){ if(es[0].isIntersecting&&!playing){play();o.disconnect();} },{threshold:.3}).observe($("console"));
+  } else play();
+  var con=$("console");
+  if(!reduce&&window.matchMedia('(pointer:fine)').matches){
+    con.addEventListener("pointermove",function(e){
+      var r=con.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      con.style.transform="perspective(1000px) rotateY("+(x*5)+"deg) rotateX("+(-y*5)+"deg)";
+    });
+    con.addEventListener("pointerleave",function(){con.style.transform="";});
   }
 
-  /* Live impact numbers */
-  (function () {
-    var cfg = window.AGENTICED_SUPABASE;
-    var fmt = new Intl.NumberFormat();
-    if (!cfg || !cfg.url || !cfg.key) return;
-    fetch(cfg.url.replace(/\/$/, '') + '/rest/v1/rpc/get_visit_stats', {
-      method: 'POST',
-      headers: { apikey: cfg.key, Authorization: 'Bearer ' + cfg.key, 'Content-Type': 'application/json' },
-      body: '{}'
-    }).then(function (r) { return r.json(); }).then(function (rows) {
-      var row = rows && rows[0];
-      if (!row) throw new Error('no data');
-      var sessions = fmt.format(row.learner_sessions || 0);
-      var visits = fmt.format(row.total_visits || 0);
-      var impactSessions = document.getElementById('impact-sessions');
-      if (impactSessions) impactSessions.textContent = sessions;
-      var impactVisits = document.getElementById('impact-visits');
-      if (impactVisits) impactVisits.textContent = visits;
-    }).catch(function () {});
-  })();
+  /* Next-token demo */
+  var base="The best way to learn AI is to";
+  var cands=[["build",2.6],["practice",2.2],["start",1.9],["read",1.3],["ask",1.0],["dance",-0.6]].map(function(c){return {w:c[0],logit:c[1]};});
+  var added=[],temp=0.8,picked=null;
+  function probs(){
+    var ex=cands.map(function(c){return Math.exp(c.logit/temp);}),sum=ex.reduce(function(a,b){return a+b;},0);
+    return ex.map(function(e){return e/sum;});
+  }
+  function render(){
+    $("demo-prompt").innerHTML=base+" "+(added.length?'<em>'+added[0]+'</em>':"…");
+    var p=probs();
+    $("demo-bars").innerHTML=cands.map(function(c,i){
+      return '<div class="bar'+(picked===i?' bar--picked':'')+'"><span class="bar__label">'+c.w+'</span><span class="bar__track"><span class="bar__fill" style="width:'+(p[i]*100).toFixed(1)+'%"></span></span><span class="bar__pct">'+(p[i]*100).toFixed(0)+'%</span></div>';
+    }).join("");
+  }
+  $("demo-temp").addEventListener("input",function(e){temp=parseFloat(e.target.value);$("demo-temp-val").textContent=temp.toFixed(1);render();});
+  $("demo-sample").addEventListener("click",function(){
+    var p=probs(),r=Math.random(),acc=0; picked=p.length-1;
+    for(var i=0;i<p.length;i++){acc+=p[i];if(r<=acc){picked=i;break;}}
+    added=[cands[picked].w];render();
+  });
+  $("demo-reset").addEventListener("click",function(){added=[];picked=null;render();});
+  render();
+
+  /* Latest blog posts */
+  $("bposts").innerHTML=(window.AGENTICED_POSTS||[]).slice(0,3).map(function(p){
+    var d=new Date(p.date+"T00:00:00").toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"});
+    return '<a class="card spot bpost reveal" href="blog/'+p.slug+'.html"><span class="bpost__tag">'+p.tags[0]+'</span><h3>'+p.title+'</h3><p>'+p.excerpt+'</p><span class="bpost__meta">'+d+' · '+p.readMins+' min read</span></a>';
+  }).join("");
+
+  /* Live learner count replaces the "Free" trust stat when available */
+  var cfg=window.AGENTICED_SUPABASE;
+  if(cfg&&cfg.url&&cfg.key){
+    fetch(cfg.url.replace(/\/$/,"")+"/rest/v1/rpc/get_visit_stats",{
+      method:"POST",
+      headers:{apikey:cfg.key,Authorization:"Bearer "+cfg.key,"Content-Type":"application/json"},
+      body:"{}"
+    }).then(function(r){return r.json();}).then(function(rows){
+      var row=rows&&rows[0]; if(!row||!row.learner_sessions) return;
+      $("impact-sessions-l").textContent="learner sessions started";
+      (window.agenticedCount||function(el,v){el.textContent=new Intl.NumberFormat().format(v);})($("impact-sessions"),row.learner_sessions);
+    }).catch(function(){});
+  }
+})();
 </script>
+<script src="site.js?v=20261025"></script>
 </body>
 </html>

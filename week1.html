@@ -239,8 +239,8 @@
     <h1 class="lhdr__h1">AI Foundations: From Automation to Agents</h1>
     <div class="lhdr__meta">
       <div class="lhdr__chip">⏱ 60–75 minutes</div>
-      <div class="lhdr__chip">🧪 1 hands-on activity</div>
-      <div class="lhdr__chip">💻 Optional Colab notebook</div>
+      <div class="lhdr__chip">1 hands-on activity</div>
+      <div class="lhdr__chip">Optional Colab notebook</div>
       <div class="lhdr__chip">✓ No coding required</div>
     </div>
   </div>
@@ -331,21 +331,21 @@
 
     <div class="examples">
       <div class="ex-card">
-        <div class="ex-card__icon">🎵</div>
+        
         <div class="ex-card__product">Spotify Discover Weekly</div>
         <div class="ex-card__think"><span class="ex-card__label">Think</span>What should this user enjoy based on what they skip vs. replay?</div>
         <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and sequences 30 songs</div>
         <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Tracks which songs get skipped, saved, or repeated</div>
       </div>
       <div class="ex-card">
-        <div class="ex-card__icon">🗺️</div>
+        
         <div class="ex-card__product">Google Maps Navigation</div>
         <div class="ex-card__think"><span class="ex-card__label">Think</span>What's the fastest route right now given live traffic?</div>
         <div class="ex-card__act"><span class="ex-card__label">Act</span>Plans a route and gives turn-by-turn directions</div>
         <div class="ex-card__obs"><span class="ex-card__label">Observe</span>Monitors your location and traffic; reroutes when needed</div>
       </div>
       <div class="ex-card">
-        <div class="ex-card__icon">🛒</div>
+        
         <div class="ex-card__product">Amazon Recommendations</div>
         <div class="ex-card__think"><span class="ex-card__label">Think</span>What is this person likely to buy next?</div>
         <div class="ex-card__act"><span class="ex-card__label">Act</span>Selects and displays personalized product recommendations</div>
@@ -361,13 +361,13 @@
 
   <!-- RESPONSIBLE-AI BEAT -->
   <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;">
-    <div class="callout__label" style="color:#996600;">🛡 Responsible-AI Beat — Who owns this agent's decisions?</div>
+    <div class="callout__label" style="color:#996600;">Responsible-AI Beat — Who owns this agent's decisions?</div>
     <p>When an AI agent makes a decision and it turns out to be wrong, <strong>who is responsible</strong>? The person who built it? The person who used it? The company that sold it? The agent itself? There's no clean answer — and that's the point. Every agent decision traces back to a <strong>human who is accountable for it</strong>. Hold onto this question; it comes back at Demo Day in Week 5. (Heads up: the apps you map below collect data about <em>you</em> to make their decisions — you have a say in that.)</p>
   </div>
 
   <!-- ACTIVITY -->
   <div class="activity">
-    <div class="activity__badge">✏️ Activity — The Agent Hunt</div>
+    <div class="activity__badge">Activity — The Agent Hunt</div>
     <h3>Map your own AI agent</h3>
     <p class="activity__intro">Choose a technology you use regularly — a recommendation engine, a voice assistant, a navigation app, a tutoring tool, or any product that feels "smart." Fill in the Agent Profile below.</p>
 
@@ -384,15 +384,15 @@
 
     <div class="loop-fields">
       <div class="loop-field loop-field--think">
-        <div class="loop-field__label">💭 THINK — What does it reason about?</div>
+        <div class="loop-field__label">THINK — What does it reason about?</div>
         <textarea id="f-think" placeholder="What information does it consider before acting?"></textarea>
       </div>
       <div class="loop-field loop-field--act">
-        <div class="loop-field__label">⚡ ACT — What action does it take?</div>
+        <div class="loop-field__label">ACT — What action does it take?</div>
         <textarea id="f-act" placeholder="What does it actually do?"></textarea>
       </div>
       <div class="loop-field loop-field--obs">
-        <div class="loop-field__label">👁 OBSERVE — How does it learn?</div>
+        <div class="loop-field__label">OBSERVE — How does it learn?</div>
         <textarea id="f-obs" placeholder="How does it know if it succeeded?"></textarea>
       </div>
     </div>
@@ -423,7 +423,7 @@
     <div class="notebook__right">
       <a href="https://colab.research.google.com/drive/12gsjTm3hsfHB88IlVhZg7zZQB-jpDjQt"
          target="_blank" class="notebook__btn">
-        <span class="notebook__btn-icon">⚡</span>
+        
         Open in Google Colab
       </a>
       <p class="notebook__secondary">
@@ -448,16 +448,16 @@
     <span class="ck">while</span> step &lt; max_steps:
         <span class="cm"># THINK: Decide what to do next</span>
         thought = think(goal, memory)
-        <span class="co">print</span>(<span class="cs">f"💭 THINK: {thought}"</span>)
+        <span class="co">print</span>(<span class="cs">f"THINK: {thought}"</span>)
 
         <span class="cm"># ACT: Use a tool</span>
         action, result = act(thought, tools)
-        <span class="co">print</span>(<span class="cs">f"⚡  ACT: {action}"</span>)
+        <span class="co">print</span>(<span class="cs">f" ACT: {action}"</span>)
 
         <span class="cm"># OBSERVE: See what happened</span>
         observation = observe(result)
         memory.append(observation)
-        <span class="co">print</span>(<span class="cs">f"👁  OBSERVE: {observation}\n"</span>)
+        <span class="co">print</span>(<span class="cs">f" OBSERVE: {observation}\n"</span>)
 
         <span class="ck">if</span> goal_reached(result):
             <span class="ck">break</span>
@@ -478,7 +478,7 @@ simple_agent(goal=<span class="cs">"Find 3 facts about AI agents"</span>, tools=
       <p class="next__title">Generative AI and LLMs</p>
       <p class="next__desc">How LLMs actually work. Why they hallucinate. How to write prompts that get real results — not vague, generic answers.</p>
     </div>
-    <div class="next__lock">🔒 Unlocks after you complete Week 1</div>
+    <div class="next__lock">Unlocks after you complete Week 1</div>
   </div>
 
 </div><!-- end .body -->
@@ -513,9 +513,9 @@ function submitActivity(){
   res.innerHTML=`
     <strong style="color:var(--coral);display:block;margin-bottom:8px;">✓ Great work! Here's your Agent Profile for <em>${p}</em></strong>
     <p style="margin-bottom:6px;"><strong>Goal:</strong> ${g}</p>
-    <p style="margin-bottom:6px;"><strong>💭 Think:</strong> ${t}</p>
-    <p style="margin-bottom:6px;"><strong>⚡ Act:</strong> ${a}</p>
-    <p style="margin-bottom:10px;"><strong>👁 Observe:</strong> ${o}</p>
+    <p style="margin-bottom:6px;"><strong>Think:</strong> ${t}</p>
+    <p style="margin-bottom:6px;"><strong>Act:</strong> ${a}</p>
+    <p style="margin-bottom:10px;"><strong>Observe:</strong> ${o}</p>
     <p style="font-size:13px;color:var(--warm);">
       You've just done what AI engineers do every day — trace how a system reasons, acts, and learns.
       Keep this mental model. Every agent system you build in Week 5 will follow this same loop.

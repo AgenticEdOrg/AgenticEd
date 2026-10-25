@@ -2,7 +2,7 @@
 
 **Free, practitioner-authored learning paths that take people from AI literacy to building and evaluating agentic systems.**
 
-⭐ Star this repo if you find it useful · 🍴 Fork freely · 📬 Share with a teacher or a friend
+Star this repo if you find it useful · Fork freely · Share with a teacher or a friend
 
 ---
 
@@ -32,7 +32,7 @@ The 6-week course covers:
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 AgenticEd/
@@ -94,7 +94,7 @@ AgenticEd/
 
 ---
 
-## 🚀 Quick Start for Teachers
+## Quick Start for Teachers
 
 **Option A — Teach the full 6-week course**
 1. Download `curriculum/AgenticEd_curriculum.md` for the complete guide
@@ -112,7 +112,7 @@ No teacher needed. Start at Week 1 on the website and work through at your own p
 
 ---
 
-## 🛠️ Tools Required (All Free)
+## Tools Required (All Free)
 
 Students don't need to install anything. All activities use browser-based tools:
 
@@ -128,7 +128,7 @@ No student accounts required for basic use. Teachers should test tool access fro
 
 ---
 
-## 📊 Curriculum Stats
+## Curriculum Stats
 
 | Metric | Value |
 |---|---|
@@ -142,7 +142,7 @@ No student accounts required for basic use. Teachers should test tool access fro
 
 ---
 
-## 🤝 How to Contribute
+## How to Contribute
 
 This is an open curriculum. Contributions are welcome:
 
@@ -155,17 +155,17 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 📬 Stay Updated
+## Stay Updated
 
 New weeks, translated versions, and teacher resources are added regularly.
 
-- 🌐 Website: [agenticed.org](https://agenticed.org)
-- 📧 Teacher list: [hello@agenticed.org](mailto:hello@agenticed.org)
-- 📰 Newsletter: [The Agentic Stack](https://agenticestack.beehiiv.com)
+- Website: [agenticed.org](https://agenticed.org)
+- Teacher list: [hello@agenticed.org](mailto:hello@agenticed.org)
+- Newsletter: [The Agentic Stack](https://agenticestack.beehiiv.com)
 
 ---
 
-## 📄 License
+## License
 
 This curriculum is released under **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
 
@@ -178,11 +178,11 @@ You are free to:
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built around the independent AgenticEd Build-Govern-Prove Framework.
 Inspired by the gap between what students are taught about AI and what is actually being deployed in the real world.
 
 ---
 
-*If this curriculum helped your students, please ⭐ star the repo and share it with one other teacher.*
+*If this curriculum helped your students, please star the repo and share it with one other teacher.*

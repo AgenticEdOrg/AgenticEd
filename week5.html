@@ -164,14 +164,14 @@
     </div>
   </div>
   <div class="activity">
-    <div class="activity__badge">&#128640; Activity &mdash; Build Challenge + Demo Day</div>
+    <div class="activity__badge">Activity &mdash; Build Challenge + Demo Day</div>
     <h3>Build your first agent. Then show it off.</h3>
     <p class="activity__intro">Complete the <a href="research-agent.html"><strong>Research Agent: Source-to-Decision capstone</strong></a> end to end, or choose another agent type and apply the same build, governance, testing, and evidence requirements. You will demo it in 2-3 minutes.</p>
     <div class="cards" style="margin-bottom:24px;">
-      <div class="card"><div class="card__icon">&#128269;</div><div class="card__title">Option A: Research Agent</div><div class="card__desc">Give it a topic &rarr; it researches, summarizes key findings, and lists open questions.</div></div>
-      <div class="card"><div class="card__icon">&#128218;</div><div class="card__title">Option B: Study Buddy</div><div class="card__desc">Tell it your subject and weak areas &rarr; it creates a personalized study plan with practice questions.</div></div>
-      <div class="card"><div class="card__icon">&#9997;</div><div class="card__title">Option C: Creative Agent</div><div class="card__desc">Give it a genre and theme &rarr; it writes a short story then critiques its own writing.</div></div>
-      <div class="card" style="border-color:var(--amber);"><div class="card__icon">&#127757;</div><div class="card__title">Option D: Community Impact Agent &#9733;</div><div class="card__desc">Pick a real problem in your school or community &rarr; build an agent that helps, <strong>plus</strong> a one-page agent policy. The recommended <strong>capstone / portfolio</strong> track &mdash; you demo the build <em>and</em> the policy together.</div></div>
+      <div class="card"><div class="card__title">Option A: Research Agent</div><div class="card__desc">Give it a topic &rarr; it researches, summarizes key findings, and lists open questions.</div></div>
+      <div class="card"><div class="card__title">Option B: Study Buddy</div><div class="card__desc">Tell it your subject and weak areas &rarr; it creates a personalized study plan with practice questions.</div></div>
+      <div class="card"><div class="card__title">Option C: Creative Agent</div><div class="card__desc">Give it a genre and theme &rarr; it writes a short story then critiques its own writing.</div></div>
+      <div class="card" style="border-color:var(--amber);"><div class="card__title">Option D: Community Impact Agent </div><div class="card__desc">Pick a real problem in your school or community &rarr; build an agent that helps, <strong>plus</strong> a one-page agent policy. The recommended <strong>capstone / portfolio</strong> track &mdash; you demo the build <em>and</em> the policy together.</div></div>
     </div>
     <div class="field-row">
       <div class="field"><label>Option chosen</label><select id="choice"><option value="">Select...</option><option>A: Research Agent</option><option>B: Study Buddy</option><option>C: Creative Agent</option><option>D: Community Impact Agent (capstone)</option></select></div>
@@ -186,7 +186,7 @@
       <div class="field"><label>One thing it still cannot do</label><input type="text" id="weakness" placeholder="A limitation you would fix with more time..."/></div>
     </div>
     <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;margin:8px 0 4px;">
-      <div class="callout__label" style="color:#996600;">&#128737; Demo Day &mdash; The Three Accountability Questions</div>
+      <div class="callout__label" style="color:#996600;">Demo Day &mdash; The Three Accountability Questions</div>
       <p>Every builder answers these three at their demo &mdash; they&rsquo;re part of the grade. This is where &ldquo;Who owns this agent&rsquo;s decisions?&rdquo; from Week 1 pays off, and it&rsquo;s exactly the mindset real AI teams hire for.</p>
     </div>
     <div class="field"><label>1. What could go wrong? (a realistic failure mode)</label><textarea id="acc-wrong" placeholder="Where and how could your agent fail in a way that matters?"></textarea></div>
@@ -203,7 +203,7 @@
       <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
     </div>
     <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1sK04fD6maj8o8BFW3RDOUt_vlJtT8MYF" target="_blank" class="notebook__btn"><span class="notebook__btn-icon">&#9889;</span>Open in Google Colab</a>
+      <a href="https://colab.research.google.com/drive/1sK04fD6maj8o8BFW3RDOUt_vlJtT8MYF" target="_blank" class="notebook__btn">Open in Google Colab</a>
       <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1sK04fD6maj8o8BFW3RDOUt_vlJtT8MYF/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
     </div>
   </div>
@@ -233,7 +233,7 @@ function submitActivity(){
   const c=document.getElementById('choice').value,t=document.getElementById('tool').value,sp=document.getElementById('sysprompt').value.trim(),d=document.getElementById('agentdesc').value.trim();
   if(!c||!t||!sp||!d){alert('Fill in your choice, tool, system prompt, and description first.');return;}
   const res=document.getElementById('activity-result');res.style.display='block';
-  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">&#127881; You Built a Real AI Agent!</strong><p style="margin-bottom:8px;"><strong>Your agent:</strong> '+d+'</p><p>The system prompt you wrote is the blueprint. Every production AI agent in the world started with someone writing a system prompt exactly like yours. One week left &mdash; Week 6 covers what happens when these systems fail at scale, and where your career in this field could go.</p>';
+  res.innerHTML='<strong style="color:var(--coral);display:block;margin-bottom:10px;">You Built a Real AI Agent!</strong><p style="margin-bottom:8px;"><strong>Your agent:</strong> '+d+'</p><p>The system prompt you wrote is the blueprint. Every production AI agent in the world started with someone writing a system prompt exactly like yours. One week left &mdash; Week 6 covers what happens when these systems fail at scale, and where your career in this field could go.</p>';
   res.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function clearActivity(){['sysprompt','agentdesc','failure','fix','strength','weakness'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});['choice','tool'].forEach(id=>document.getElementById(id).value='');document.getElementById('activity-result').style.display='none';}

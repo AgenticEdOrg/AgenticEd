@@ -254,9 +254,9 @@ What's the biggest risk if something goes wrong? _______________
 ```
 
 ### Oversight-by-Design Add — Annotate Your Approval Checkpoints
-After pairs draw their pipeline (Orchestrator → Worker → Worker → …), give them one more task: **draw a 🛑 stop sign on the diagram everywhere a human must approve before the agent continues.** A checkpoint is required before any action that is *irreversible or affects someone else* — sending an email, spending money, publishing content, submitting a form, sharing personal data.
+After pairs draw their pipeline (Orchestrator → Worker → Worker → …), give them one more task: **draw a stop sign on the diagram everywhere a human must approve before the agent continues.** A checkpoint is required before any action that is *irreversible or affects someone else* — sending an email, spending money, publishing content, submitting a form, sharing personal data.
 
-For each 🛑 they place, they answer:
+For each they place, they answer:
 ```
 Checkpoint at: _______________ (which handoff / action)
 Why a human must approve here: _______________
@@ -268,7 +268,7 @@ This turns "human-in-the-loop" from a vocabulary word into a design decision. Th
 ### Teacher Notes
 - Students find the "team analogy" very intuitive. Push them to think about failure modes — what happens when one agent produces bad output that the next agent uses without checking?
 - Human-in-the-loop is worth emphasizing: most production systems have at least one human checkpoint before irreversible actions (sending emails, making purchases, publishing content).
-- A useful litmus test for students placing 🛑 checkpoints: "If the agent gets this step wrong, can you undo it?" If no, a human belongs in the loop there.
+- A useful litmus test for students placing checkpoints: "If the agent gets this step wrong, can you undo it?" If no, a human belongs in the loop there.
 
 ---
 
@@ -308,7 +308,7 @@ Suggested tools: knowledge base (upload your own notes), question generation
 Goal: Given a genre, theme, and length, the agent writes a short story and then critiques its own writing.
 Suggested tools: writing, self-review
 
-**Option D — The Community Impact Agent** ★ *(capstone track)*
+**Option D — The Community Impact Agent** *(capstone track)*
 Goal: Pick a real problem in your school or community (food-drive logistics, a multilingual welcome guide for new students, a study-resource finder, a local-volunteering matcher) and build an agent that helps with it.
 Suggested tools: web search, knowledge base, summarization — plus a one-page **"agent policy"** the student writes: who it's for, what data it uses, where a human must approve, and what could go wrong.
 *This is the recommended track for students building a portfolio piece (see Capstone below) — they demo the build **and** the policy together.*
@@ -425,7 +425,7 @@ Students who choose **Option D — The Community Impact Agent** in Week 5 finish
 
 The capstone has two parts, presented together:
 1. **The agent** — a working Community Impact Agent that helps with a real problem in their school or community.
-2. **The one-page agent policy** — who it's for, what data it uses, where a human approves (the 🛑 checkpoints from Week 4), and answers to the three accountability questions from Week 5.
+2. **The one-page agent policy** — who it's for, what data it uses, where a human approves (the checkpoints from Week 4), and answers to the three accountability questions from Week 5.
 
 > **Why this is a strong college-application artifact:** most students can say "I used AI." Very few can say "I built an AI agent for my community, *and* I can explain what could go wrong, who's accountable, and how I protected people's data." That second sentence is the differentiator. Encourage students to keep their build worksheet, policy page, and a 60-second demo recording together as one portfolio entry.
 
@@ -452,7 +452,7 @@ Every week compresses to ~45 minutes by trimming to the core:
 | 1 | Loop lecture + Agent Hunt + accountability beat | Extended group exploration |
 | 2 | LLM/hallucination lecture + 1 prompt round + Wrong-vs-Harmful 2×2 | Run only Round 1 of the challenge |
 | 3 | RAG demo (Part A) + debrief | Skip Part B Memory Bot |
-| 4 | Pipeline design + 🛑 checkpoint annotation | Shorten gallery walk |
+| 4 | Pipeline design + checkpoint annotation | Shorten gallery walk |
 | 5 | Build + demo with the 3 accountability questions | Reduce build time; demo in small groups |
 | 6 | Risk lecture + ethics debate + Responsible-AI careers | Shorten final reflection to exit-ticket |
 
@@ -470,9 +470,9 @@ The course is designed so each week produces **one artifact**. Collected togethe
 | 1 | Agent Profile (Agent Hunt) | Understands the Think → Act → Observe loop |
 | 2 | Winning prompt + Wrong-vs-Harmful placement | Prompting skill + fact-checking judgment |
 | 3 | RAG notebook screenshot with citations | Understands retrieval / grounding |
-| 4 | Pipeline diagram with 🛑 checkpoints | Designs oversight into a system |
+| 4 | Pipeline diagram with checkpoints | Designs oversight into a system |
 | 5 | Working agent + build worksheet | Can build and debug an agent |
-| 5★ | One-page agent policy + 3 accountability answers | Accountability as a skill |
+| 5| One-page agent policy + 3 accountability answers | Accountability as a skill |
 | 6 | Final reflection + a Responsible-AI career they're curious about | Ethical reasoning + future direction |
 
 A web version of this tracker ships as **`portfolio.html`** in this repo — students can fill it in, see their progress, and print/export the result as their portfolio summary.
@@ -521,4 +521,4 @@ This curriculum is free to use, adapt, and share under Creative Commons Attribut
 Please credit: *AgenticEd · agenticed.org*
 
 If you use this curriculum in your classroom, we'd love to hear from you.
-📬 hello@agenticed.org
+hello@agenticed.org

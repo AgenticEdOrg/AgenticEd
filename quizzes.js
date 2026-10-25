@@ -85,7 +85,7 @@ window.AGENTICED_QUIZ = {
         {q:"What's the biggest risk in a chain of agents?",
          opts:["It costs slightly more","One agent's error compounds as later agents build on it unchecked","The agents get bored","It runs too slowly to be useful"],
          a:1, why:"Error compounding is the classic multi-agent failure: a bad research result becomes a confident summary becomes a published mistake. That's why pipelines need checks between stages."},
-        {q:"Where must a human-approval checkpoint (🛑) go?",
+        {q:"Where must a human-approval checkpoint go?",
          opts:["After every single step, no exceptions","Before any action that is irreversible or affects someone else — sending, spending, publishing, sharing data","Only at the very end","Nowhere — checkpoints defeat the purpose of agents"],
          a:1, why:"The litmus test: 'If the agent gets this step wrong, can you undo it?' If not, a human belongs in the loop there. Everything reversible can stay autonomous."},
         {q:"What are guardrails?",

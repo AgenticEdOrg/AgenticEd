@@ -132,9 +132,9 @@
     <h2 class="lsec__h2">Three things a bare LLM cannot do</h2>
     <p>After Week 2 you understand how LLMs work. Now the honest problem: <strong>a bare LLM is severely limited</strong>. Without tools and memory it cannot do most of the things that make agents genuinely useful.</p>
     <div class="cards">
-      <div class="card"><div class="card__icon">&#128197;</div><div class="card__title">Frozen in time</div><div class="card__desc">Knowledge ends at training cutoff. Ask it about yesterday's news and it either says it does not know &mdash; or makes something up.</div></div>
-      <div class="card"><div class="card__icon">&#128290;</div><div class="card__title">Cannot compute reliably</div><div class="card__desc">LLMs are unreliable at math. Arithmetic is not pattern matching. It will often give a wrong answer stated with full confidence.</div></div>
-      <div class="card"><div class="card__icon">&#128190;</div><div class="card__title">Forgets everything</div><div class="card__desc">Every conversation starts fresh. Close the chat, open a new one &mdash; no memory of who you are or what you decided before.</div></div>
+      <div class="card"><div class="card__title">Frozen in time</div><div class="card__desc">Knowledge ends at training cutoff. Ask it about yesterday's news and it either says it does not know &mdash; or makes something up.</div></div>
+      <div class="card"><div class="card__title">Cannot compute reliably</div><div class="card__desc">LLMs are unreliable at math. Arithmetic is not pattern matching. It will often give a wrong answer stated with full confidence.</div></div>
+      <div class="card"><div class="card__title">Forgets everything</div><div class="card__desc">Every conversation starts fresh. Close the chat, open a new one &mdash; no memory of who you are or what you decided before.</div></div>
     </div>
     <p>This is why tools exist. Each tool solves exactly one of these limitations. Together they turn a limited text predictor into a genuinely capable agent.</p>
   </div>
@@ -171,7 +171,7 @@
   </div>
 
   <div class="activity">
-    <div class="activity__badge">&#9999; Activity A &mdash; See RAG Work (no code)</div>
+    <div class="activity__badge">Activity A &mdash; See RAG Work (no code)</div>
     <h3>Ground an AI in a real document &mdash; and watch it retrieve</h3>
     <p class="activity__intro">RAG is easier to <em>see</em> than to explain. Use a free no-code RAG tool to feed in a document and watch the AI answer <strong>from that source</strong>, with citations. Pick one tool: <strong>NotebookLM</strong> (notebooklm.google.com) &mdash; answers cite the exact source passage &mdash; or <strong>Perplexity</strong> (perplexity.ai) &mdash; shows the pages it retrieved.</p>
     <div class="steps" style="margin-bottom:20px;">
@@ -183,13 +183,13 @@
     <div class="field"><label>Which answers were grounded in the source vs. invented?</label><textarea id="rag-grounded" placeholder="What did the citations show? Did the unanswerable question get a made-up answer?"></textarea></div>
     <div class="field"><label>How did seeing the citation change how much you trusted the answer?</label><textarea id="rag-trust" placeholder="Your insight..."></textarea></div>
     <div class="callout" style="border-left-color:var(--amber);background:#FFFBEF;margin-top:20px;">
-      <div class="callout__label" style="color:#996600;">&#127760; Access note</div>
+      <div class="callout__label" style="color:#996600;">Access note</div>
       <p>No logins or tools allowed at your school? Two fallbacks: <strong>(1) Teacher-projected mode</strong> &mdash; the teacher runs one document on the projector and the class directs it together. <strong>(2) Paper RAG</strong> &mdash; groups get a one-page source and may only answer using highlighted lines, citing each one; a question the page can&rsquo;t answer must be marked &ldquo;not in the source.&rdquo; That <em>is</em> RAG, by hand.</p>
     </div>
   </div>
 
   <div class="activity">
-    <div class="activity__badge">&#9999; Activity B &mdash; Memory Bot Experiment (optional)</div>
+    <div class="activity__badge">Activity B &mdash; Memory Bot Experiment (optional)</div>
     <h3>Test what an AI actually remembers</h3>
     <p class="activity__intro">Run this real experiment using Claude.ai or ChatGPT. Follow the four steps and document what you find.</p>
     <div class="steps" style="margin-bottom:20px;">
@@ -216,7 +216,7 @@
       <p class="notebook__desc">Run in Google Colab &mdash; no setup, no install. Interactive Python exercises that reinforce every concept from this lesson.</p>
     </div>
     <div class="notebook__right">
-      <a href="https://colab.research.google.com/drive/1h1yA0bNglgi2d3xXqOBdbRkMTY31L2QT" target="_blank" class="notebook__btn"><span class="notebook__btn-icon">&#9889;</span>Open in Google Colab</a>
+      <a href="https://colab.research.google.com/drive/1h1yA0bNglgi2d3xXqOBdbRkMTY31L2QT" target="_blank" class="notebook__btn">Open in Google Colab</a>
       <p class="notebook__secondary"><a href="https://drive.google.com/file/d/1h1yA0bNglgi2d3xXqOBdbRkMTY31L2QT/view?usp=drive_link" target="_blank">View on Google Drive</a></p>
     </div>
   </div>

@@ -93,7 +93,7 @@
       card.querySelector('.member__name').textContent = m.name || '';
       card.querySelector('.member__title').textContent = m.title || '';
       card.querySelector('.member__affil').textContent = m.affiliation || '';
-      card.querySelector('.member__country').textContent = m.country ? ('📍 ' + m.country) : '';
+      card.querySelector('.member__country').textContent = m.country ? ('' + m.country) : '';
       var link = card.querySelector('.member__linkedin');
       if (m.linkedin) {
         link.href = m.linkedin;
