@@ -5,7 +5,6 @@ window.AGENTICED_COURSES = window.AGENTICED_COURSES || {};
 window.AGENTICED_COURSES.foundational = {
   title: "AI & Agent Foundations",
   intro: "A complete grounding in generative AI and AI agents for learners with no technical background. You will learn how large language models are built and why they behave the way they do, how to prompt them well, what turns a model into an agent, how agents use tools and retrieval, and how to use all of it responsibly.",
-  alignedWith: "Scope modeled on entry-level industry credentials such as the NVIDIA-Certified Associate: Generative AI LLMs and AWS Certified AI Practitioner. AgenticEd is not affiliated with NVIDIA or AWS.",
   modules: [
     {
       id: "ai-landscape",
@@ -39,7 +38,7 @@ window.AGENTICED_COURSES.foundational = {
 </ul>`},
         {h: "Foundation models changed the economics", html: `
 <p>Before roughly 2020, most AI projects trained a separate model for each task: one for sentiment, one for translation, one for summarization. Each needed its own labeled dataset.</p>
-<p>A <b>foundation model</b> is a single, very large model trained on broad data that can then be adapted to many tasks — often just by describing the task in plain language. Large language models such as the GPT, Claude, Gemini, Llama, Mistral, and Nemotron families are foundation models for text. Others handle images, audio, or several modalities at once (<b>multimodal</b> models that accept, for example, both a photo and a question about it).</p>
+<p>A <b>foundation model</b> is a single, very large model trained on broad data that can then be adapted to many tasks — often just by describing the task in plain language. Large language models such as the GPT, Claude, Gemini, Llama, and Mistral families are foundation models for text. Others handle images, audio, or several modalities at once (<b>multimodal</b> models that accept, for example, both a photo and a question about it).</p>
 <p>The practical consequence: building an AI product is now usually about <i>choosing and steering</i> an existing foundation model — through prompts, retrieval, tools, and sometimes fine-tuning — rather than training one from scratch. That is the skill set this certification track teaches.</p>`},
         {h: "Open and closed models", html: `
 <p>Foundation models are released in two broad ways. <b>Proprietary (closed) models</b> are accessed only through the provider's API or app; you never see the weights. <b>Open-weight models</b> publish their weights so you can download, run, and modify them on your own hardware.</p>

