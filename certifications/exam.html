@@ -38,7 +38,7 @@
     .score__missed b{color:var(--amber);}
     .score__next{margin-top:18px;}
   </style>
-  <script src="cert-data.js"></script>
+  <script src="cert-data.js?v=20261024"></script>
   <link rel="icon" type="image/png" href="images/favicon.png"/>
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
   <style>.brand-mark{display:inline-block;height:1.6em;width:auto;vertical-align:middle;margin:-.2em .45em 0 0;}</style>
@@ -96,7 +96,7 @@
     var rec=getRec();
     $("status").innerHTML=rec
       ?"Your best attempt: <b>"+rec.best+" / "+lvl.total+"</b> ("+rec.attempts+" attempt"+(rec.attempts>1?"s":"")+"). Passing score is <b>"+lvl.passScore+" / "+lvl.total+"</b>."
-      :"First attempt on this exam. Passing score is <b>"+lvl.passScore+" / "+lvl.total+"</b> (70%).";
+      :"First attempt on this exam. Passing score is <b>"+lvl.passScore+" / "+lvl.total+"</b> (70%). Want to prepare first? <a href=\"course.html?level="+levelId+"\">Take the prep course →</a>";
   }
   showStatus();
 
@@ -201,7 +201,7 @@
       }catch(e){}
       $("score-next").innerHTML='<a class="btn btn--primary" href="certificate.html?level='+levelId+'">Get your certificate →</a>';
     } else {
-      $("score-next").innerHTML='<a class="btn btn--ghost" href="index.html">← Back to all certifications</a>';
+      $("score-next").innerHTML='<a class="btn btn--primary" href="course.html?level='+levelId+'">Study the prep course</a> <a class="btn btn--ghost" href="index.html" style="color:var(--cream);">← Back to all certifications</a>';
     }
 
     try{
