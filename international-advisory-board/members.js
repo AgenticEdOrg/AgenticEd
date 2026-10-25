@@ -5,5 +5,6 @@ window.IAB_MEMBERS = [
   { name: "Jothsna Praveena Pendyala", title: "Independent Researcher", affiliation: "AgenticEd Academy", country: "United States of America", linkedin: "https://www.linkedin.com/in/jothsna" },
   { name: "Nithesh Gudipuri", title: "Independent Researcher", affiliation: "AgenticEd Academy", country: "United States of America", linkedin: "https://www.linkedin.com/in/nithesh-gudipuri-8abb54225/" },
   { name: "Mohana Uma Sai Manem", title: "Independent Researcher", affiliation: "AgenticEd Academy", country: "United States of America", linkedin: "https://www.linkedin.com/in/mohanamanem" },
-  { name: "Pramod Begur Nagaraj", title: "Independent Researcher", affiliation: "AgenticEd Academy", country: "United States of America", linkedin: "https://www.linkedin.com/in/pramodbn27/" }
+  { name: "Pramod Begur Nagaraj", title: "Independent Researcher", affiliation: "AgenticEd Academy", country: "United States of America", linkedin: "https://www.linkedin.com/in/pramodbn27/" },
+  { name: "Jayachandra Aradhya", title: "CEO & Founder, Silicon Microsystems", affiliation: "STEM Champion and Educationalist", country: "India", linkedin: "https://www.linkedin.com/in/jayachandra-aradhya-0613284a/" }
 ];

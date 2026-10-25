@@ -39,6 +39,42 @@
     .lesson-footer__logo em{font-style:normal;color:var(--coral);}
     @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:600px){.grid{grid-template-columns:1fr;}.body{padding:32px 20px 60px;}.lhdr{padding:32px 20px 36px;}}
+
+    body{background:#faf9fd;color:#211b32;}
+    a:focus-visible{outline:3px solid #bba0ef;outline-offset:5px;}
+    .topbar{background:#faf9fd;padding:24px max(24px,calc((100vw - 1120px)/2));gap:24px;}
+    .topbar__logo{color:#211b32;font-size:22px;letter-spacing:-.6px;}
+    .topbar a.back{color:#71677f;}
+    .topbar a.back:hover{color:#7144ce;}
+    .lhdr{position:relative;overflow:hidden;background:radial-gradient(ellipse at 100% 0%,#503170 0%,transparent 60%),#21182f;padding:76px 32px 82px;border-bottom:0;}
+    .lhdr::after{content:'';position:absolute;right:-100px;top:-240px;width:550px;height:550px;border:1px solid #ffffff15;border-radius:50%;box-shadow:0 0 0 65px #ffffff04,0 0 0 130px #ffffff03;pointer-events:none;}
+    .lhdr__inner{max-width:1120px;position:relative;z-index:1;}
+    .lhdr__eye{color:#c6acef;letter-spacing:.18em;margin-bottom:24px;}
+    .lhdr__h1{font-size:clamp(40px,6vw,68px);font-weight:600;letter-spacing:-1.8px;max-width:800px;margin-bottom:24px;}
+    .lhdr__sub{color:#d0c6dc;line-height:1.85;max-width:650px;}
+    .body{max-width:1200px;padding:56px 40px 80px;}
+    .section-heading{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px;}
+    .section-eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7144ce;font-weight:600;margin-bottom:8px;}
+    .section-heading h2{font-family:'Outfit',sans-serif;font-size:30px;font-weight:600;letter-spacing:-.6px;}
+    .section-note{max-width:260px;font-size:13px;color:#797181;}
+    .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;}
+    .member{padding:0;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
+    .member:hover{transform:translateY(-5px);box-shadow:0 16px 40px #21183710;}
+    .member__info{padding:24px 20px 20px;display:flex;flex-direction:column;flex:1;}
+    .member__name{font-size:21px;font-weight:600;letter-spacing:-.4px;line-height:1.3;margin-bottom:12px;}
+    .member__title{font-size:12px;color:#7144ce;}
+    .member__affil{font-size:12px;margin-bottom:18px;}
+    .member__country{font-size:11px;margin-bottom:24px;}
+    .member__flag{font-size:17px;line-height:1;}
+    .member__linkedin{font-size:12px;color:#584171;border-top:1px solid #e8e4ef;padding-top:16px;margin-top:auto;display:flex;}
+    .member__linkedin::after{content:'↗';margin-left:auto;font-size:18px;}
+    .board-note{margin-top:40px;padding:22px 26px;border-left:2px solid #aa87e5;background:#f1edf7;border-radius:0 10px 10px 0;font-size:14px;color:#665d76;max-width:780px;}
+    .lesson-footer{background:#faf9fd;border-top:1px solid #e8e4ef;padding:28px max(24px,calc((100vw - 1120px)/2));}
+    .lesson-footer .lesson-footer__logo{color:#211b32;}
+    .lesson-footer a{color:#797181;}.lesson-footer a:hover{color:#7144ce;}
+    @media(max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media(max-width:600px){.topbar{padding:20px;}.topbar__logo{font-size:19px;}.topbar a.back{font-size:11px;}.lhdr{padding:48px 24px 56px;}.lhdr__h1{letter-spacing:-1px;}.lhdr__sub{font-size:14px;}.body{padding:36px 20px 48px;}.section-heading{display:block;}.section-note{margin-top:12px;}.grid{grid-template-columns:1fr;gap:24px;}.member__info{padding:24px;}}
+    @media(prefers-reduced-motion:reduce){.member{transition:none;}.member:hover{transform:none;}}
   </style>
   <link rel="icon" type="image/png" href="../images/favicon.png"/>
   <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
@@ -51,14 +87,16 @@
 </div>
 <div class="lhdr">
   <div class="lhdr__inner">
-    <p class="lhdr__eye">Governance</p>
+    <p class="lhdr__eye">Our people · Our direction</p>
     <h1 class="lhdr__h1">International Advisory Board</h1>
     <p class="lhdr__sub">A global group of educators, researchers, and technologists who guide AgenticEd's curriculum, standards, and strategic direction.</p>
   </div>
 </div>
-<div class="body">
+<main class="body">
+  <div class="section-heading"><div><p class="section-eyebrow">Meet the board</p><h2>Expertise with a shared purpose.</h2></div><p class="section-note">Educators, researchers, and technologists shaping what comes next.</p></div>
   <div id="grid" class="grid"></div>
-</div>
+  <p class="board-note">Guiding the curriculum, standards, and strategic direction of agentic AI education.</p>
+</main>
 <div class="lesson-footer">
   <a href="https://agenticedacademy.com" class="lesson-footer__logo"><img class="brand-mark" src="../images/agenticed-mark.png" alt="" aria-hidden="true"/>Agentic<em>Ed</em></a>
   <div style="display:flex;gap:20px;">
@@ -76,8 +114,9 @@
       return;
     }
     grid.innerHTML = members.map(function(m){
-      return '<div class="member">' +
-        '<div class="member__name"></div>' +
+      return '<article class="member">' +
+        '<div class="member__info">' +
+        '<h3 class="member__name"></h3>' +
         '<div class="member__title"></div>' +
         '<div class="member__affil"></div>' +
         '<div class="member__country"></div>' +
@@ -85,7 +124,7 @@
           '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>' +
           'LinkedIn' +
         '</a>' +
-      '</div>';
+      '</div></article>';
     }).join('');
     var cards = grid.querySelectorAll('.member');
     members.forEach(function(m, i){
@@ -93,8 +132,20 @@
       card.querySelector('.member__name').textContent = m.name || '';
       card.querySelector('.member__title').textContent = m.title || '';
       card.querySelector('.member__affil').textContent = m.affiliation || '';
-      card.querySelector('.member__country').textContent = m.country ? ('' + m.country) : '';
+      var country = card.querySelector('.member__country');
+      var flags = { 'United States of America': '🇺🇸', 'India': '🇮🇳' };
+      if (m.country) {
+        if (flags[m.country]) {
+          var flag = document.createElement('span');
+          flag.className = 'member__flag';
+          flag.setAttribute('aria-hidden', 'true');
+          flag.textContent = flags[m.country];
+          country.appendChild(flag);
+        }
+        country.appendChild(document.createTextNode(m.country));
+      }
       var link = card.querySelector('.member__linkedin');
+      link.setAttribute('aria-label', 'View ' + m.name + ' on LinkedIn (opens in a new tab)');
       if (m.linkedin) {
         link.href = m.linkedin;
       } else {
