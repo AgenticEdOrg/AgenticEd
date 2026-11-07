@@ -1,0 +1,53 @@
+/* AgenticEd Learning Assistant: floating chat widget.
+   Uses the site's design tokens from site.css (with fallbacks). All classes start with
+   .aec- so nothing clashes with existing styles. Sits above the Feedback button. */
+.aec-launcher{position:fixed;right:20px;bottom:76px;z-index:9998;display:inline-flex;align-items:center;gap:8px;
+  padding:12px 18px;border:0;border-radius:999px;cursor:pointer;font:600 14px/1 'Inter',sans-serif;color:#fff;
+  background:var(--grad-brand,linear-gradient(135deg,#6D28D9,#8B5CF6));box-shadow:var(--shadow-pop,0 20px 40px -18px rgba(109,40,217,.5));
+  transition:transform .15s ease,box-shadow .15s ease;}
+.aec-launcher:hover{transform:translateY(-2px);}
+.aec-launcher:focus-visible,.aec-panel button:focus-visible,.aec-panel textarea:focus-visible,.aec-panel a:focus-visible{
+  outline:3px solid var(--violet-2,#8B5CF6);outline-offset:2px;}
+.aec-launcher[hidden],.aec-panel[hidden]{display:none;}
+
+.aec-panel{position:fixed;right:20px;bottom:76px;z-index:9999;width:min(380px,calc(100vw - 32px));
+  height:min(560px,calc(100vh - 110px));display:flex;flex-direction:column;overflow:hidden;
+  background:var(--bg,#fff);color:var(--ink,#0B1020);border:1px solid var(--line,#E7E8F0);border-radius:var(--radius,20px);
+  box-shadow:var(--shadow-md,0 24px 48px -20px rgba(11,16,32,.18));font:14px/1.55 'Inter',sans-serif;}
+.aec-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;color:#fff;
+  background:var(--grad-brand,linear-gradient(135deg,#6D28D9,#8B5CF6));}
+.aec-head h2{margin:0;font:700 16px/1.2 'Outfit',sans-serif;letter-spacing:-.01em;}
+.aec-head p{margin:2px 0 0;font-size:12px;opacity:.85;}
+.aec-close{flex:none;width:32px;height:32px;border:0;border-radius:50%;cursor:pointer;color:#fff;font-size:20px;line-height:1;
+  background:rgba(255,255,255,.18);}
+.aec-close:hover{background:rgba(255,255,255,.3);}
+
+.aec-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--soft,#F6F7FB);}
+.aec-msg{max-width:88%;padding:10px 14px;border-radius:16px;white-space:pre-wrap;word-wrap:break-word;}
+.aec-msg--user{align-self:flex-end;background:var(--violet,#6D28D9);color:#fff;border-bottom-right-radius:4px;}
+.aec-msg--bot{align-self:flex-start;background:var(--bg,#fff);border:1px solid var(--line,#E7E8F0);border-bottom-left-radius:4px;}
+.aec-msg--notfound{background:var(--peach,#FFE4D1);border-color:transparent;}
+.aec-msg--error{background:#FDECEC;border-color:transparent;color:#8A1C1C;}
+.aec-sources{margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--line,#E7E8F0);font-size:12px;white-space:normal;}
+.aec-sources strong{display:block;margin-bottom:4px;color:var(--muted,#5B6175);font-weight:600;text-transform:uppercase;letter-spacing:.06em;font-size:11px;}
+.aec-sources a{display:block;color:var(--violet,#6D28D9);text-decoration:none;padding:2px 0;}
+.aec-sources a:hover{text-decoration:underline;}
+.aec-typing{align-self:flex-start;color:var(--muted,#5B6175);font-size:13px;font-style:italic;}
+
+.aec-suggest{display:flex;flex-wrap:wrap;gap:6px;}
+.aec-suggest button{border:1px solid var(--line,#E7E8F0);background:var(--bg,#fff);color:var(--ink-2,#1E2336);border-radius:999px;
+  padding:6px 12px;font:500 12px/1.3 'Inter',sans-serif;cursor:pointer;text-align:left;}
+.aec-suggest button:hover{border-color:var(--violet-2,#8B5CF6);color:var(--violet,#6D28D9);}
+
+.aec-form{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line,#E7E8F0);background:var(--bg,#fff);}
+.aec-form textarea{flex:1;resize:none;min-height:42px;max-height:110px;padding:10px 12px;border:1px solid var(--line,#E7E8F0);
+  border-radius:12px;font:14px/1.4 'Inter',sans-serif;color:inherit;background:var(--bg,#fff);}
+.aec-send{flex:none;border:0;border-radius:12px;padding:0 16px;cursor:pointer;color:#fff;font:600 14px 'Inter',sans-serif;
+  background:var(--violet,#6D28D9);}
+.aec-send:disabled{opacity:.5;cursor:not-allowed;}
+.aec-note{margin:0;padding:0 12px 10px;font-size:11px;color:var(--muted,#5B6175);background:var(--bg,#fff);}
+
+@media (max-width:520px){
+  .aec-panel{right:8px;left:8px;bottom:8px;width:auto;height:calc(100vh - 16px);}
+}
+@media (prefers-reduced-motion:reduce){.aec-launcher{transition:none;}}
