@@ -1,0 +1,7 @@
+{"id": "a1", "question": "Is AgenticEd free to use?", "answerable": true, "expect_any": ["free"], "expect_source": ""}
+{"id": "a2", "question": "Do I need coding experience to learn AgenticEd?", "answerable": true, "expect_any": ["no", "not need", "don't need", "without coding"], "expect_source": ""}
+{"id": "a3", "question": "How many questions are in the AI & Agent Foundations certification exam, and what score do I need to pass?", "answerable": true, "expect_any": ["20"], "expect_source": "certifications/"}
+{"id": "a4", "question": "What is RAG (Retrieval-Augmented Generation)?", "answerable": true, "expect_any": ["retriev"], "expect_source": ""}
+{"id": "a5", "question": "What do students build in Week 5?", "answerable": true, "expect_any": ["agent"], "expect_source": "week5"}
+{"id": "m1", "question": "When will the Level 2 AI Application & Agent Builder path launch?", "answerable": false, "why_missing": "The site says Level 2 is 'In development' but gives no launch date."}
+{"id": "m2", "question": "What is the phone number of the AgenticEd office?", "answerable": false, "why_missing": "The site lists no phone number or office."}
