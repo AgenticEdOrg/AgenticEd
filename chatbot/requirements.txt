@@ -6,4 +6,5 @@ openai==2.54.0
 python-dotenv==1.2.4
 beautifulsoup4>=4.12
 flask>=3.0
+gunicorn==23.0.0      # production server (Linux): gunicorn -w 1 -b 0.0.0.0:$PORT server:app
 pytest>=8.0

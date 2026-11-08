@@ -164,6 +164,9 @@
         addBot(r);
       }, function (err) {
         addBot({ answer: err.message, sources: [] }, true);
+      }).catch(function () {
+        // A bug while drawing the answer must not leave the button disabled.
+        addBot({ answer: 'Something went wrong showing the answer. Please try again.', sources: [] }, true);
       }).then(function () {
         if (typing.parentNode) typing.parentNode.removeChild(typing);
         busy = false;

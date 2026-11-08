@@ -4,7 +4,7 @@
     then open http://127.0.0.1:5000
 
 Endpoints:
-    GET  /api/health   -> {"ok": true, "llm": "..."}  (the widget checks this before showing)
+    GET  /api/health   -> {"ok": true}  (the widget checks this before showing)
     POST /api/chat     -> body {"question": "..."}  ->  {answer, sources, found, mode}
     GET  /<page>       -> the AgenticEd website files, so you can test the widget locally
 
@@ -22,11 +22,15 @@ import time
 from collections import defaultdict, deque
 
 from flask import Flask, abort, jsonify, request, send_from_directory
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from rag import AgenticEdRAG
 
 REPO_DIR = pathlib.Path(__file__).resolve().parent.parent
 RATE_LIMIT = int(os.environ.get("AGENTICED_RATE_LIMIT", "10"))       # questions per minute per IP
+# Number of reverse proxies in front of this server (Cloud Run, Render, nginx...). Each proxy adds
+# one X-Forwarded-For entry; we trust exactly that many so visitors aren't all counted as one IP.
+PROXY_HOPS = int(os.environ.get("AGENTICED_PROXY_HOPS", "0"))
 MAX_QUESTION_CHARS = 500
 # Websites allowed to call this API from a browser (comma separated). Same-origin always works.
 ALLOWED_ORIGINS = {o.strip() for o in os.environ.get(
@@ -36,6 +40,8 @@ PUBLIC_SUFFIXES = {".html", ".css", ".js", ".png", ".jpg", ".jpeg", ".gif", ".sv
 PRIVATE_FOLDERS = {"chatbot", "labs", "supabase", "scripts", "node_modules"}
 
 app = Flask(__name__)
+if PROXY_HOPS:
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=PROXY_HOPS)   # request.remote_addr = the real visitor
 rag = AgenticEdRAG()
 recent_requests: dict[str, deque] = defaultdict(deque)
 
@@ -63,7 +69,8 @@ def add_cors_headers(response):
 
 @app.get("/api/health")
 def health():
-    return jsonify(ok=True, llm=str(rag.llm or "none (retrieval-only)"), chunks=len(rag.chunks))
+    # Public endpoint: only the status. Which model answers is logged on the server, not shown to visitors.
+    return jsonify(ok=True)
 
 
 @app.route("/api/chat", methods=["POST", "OPTIONS"])

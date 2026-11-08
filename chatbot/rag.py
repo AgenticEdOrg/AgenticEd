@@ -20,7 +20,6 @@ import os
 import pathlib
 import re
 import sys
-import time
 
 CHATBOT_DIR = pathlib.Path(__file__).resolve().parent
 KNOWLEDGE_FILE = CHATBOT_DIR / "knowledge" / "agenticed_knowledge.jsonl"
@@ -37,14 +36,21 @@ CANDIDATES = 20           # chunks each retriever returns before fusion
 MIN_SIMILARITY = float(os.environ.get("AGENTICED_MIN_SIMILARITY", "0.30"))
 
 # Provider settings. Every provider below is reached through the `openai` package.
+# Order matters: a provider is tried only if its key is set, and the free ones come first.
 PROVIDERS = {
     "gemini": {"key": "GEMINI_API_KEY", "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
                "model": "gemini-3.8-flash", "fallback": "gemini-3.6-flash"},
-    "openai": {"key": "OPENAI_API_KEY", "base_url": None, "model": "gpt-5.4-mini", "fallback": None},
+    "groq": {"key": "GROQ_API_KEY", "base_url": "https://api.groq.com/openai/v1",
+             "model": "openai/gpt-oss-20b", "fallback": "openai/gpt-oss-120b"},
+    "mistral": {"key": "MISTRAL_API_KEY", "base_url": "https://api.mistral.ai/v1",
+                "model": "mistral-small-latest", "fallback": None},
+    "openrouter": {"key": "OPENROUTER_API_KEY", "base_url": "https://openrouter.ai/api/v1",
+                   "model": "google/gemma-4-26b-a4b-it:free", "fallback": "google/gemma-4-31b-it:free"},
     "anthropic": {"key": "ANTHROPIC_API_KEY", "base_url": "https://api.anthropic.com/v1/",
                   "model": "claude-haiku-5-5", "fallback": None},
 }
-RETRY_WAITS = [3, 8, 15]  # seconds to wait after a busy (429/5xx) or network error
+# Seconds before a provider counts as hung. A failed provider is skipped at once, with no retry wait.
+PROVIDER_TIMEOUT = 20
 
 SYSTEM_PROMPT = f"""You are the AgenticEd Learning Assistant for agenticed.org, a free AI-agents curriculum.
 
@@ -85,61 +91,81 @@ def rrf(rankings: list[list[str]], c: int = 60) -> list[str]:
 
 
 class LLM:
-    """Small wrapper so any OpenAI-compatible provider works the same way.
+    """One OpenAI-compatible provider, with its backup model.
 
-    Free-tier models are sometimes overloaded (HTTP 503) or rate limited (HTTP 429), so we
-    wait and retry, then try the fallback model before giving up.
+    Each model is tried once. Nothing waits: a busy (429), down (5xx), or broken (bad key,
+    timeout) model is skipped at once, and LLMChain moves on to the next provider.
     """
 
     def __init__(self, provider: str, model: str, api_key: str, base_url: str | None,
                  fallback: str | None = None):
         from openai import OpenAI
         self.provider, self.model, self.fallback = provider, model, fallback
-        self.client = OpenAI(api_key=api_key, base_url=base_url, timeout=90, max_retries=0)
+        self.client = OpenAI(api_key=api_key, base_url=base_url, timeout=PROVIDER_TIMEOUT, max_retries=0)
 
-    def __call__(self, system: str, user: str) -> str:
-        from openai import APIConnectionError, APIStatusError
-        messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+    def complete(self, messages: list[dict]) -> str:
+        """Return the reply, or raise the last error if this provider's models all fail."""
         models = [self.model] + ([self.fallback] if self.fallback and self.fallback != self.model else [])
         error = None
         for model in models:
-            for wait in RETRY_WAITS + [None]:
-                try:
-                    response = self.client.chat.completions.create(model=model, messages=messages)
-                    return (response.choices[0].message.content or "").strip()
-                except APIStatusError as e:
-                    if e.status_code != 429 and e.status_code < 500:
-                        raise                       # e.g. 401 bad key, 404 bad model: retrying won't help
-                    error = e
-                except APIConnectionError as e:     # network problem or timeout
-                    error = e
-                if wait is not None:
-                    print(f"  {model} is busy ({getattr(error, 'status_code', 'network')}), "
-                          f"retrying in {wait}s...", file=sys.stderr)
-                    time.sleep(wait)
-            if model != models[-1]:
-                print(f"  Switching to fallback model {models[-1]}...", file=sys.stderr)
-        raise RuntimeError(f"The AI model is unavailable right now, please try again later ({error})")
+            try:
+                response = self.client.chat.completions.create(model=model, messages=messages)
+                return (response.choices[0].message.content or "").strip()
+            except Exception as e:
+                error = e
+        raise error
 
     def __str__(self):
         return f"{self.provider}:{self.model}"
 
 
-def llm_from_env() -> LLM | None:
-    """Pick the LLM from environment variables. Returns None if no key is set."""
+class LLMChain:
+    """Providers in priority order. If one fails, the next one answers straight away."""
+
+    def __init__(self, llms: list[LLM]):
+        self.llms = llms
+
+    def __call__(self, system: str, user: str) -> str:
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+        failures = []
+        for llm in self.llms:
+            try:
+                return llm.complete(messages)
+            except Exception as e:
+                failures.append(f"{llm}: {type(e).__name__}")
+                print(f"  {llm} failed ({type(e).__name__}), trying the next provider...", file=sys.stderr)
+        raise RuntimeError("The AI models are unavailable right now, please try again later ("
+                           + "; ".join(failures) + ")")
+
+    def __str__(self):
+        return " -> ".join(str(llm) for llm in self.llms)
+
+
+def llm_from_env() -> LLMChain | None:
+    """Build the provider chain from the API keys in chatbot/.env. Returns None if no key is set.
+
+    Every provider with a key set joins the chain, in PROVIDERS order. AGENTICED_MODEL
+    ("provider:model") makes that provider the first one to try, and AGENTICED_FALLBACK_MODEL
+    replaces the backup model of the first provider.
+    """
     load_env()
     override = os.environ.get("AGENTICED_MODEL", "")          # e.g. "gemini:gemini-3.8-flash"
     wanted, _, model = override.partition(":")
     fallback_override = os.environ.get("AGENTICED_FALLBACK_MODEL")
-    for name, p in PROVIDERS.items():
-        if wanted and name != wanted:
-            continue
+    names = sorted(PROVIDERS, key=lambda name: name != wanted)   # stable: wanted first, rest keep order
+    llms = []
+    for name in names:
+        p = PROVIDERS[name]
         key = os.environ.get(p["key"])
-        if key:
-            base_url = os.environ.get("OPENAI_BASE_URL") if name == "openai" else p["base_url"]
-            return LLM(name, model or p["model"], key, base_url or None,
-                       fallback=fallback_override or p["fallback"])
-    return None
+        if not key:
+            continue
+        is_first = not llms
+        if name == wanted and model:
+            p = {**p, "model": model}
+        if is_first and fallback_override:
+            p = {**p, "fallback": fallback_override}
+        llms.append(LLM(name, p["model"], key, p["base_url"], fallback=p["fallback"]))
+    return LLMChain(llms) if llms else None
 
 
 def load_embedder(log):
