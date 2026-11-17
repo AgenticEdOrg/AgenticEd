@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Animation preview: RAG, Lecture 1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" />
+<!-- The real site styles, so the animation is seen next to them -->
+<link rel="stylesheet" href="../../../site.css" />
+<link rel="stylesheet" href="../../../lesson.css" />
+<style>
+  .preview-wrap{max-width:820px;margin:0 auto;padding:40px 20px 80px}
+  .preview-wrap h1{font-family:Outfit,sans-serif;font-size:30px;margin-bottom:8px}
+  .preview-wrap h2{font-family:Outfit,sans-serif;font-size:19px;margin:36px 0 0}
+  .preview-wrap p{color:#5B6175;font-size:15px}
+  .narrow{max-width:380px;margin:0 auto}
+</style>
+</head>
+<body>
+<main class="preview-wrap">
+  <h1>Animation preview</h1>
+  <p>Open this file directly in your browser. Drag the window narrower to see the phone layout.</p>
+
+  <h2>In a lesson column</h2>
+  <agenticed-rag-pipeline></agenticed-rag-pipeline>
+
+  <h2>In a narrow column (380px)</h2>
+  <div class="narrow">
+    <agenticed-rag-pipeline></agenticed-rag-pipeline>
+  </div>
+</main>
+
+<script src="rag-pipeline.js" defer></script>
+</body>
+</html>
