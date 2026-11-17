@@ -18,7 +18,7 @@
   var siteRoot = new URL('../../', script ? script.src : location.href);   // .../chatbot/widget/ -> site root
   var meta = document.querySelector('meta[name="agenticed-chat-api"]');
   var isLocal = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-  var apiBase = window.AGENTICED_CHAT_API || (meta && meta.content) || (isLocal ? location.origin : '');
+  var apiBase = isLocal ? location.origin : (window.AGENTICED_CHAT_API || (meta && meta.content) || '');
   if (!apiBase) return;
   apiBase = apiBase.replace(/\/+$/, '');
 
