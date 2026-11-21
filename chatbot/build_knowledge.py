@@ -34,7 +34,13 @@ HTML_PAGES = [
     "blog/what-is-an-ai-agent.html", "blog/prompt-injection-explained.html",
     "blog/why-we-teach-safety-from-day-one.html",
 ]
-MARKDOWN_FILES = ["agenticEd_curriculum.md", "README.md", "labs/README.md"]
+MARKDOWN_FILES = [
+    "agenticEd_curriculum.md",
+    "README.md",
+    "labs/README.md",
+    "content/week1-explainer.md",
+]
+
 # README sections that describe files instead of learning content (and are out of date).
 SKIP_MD_SECTIONS = {"Repository Structure"}
 COURSE_FILES = {
