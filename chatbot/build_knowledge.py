@@ -39,6 +39,8 @@ MARKDOWN_FILES = [
     "README.md",
     "labs/README.md",
     "content/week1-explainer.md",
+    "content/rag/lesson-01.md",
+    "content/llm-inference/lesson-01.md",
 ]
 
 # README sections that describe files instead of learning content (and are out of date).
